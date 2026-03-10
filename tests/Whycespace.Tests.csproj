@@ -12,6 +12,14 @@
     <Content Remove="contracts/**" />
     <None Remove="contracts/**" />
     <EmbeddedResource Remove="contracts/**" />
+    <Compile Remove="command/**" />
+    <Content Remove="command/**" />
+    <None Remove="command/**" />
+    <EmbeddedResource Remove="command/**" />
+    <Compile Remove="workflow-runtime/**" />
+    <Content Remove="workflow-runtime/**" />
+    <None Remove="workflow-runtime/**" />
+    <EmbeddedResource Remove="workflow-runtime/**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,6 +5,14 @@
     <Content Remove="guardrails/**" />
     <None Remove="guardrails/**" />
     <EmbeddedResource Remove="guardrails/**" />
+    <Compile Remove="command/**" />
+    <Content Remove="command/**" />
+    <None Remove="command/**" />
+    <EmbeddedResource Remove="command/**" />
+    <Compile Remove="workflow-runtime/**" />
+    <Content Remove="workflow-runtime/**" />
+    <None Remove="workflow-runtime/**" />
+    <EmbeddedResource Remove="workflow-runtime/**" />
   </ItemGroup>
 
   <ItemGroup>
