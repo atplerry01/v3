@@ -72,6 +72,14 @@
     <Content Remove="observability/**" />
     <None Remove="observability/**" />
     <EmbeddedResource Remove="observability/**" />
+    <Compile Remove="execution-engines/**" />
+    <Content Remove="execution-engines/**" />
+    <None Remove="execution-engines/**" />
+    <EmbeddedResource Remove="execution-engines/**" />
+    <Compile Remove="decision-engines/**" />
+    <Content Remove="decision-engines/**" />
+    <None Remove="decision-engines/**" />
+    <EmbeddedResource Remove="decision-engines/**" />
   </ItemGroup>
 
   <ItemGroup>
