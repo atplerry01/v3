@@ -135,6 +135,15 @@
   <Folder Name="/tests/decision-engines/">
     <Project Path="tests/decision-engines/Whycespace.DecisionEngines.Tests.csproj" />
   </Folder>
+  <Folder Name="/tests/simulation-runtime/">
+    <Project Path="tests/simulation-runtime/Whycespace.SimulationRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/provider-domain/">
+    <Project Path="tests/provider-domain/Whycespace.ProviderDomain.Tests.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/simulation/">
+    <Project Path="src/runtime/simulation/Whycespace.SimulationRuntime.csproj" />
+  </Folder>
   <Folder Name="/simulation/">
     <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />
   </Folder>
