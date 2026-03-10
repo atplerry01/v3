@@ -12,6 +12,7 @@ using Whycespace.ClusterDomain;
 using Whycespace.SimulationRuntime.Models;
 using Whycespace.SimulationRuntime.Services;
 using Whycespace.ClusterTemplatePlatform;
+using Whycespace.EconomicDomain;
 
 [ApiController]
 [Route("dev")]
@@ -24,6 +25,7 @@ public sealed class DebugController : ControllerBase
     private readonly ClusterBootstrapper _clusterBootstrapper;
     private readonly SimulationService _simulationService;
     private readonly ClusterTemplateService _clusterTemplateService;
+    private readonly SpvEconomicRegistry _spvEconomicRegistry;
 
     public DebugController(
         WorkflowStateStore stateStore,
@@ -32,7 +34,8 @@ public sealed class DebugController : ControllerBase
         WorkflowMapper workflowMapper,
         ClusterBootstrapper clusterBootstrapper,
         SimulationService simulationService,
-        ClusterTemplateService clusterTemplateService)
+        ClusterTemplateService clusterTemplateService,
+        SpvEconomicRegistry spvEconomicRegistry)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
@@ -41,6 +44,7 @@ public sealed class DebugController : ControllerBase
         _clusterBootstrapper = clusterBootstrapper;
         _simulationService = simulationService;
         _clusterTemplateService = clusterTemplateService;
+        _spvEconomicRegistry = spvEconomicRegistry;
     }
 
     [HttpGet("workflows")]
@@ -179,6 +183,27 @@ public sealed class DebugController : ControllerBase
     {
         var result = _clusterTemplateService.Generator.GenerateCluster(dto.TemplateName);
         return Ok(new { cluster = result.Cluster, subclusters = result.SubClusters });
+    }
+
+    [HttpGet("economic/spvs")]
+    public IActionResult GetEconomicSpvs()
+    {
+        var spvs = _spvEconomicRegistry.ListSpvs()
+            .Select(s => new { s.SpvId, s.ClusterName, s.SubClusterName })
+            .ToList();
+        return Ok(new { spvs });
+    }
+
+    [HttpGet("economic/revenue")]
+    public IActionResult GetEconomicRevenue()
+    {
+        return Ok(new { metrics = "Revenue metrics derived from event projections" });
+    }
+
+    [HttpGet("economic/profits")]
+    public IActionResult GetEconomicProfits()
+    {
+        return Ok(new { metrics = "Profit distribution metrics derived from event projections" });
     }
 }
 

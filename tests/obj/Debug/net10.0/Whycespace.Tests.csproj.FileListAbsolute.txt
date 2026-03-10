@@ -190,3 +190,5 @@ C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.SimulationRuntime.dll
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.SimulationRuntime.pdb
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.ClusterTemplatePlatform.dll
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.ClusterTemplatePlatform.pdb
+C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.EconomicDomain.dll
+C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.EconomicDomain.pdb

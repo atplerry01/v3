@@ -1284,6 +1284,20 @@
           "bin/placeholder/Whycespace.Domain.dll": {}
         }
       },
+      "Whycespace.EconomicDomain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EconomicDomain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EconomicDomain.dll": {}
+        }
+      },
       "Whycespace.EngineManifest/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1397,6 +1411,7 @@
           "Whycespace.ClusterTemplatePlatform": "1.0.0",
           "Whycespace.CommandSystem": "1.0.0",
           "Whycespace.Domain": "1.0.0",
+          "Whycespace.EconomicDomain": "1.0.0",
           "Whycespace.Engines": "1.0.0",
           "Whycespace.Observability": "1.0.0",
           "Whycespace.Projections": "1.0.0",
@@ -3175,6 +3190,11 @@
       "type": "project",
       "path": "../src/domain/Whycespace.Domain.csproj",
       "msbuildProject": "../src/domain/Whycespace.Domain.csproj"
+    },
+    "Whycespace.EconomicDomain/1.0.0": {
+      "type": "project",
+      "path": "../src/domain/economic/Whycespace.EconomicDomain.csproj",
+      "msbuildProject": "../src/domain/economic/Whycespace.EconomicDomain.csproj"
     },
     "Whycespace.EngineManifest/1.0.0": {
       "type": "project",

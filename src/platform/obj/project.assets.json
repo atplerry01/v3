@@ -561,6 +561,20 @@
           "bin/placeholder/Whycespace.Domain.dll": {}
         }
       },
+      "Whycespace.EconomicDomain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EconomicDomain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EconomicDomain.dll": {}
+        }
+      },
       "Whycespace.EngineManifest/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1388,6 +1402,11 @@
       "path": "../domain/Whycespace.Domain.csproj",
       "msbuildProject": "../domain/Whycespace.Domain.csproj"
     },
+    "Whycespace.EconomicDomain/1.0.0": {
+      "type": "project",
+      "path": "../domain/economic/Whycespace.EconomicDomain.csproj",
+      "msbuildProject": "../domain/economic/Whycespace.EconomicDomain.csproj"
+    },
     "Whycespace.EngineManifest/1.0.0": {
       "type": "project",
       "path": "../runtime/engine-manifest/Whycespace.EngineManifest.csproj",
@@ -1473,6 +1492,7 @@
       "Whycespace.ClusterTemplatePlatform >= 1.0.0",
       "Whycespace.CommandSystem >= 1.0.0",
       "Whycespace.Domain >= 1.0.0",
+      "Whycespace.EconomicDomain >= 1.0.0",
       "Whycespace.Engines >= 1.0.0",
       "Whycespace.Observability >= 1.0.0",
       "Whycespace.Projections >= 1.0.0",
@@ -1518,6 +1538,9 @@
           "projectReferences": {
             "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
