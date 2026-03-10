@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T4A_Access;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("Integration", EngineTier.T4A, EngineKind.Mutation, "IntegrationRequest", typeof(EngineEvent))]
 public sealed class IntegrationEngine : IEngine
 {
     public string Name => "Integration";

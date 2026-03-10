@@ -32,6 +32,14 @@
     <Content Remove="partition-runtime/**" />
     <None Remove="partition-runtime/**" />
     <EmbeddedResource Remove="partition-runtime/**" />
+    <Compile Remove="engine-manifest/**" />
+    <Content Remove="engine-manifest/**" />
+    <None Remove="engine-manifest/**" />
+    <EmbeddedResource Remove="engine-manifest/**" />
+    <Compile Remove="engine-worker-runtime/**" />
+    <Content Remove="engine-worker-runtime/**" />
+    <None Remove="engine-worker-runtime/**" />
+    <EmbeddedResource Remove="engine-worker-runtime/**" />
   </ItemGroup>
 
   <ItemGroup>

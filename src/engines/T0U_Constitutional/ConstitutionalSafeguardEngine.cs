@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T0U_Constitutional;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("ConstitutionalSafeguard", EngineTier.T0U, EngineKind.Validation, "ConstitutionalSafeguardRequest", typeof(EngineEvent))]
 public sealed class ConstitutionalSafeguardEngine : IEngine
 {
     public string Name => "ConstitutionalSafeguard";

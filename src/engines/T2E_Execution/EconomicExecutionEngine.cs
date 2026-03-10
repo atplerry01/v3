@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T2E_Execution;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("EconomicExecution", EngineTier.T2E, EngineKind.Mutation, "EconomicExecutionRequest", typeof(EngineEvent))]
 public sealed class EconomicExecutionEngine : IEngine
 {
     public string Name => "EconomicExecution";

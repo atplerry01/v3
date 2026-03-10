@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T1M_Orchestration;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("RuntimeDispatcher", EngineTier.T1M, EngineKind.Decision, "RuntimeDispatcherRequest", typeof(EngineEvent))]
 public sealed class RuntimeDispatcherEngine : IEngine
 {
     public string Name => "RuntimeDispatcher";

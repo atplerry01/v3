@@ -1,12 +1,9 @@
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
-using Whycespace.Engines.T0U_Constitutional;
-using Whycespace.Engines.T1M_Orchestration;
-using Whycespace.Engines.T2E_Execution;
 using Whycespace.Engines.T3I_Intelligence;
-using Whycespace.Engines.T4A_Access;
 using Whycespace.FoundationHost.Workers;
+using Whycespace.EngineManifest.Loader;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Events;
 using Whycespace.Runtime.Observability;
@@ -46,6 +43,9 @@ using Whycespace.PartitionRuntime.Resolver;
 using Whycespace.PartitionRuntime.Router;
 using Whycespace.PartitionRuntime.Worker;
 using Whycespace.PartitionRuntime.Dispatcher;
+using Whycespace.EngineWorkerRuntime.Queue;
+using Whycespace.EngineWorkerRuntime.Pool;
+using Whycespace.EngineWorkerRuntime.Supervisor;
 
 // Serilog
 Log.Logger = new LoggerConfiguration()
@@ -75,53 +75,14 @@ try
         ?? "Host=localhost;Database=whycespace;Username=whyce;Password=whyce";
     var kafkaBrokers = builder.Configuration["Kafka:BootstrapServers"] ?? "localhost:9092";
 
-    // Engine Runtime — registry, resolver, invocation manager, executor
+    // Engine Runtime — registry, manifest loader, resolver, invocation manager, executor
     var engineRegistry = new EngineReg();
-    var engineBootstrapper = new EngineBootstrapper(engineRegistry);
 
-    // T0U Constitutional
-    engineBootstrapper.Register(new PolicyValidationEngine());
-    engineBootstrapper.Register(new PolicyEvaluationEngine());
-    engineBootstrapper.Register(new GovernanceAuthorityEngine());
-    engineBootstrapper.Register(new ConstitutionalSafeguardEngine());
-    engineBootstrapper.Register(new ChainVerificationEngine());
-    engineBootstrapper.Register(new IdentityVerificationEngine());
-
-    // T1M Orchestration
-    engineBootstrapper.Register(new WorkflowSchedulerEngine());
-    engineBootstrapper.Register(new PartitionRouterEngine());
-    engineBootstrapper.Register(new WorkflowGraphEngine());
-    engineBootstrapper.Register(new RuntimeDispatcherEngine());
-    engineBootstrapper.Register(new WorkflowStateProjectionEngine());
-
-    // T2E Execution
-    engineBootstrapper.Register(new RideExecutionEngine());
-    engineBootstrapper.Register(new PropertyExecutionEngine());
-    engineBootstrapper.Register(new EconomicExecutionEngine());
-    engineBootstrapper.Register(new VaultCreationEngine());
-    engineBootstrapper.Register(new CapitalContributionEngine());
-    engineBootstrapper.Register(new AssetRegistrationEngine());
-    engineBootstrapper.Register(new RevenueRecordingEngine());
-    engineBootstrapper.Register(new ProfitDistributionEngine());
-
-    // T3I Intelligence
-    engineBootstrapper.Register(new DriverMatchingEngine());
-    engineBootstrapper.Register(new TenantMatchingEngine());
-    engineBootstrapper.Register(new WorkforceAssignmentEngine());
-    engineBootstrapper.Register(new ObservabilityEngine());
-    engineBootstrapper.Register(new AnalyticsEngine());
-    engineBootstrapper.Register(new ForecastEngine());
-
-    // T4A Access
-    engineBootstrapper.Register(new AuthenticationEngine());
-    engineBootstrapper.Register(new AuthorizationEngine());
-    engineBootstrapper.Register(new APIEngine());
-    engineBootstrapper.Register(new DeveloperToolsEngine());
-    engineBootstrapper.Register(new OperatorControlPlaneEngine());
-    engineBootstrapper.Register(new IntegrationEngine());
+    var engineManifestLoader = new EngineManifestLoader(engineRegistry);
+    engineManifestLoader.LoadFromAssembly(typeof(DriverMatchingEngine).Assembly);
 
     builder.Services.AddSingleton<IEngineReg>(engineRegistry);
-    builder.Services.AddSingleton(engineBootstrapper);
+    builder.Services.AddSingleton(engineManifestLoader);
 
     var engineResolver = new EngineResolver(engineRegistry);
     builder.Services.AddSingleton(engineResolver);
@@ -247,6 +208,16 @@ try
     var workflowPartitionDispatcher = new WorkflowPartitionDispatcher(partitionKeyResolver, partitionRouter, partitionWorkerPool);
     builder.Services.AddSingleton(workflowPartitionDispatcher);
 
+    // Engine Worker Runtime
+    var engineQueueRegistry = new PartitionEngineQueueRegistry(16);
+    builder.Services.AddSingleton(engineQueueRegistry);
+
+    var engineWorkerPool = new PartitionEngineWorkerPool(16, 4, engineResolver, engineQueueRegistry);
+    builder.Services.AddSingleton(engineWorkerPool);
+
+    var engineWorkerSupervisor = new EngineWorkerSupervisor(engineWorkerPool);
+    builder.Services.AddSingleton(engineWorkerSupervisor);
+
     // Runtime Dispatcher
     var workflowResolver = new WorkflowResolver();
     builder.Services.AddSingleton<IWorkflowResolver>(workflowResolver);
@@ -370,6 +341,29 @@ try
         workers = partitionWorkerPool.GetActivePartitions().Select(id => new { partitionId = id })
     }));
 
+    // Engine Manifest debug endpoints
+    host.MapGet("/dev/engines/manifests", () => Results.Json(new
+    {
+        engines = engineManifestLoader.GetManifests().Select(m => new
+        {
+            name = m.EngineName,
+            tier = m.Tier.ToString(),
+            kind = m.Kind.ToString()
+        })
+    }));
+
+    host.MapGet("/dev/engines/registry", () => Results.Json(new
+    {
+        engines = engineManifestLoader.GetDescriptors().Select(d => new
+        {
+            name = d.Metadata.EngineName,
+            tier = d.Metadata.Tier.ToString(),
+            kind = d.Metadata.Kind.ToString(),
+            inputContract = d.Metadata.InputContract,
+            outputEvents = d.Metadata.OutputEvents
+        })
+    }));
+
     // Engine Runtime debug endpoints
     host.MapGet("/dev/engines", () => Results.Json(new
     {
@@ -395,6 +389,34 @@ try
             return Results.BadRequest(new { error = ex.Message });
         }
     });
+
+    // Engine Worker Runtime debug endpoints
+    host.MapGet("/dev/engine-workers", () => Results.Json(new
+    {
+        workersPerPartition = engineWorkerPool.WorkersPerPartition,
+        totalWorkers = engineWorkerPool.TotalWorkerCount
+    }));
+
+    host.MapGet("/dev/engine-workers/status", () => Results.Json(new
+    {
+        workers = engineWorkerPool.Workers.Select(kv => new
+        {
+            partition = kv.Key,
+            workers = kv.Value.Count
+        })
+    }));
+
+    host.MapGet("/dev/engine-workers/queues", () => Results.Json(new
+    {
+        queues = Enumerable.Range(0, engineQueueRegistry.PartitionCount).Select(p => new
+        {
+            partition = p,
+            pending = engineQueueRegistry.GetPendingCount(p)
+        })
+    }));
+
+    // Start engine worker supervisor
+    engineWorkerSupervisor.Start(CancellationToken.None);
 
     Log.Information("Foundation Host initialized with {EngineCount} engines", engineRegistry.ListEngines().Count);
 

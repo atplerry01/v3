@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T1M_Orchestration;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("WorkflowStateProjection", EngineTier.T1M, EngineKind.Projection, "WorkflowStateProjectionRequest", typeof(EngineEvent))]
 public sealed class WorkflowStateProjectionEngine : IEngine
 {
     public string Name => "WorkflowStateProjection";

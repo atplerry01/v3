@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T1M_Orchestration;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("WorkflowScheduler", EngineTier.T1M, EngineKind.Decision, "WorkflowSchedulerRequest", typeof(EngineEvent))]
 public sealed class WorkflowSchedulerEngine : IEngine
 {
     public string Name => "WorkflowScheduler";

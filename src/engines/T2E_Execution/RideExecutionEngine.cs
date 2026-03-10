@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T2E_Execution;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("RideExecution", EngineTier.T2E, EngineKind.Mutation, "RideExecutionRequest", typeof(EngineEvent))]
 public sealed class RideExecutionEngine : IEngine
 {
     public string Name => "RideExecution";

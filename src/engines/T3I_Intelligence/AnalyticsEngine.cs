@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T3I_Intelligence;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("Analytics", EngineTier.T3I, EngineKind.Projection, "AnalyticsRequest", typeof(EngineEvent))]
 public sealed class AnalyticsEngine : IEngine
 {
     public string Name => "Analytics";
