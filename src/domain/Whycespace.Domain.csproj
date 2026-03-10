@@ -1,6 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Compile Remove="clusters/**" />
+    <Content Remove="clusters/**" />
+    <None Remove="clusters/**" />
+    <EmbeddedResource Remove="clusters/**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\shared\Whycespace.Shared.csproj" />
   </ItemGroup>
 

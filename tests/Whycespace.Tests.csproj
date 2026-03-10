@@ -80,6 +80,10 @@
     <Content Remove="decision-engines/**" />
     <None Remove="decision-engines/**" />
     <EmbeddedResource Remove="decision-engines/**" />
+    <Compile Remove="cluster-domain/**" />
+    <Content Remove="cluster-domain/**" />
+    <None Remove="cluster-domain/**" />
+    <EmbeddedResource Remove="cluster-domain/**" />
   </ItemGroup>
 
   <ItemGroup>

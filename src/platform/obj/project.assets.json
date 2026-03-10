@@ -498,6 +498,19 @@
           "bin/placeholder/Whycespace.ArchitectureGuardrails.dll": {}
         }
       },
+      "Whycespace.ClusterDomain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        }
+      },
       "Whycespace.CommandSystem/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1322,6 +1335,11 @@
       "path": "../runtime/guardrails/Whycespace.ArchitectureGuardrails.csproj",
       "msbuildProject": "../runtime/guardrails/Whycespace.ArchitectureGuardrails.csproj"
     },
+    "Whycespace.ClusterDomain/1.0.0": {
+      "type": "project",
+      "path": "../domain/clusters/Whycespace.ClusterDomain.csproj",
+      "msbuildProject": "../domain/clusters/Whycespace.ClusterDomain.csproj"
+    },
     "Whycespace.CommandSystem/1.0.0": {
       "type": "project",
       "path": "../runtime/command/Whycespace.CommandSystem.csproj",
@@ -1413,6 +1431,7 @@
       "OpenTelemetry.Instrumentation.Http >= 1.15.0",
       "Serilog.AspNetCore >= 10.0.0",
       "Whycespace.ArchitectureGuardrails >= 1.0.0",
+      "Whycespace.ClusterDomain >= 1.0.0",
       "Whycespace.CommandSystem >= 1.0.0",
       "Whycespace.Domain >= 1.0.0",
       "Whycespace.Engines >= 1.0.0",
@@ -1457,6 +1476,9 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
+            "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
+            },
             "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
             },

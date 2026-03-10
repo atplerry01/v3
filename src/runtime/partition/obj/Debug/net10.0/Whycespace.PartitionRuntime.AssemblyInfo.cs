@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.PartitionRuntime")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4bdc93dd36d112051ea714647e2a61389e4bb72c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92fa1da2628b8009de8c5abf8a73c11b68453b6d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.PartitionRuntime")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.PartitionRuntime")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
