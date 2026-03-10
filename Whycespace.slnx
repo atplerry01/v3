@@ -147,6 +147,9 @@
   <Folder Name="/tests/economic-runtime/">
     <Project Path="tests/economic-runtime/Whycespace.EconomicRuntime.Tests.csproj" />
   </Folder>
+  <Folder Name="/tests/access-engines/">
+    <Project Path="tests/access-engines/Whycespace.AccessEngines.Tests.csproj" />
+  </Folder>
   <Folder Name="/src/platform/cluster-templates/">
     <Project Path="src/platform/cluster-templates/Whycespace.ClusterTemplatePlatform.csproj" />
   </Folder>
