@@ -3,7 +3,7 @@ namespace Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Registry;
 using Whycespace.Shared.Contracts;
 
-public sealed class RuntimeDispatcher
+public sealed class RuntimeDispatcher : IRuntimeDispatcher
 {
     private readonly EngineRegistry _registry;
 

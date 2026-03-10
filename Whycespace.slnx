@@ -30,4 +30,7 @@
   <Folder Name="/simulation/">
     <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />
   </Folder>
+  <Folder Name="/infrastructure/host/">
+    <Project Path="infrastructure/host/Whycespace.FoundationHost/Whycespace.FoundationHost.csproj" />
+  </Folder>
 </Solution>

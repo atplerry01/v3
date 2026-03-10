@@ -1,19 +1,15 @@
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
-using Whycespace.Engines.T0U_Constitutional;
-using Whycespace.Engines.T1M_Orchestration;
-using Whycespace.Engines.T2E_Execution;
-using Whycespace.Engines.T3I_Intelligence;
-using Whycespace.Engines.T4A_Access;
+using Whycespace.Platform.RuntimeClient;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Events;
 using Whycespace.Runtime.Observability;
-using Whycespace.Runtime.Persistence;
 using Whycespace.Runtime.Projections;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Reliability;
 using Whycespace.Runtime.Workflow;
+using Whycespace.Shared.Contracts;
 using Whycespace.System.Downstream.Clusters;
 using Whycespace.System.Midstream.WSS.Dispatcher;
 using Whycespace.System.Midstream.WSS.Kafka;
@@ -52,83 +48,35 @@ builder.Services.AddHealthChecks()
     .AddRedis(redisConn, name: "redis")
     .AddKafka(cfg => cfg.BootstrapServers = kafkaBrokers, name: "kafka");
 
-// Engine Registry — all 31 engines across 5 tiers
+// Runtime client adapters — in-process adapter for now
+// FoundationHost owns the runtime; Platform connects via interfaces
 var engineRegistry = new EngineRegistry();
-
-// T0U Constitutional
-engineRegistry.Register(new PolicyValidationEngine());
-engineRegistry.Register(new PolicyEvaluationEngine());
-engineRegistry.Register(new GovernanceAuthorityEngine());
-engineRegistry.Register(new ConstitutionalSafeguardEngine());
-engineRegistry.Register(new ChainVerificationEngine());
-engineRegistry.Register(new IdentityVerificationEngine());
-
-// T1M Orchestration
-engineRegistry.Register(new WorkflowSchedulerEngine());
-engineRegistry.Register(new PartitionRouterEngine());
-engineRegistry.Register(new WorkflowGraphEngine());
-engineRegistry.Register(new RuntimeDispatcherEngine());
-engineRegistry.Register(new WorkflowStateProjectionEngine());
-
-// T2E Execution
-engineRegistry.Register(new RideExecutionEngine());
-engineRegistry.Register(new PropertyExecutionEngine());
-engineRegistry.Register(new EconomicExecutionEngine());
-engineRegistry.Register(new VaultCreationEngine());
-engineRegistry.Register(new CapitalContributionEngine());
-engineRegistry.Register(new AssetRegistrationEngine());
-engineRegistry.Register(new RevenueRecordingEngine());
-engineRegistry.Register(new ProfitDistributionEngine());
-
-// T3I Intelligence
-engineRegistry.Register(new DriverMatchingEngine());
-engineRegistry.Register(new TenantMatchingEngine());
-engineRegistry.Register(new WorkforceAssignmentEngine());
-engineRegistry.Register(new ObservabilityEngine());
-engineRegistry.Register(new AnalyticsEngine());
-engineRegistry.Register(new ForecastEngine());
-
-// T4A Access
-engineRegistry.Register(new AuthenticationEngine());
-engineRegistry.Register(new AuthorizationEngine());
-engineRegistry.Register(new APIEngine());
-engineRegistry.Register(new DeveloperToolsEngine());
-engineRegistry.Register(new OperatorControlPlaneEngine());
-engineRegistry.Register(new IntegrationEngine());
-
 builder.Services.AddSingleton(engineRegistry);
 
-// Runtime
+var eventBus = new EventBus();
+builder.Services.AddSingleton(eventBus);
+builder.Services.AddSingleton<IEventBus>(sp => new EventClient(sp.GetRequiredService<EventBus>()));
+
 var dispatcher = new RuntimeDispatcher(engineRegistry);
-builder.Services.AddSingleton(dispatcher);
+builder.Services.AddSingleton<IRuntimeDispatcher>(sp => new RuntimeClient(dispatcher));
 
 var workflowStateStore = new WorkflowStateStore();
 builder.Services.AddSingleton(workflowStateStore);
 
 var orchestrator = new WorkflowOrchestrator(dispatcher, workflowStateStore);
-builder.Services.AddSingleton(orchestrator);
+builder.Services.AddSingleton<IWorkflowOrchestrator>(sp => new WorkflowClient(orchestrator));
 
-var eventBus = new EventBus();
-builder.Services.AddSingleton(eventBus);
-
-// Projections
-var driverLocationProjection = new DriverLocationProjection();
-var propertyListingProjection = new PropertyListingProjection();
-var vaultBalanceProjection = new VaultBalanceProjection();
-var revenueProjection = new RevenueProjection();
-builder.Services.AddSingleton(driverLocationProjection);
-builder.Services.AddSingleton(propertyListingProjection);
-builder.Services.AddSingleton(vaultBalanceProjection);
-builder.Services.AddSingleton(revenueProjection);
-
-// Reliability
-builder.Services.AddSingleton(new IdempotencyRegistry());
-builder.Services.AddSingleton(new RetryPolicyEngine());
-builder.Services.AddSingleton(new TimeoutManager());
-builder.Services.AddSingleton(new DeadLetterQueue());
+// Projections (read-only access)
+builder.Services.AddSingleton(new DriverLocationProjection());
+builder.Services.AddSingleton(new PropertyListingProjection());
+builder.Services.AddSingleton(new VaultBalanceProjection());
+builder.Services.AddSingleton(new RevenueProjection());
 
 // Observability
 builder.Services.AddSingleton(new RuntimeObserver());
+
+// Reliability (read-only access for operator console)
+builder.Services.AddSingleton(new DeadLetterQueue());
 
 // Workflow Mapper
 var workflowMapper = new WorkflowMapper();
@@ -160,11 +108,6 @@ builder.Services.AddSingleton(clusterRegistry);
 
 // Upstream
 builder.Services.AddSingleton(new PolicyGovernor());
-
-// Persistence
-builder.Services.AddSingleton(new PostgresEventStore(postgresConn));
-builder.Services.AddSingleton(new ProjectionStore(postgresConn));
-builder.Services.AddSingleton(new WorkflowStateRepository(postgresConn));
 
 // Kafka Publisher
 builder.Services.AddSingleton(new KafkaEventPublisher(eventBus, kafkaBrokers));
