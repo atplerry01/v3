@@ -1,6 +1,6 @@
 namespace Whycespace.Domain.Application.Commands;
 
-using Whycespace.Shared.Commands;
+using Whycespace.Contracts.Commands;
 using Whycespace.Shared.Location;
 
 public sealed record RequestRideCommand(
@@ -8,4 +8,7 @@ public sealed record RequestRideCommand(
     Guid UserId,
     GeoLocation PickupLocation,
     GeoLocation DropoffLocation
-) : ICommand;
+) : ICommand
+{
+    public DateTimeOffset Timestamp { get; init; } = DateTimeOffset.UtcNow;
+}

@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T4A_Access;
 
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 
 public sealed class AuthorizationEngine : IEngine
 {

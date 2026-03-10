@@ -414,6 +414,14 @@
           }
         }
       },
+      "Whycespace.Contracts/1.0.0": {
+        "runtime": {
+          "Whycespace.Contracts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.Domain/1.0.0": {
         "dependencies": {
           "Whycespace.Shared": "1.0.0"
@@ -450,6 +458,9 @@
         }
       },
       "Whycespace.Shared/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
         "runtime": {
           "Whycespace.Shared.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -649,6 +660,11 @@
       "hashPath": "stackexchange.redis.2.7.4.nupkg.sha512"
     },
     "Whycespace.ArchitectureGuardrails/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Contracts/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

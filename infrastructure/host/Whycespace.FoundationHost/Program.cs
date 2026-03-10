@@ -16,7 +16,8 @@ using Whycespace.Runtime.Projections;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Reliability;
 using Whycespace.Runtime.Workflow;
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Runtime;
 using Whycespace.Shared.Projections;
 using Whycespace.System.Midstream.WSS.Kafka;
 using Whycespace.System.Midstream.WSS.Mapping;
@@ -178,6 +179,18 @@ try
         status = "running",
         engines = engineRegistry.GetRegisteredEngines().Count,
         timestamp = DateTimeOffset.UtcNow
+    }));
+
+    host.MapGet("/dev/contracts", () => Results.Json(new
+    {
+        contracts = new[]
+        {
+            "ICommand",
+            "IEvent",
+            "IEngine",
+            "WorkflowGraph",
+            "WorkflowContext"
+        }
     }));
 
     Log.Information("Foundation Host initialized with {EngineCount} engines", engineRegistry.GetRegisteredEngines().Count);

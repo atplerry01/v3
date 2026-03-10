@@ -1,7 +1,7 @@
 namespace Whycespace.System.Midstream.WSS.Orchestration;
 
 using Whycespace.Runtime.Workflow;
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Workflows;
 using Whycespace.System.Midstream.WSS.Mapping;
 
 public sealed class WSSOrchestrator

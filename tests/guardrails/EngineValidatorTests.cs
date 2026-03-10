@@ -3,7 +3,7 @@ namespace Whycespace.Tests.Guardrails;
 using Whycespace.ArchitectureGuardrails.Validation;
 using Whycespace.Engines.T2E_Execution;
 using Whycespace.Engines.T0U_Constitutional;
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 
 public sealed class EngineValidatorTests
 {

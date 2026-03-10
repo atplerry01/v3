@@ -498,6 +498,16 @@
           "bin/placeholder/Whycespace.ArchitectureGuardrails.dll": {}
         }
       },
+      "Whycespace.Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/Whycespace.Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Contracts.dll": {}
+        }
+      },
       "Whycespace.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -542,6 +552,9 @@
       "Whycespace.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Whycespace.Shared.dll": {}
         },
@@ -1166,6 +1179,11 @@
       "type": "project",
       "path": "../runtime/guardrails/Whycespace.ArchitectureGuardrails.csproj",
       "msbuildProject": "../runtime/guardrails/Whycespace.ArchitectureGuardrails.csproj"
+    },
+    "Whycespace.Contracts/1.0.0": {
+      "type": "project",
+      "path": "../shared/contracts/Whycespace.Contracts.csproj",
+      "msbuildProject": "../shared/contracts/Whycespace.Contracts.csproj"
     },
     "Whycespace.Domain/1.0.0": {
       "type": "project",

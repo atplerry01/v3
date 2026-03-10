@@ -53,6 +53,16 @@
           }
         }
       },
+      "Whycespace.Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/Whycespace.Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Contracts.dll": {}
+        }
+      },
       "Whycespace.Engines/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -85,6 +95,9 @@
       "Whycespace.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Whycespace.Shared.dll": {}
         },
@@ -216,6 +229,11 @@
         "npgsql.nuspec",
         "postgresql.png"
       ]
+    },
+    "Whycespace.Contracts/1.0.0": {
+      "type": "project",
+      "path": "../../shared/contracts/Whycespace.Contracts.csproj",
+      "msbuildProject": "../../shared/contracts/Whycespace.Contracts.csproj"
     },
     "Whycespace.Engines/1.0.0": {
       "type": "project",

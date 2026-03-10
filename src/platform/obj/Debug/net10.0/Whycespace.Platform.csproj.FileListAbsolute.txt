@@ -86,3 +86,5 @@ C:\projects\dev\v3\src\platform\bin\Debug\net10.0\runtimes\win-x86\native\zlib1.
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\runtimes\win-x86\native\zstd.dll
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.ArchitectureGuardrails.dll
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.ArchitectureGuardrails.pdb
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.Contracts.dll
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.Contracts.pdb

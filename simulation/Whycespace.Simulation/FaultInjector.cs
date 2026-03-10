@@ -3,7 +3,7 @@ namespace Whycespace.Simulation;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Reliability;
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 
 public sealed class FaultInjector
 {

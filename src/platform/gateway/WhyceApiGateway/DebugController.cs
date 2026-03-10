@@ -6,7 +6,7 @@ using Whycespace.ArchitectureGuardrails.Rules;
 using Whycespace.Runtime.Events;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Workflow;
-using Whycespace.Shared.Events;
+using Whycespace.Contracts.Events;
 using Whycespace.System.Midstream.WSS.Mapping;
 
 [ApiController]
@@ -69,7 +69,7 @@ public sealed class DebugController : ControllerBase
     {
         var enforcement = new GuardrailEnforcementEngine();
         var engineAssembly = typeof(Whycespace.Engines.T2E_Execution.RideExecutionEngine).Assembly;
-        var sharedAssembly = typeof(Whycespace.Shared.Contracts.IEngine).Assembly;
+        var sharedAssembly = typeof(Whycespace.Contracts.Engines.IEngine).Assembly;
 
         var report = enforcement.Validate(engineAssembly, sharedAssembly);
 

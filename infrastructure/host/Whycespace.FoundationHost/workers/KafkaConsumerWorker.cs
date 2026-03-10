@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Whycespace.Runtime.Events;
-using Whycespace.Shared.Events;
+using Whycespace.Contracts.Events;
 
 public sealed class KafkaConsumerWorker : BackgroundService
 {

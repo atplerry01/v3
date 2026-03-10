@@ -4,7 +4,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Workflow;
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Workflows;
 
 public sealed class WorkflowWorker : BackgroundService
 {
@@ -29,7 +30,7 @@ public sealed class WorkflowWorker : BackgroundService
         while (!stoppingToken.IsCancellationRequested)
         {
             var pending = _stateStore.GetAll()
-                .Where(s => s.Status == Shared.Workflow.WorkflowStatus.Pending)
+                .Where(s => s.Status == WorkflowStatus.Pending)
                 .ToList();
 
             foreach (var workflow in pending)

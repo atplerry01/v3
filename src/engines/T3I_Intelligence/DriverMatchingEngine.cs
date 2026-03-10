@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T3I_Intelligence;
 
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 
 public sealed class DriverMatchingEngine : IEngine
 {

@@ -1,7 +1,8 @@
 namespace Whycespace.Platform.RuntimeClient;
 
-using Whycespace.Shared.Contracts;
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Runtime;
+using Whycespace.Contracts.Workflows;
 
 public sealed class WorkflowClient : IWorkflowOrchestrator
 {

@@ -1,7 +1,7 @@
 namespace Whycespace.Tests.Engines;
 
 using Whycespace.Engines.T3I_Intelligence;
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 using Xunit;
 
 public sealed class DriverMatchingEngineTests

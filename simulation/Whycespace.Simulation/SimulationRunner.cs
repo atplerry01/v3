@@ -8,8 +8,8 @@ using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Reliability;
 using Whycespace.Runtime.Workflow;
-using Whycespace.Shared.Contracts;
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Workflows;
 
 public sealed class SimulationRunner
 {

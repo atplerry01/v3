@@ -1,6 +1,6 @@
 namespace Whycespace.Runtime.Reliability;
 
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 
 public sealed record DeadLetterEntry(
     EngineInvocationEnvelope Envelope,

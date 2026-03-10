@@ -1,6 +1,6 @@
 namespace Whycespace.System.Midstream.WSS.Contracts;
 
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Workflows;
 
 public interface IWorkflowDefinition
 {

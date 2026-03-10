@@ -1,8 +1,8 @@
 namespace Whycespace.Tests.Guardrails;
 
 using Whycespace.ArchitectureGuardrails.Validation;
-using Whycespace.Shared.Contracts;
-using Whycespace.Shared.Events;
+using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Events;
 
 public sealed class EventValidatorTests
 {

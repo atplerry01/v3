@@ -406,6 +406,16 @@
           }
         }
       },
+      "Whycespace.Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/Whycespace.Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Contracts.dll": {}
+        }
+      },
       "Whycespace.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -450,6 +460,9 @@
       "Whycespace.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Whycespace.Shared.dll": {}
         },
@@ -976,6 +989,11 @@
         "serilog.sinks.file.7.0.0.nupkg.sha512",
         "serilog.sinks.file.nuspec"
       ]
+    },
+    "Whycespace.Contracts/1.0.0": {
+      "type": "project",
+      "path": "../../../src/shared/contracts/Whycespace.Contracts.csproj",
+      "msbuildProject": "../../../src/shared/contracts/Whycespace.Contracts.csproj"
     },
     "Whycespace.Domain/1.0.0": {
       "type": "project",

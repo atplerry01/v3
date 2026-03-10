@@ -1,6 +1,6 @@
 namespace Whycespace.Domain.Application.Commands;
 
-using Whycespace.Shared.Commands;
+using Whycespace.Contracts.Commands;
 using Whycespace.Shared.Location;
 
 public sealed record ListPropertyCommand(
@@ -10,4 +10,7 @@ public sealed record ListPropertyCommand(
     string Description,
     GeoLocation Location,
     decimal MonthlyRent
-) : ICommand;
+) : ICommand
+{
+    public DateTimeOffset Timestamp { get; init; } = DateTimeOffset.UtcNow;
+}

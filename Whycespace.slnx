@@ -21,11 +21,17 @@
   <Folder Name="/src/shared/">
     <Project Path="src/shared/Whycespace.Shared.csproj" />
   </Folder>
+  <Folder Name="/src/shared/contracts/">
+    <Project Path="src/shared/contracts/Whycespace.Contracts.csproj" />
+  </Folder>
   <Folder Name="/src/system/">
     <Project Path="src/system/Whycespace.System.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Whycespace.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/contracts/">
+    <Project Path="tests/contracts/Whycespace.Contracts.Tests.csproj" />
   </Folder>
   <Folder Name="/simulation/">
     <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />

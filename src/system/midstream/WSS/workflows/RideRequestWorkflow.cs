@@ -1,6 +1,6 @@
 namespace Whycespace.System.Midstream.WSS.Workflows;
 
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Workflows;
 using Whycespace.System.Midstream.WSS.Contracts;
 
 public sealed class RideRequestWorkflow : IWorkflowDefinition

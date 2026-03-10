@@ -1,0 +1,11 @@
+C:\projects\dev\v3\src\shared\contracts\bin\Debug\net10.0\Whycespace.Contracts.deps.json
+C:\projects\dev\v3\src\shared\contracts\bin\Debug\net10.0\Whycespace.Contracts.dll
+C:\projects\dev\v3\src\shared\contracts\bin\Debug\net10.0\Whycespace.Contracts.pdb
+C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.AssemblyInfoInputs.cache
+C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.AssemblyInfo.cs
+C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.dll
+C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\refint\Whycespace.Contracts.dll
+C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.pdb
+C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\ref\Whycespace.Contracts.dll

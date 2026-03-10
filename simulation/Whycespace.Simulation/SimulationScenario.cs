@@ -1,6 +1,6 @@
 namespace Whycespace.Simulation;
 
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Workflows;
 using Whycespace.System.Midstream.WSS.Workflows;
 
 public sealed record SimulationConfig(

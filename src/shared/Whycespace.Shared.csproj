@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="contracts/**" />
+    <Content Remove="contracts/**" />
+    <None Remove="contracts/**" />
+    <EmbeddedResource Remove="contracts/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="contracts\Whycespace.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>
