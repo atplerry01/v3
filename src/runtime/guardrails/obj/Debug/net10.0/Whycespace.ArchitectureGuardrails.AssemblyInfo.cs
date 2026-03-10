@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.ArchitectureGuardrails")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4ed13118e707e666bccd8e9a78f3f4c620d9fc46")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dea44c8b023ef5df8223d17d9ce2df7226d4c4ea")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.ArchitectureGuardrails")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.ArchitectureGuardrails")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

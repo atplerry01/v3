@@ -470,6 +470,21 @@
           "bin/placeholder/Whycespace.Runtime.dll": {}
         }
       },
+      "Whycespace.RuntimeDispatcher/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.CommandSystem": "1.0.0",
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.RuntimeDispatcher.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.RuntimeDispatcher.dll": {}
+        }
+      },
       "Whycespace.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1042,6 +1057,11 @@
       "path": "../../../src/runtime/Whycespace.Runtime.csproj",
       "msbuildProject": "../../../src/runtime/Whycespace.Runtime.csproj"
     },
+    "Whycespace.RuntimeDispatcher/1.0.0": {
+      "type": "project",
+      "path": "../../../src/runtime/dispatcher/Whycespace.RuntimeDispatcher.csproj",
+      "msbuildProject": "../../../src/runtime/dispatcher/Whycespace.RuntimeDispatcher.csproj"
+    },
     "Whycespace.Shared/1.0.0": {
       "type": "project",
       "path": "../../../src/shared/Whycespace.Shared.csproj",
@@ -1068,6 +1088,7 @@
       "Whycespace.Domain >= 1.0.0",
       "Whycespace.Engines >= 1.0.0",
       "Whycespace.Runtime >= 1.0.0",
+      "Whycespace.RuntimeDispatcher >= 1.0.0",
       "Whycespace.Shared >= 1.0.0",
       "Whycespace.System >= 1.0.0",
       "Whycespace.WorkflowRuntime >= 1.0.0"
@@ -1114,6 +1135,9 @@
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"

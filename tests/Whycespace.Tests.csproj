@@ -20,6 +20,10 @@
     <Content Remove="workflow-runtime/**" />
     <None Remove="workflow-runtime/**" />
     <EmbeddedResource Remove="workflow-runtime/**" />
+    <Compile Remove="runtime-dispatcher/**" />
+    <Content Remove="runtime-dispatcher/**" />
+    <None Remove="runtime-dispatcher/**" />
+    <EmbeddedResource Remove="runtime-dispatcher/**" />
   </ItemGroup>
 
   <ItemGroup>

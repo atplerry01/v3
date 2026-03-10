@@ -4,7 +4,7 @@ using Whycespace.Runtime.Registry;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Runtime;
 
-public sealed class RuntimeDispatcher : IRuntimeDispatcher
+public sealed class RuntimeDispatcher : IEngineRuntimeDispatcher
 {
     private readonly EngineRegistry _registry;
 

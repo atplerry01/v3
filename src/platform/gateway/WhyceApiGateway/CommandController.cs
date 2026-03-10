@@ -37,9 +37,8 @@ public sealed class CommandController : ControllerBase
             Payload: context,
             Timestamp: DateTimeOffset.UtcNow);
 
-        var request = _commandDispatcher.Dispatch(envelope);
-        var state = await _orchestrator.StartWorkflowAsync(request.WorkflowName, request.Context);
-        return Ok(state);
+        var result = await _commandDispatcher.DispatchAsync(envelope);
+        return Ok(result);
     }
 
     [HttpPost("property/list")]
@@ -59,9 +58,8 @@ public sealed class CommandController : ControllerBase
             Payload: context,
             Timestamp: DateTimeOffset.UtcNow);
 
-        var request = _commandDispatcher.Dispatch(envelope);
-        var state = await _orchestrator.StartWorkflowAsync(request.WorkflowName, request.Context);
-        return Ok(state);
+        var result = await _commandDispatcher.DispatchAsync(envelope);
+        return Ok(result);
     }
 }
 

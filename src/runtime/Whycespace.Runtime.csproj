@@ -13,6 +13,10 @@
     <Content Remove="workflow-runtime/**" />
     <None Remove="workflow-runtime/**" />
     <EmbeddedResource Remove="workflow-runtime/**" />
+    <Compile Remove="dispatcher/**" />
+    <Content Remove="dispatcher/**" />
+    <None Remove="dispatcher/**" />
+    <EmbeddedResource Remove="dispatcher/**" />
   </ItemGroup>
 
   <ItemGroup>

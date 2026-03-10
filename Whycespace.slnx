@@ -24,6 +24,9 @@
   <Folder Name="/src/runtime/workflow-runtime/">
     <Project Path="src/runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj" />
   </Folder>
+  <Folder Name="/src/runtime/dispatcher/">
+    <Project Path="src/runtime/dispatcher/Whycespace.RuntimeDispatcher.csproj" />
+  </Folder>
   <Folder Name="/src/shared/">
     <Project Path="src/shared/Whycespace.Shared.csproj" />
   </Folder>
@@ -44,6 +47,9 @@
   </Folder>
   <Folder Name="/tests/workflow-runtime/">
     <Project Path="tests/workflow-runtime/Whycespace.WorkflowRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/runtime-dispatcher/">
+    <Project Path="tests/runtime-dispatcher/Whycespace.RuntimeDispatcher.Tests.csproj" />
   </Folder>
   <Folder Name="/simulation/">
     <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />

@@ -3,11 +3,11 @@ namespace Whycespace.Platform.RuntimeClient;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Runtime;
 
-public sealed class RuntimeClient : IRuntimeDispatcher
+public sealed class RuntimeClient : IEngineRuntimeDispatcher
 {
-    private readonly IRuntimeDispatcher _dispatcher;
+    private readonly IEngineRuntimeDispatcher _dispatcher;
 
-    public RuntimeClient(IRuntimeDispatcher dispatcher)
+    public RuntimeClient(IEngineRuntimeDispatcher dispatcher)
     {
         _dispatcher = dispatcher;
     }
