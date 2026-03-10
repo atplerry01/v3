@@ -576,6 +576,35 @@
           "bin/placeholder/Whycespace.Engines.dll": {}
         }
       },
+      "Whycespace.EventFabric/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Confluent.Kafka": "2.8.0",
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EventFabric.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EventFabric.dll": {}
+        }
+      },
+      "Whycespace.Reliability/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Reliability.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Reliability.dll": {}
+        }
+      },
       "Whycespace.Runtime/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1266,6 +1295,16 @@
       "path": "../engines/Whycespace.Engines.csproj",
       "msbuildProject": "../engines/Whycespace.Engines.csproj"
     },
+    "Whycespace.EventFabric/1.0.0": {
+      "type": "project",
+      "path": "../runtime/event-fabric/Whycespace.EventFabric.csproj",
+      "msbuildProject": "../runtime/event-fabric/Whycespace.EventFabric.csproj"
+    },
+    "Whycespace.Reliability/1.0.0": {
+      "type": "project",
+      "path": "../runtime/reliability/Whycespace.Reliability.csproj",
+      "msbuildProject": "../runtime/reliability/Whycespace.Reliability.csproj"
+    },
     "Whycespace.Runtime/1.0.0": {
       "type": "project",
       "path": "../runtime/Whycespace.Runtime.csproj",
@@ -1300,6 +1339,7 @@
       "Whycespace.CommandSystem >= 1.0.0",
       "Whycespace.Domain >= 1.0.0",
       "Whycespace.Engines >= 1.0.0",
+      "Whycespace.Reliability >= 1.0.0",
       "Whycespace.Runtime >= 1.0.0",
       "Whycespace.Shared >= 1.0.0",
       "Whycespace.System >= 1.0.0"
@@ -1312,11 +1352,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj",
+      "projectUniqueName": "C:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj",
       "projectName": "Whycespace.Platform",
-      "projectPath": "c:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj",
+      "projectPath": "C:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "c:\\projects\\dev\\v3\\src\\platform\\obj\\",
+      "outputPath": "C:\\projects\\dev\\v3\\src\\platform\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1338,23 +1378,26 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+            "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
+            "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+            "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj"
+            "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
+            "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
+            "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"

@@ -1240,11 +1240,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\projects\\dev\\v3\\tests\\engine-worker-runtime\\Whycespace.EngineWorkerRuntime.Tests.csproj",
+      "projectUniqueName": "C:\\projects\\dev\\v3\\tests\\engine-worker-runtime\\Whycespace.EngineWorkerRuntime.Tests.csproj",
       "projectName": "Whycespace.EngineWorkerRuntime.Tests",
-      "projectPath": "c:\\projects\\dev\\v3\\tests\\engine-worker-runtime\\Whycespace.EngineWorkerRuntime.Tests.csproj",
+      "projectPath": "C:\\projects\\dev\\v3\\tests\\engine-worker-runtime\\Whycespace.EngineWorkerRuntime.Tests.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "c:\\projects\\dev\\v3\\tests\\engine-worker-runtime\\obj\\",
+      "outputPath": "C:\\projects\\dev\\v3\\tests\\engine-worker-runtime\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1266,8 +1266,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "c:\\projects\\dev\\v3\\src\\runtime\\engine-workers\\Whycespace.EngineWorkerRuntime.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-workers\\Whycespace.EngineWorkerRuntime.csproj"
+            "C:\\projects\\dev\\v3\\src\\runtime\\engine-workers\\Whycespace.EngineWorkerRuntime.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-workers\\Whycespace.EngineWorkerRuntime.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj"

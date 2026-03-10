@@ -13,6 +13,7 @@
           "Whycespace.Domain": "1.0.0",
           "Whycespace.Engines": "1.0.0",
           "Whycespace.Platform": "1.0.0",
+          "Whycespace.Reliability": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
           "Whycespace.Shared": "1.0.0",
           "Whycespace.System": "1.0.0",
@@ -791,6 +792,18 @@
           }
         }
       },
+      "Whycespace.EventFabric/1.0.0": {
+        "dependencies": {
+          "Confluent.Kafka": "2.13.2",
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EventFabric.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.Platform/1.0.0": {
         "dependencies": {
           "AspNetCore.HealthChecks.Kafka": "9.0.0",
@@ -804,12 +817,26 @@
           "Whycespace.CommandSystem": "1.0.0",
           "Whycespace.Domain": "1.0.0",
           "Whycespace.Engines": "1.0.0",
+          "Whycespace.Reliability": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
           "Whycespace.Shared": "1.0.0",
           "Whycespace.System": "1.0.0"
         },
         "runtime": {
           "Whycespace.Platform.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Reliability/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Reliability.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1154,7 +1181,17 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Whycespace.EventFabric/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Whycespace.Platform/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Reliability/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

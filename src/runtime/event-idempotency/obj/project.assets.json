@@ -241,11 +241,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\Whycespace.EventIdempotency.csproj",
+      "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\Whycespace.EventIdempotency.csproj",
       "projectName": "Whycespace.EventIdempotency",
-      "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\Whycespace.EventIdempotency.csproj",
+      "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\Whycespace.EventIdempotency.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\obj\\",
+      "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

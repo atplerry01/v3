@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dCGjlNpEt7U=",
+  "dgSpecHash": "saDXawpTkZ8=",
   "success": true,
-  "projectFilePath": "c:\\projects\\dev\\v3\\tests\\Whycespace.Tests.csproj",
+  "projectFilePath": "C:\\projects\\dev\\v3\\tests\\Whycespace.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\aspnetcore.healthchecks.kafka\\9.0.0\\aspnetcore.healthchecks.kafka.9.0.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\aspnetcore.healthchecks.npgsql\\9.0.0\\aspnetcore.healthchecks.npgsql.9.0.0.nupkg.sha512",

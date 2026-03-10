@@ -61,3 +61,7 @@ C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EventFabric.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Reliability.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Reliability.pdb
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EventFabric.pdb

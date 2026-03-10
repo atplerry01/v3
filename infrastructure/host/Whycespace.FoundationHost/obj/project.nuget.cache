@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SiVtAQYG30M=",
+  "dgSpecHash": "bXeFPS7wW2E=",
   "success": true,
-  "projectFilePath": "c:\\projects\\dev\\v3\\infrastructure\\host\\Whycespace.FoundationHost\\Whycespace.FoundationHost.csproj",
+  "projectFilePath": "C:\\projects\\dev\\v3\\infrastructure\\host\\Whycespace.FoundationHost\\Whycespace.FoundationHost.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\confluent.kafka\\2.13.2\\confluent.kafka.2.13.2.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\librdkafka.redist\\2.13.2\\librdkafka.redist.2.13.2.nupkg.sha512",

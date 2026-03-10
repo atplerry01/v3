@@ -46,6 +46,10 @@ using Whycespace.PartitionRuntime.Dispatcher;
 using Whycespace.EngineWorkerRuntime.Queue;
 using Whycespace.EngineWorkerRuntime.Pool;
 using Whycespace.EngineWorkerRuntime.Supervisor;
+using Whycespace.Observability.Metrics;
+using Whycespace.Observability.Tracing;
+using Whycespace.Observability.Diagnostics;
+using Whycespace.Observability.Health;
 
 // Serilog
 Log.Logger = new LoggerConfiguration()
@@ -126,6 +130,16 @@ try
 
     // Observability
     builder.Services.AddSingleton(new RuntimeObserver());
+    var metricsCollector = new MetricsCollector();
+    var traceManager = new TraceManager();
+    var workflowDiagnostics = new WorkflowDiagnosticsService();
+    var engineTelemetry = new EngineTelemetryService();
+    var healthCheckService = new HealthCheckService();
+    builder.Services.AddSingleton(metricsCollector);
+    builder.Services.AddSingleton(traceManager);
+    builder.Services.AddSingleton(workflowDiagnostics);
+    builder.Services.AddSingleton(engineTelemetry);
+    builder.Services.AddSingleton(healthCheckService);
 
     // Projections
     var driverLocationProjection = new DriverLocationProjection();
@@ -414,6 +428,20 @@ try
             pending = engineQueueRegistry.GetPendingCount(p)
         })
     }));
+
+    // Observability debug endpoints
+    host.MapGet("/dev/metrics", () => Results.Json(metricsCollector.GetAll()));
+
+    host.MapGet("/dev/traces", () => Results.Json(new
+    {
+        activeTraces = traceManager.GetActiveTraceCount()
+    }));
+
+    host.MapGet("/dev/health", () =>
+    {
+        var statuses = healthCheckService.CheckAll();
+        return Results.Json(statuses.ToDictionary(s => s.Component, s => s.Status));
+    });
 
     // Start engine worker supervisor
     engineWorkerSupervisor.Start(CancellationToken.None);
