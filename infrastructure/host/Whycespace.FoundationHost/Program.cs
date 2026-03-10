@@ -57,6 +57,11 @@ using Whycespace.Observability.Metrics;
 using Whycespace.Observability.Tracing;
 using Whycespace.Observability.Diagnostics;
 using Whycespace.Observability.Health;
+using Whycespace.ProjectionRebuild.Reader;
+using Whycespace.ProjectionRebuild.Reset;
+using Whycespace.ProjectionRebuild.Checkpoints;
+using Whycespace.ProjectionRebuild.Rebuild;
+using Whycespace.ProjectionRebuild.Controller;
 
 // Serilog
 Log.Logger = new LoggerConfiguration()
@@ -170,6 +175,22 @@ try
 
     var projectionQueryService = new ProjectionQueryService(projectionStore);
     builder.Services.AddSingleton(projectionQueryService);
+
+    // Projection Rebuild Engine
+    var eventLogReader = new EventLogReader();
+    builder.Services.AddSingleton(eventLogReader);
+
+    var projectionResetService = new ProjectionResetService(projectionStore, projectionRegistry);
+    builder.Services.AddSingleton(projectionResetService);
+
+    var projectionCheckpointStore = new ProjectionCheckpointStore();
+    builder.Services.AddSingleton(projectionCheckpointStore);
+
+    var projectionRebuildEngine = new ProjectionRebuildEngine(eventLogReader, projectionEngine, projectionResetService, projectionCheckpointStore);
+    builder.Services.AddSingleton(projectionRebuildEngine);
+
+    var projectionReplayController = new ProjectionReplayController(projectionRebuildEngine, projectionResetService, projectionRegistry);
+    builder.Services.AddSingleton(projectionReplayController);
 
     // Persistence
     builder.Services.AddSingleton(new PostgresEventStore(postgresConn));
@@ -472,6 +493,29 @@ try
             ? Results.Ok(new { key, value })
             : Results.NotFound(new { key, error = "not found" });
     });
+
+    // Projection Rebuild debug endpoints
+    host.MapPost("/dev/projections/rebuild", async () =>
+    {
+        await projectionReplayController.RebuildAllAsync();
+        return Results.Ok(new { status = "rebuild complete", processedEvents = projectionReplayController.GetStatus().ProcessedEvents });
+    });
+
+    host.MapPost("/dev/projections/rebuild/{projection}", async (string projection) =>
+    {
+        await projectionReplayController.RebuildProjectionAsync(projection);
+        return Results.Ok(new { projection, status = "rebuild complete", processedEvents = projectionReplayController.GetStatus().ProcessedEvents });
+    });
+
+    host.MapGet("/dev/projections/checkpoints", () => Results.Json(new
+    {
+        checkpoints = projectionCheckpointStore.GetAll().Select(c => new
+        {
+            projection = c.ProjectionName,
+            lastEventId = c.LastProcessedEventId,
+            timestamp = c.Timestamp
+        })
+    }));
 
     // Start engine worker supervisor
     engineWorkerSupervisor.Start(CancellationToken.None);

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.Contracts")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9dd41c743bf506367b4f1c2d216f33b9303bb817")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa59476f662205c12421a9e5af802aed7fda8386")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.Contracts")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.Contracts")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

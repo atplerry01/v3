@@ -61,6 +61,10 @@
     <Content Remove="projections/**" />
     <None Remove="projections/**" />
     <EmbeddedResource Remove="projections/**" />
+    <Compile Remove="projection-rebuild/**" />
+    <Content Remove="projection-rebuild/**" />
+    <None Remove="projection-rebuild/**" />
+    <EmbeddedResource Remove="projection-rebuild/**" />
   </ItemGroup>
 
   <ItemGroup>
