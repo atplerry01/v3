@@ -21,6 +21,7 @@
     <ProjectReference Include="..\domain\Whycespace.Domain.csproj" />
     <ProjectReference Include="..\runtime\guardrails\Whycespace.ArchitectureGuardrails.csproj" />
     <ProjectReference Include="..\runtime\command\Whycespace.CommandSystem.csproj" />
+    <ProjectReference Include="..\runtime\reliability\Whycespace.Reliability.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -45,6 +45,18 @@
     <Content Remove="event-idempotency/**" />
     <None Remove="event-idempotency/**" />
     <EmbeddedResource Remove="event-idempotency/**" />
+    <Compile Remove="reliability/**" />
+    <Content Remove="reliability/**" />
+    <None Remove="reliability/**" />
+    <EmbeddedResource Remove="reliability/**" />
+    <Compile Remove="event-replay/**" />
+    <Content Remove="event-replay/**" />
+    <None Remove="event-replay/**" />
+    <EmbeddedResource Remove="event-replay/**" />
+    <Compile Remove="observability/**" />
+    <Content Remove="observability/**" />
+    <None Remove="observability/**" />
+    <EmbeddedResource Remove="observability/**" />
   </ItemGroup>
 
   <ItemGroup>

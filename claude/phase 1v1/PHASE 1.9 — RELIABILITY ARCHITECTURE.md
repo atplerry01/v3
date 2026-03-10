@@ -23,7 +23,7 @@ All components must remain **deterministic**.
 2 Implement Retry Engine  
 3 Implement Dead Letter Queue  
 4 Implement Saga Coordinator  
-5 Integrate reliability with runtime dispatcher  
+5 Integrate reliability with workflow runtime  
 6 Implement unit tests  
 7 Provide debug endpoints  
 
@@ -33,42 +33,32 @@ All components must remain **deterministic**.
 
 Create module:
 
-```
 src/runtime/reliability/
-```
 
 Structure:
 
-```
 src/runtime/reliability/
 
-├── state/
-├── retry/
-├── dlq/
-├── saga/
-└── models/
-```
+├── state/  
+├── retry/  
+├── dlq/  
+├── saga/  
+└── models/  
 
 Create project:
 
-```
 Whycespace.Reliability.csproj
-```
 
 Target framework:
 
-```
-net8.0
-```
+net10.0
 
 References:
 
-```
-Whycespace.Contracts
-Whycespace.RuntimeDispatcher
-Whycespace.WorkflowRuntime
-Whycespace.EventFabric
-```
+Whycespace.Contracts  
+Whycespace.WorkflowRuntime  
+Whycespace.RuntimeDispatcher  
+Whycespace.EventFabric  
 
 ---
 
@@ -76,15 +66,11 @@ Whycespace.EventFabric
 
 Folder:
 
-```
 state/
-```
 
 Create interface:
 
-```
 IWorkflowStateStore.cs
-```
 
 Purpose:
 
@@ -92,22 +78,20 @@ Persist workflow execution state.
 
 Example:
 
-```csharp
 public interface IWorkflowStateStore
 {
     Task SaveAsync(WorkflowInstance instance);
 
     Task<WorkflowInstance?> LoadAsync(Guid workflowInstanceId);
+
+    Task<IReadOnlyCollection<WorkflowInstance>> GetActiveWorkflowsAsync();
 }
-```
 
 ---
 
 Create implementation:
 
-```
 PostgresWorkflowStateStore.cs
-```
 
 Responsibilities:
 
@@ -117,12 +101,14 @@ Responsibilities:
 
 Workflow state fields:
 
-```
-WorkflowInstanceId
-WorkflowName
-CurrentStepIndex
-PartitionKey
-```
+WorkflowInstanceId  
+WorkflowName  
+CurrentStepIndex  
+PartitionKey  
+WorkflowContext  
+LastUpdated  
+
+Persistence storage: PostgreSQL table.
 
 ---
 
@@ -130,15 +116,11 @@ PartitionKey
 
 Folder:
 
-```
 retry/
-```
 
 Create:
 
-```
 RetryPolicyEngine.cs
-```
 
 Purpose:
 
@@ -146,22 +128,25 @@ Retry failed workflow steps.
 
 Retry rules:
 
-```
-MaxRetries = configurable
-RetryDelay = configurable
-```
+MaxRetries = configurable  
+RetryDelay = configurable  
 
 Example:
 
-```csharp
 public sealed class RetryPolicyEngine
 {
+    private readonly int _maxRetries;
+
+    public RetryPolicyEngine(int maxRetries)
+    {
+        _maxRetries = maxRetries;
+    }
+
     public bool ShouldRetry(int attemptCount)
     {
-        return attemptCount < 3;
+        return attemptCount < _maxRetries;
     }
 }
-```
 
 ---
 
@@ -169,43 +154,42 @@ public sealed class RetryPolicyEngine
 
 Folder:
 
-```
 dlq/
-```
 
 Create:
 
-```
 DeadLetterPublisher.cs
-```
 
 Purpose:
 
-Publish failed messages to DLQ topic.
+Publish failed workflow executions to DLQ topic.
 
 Kafka topic:
 
-```
 whyce.dlq.events
-```
 
 Example:
 
-```csharp
 public sealed class DeadLetterPublisher
 {
     private readonly IEventPublisher _publisher;
 
-    public Task PublishAsync(IEvent eventMessage)
+    public DeadLetterPublisher(IEventPublisher publisher)
+    {
+        _publisher = publisher;
+    }
+
+    public Task PublishAsync(
+        EventEnvelope envelope,
+        CancellationToken cancellationToken)
     {
         return _publisher.PublishAsync(
             "whyce.dlq.events",
-            eventMessage,
-            CancellationToken.None
+            envelope,
+            cancellationToken
         );
     }
 }
-```
 
 ---
 
@@ -213,31 +197,24 @@ public sealed class DeadLetterPublisher
 
 Folder:
 
-```
 saga/
-```
 
 Create:
 
-```
 SagaCoordinator.cs
-```
 
 Purpose:
 
-Coordinate long-running workflows.
+Coordinate long-running distributed workflows.
 
 Responsibilities:
 
-```
-track distributed operations
-manage compensating actions
-ensure eventual consistency
-```
+track distributed operations  
+manage compensating actions  
+ensure eventual consistency  
 
 Example:
 
-```csharp
 public sealed class SagaCoordinator
 {
     public Task StartSagaAsync(Guid sagaId);
@@ -246,7 +223,6 @@ public sealed class SagaCoordinator
 
     public Task CompensateAsync(Guid sagaId);
 }
-```
 
 ---
 
@@ -254,72 +230,64 @@ public sealed class SagaCoordinator
 
 Modify:
 
-```
 WorkflowExecutor
-```
 
 New flow:
 
-```
-WorkflowExecution
- ↓
-Save workflow state
- ↓
-Execute step
- ↓
-If failure:
-RetryPolicyEngine
- ↓
+WorkflowExecution  
+ ↓  
+Save workflow state  
+ ↓  
+Execute workflow step  
+ ↓  
+If failure  
+ ↓  
+RetryPolicyEngine.ShouldRetry()  
+ ↓  
+Retry step  
+
 If retries exhausted:
-DeadLetterPublisher
-```
 
----
-
-# SAGA EXAMPLE
-
-Example scenario:
-
-```
-PropertyLettingWorkflow
-```
-
-Steps:
-
-```
-TenantApplication
-BackgroundCheck
-LeaseCreation
-```
-
-If LeaseCreation fails:
-
-SagaCoordinator triggers compensation:
-
-```
-CancelApplication
-ReleaseProperty
-```
+DeadLetterPublisher.PublishAsync()
 
 ---
 
 # WORKFLOW RECOVERY
 
-On system restart:
+On runtime startup:
 
-Runtime must reload active workflows.
+Reload active workflows.
 
 Example:
 
-```
-WorkflowStateStore.LoadAsync()
-```
+WorkflowStateStore.GetActiveWorkflowsAsync()
 
 Resume from:
 
-```
 CurrentStepIndex
-```
+
+This ensures workflow recovery after crashes.
+
+---
+
+# SAGA EXAMPLE
+
+Example workflow:
+
+PropertyLettingWorkflow
+
+Steps:
+
+TenantApplication  
+BackgroundCheck  
+LeaseCreation  
+
+If LeaseCreation fails:
+
+SagaCoordinator triggers compensation:
+
+CancelApplication  
+ReleaseProperty  
 
 ---
 
@@ -327,27 +295,21 @@ CurrentStepIndex
 
 Create project:
 
-```
 tests/reliability/
-```
 
 Tests:
 
-```
-WorkflowStateStoreTests.cs
-RetryPolicyEngineTests.cs
-DeadLetterPublisherTests.cs
-SagaCoordinatorTests.cs
-```
+WorkflowStateStoreTests.cs  
+RetryPolicyEngineTests.cs  
+DeadLetterPublisherTests.cs  
+SagaCoordinatorTests.cs  
 
 Test cases:
 
-```
-persist workflow state
-retry logic
-dead letter publishing
-saga lifecycle
-```
+persist workflow state  
+retry logic  
+dead letter publishing  
+saga lifecycle  
 
 ---
 
@@ -357,55 +319,43 @@ Add endpoints:
 
 GET
 
-```
 /dev/reliability/workflows
-```
 
 Return active workflow states.
 
 Example:
 
-```json
 {
   "activeWorkflows": 12
 }
-```
 
 ---
 
 GET
 
-```
 /dev/reliability/retries
-```
 
 Return retry statistics.
 
 Example:
 
-```json
 {
   "retries": 3
 }
-```
 
 ---
 
 GET
 
-```
 /dev/reliability/dlq
-```
 
 Return DLQ message count.
 
 Example:
 
-```json
 {
   "deadLetters": 2
 }
-```
 
 ---
 
@@ -413,17 +363,13 @@ Example:
 
 Run:
 
-```
 dotnet build
-```
 
 Expected:
 
-```
-Build succeeded
-0 warnings
-0 errors
-```
+Build succeeded  
+0 warnings  
+0 errors  
 
 ---
 
@@ -431,17 +377,13 @@ Build succeeded
 
 Run:
 
-```
 dotnet test
-```
 
 Expected:
 
-```
-Tests:
-4 passed
-0 failed
-```
+Tests:  
+4 passed  
+0 failed  
 
 ---
 
@@ -449,25 +391,21 @@ Tests:
 
 Return:
 
-```
-1 Files Created
-2 Repository Tree
-3 Build Result
-4 Test Result
-5 Debug Endpoints
-```
+1 Files Created  
+2 Repository Tree  
+3 Build Result  
+4 Test Result  
+5 Debug Endpoints  
 
 Example:
 
-```
-Build succeeded
-0 warnings
-0 errors
+Build succeeded  
+0 warnings  
+0 errors  
 
-Tests:
-4 passed
-0 failed
-```
+Tests:  
+4 passed  
+0 failed  
 
 ---
 
@@ -479,6 +417,7 @@ Phase 1.9 is complete when:
 • retries trigger correctly  
 • failed messages go to DLQ  
 • sagas coordinate distributed workflows  
+• workflows recover after restart  
 • tests pass  
 • debug endpoints respond  
 

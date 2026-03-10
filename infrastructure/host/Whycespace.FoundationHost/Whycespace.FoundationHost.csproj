@@ -20,6 +20,8 @@
     <ProjectReference Include="..\..\..\src\runtime\partition\Whycespace.PartitionRuntime.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\engine-workers\Whycespace.EngineWorkerRuntime.csproj" />
+    <ProjectReference Include="..\..\..\src\runtime\reliability\Whycespace.Reliability.csproj" />
+    <ProjectReference Include="..\..\..\src\runtime\observability\Whycespace.Observability.csproj" />
   </ItemGroup>
 
   <ItemGroup>
