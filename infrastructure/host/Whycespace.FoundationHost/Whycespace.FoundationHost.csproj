@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\..\src\runtime\reliability\Whycespace.Reliability.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\observability\Whycespace.Observability.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\projections\Whycespace.Projections.csproj" />
+    <ProjectReference Include="..\..\..\src\runtime\projection-rebuild\Whycespace.ProjectionRebuild.csproj" />
   </ItemGroup>
 
   <ItemGroup>
