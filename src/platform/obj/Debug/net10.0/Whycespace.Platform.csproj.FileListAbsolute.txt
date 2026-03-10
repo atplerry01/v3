@@ -116,3 +116,5 @@ C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.ClusterTemplatePlat
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.ClusterTemplatePlatform.pdb
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.EconomicDomain.dll
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.EconomicDomain.pdb
+c:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.RuntimeValidation.dll
+c:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.RuntimeValidation.pdb

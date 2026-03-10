@@ -150,6 +150,12 @@
   <Folder Name="/tests/access-engines/">
     <Project Path="tests/access-engines/Whycespace.AccessEngines.Tests.csproj" />
   </Folder>
+  <Folder Name="/src/runtime/validation/">
+    <Project Path="src/runtime/validation/Whycespace.RuntimeValidation.csproj" />
+  </Folder>
+  <Folder Name="/tests/system-validation/">
+    <Project Path="tests/system-validation/Whycespace.SystemValidation.Tests.csproj" />
+  </Folder>
   <Folder Name="/src/platform/cluster-templates/">
     <Project Path="src/platform/cluster-templates/Whycespace.ClusterTemplatePlatform.csproj" />
   </Folder>

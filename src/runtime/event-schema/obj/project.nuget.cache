@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3eZF7pKTU10=",
+  "dgSpecHash": "/cl+ivMczDQ=",
   "success": true,
-  "projectFilePath": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
+  "projectFilePath": "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\confluent.kafka\\2.8.0\\confluent.kafka.2.8.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\librdkafka.redist\\2.8.0\\librdkafka.redist.2.8.0.nupkg.sha512"

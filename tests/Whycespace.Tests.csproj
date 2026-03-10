@@ -104,6 +104,10 @@
     <Content Remove="access-engines/**" />
     <None Remove="access-engines/**" />
     <EmbeddedResource Remove="access-engines/**" />
+    <Compile Remove="system-validation/**" />
+    <Content Remove="system-validation/**" />
+    <None Remove="system-validation/**" />
+    <EmbeddedResource Remove="system-validation/**" />
   </ItemGroup>
 
   <ItemGroup>

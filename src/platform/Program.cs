@@ -27,6 +27,7 @@ using Whycespace.SimulationRuntime.Runtime;
 using Whycespace.SimulationRuntime.Services;
 using Whycespace.ClusterTemplatePlatform;
 using Whycespace.EconomicDomain;
+using Whycespace.RuntimeValidation.Runners;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -146,6 +147,10 @@ builder.Services.AddSingleton(simulationService);
 
 // Upstream
 builder.Services.AddSingleton(new PolicyGovernor());
+
+// Runtime Validation (Phase 1.17)
+var validationRunner = new ValidationRunner();
+builder.Services.AddSingleton(validationRunner);
 
 // Kafka Publisher
 builder.Services.AddSingleton(new KafkaEventPublisher(eventBus, kafkaBrokers));

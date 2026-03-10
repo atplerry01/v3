@@ -1030,11 +1030,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\projects\\dev\\v3\\tests\\engine-manifest\\Whycespace.EngineManifest.Tests.csproj",
+      "projectUniqueName": "C:\\projects\\dev\\v3\\tests\\engine-manifest\\Whycespace.EngineManifest.Tests.csproj",
       "projectName": "Whycespace.EngineManifest.Tests",
-      "projectPath": "c:\\projects\\dev\\v3\\tests\\engine-manifest\\Whycespace.EngineManifest.Tests.csproj",
+      "projectPath": "C:\\projects\\dev\\v3\\tests\\engine-manifest\\Whycespace.EngineManifest.Tests.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "c:\\projects\\dev\\v3\\tests\\engine-manifest\\obj\\",
+      "outputPath": "C:\\projects\\dev\\v3\\tests\\engine-manifest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1059,8 +1059,8 @@
             "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
             },
-            "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+            "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
             }
           }
         }

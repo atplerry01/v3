@@ -1417,6 +1417,7 @@
           "Whycespace.Projections": "1.0.0",
           "Whycespace.Reliability": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
+          "Whycespace.RuntimeValidation": "1.0.0",
           "Whycespace.Shared": "1.0.0",
           "Whycespace.SimulationRuntime": "1.0.0",
           "Whycespace.System": "1.0.0"
@@ -1476,6 +1477,24 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.Runtime.dll": {}
+        }
+      },
+      "Whycespace.RuntimeValidation/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.CommandSystem": "1.0.0",
+          "Whycespace.EconomicDomain": "1.0.0",
+          "Whycespace.Engines": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0",
+          "Whycespace.Projections": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.RuntimeValidation.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.RuntimeValidation.dll": {}
         }
       },
       "Whycespace.Shared/1.0.0": {
@@ -3251,6 +3270,11 @@
       "path": "../src/runtime/Whycespace.Runtime.csproj",
       "msbuildProject": "../src/runtime/Whycespace.Runtime.csproj"
     },
+    "Whycespace.RuntimeValidation/1.0.0": {
+      "type": "project",
+      "path": "../src/runtime/validation/Whycespace.RuntimeValidation.csproj",
+      "msbuildProject": "../src/runtime/validation/Whycespace.RuntimeValidation.csproj"
+    },
     "Whycespace.Shared/1.0.0": {
       "type": "project",
       "path": "../src/shared/Whycespace.Shared.csproj",
@@ -3345,8 +3369,8 @@
             "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj"
             },
-            "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
+            "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
+              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"

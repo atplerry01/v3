@@ -599,11 +599,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\projects\\dev\\v3\\simulation\\Whycespace.Simulation\\Whycespace.Simulation.csproj",
+      "projectUniqueName": "c:\\projects\\dev\\v3\\simulation\\Whycespace.Simulation\\Whycespace.Simulation.csproj",
       "projectName": "Whycespace.Simulation",
-      "projectPath": "C:\\projects\\dev\\v3\\simulation\\Whycespace.Simulation\\Whycespace.Simulation.csproj",
+      "projectPath": "c:\\projects\\dev\\v3\\simulation\\Whycespace.Simulation\\Whycespace.Simulation.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\projects\\dev\\v3\\simulation\\Whycespace.Simulation\\obj\\",
+      "outputPath": "c:\\projects\\dev\\v3\\simulation\\Whycespace.Simulation\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -631,8 +631,8 @@
             "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
             },
-            "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
+            "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
+              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
