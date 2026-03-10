@@ -438,6 +438,22 @@ try
         }
     });
 
+    // T2E Execution Engines debug endpoint
+    host.MapGet("/dev/engines/t2e", () => Results.Json(new
+    {
+        executionEngines = engineManifestLoader.GetManifests()
+            .Where(m => m.Tier.ToString() == "T2E")
+            .Select(m => m.EngineName)
+    }));
+
+    // T3I Decision Engines debug endpoint
+    host.MapGet("/dev/engines/t3i", () => Results.Json(new
+    {
+        decisionEngines = engineManifestLoader.GetManifests()
+            .Where(m => m.Tier.ToString() == "T3I")
+            .Select(m => m.EngineName)
+    }));
+
     // Engine Worker Runtime debug endpoints
     host.MapGet("/dev/engine-workers", () => Results.Json(new
     {

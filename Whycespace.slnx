@@ -123,6 +123,12 @@
   <Folder Name="/tests/projection-rebuild/">
     <Project Path="tests/projection-rebuild/Whycespace.ProjectionRebuild.Tests.csproj" />
   </Folder>
+  <Folder Name="/tests/execution-engines/">
+    <Project Path="tests/execution-engines/Whycespace.ExecutionEngines.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/decision-engines/">
+    <Project Path="tests/decision-engines/Whycespace.DecisionEngines.Tests.csproj" />
+  </Folder>
   <Folder Name="/simulation/">
     <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />
   </Folder>
