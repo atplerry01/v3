@@ -3,7 +3,6 @@ namespace Whycespace.WorkflowRuntime.Tests;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Workflows;
 using Whycespace.WorkflowRuntime.Executor;
-using Whycespace.WorkflowRuntime.Step;
 
 public class WorkflowExecutorTests
 {
@@ -19,12 +18,11 @@ public class WorkflowExecutorTests
     [Fact]
     public async Task ExecuteAsync_AllStepsSucceed_ReturnsSuccess()
     {
-        var stepExecutor = new WorkflowStepExecutor(_ =>
+        var executor = new WorkflowExecutor((step, wfId, pk, ctx) =>
             Task.FromResult(EngineResult.Ok(
                 Array.Empty<EngineEvent>(),
                 new Dictionary<string, object> { ["done"] = true })));
 
-        var executor = new WorkflowExecutor(stepExecutor);
         var graph = CreateGraph("Engine1", "Engine2");
 
         var result = await executor.ExecuteAsync(graph, new Dictionary<string, object>());
@@ -37,7 +35,7 @@ public class WorkflowExecutorTests
     public async Task ExecuteAsync_StepFails_ReturnsFailure()
     {
         var callCount = 0;
-        var stepExecutor = new WorkflowStepExecutor(_ =>
+        var executor = new WorkflowExecutor((step, wfId, pk, ctx) =>
         {
             callCount++;
             return callCount == 1
@@ -45,7 +43,6 @@ public class WorkflowExecutorTests
                 : Task.FromResult(EngineResult.Fail("Engine error"));
         });
 
-        var executor = new WorkflowExecutor(stepExecutor);
         var graph = CreateGraph("Engine1", "Engine2");
 
         var result = await executor.ExecuteAsync(graph, new Dictionary<string, object>());
@@ -58,7 +55,7 @@ public class WorkflowExecutorTests
     public async Task ExecuteAsync_ContextFlowsBetweenSteps()
     {
         var stepIndex = 0;
-        var stepExecutor = new WorkflowStepExecutor(envelope =>
+        var executor = new WorkflowExecutor((step, wfId, pk, ctx) =>
         {
             stepIndex++;
             var output = new Dictionary<string, object>
@@ -68,7 +65,6 @@ public class WorkflowExecutorTests
             return Task.FromResult(EngineResult.Ok(Array.Empty<EngineEvent>(), output));
         });
 
-        var executor = new WorkflowExecutor(stepExecutor);
         var graph = CreateGraph("Engine1", "Engine2");
 
         var result = await executor.ExecuteAsync(graph, new Dictionary<string, object> { ["input"] = "initial" });
@@ -82,10 +78,9 @@ public class WorkflowExecutorTests
     [Fact]
     public async Task ExecuteAsync_EmptyGraph_ReturnsSuccess()
     {
-        var stepExecutor = new WorkflowStepExecutor(_ =>
+        var executor = new WorkflowExecutor((step, wfId, pk, ctx) =>
             Task.FromResult(EngineResult.Ok(Array.Empty<EngineEvent>())));
 
-        var executor = new WorkflowExecutor(stepExecutor);
         var graph = new WorkflowGraph(Guid.NewGuid().ToString(), "EmptyWorkflow", Array.Empty<WorkflowStep>());
 
         var result = await executor.ExecuteAsync(graph, new Dictionary<string, object>());

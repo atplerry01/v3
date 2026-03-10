@@ -9,7 +9,6 @@ using Whycespace.RuntimeDispatcher.Pipeline;
 using Whycespace.RuntimeDispatcher.Resolver;
 using Whycespace.WorkflowRuntime.Executor;
 using Whycespace.WorkflowRuntime.Registry;
-using Whycespace.WorkflowRuntime.Step;
 using WfRuntime = Whycespace.WorkflowRuntime.Runtime.WorkflowRuntime;
 
 public class ExecutionPipelineTests
@@ -29,12 +28,11 @@ public class ExecutionPipelineTests
             "wf-property", "PropertyListingWorkflow",
             new[] { new WorkflowStep("step-1", "Start", "PropertyExecutionEngine", Array.Empty<string>()) }));
 
-        var stepExecutor = new WorkflowStepExecutor(async envelope =>
-            Whycespace.Contracts.Engines.EngineResult.Ok(
+        var executor = new WorkflowExecutor((step, wfId, pk, ctx) =>
+            Task.FromResult(Whycespace.Contracts.Engines.EngineResult.Ok(
                 new List<Whycespace.Contracts.Engines.EngineEvent>(),
-                new Dictionary<string, object>()));
+                new Dictionary<string, object>())));
 
-        var executor = new WorkflowExecutor(stepExecutor);
         var runtime = new WfRuntime(registry, executor);
         _pipeline = new ExecutionPipeline(_validator, _idempotency, _resolver, runtime);
     }

@@ -31,8 +31,13 @@ using Whycespace.CommandSystem.Validation;
 using CmdDispatcher = Whycespace.CommandSystem.Dispatcher.CommandDispatcher;
 using Whycespace.WorkflowRuntime.Executor;
 using Whycespace.WorkflowRuntime.Registry;
-using Whycespace.WorkflowRuntime.Step;
 using WfRuntime = Whycespace.WorkflowRuntime.Runtime.WorkflowRuntime;
+using Whycespace.EngineRuntime.Executor;
+using Whycespace.EngineRuntime.Invocation;
+using Whycespace.EngineRuntime.Resolver;
+using EngineReg = Whycespace.EngineRuntime.Registry.EngineRegistry;
+using IEngineReg = Whycespace.EngineRuntime.Registry.IEngineRegistry;
+using Whycespace.EngineRuntime.Registry;
 using Whycespace.RuntimeDispatcher.Resolver;
 using Whycespace.RuntimeDispatcher.Pipeline;
 using RtDispatcher = Whycespace.RuntimeDispatcher.Dispatcher.RuntimeDispatcher;
@@ -66,54 +71,70 @@ try
         ?? "Host=localhost;Database=whycespace;Username=whyce;Password=whyce";
     var kafkaBrokers = builder.Configuration["Kafka:BootstrapServers"] ?? "localhost:9092";
 
-    // Engine Registry — scan and register all 31 engines across 5 tiers
-    var engineRegistry = new EngineRegistry();
+    // Engine Runtime — registry, resolver, invocation manager, executor
+    var engineRegistry = new EngineReg();
+    var engineBootstrapper = new EngineBootstrapper(engineRegistry);
 
     // T0U Constitutional
-    engineRegistry.Register(new PolicyValidationEngine());
-    engineRegistry.Register(new PolicyEvaluationEngine());
-    engineRegistry.Register(new GovernanceAuthorityEngine());
-    engineRegistry.Register(new ConstitutionalSafeguardEngine());
-    engineRegistry.Register(new ChainVerificationEngine());
-    engineRegistry.Register(new IdentityVerificationEngine());
+    engineBootstrapper.Register(new PolicyValidationEngine());
+    engineBootstrapper.Register(new PolicyEvaluationEngine());
+    engineBootstrapper.Register(new GovernanceAuthorityEngine());
+    engineBootstrapper.Register(new ConstitutionalSafeguardEngine());
+    engineBootstrapper.Register(new ChainVerificationEngine());
+    engineBootstrapper.Register(new IdentityVerificationEngine());
 
     // T1M Orchestration
-    engineRegistry.Register(new WorkflowSchedulerEngine());
-    engineRegistry.Register(new PartitionRouterEngine());
-    engineRegistry.Register(new WorkflowGraphEngine());
-    engineRegistry.Register(new RuntimeDispatcherEngine());
-    engineRegistry.Register(new WorkflowStateProjectionEngine());
+    engineBootstrapper.Register(new WorkflowSchedulerEngine());
+    engineBootstrapper.Register(new PartitionRouterEngine());
+    engineBootstrapper.Register(new WorkflowGraphEngine());
+    engineBootstrapper.Register(new RuntimeDispatcherEngine());
+    engineBootstrapper.Register(new WorkflowStateProjectionEngine());
 
     // T2E Execution
-    engineRegistry.Register(new RideExecutionEngine());
-    engineRegistry.Register(new PropertyExecutionEngine());
-    engineRegistry.Register(new EconomicExecutionEngine());
-    engineRegistry.Register(new VaultCreationEngine());
-    engineRegistry.Register(new CapitalContributionEngine());
-    engineRegistry.Register(new AssetRegistrationEngine());
-    engineRegistry.Register(new RevenueRecordingEngine());
-    engineRegistry.Register(new ProfitDistributionEngine());
+    engineBootstrapper.Register(new RideExecutionEngine());
+    engineBootstrapper.Register(new PropertyExecutionEngine());
+    engineBootstrapper.Register(new EconomicExecutionEngine());
+    engineBootstrapper.Register(new VaultCreationEngine());
+    engineBootstrapper.Register(new CapitalContributionEngine());
+    engineBootstrapper.Register(new AssetRegistrationEngine());
+    engineBootstrapper.Register(new RevenueRecordingEngine());
+    engineBootstrapper.Register(new ProfitDistributionEngine());
 
     // T3I Intelligence
-    engineRegistry.Register(new DriverMatchingEngine());
-    engineRegistry.Register(new TenantMatchingEngine());
-    engineRegistry.Register(new WorkforceAssignmentEngine());
-    engineRegistry.Register(new ObservabilityEngine());
-    engineRegistry.Register(new AnalyticsEngine());
-    engineRegistry.Register(new ForecastEngine());
+    engineBootstrapper.Register(new DriverMatchingEngine());
+    engineBootstrapper.Register(new TenantMatchingEngine());
+    engineBootstrapper.Register(new WorkforceAssignmentEngine());
+    engineBootstrapper.Register(new ObservabilityEngine());
+    engineBootstrapper.Register(new AnalyticsEngine());
+    engineBootstrapper.Register(new ForecastEngine());
 
     // T4A Access
-    engineRegistry.Register(new AuthenticationEngine());
-    engineRegistry.Register(new AuthorizationEngine());
-    engineRegistry.Register(new APIEngine());
-    engineRegistry.Register(new DeveloperToolsEngine());
-    engineRegistry.Register(new OperatorControlPlaneEngine());
-    engineRegistry.Register(new IntegrationEngine());
+    engineBootstrapper.Register(new AuthenticationEngine());
+    engineBootstrapper.Register(new AuthorizationEngine());
+    engineBootstrapper.Register(new APIEngine());
+    engineBootstrapper.Register(new DeveloperToolsEngine());
+    engineBootstrapper.Register(new OperatorControlPlaneEngine());
+    engineBootstrapper.Register(new IntegrationEngine());
 
-    builder.Services.AddSingleton(engineRegistry);
+    builder.Services.AddSingleton<IEngineReg>(engineRegistry);
+    builder.Services.AddSingleton(engineBootstrapper);
 
-    // Runtime services
-    var engineDispatcher = new Whycespace.Runtime.Dispatcher.RuntimeDispatcher(engineRegistry);
+    var engineResolver = new EngineResolver(engineRegistry);
+    builder.Services.AddSingleton(engineResolver);
+
+    var engineInvocationManager = new EngineInvocationManager();
+    builder.Services.AddSingleton(engineInvocationManager);
+
+    var workflowStepEngineExecutor = new WorkflowStepEngineExecutor(engineResolver, engineInvocationManager);
+    builder.Services.AddSingleton(workflowStepEngineExecutor);
+
+    // Legacy engine dispatcher (for backward compatibility)
+    var legacyEngineRegistry = new Whycespace.Runtime.Registry.EngineRegistry();
+    foreach (var name in engineRegistry.ListEngines())
+        legacyEngineRegistry.Register(engineRegistry.Resolve(name));
+    builder.Services.AddSingleton(legacyEngineRegistry);
+
+    var engineDispatcher = new Whycespace.Runtime.Dispatcher.RuntimeDispatcher(legacyEngineRegistry);
     builder.Services.AddSingleton(engineDispatcher);
     builder.Services.AddSingleton<IEngineRuntimeDispatcher>(engineDispatcher);
 
@@ -180,10 +201,7 @@ try
     workflowRegistry.Register(economicGraph);
     builder.Services.AddSingleton<IWorkflowRegistry>(workflowRegistry);
 
-    var stepExecutor = new WorkflowStepExecutor(engineDispatcher.DispatchAsync);
-    builder.Services.AddSingleton(stepExecutor);
-
-    var workflowExecutor = new WorkflowExecutor(stepExecutor);
+    var workflowExecutor = new WorkflowExecutor(workflowStepEngineExecutor.ExecuteStepAsync);
     builder.Services.AddSingleton<IWorkflowExecutor>(workflowExecutor);
 
     var workflowRuntime = new WfRuntime(workflowRegistry, workflowExecutor);
@@ -244,7 +262,7 @@ try
     {
         runtime = "foundation-host",
         status = "running",
-        engines = engineRegistry.GetRegisteredEngines().Count,
+        engines = engineRegistry.ListEngines().Count,
         timestamp = DateTimeOffset.UtcNow
     }));
 
@@ -324,7 +342,33 @@ try
         }
     });
 
-    Log.Information("Foundation Host initialized with {EngineCount} engines", engineRegistry.GetRegisteredEngines().Count);
+    // Engine Runtime debug endpoints
+    host.MapGet("/dev/engines", () => Results.Json(new
+    {
+        engines = engineRegistry.ListEngines()
+    }));
+
+    host.MapPost("/dev/engines/invoke", async (EngineInvocationEnvelope envelope) =>
+    {
+        try
+        {
+            var engine = engineResolver.Resolve(envelope.EngineName);
+            var context = new EngineContext(
+                envelope.InvocationId,
+                envelope.WorkflowId,
+                envelope.WorkflowStep,
+                envelope.PartitionKey,
+                envelope.Context);
+            var result = await engineInvocationManager.InvokeAsync(engine, context);
+            return Results.Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Results.BadRequest(new { error = ex.Message });
+        }
+    });
+
+    Log.Information("Foundation Host initialized with {EngineCount} engines", engineRegistry.ListEngines().Count);
 
     await host.RunAsync();
 }
