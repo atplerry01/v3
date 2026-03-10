@@ -96,6 +96,10 @@
     <Content Remove="cluster-template/**" />
     <None Remove="cluster-template/**" />
     <EmbeddedResource Remove="cluster-template/**" />
+    <Compile Remove="economic-runtime/**" />
+    <Content Remove="economic-runtime/**" />
+    <None Remove="economic-runtime/**" />
+    <EmbeddedResource Remove="economic-runtime/**" />
   </ItemGroup>
 
   <ItemGroup>

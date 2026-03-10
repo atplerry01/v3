@@ -26,6 +26,7 @@ using Whycespace.SimulationRuntime.Loader;
 using Whycespace.SimulationRuntime.Runtime;
 using Whycespace.SimulationRuntime.Services;
 using Whycespace.ClusterTemplatePlatform;
+using Whycespace.EconomicDomain;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -130,6 +131,12 @@ builder.Services.AddSingleton(clusterBootstrapper);
 // Cluster Template Platform (Phase 1.14.5)
 var clusterTemplateService = new ClusterTemplateService(clusterAdmin, clusterProviderRegistry, providerAssignmentService);
 builder.Services.AddSingleton(clusterTemplateService);
+
+// Economic Domain (Phase 1.15)
+var spvEconomicRegistry = new SpvEconomicRegistry();
+spvEconomicRegistry.RegisterSpv("WhyceMobility", "Taxi");
+spvEconomicRegistry.RegisterSpv("WhyceProperty", "LettingAgent");
+builder.Services.AddSingleton(spvEconomicRegistry);
 
 // Simulation Runtime (Phase 1.13.5)
 var simulationLoader = new SimulationScenarioLoader();
