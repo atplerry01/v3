@@ -386,8 +386,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
               },
-              "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
+              "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
@@ -704,14 +704,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
+    "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj",
         "projectName": "Whycespace.WorkflowRuntime",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -205,6 +205,56 @@ public sealed class DebugController : ControllerBase
     {
         return Ok(new { metrics = "Profit distribution metrics derived from event projections" });
     }
+
+    [HttpGet("platform/routes")]
+    public IActionResult GetPlatformRoutes()
+    {
+        return Ok(new
+        {
+            routes = new[]
+            {
+                "/api/commands/ride/request",
+                "/api/commands/property/list",
+                "/api/operator/engines",
+                "/api/operator/invocations",
+                "/api/operator/deadletters",
+                "/api/operator/clusters",
+                "/api/queries/projections/{name}",
+                "/api/queries/projections"
+            }
+        });
+    }
+
+    [HttpGet("platform/tools")]
+    public IActionResult GetPlatformTools()
+    {
+        return Ok(new
+        {
+            tools = new[]
+            {
+                "workflow-inspector",
+                "engine-inspector",
+                "event-replayer",
+                "projection-query",
+                "context-dump",
+                "pipeline-trace",
+                "workflow-simulator"
+            }
+        });
+    }
+
+    [HttpGet("platform/health")]
+    public IActionResult GetPlatformHealth()
+    {
+        var engines = _engineRegistry.GetRegisteredEngines();
+        return Ok(new
+        {
+            status = "healthy",
+            registeredEngines = engines.Count,
+            publishedEvents = _eventBus.GetPublishedEvents().Count,
+            timestamp = DateTimeOffset.UtcNow
+        });
+    }
 }
 
 public sealed record DebugRunWorkflowDto(string WorkflowName, Dictionary<string, object>? Context);

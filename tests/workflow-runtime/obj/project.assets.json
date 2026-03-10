@@ -980,8 +980,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
+            "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
+              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
             }
           }
         }

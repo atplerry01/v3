@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.EventReplay")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0098e8df1bc69065faa6e44715bc905774025d30")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+897cb1e08ab55f988c2ae1a87917f30427029ccf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.EventReplay")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.EventReplay")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
