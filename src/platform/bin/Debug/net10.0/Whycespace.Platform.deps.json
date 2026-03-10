@@ -19,6 +19,8 @@
           "Whycespace.CommandSystem": "1.0.0",
           "Whycespace.Domain": "1.0.0",
           "Whycespace.Engines": "1.0.0",
+          "Whycespace.Observability": "1.0.0",
+          "Whycespace.Projections": "1.0.0",
           "Whycespace.Reliability": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
           "Whycespace.Shared": "1.0.0",
@@ -494,6 +496,55 @@
           }
         }
       },
+      "Whycespace.EventIdempotency/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EventIdempotency.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.EventSchema/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EventSchema.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Observability/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Observability.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Projections/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0",
+          "Whycespace.EventIdempotency": "1.0.0",
+          "Whycespace.EventSchema": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Projections.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.Reliability/1.0.0": {
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
@@ -770,6 +821,26 @@
       "sha512": ""
     },
     "Whycespace.EventFabric/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.EventIdempotency/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.EventSchema/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Observability/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Projections/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -2,39 +2,43 @@ namespace Whycespace.FoundationHost.Workers;
 
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Whycespace.Contracts.Primitives;
+using Whycespace.EventFabric.Models;
+using Whycespace.Projections.Consumers;
 using Whycespace.Runtime.Events;
-using Whycespace.Shared.Projections;
 
 public sealed class ProjectionWorker : BackgroundService
 {
     private readonly EventBus _eventBus;
-    private readonly IReadOnlyList<IProjection> _projections;
+    private readonly ProjectionEventConsumer _consumer;
     private readonly ILogger<ProjectionWorker> _logger;
 
     public ProjectionWorker(
         EventBus eventBus,
-        IReadOnlyList<IProjection> projections,
+        ProjectionEventConsumer consumer,
         ILogger<ProjectionWorker> logger)
     {
         _eventBus = eventBus;
-        _projections = projections;
+        _consumer = consumer;
         _logger = logger;
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("ProjectionWorker started — subscribing {Count} projections to EventBus",
-            _projections.Count);
+        _logger.LogInformation("ProjectionWorker started — forwarding EventBus events to ProjectionEventConsumer");
 
-        foreach (var projection in _projections)
+        _eventBus.Subscribe("*", async @event =>
         {
-            _eventBus.Subscribe("*", async @event =>
-            {
-                await projection.HandleAsync(@event);
-            });
+            var envelope = new EventEnvelope(
+                @event.EventId,
+                @event.EventType,
+                "whyce.events",
+                @event.Payload,
+                new PartitionKey(@event.AggregateId.ToString()),
+                new Timestamp(@event.Timestamp));
 
-            _logger.LogDebug("Subscribed projection {Name}", projection.Name);
-        }
+            await _consumer.ConsumeAsync(envelope);
+        });
 
         return Task.CompletedTask;
     }

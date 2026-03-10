@@ -1,28 +1,52 @@
-namespace Whycespace.Runtime.Projections;
+using System.Text.Json;
+using Whycespace.EventFabric.Models;
+using Whycespace.Projections.Engine;
+using Whycespace.Projections.Storage;
 
-using Whycespace.Contracts.Events;
-using Whycespace.Shared.Projections;
+namespace Whycespace.Projections.Projections;
 
 public sealed class DriverLocationProjection : IProjection
 {
-    private readonly Dictionary<string, (double Lat, double Lon)> _locations = new();
+    private readonly IProjectionStore _store;
 
-    public string Name => "DriverLocation";
-
-    public Task HandleAsync(SystemEvent @event)
+    public DriverLocationProjection(IProjectionStore store)
     {
-        if (@event.EventType == "DriverLocationUpdated")
-        {
-            var driverId = @event.Payload.GetValueOrDefault("driverId") as string;
-            if (driverId is not null
-                && @event.Payload.GetValueOrDefault("latitude") is double lat
-                && @event.Payload.GetValueOrDefault("longitude") is double lon)
-            {
-                _locations[driverId] = (lat, lon);
-            }
-        }
-        return Task.CompletedTask;
+        _store = store;
     }
 
-    public IReadOnlyDictionary<string, (double Lat, double Lon)> GetLocations() => _locations;
+    public string Name => "DriverLocationProjection";
+
+    public IReadOnlyCollection<string> EventTypes => ["DriverLocationUpdatedEvent"];
+
+    public async Task HandleAsync(EventEnvelope envelope)
+    {
+        if (envelope.EventType != "DriverLocationUpdatedEvent")
+            return;
+
+        var payload = ExtractPayload(envelope.Payload);
+        if (payload is null)
+            return;
+
+        var driverId = payload.GetValueOrDefault("driverId")?.ToString();
+        if (driverId is null)
+            return;
+
+        var lat = Convert.ToDouble(payload.GetValueOrDefault("latitude") ?? 0);
+        var lon = Convert.ToDouble(payload.GetValueOrDefault("longitude") ?? 0);
+
+        var model = new { DriverId = driverId, Latitude = lat, Longitude = lon, Timestamp = envelope.Timestamp.Value };
+
+        await _store.SetAsync($"driver:{driverId}", JsonSerializer.Serialize(model));
+    }
+
+    private static Dictionary<string, object>? ExtractPayload(object payload)
+    {
+        if (payload is Dictionary<string, object> dict)
+            return dict;
+
+        if (payload is JsonElement element)
+            return JsonSerializer.Deserialize<Dictionary<string, object>>(element.GetRawText());
+
+        return null;
+    }
 }

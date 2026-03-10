@@ -5,7 +5,9 @@ using Whycespace.Platform.RuntimeClient;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Events;
 using Whycespace.Runtime.Observability;
-using Whycespace.Runtime.Projections;
+using Whycespace.Projections.Projections;
+using Whycespace.Projections.Queries;
+using Whycespace.Projections.Storage;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Reliability;
 using Whycespace.Runtime.Workflow;
@@ -67,11 +69,15 @@ builder.Services.AddSingleton(workflowStateStore);
 var orchestrator = new WorkflowOrchestrator(dispatcher, workflowStateStore);
 builder.Services.AddSingleton<IWorkflowOrchestrator>(sp => new WorkflowClient(orchestrator));
 
-// Projections (read-only access)
-builder.Services.AddSingleton(new DriverLocationProjection());
-builder.Services.AddSingleton(new PropertyListingProjection());
-builder.Services.AddSingleton(new VaultBalanceProjection());
-builder.Services.AddSingleton(new RevenueProjection());
+// Projections (CQRS read side)
+var projectionStore = new RedisProjectionStore();
+builder.Services.AddSingleton<IProjectionStore>(projectionStore);
+builder.Services.AddSingleton(new DriverLocationProjection(projectionStore));
+builder.Services.AddSingleton(new RideStatusProjection(projectionStore));
+builder.Services.AddSingleton(new PropertyListingProjection(projectionStore));
+builder.Services.AddSingleton(new VaultBalanceProjection(projectionStore));
+builder.Services.AddSingleton(new RevenueProjection(projectionStore));
+builder.Services.AddSingleton(new ProjectionQueryService(projectionStore));
 
 // Observability
 builder.Services.AddSingleton(new RuntimeObserver());

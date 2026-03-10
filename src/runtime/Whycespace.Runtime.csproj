@@ -57,6 +57,10 @@
     <Content Remove="observability/**" />
     <None Remove="observability/**" />
     <EmbeddedResource Remove="observability/**" />
+    <Compile Remove="projections/**" />
+    <Content Remove="projections/**" />
+    <None Remove="projections/**" />
+    <EmbeddedResource Remove="projections/**" />
   </ItemGroup>
 
   <ItemGroup>

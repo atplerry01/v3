@@ -9,13 +9,20 @@ using Whycespace.Runtime.Events;
 using Whycespace.Runtime.Observability;
 using Whycespace.Runtime.Partitions;
 using Whycespace.Runtime.Persistence;
-using Whycespace.Runtime.Projections;
+using Whycespace.Projections.Consumers;
+using Whycespace.Projections.Engine;
+using Whycespace.Projections.Projections;
+using Whycespace.Projections.Queries;
+using Whycespace.Projections.Registry;
+using Whycespace.Projections.Storage;
+using Whycespace.EventIdempotency.Guard;
+using Whycespace.EventIdempotency.Registry;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Reliability;
 using Whycespace.Runtime.Workflow;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Runtime;
-using Whycespace.Shared.Projections;
+using IProjection = Whycespace.Projections.Engine.IProjection;
 using Whycespace.System.Midstream.WSS.Kafka;
 using Whycespace.System.Midstream.WSS.Mapping;
 using Whycespace.System.Midstream.WSS.Orchestration;
@@ -141,22 +148,28 @@ try
     builder.Services.AddSingleton(engineTelemetry);
     builder.Services.AddSingleton(healthCheckService);
 
-    // Projections
-    var driverLocationProjection = new DriverLocationProjection();
-    var propertyListingProjection = new PropertyListingProjection();
-    var vaultBalanceProjection = new VaultBalanceProjection();
-    var revenueProjection = new RevenueProjection();
-    builder.Services.AddSingleton(driverLocationProjection);
-    builder.Services.AddSingleton(propertyListingProjection);
-    builder.Services.AddSingleton(vaultBalanceProjection);
-    builder.Services.AddSingleton(revenueProjection);
-    builder.Services.AddSingleton<IReadOnlyList<IProjection>>(new IProjection[]
-    {
-        driverLocationProjection,
-        propertyListingProjection,
-        vaultBalanceProjection,
-        revenueProjection
-    });
+    // Projection System (CQRS)
+    var projectionStore = new RedisProjectionStore();
+    builder.Services.AddSingleton<IProjectionStore>(projectionStore);
+
+    var projectionRegistry = new Whycespace.Projections.Registry.ProjectionRegistry();
+    projectionRegistry.Register(new DriverLocationProjection(projectionStore));
+    projectionRegistry.Register(new RideStatusProjection(projectionStore));
+    projectionRegistry.Register(new PropertyListingProjection(projectionStore));
+    projectionRegistry.Register(new VaultBalanceProjection(projectionStore));
+    projectionRegistry.Register(new RevenueProjection(projectionStore));
+    builder.Services.AddSingleton<IProjectionRegistry>(projectionRegistry);
+
+    var projectionEngine = new ProjectionEngine(projectionRegistry);
+    builder.Services.AddSingleton(projectionEngine);
+
+    var deduplicationRegistry = new EventDeduplicationRegistry();
+    var processingGuard = new EventProcessingGuard(deduplicationRegistry);
+    var projectionConsumer = new ProjectionEventConsumer(projectionEngine, processingGuard);
+    builder.Services.AddSingleton(projectionConsumer);
+
+    var projectionQueryService = new ProjectionQueryService(projectionStore);
+    builder.Services.AddSingleton(projectionQueryService);
 
     // Persistence
     builder.Services.AddSingleton(new PostgresEventStore(postgresConn));
@@ -441,6 +454,23 @@ try
     {
         var statuses = healthCheckService.CheckAll();
         return Results.Json(statuses.ToDictionary(s => s.Component, s => s.Status));
+    });
+
+    // Projection debug endpoints
+    host.MapGet("/dev/projections", () => Results.Json(new
+    {
+        projections = projectionRegistry.GetAll().Select(p => p.Name)
+    }));
+
+    host.MapGet("/dev/projections/query", async (string? key) =>
+    {
+        if (string.IsNullOrWhiteSpace(key))
+            return Results.BadRequest(new { error = "key parameter is required" });
+
+        var value = await projectionQueryService.GetAsync(key);
+        return value is not null
+            ? Results.Ok(new { key, value })
+            : Results.NotFound(new { key, error = "not found" });
     });
 
     // Start engine worker supervisor

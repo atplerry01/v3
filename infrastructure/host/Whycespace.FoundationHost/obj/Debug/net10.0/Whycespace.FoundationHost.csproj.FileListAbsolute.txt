@@ -101,3 +101,9 @@ C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10
 C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.Reliability.pdb
 C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.Observability.dll
 C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.Observability.pdb
+C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.EventIdempotency.dll
+C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.EventSchema.dll
+C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.Projections.dll
+C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.Projections.pdb
+C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.EventIdempotency.pdb
+C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.EventSchema.pdb

@@ -1,23 +1,59 @@
-namespace Whycespace.Runtime.Projections;
+using System.Text.Json;
+using Whycespace.EventFabric.Models;
+using Whycespace.Projections.Engine;
+using Whycespace.Projections.Storage;
 
-using Whycespace.Contracts.Events;
-using Whycespace.Shared.Projections;
+namespace Whycespace.Projections.Projections;
 
 public sealed class PropertyListingProjection : IProjection
 {
-    private readonly Dictionary<string, Dictionary<string, object>> _listings = new();
+    private readonly IProjectionStore _store;
 
-    public string Name => "PropertyListing";
-
-    public Task HandleAsync(SystemEvent @event)
+    public PropertyListingProjection(IProjectionStore store)
     {
-        if (@event.EventType == "ListingPublished")
-        {
-            var listingId = @event.AggregateId.ToString();
-            _listings[listingId] = new Dictionary<string, object>(@event.Payload);
-        }
-        return Task.CompletedTask;
+        _store = store;
     }
 
-    public IReadOnlyDictionary<string, Dictionary<string, object>> GetListings() => _listings;
+    public string Name => "PropertyListingProjection";
+
+    public IReadOnlyCollection<string> EventTypes =>
+    [
+        "PropertyListingCreatedEvent",
+        "PropertyListingUpdatedEvent"
+    ];
+
+    public async Task HandleAsync(EventEnvelope envelope)
+    {
+        var payload = ExtractPayload(envelope.Payload);
+        if (payload is null)
+            return;
+
+        var propertyId = payload.GetValueOrDefault("propertyId")?.ToString();
+        if (propertyId is null)
+            return;
+
+        var address = payload.GetValueOrDefault("address")?.ToString() ?? "";
+
+        var status = envelope.EventType switch
+        {
+            "PropertyListingCreatedEvent" => "Active",
+            "PropertyListingUpdatedEvent" => "Updated",
+            _ => "Unknown"
+        };
+
+        var model = new { PropertyId = propertyId, Address = address, Status = status };
+
+        await _store.SetAsync($"property:{propertyId}", JsonSerializer.Serialize(model));
+    }
+
+    private static Dictionary<string, object>? ExtractPayload(object payload)
+    {
+        if (payload is Dictionary<string, object> dict)
+            return dict;
+
+        if (payload is JsonElement element)
+            return JsonSerializer.Deserialize<Dictionary<string, object>>(element.GetRawText());
+
+        return null;
+    }
 }

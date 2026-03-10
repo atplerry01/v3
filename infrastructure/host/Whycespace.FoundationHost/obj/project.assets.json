@@ -514,6 +514,34 @@
           "bin/placeholder/Whycespace.EventFabric.dll": {}
         }
       },
+      "Whycespace.EventIdempotency/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EventIdempotency.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EventIdempotency.dll": {}
+        }
+      },
+      "Whycespace.EventSchema/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EventSchema.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EventSchema.dll": {}
+        }
+      },
       "Whycespace.Observability/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -540,6 +568,22 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.PartitionRuntime.dll": {}
+        }
+      },
+      "Whycespace.Projections/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0",
+          "Whycespace.EventIdempotency": "1.0.0",
+          "Whycespace.EventSchema": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Projections.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Projections.dll": {}
         }
       },
       "Whycespace.Reliability/1.0.0": {
@@ -1175,6 +1219,16 @@
       "path": "../../../src/runtime/event-fabric/Whycespace.EventFabric.csproj",
       "msbuildProject": "../../../src/runtime/event-fabric/Whycespace.EventFabric.csproj"
     },
+    "Whycespace.EventIdempotency/1.0.0": {
+      "type": "project",
+      "path": "../../../src/runtime/event-idempotency/Whycespace.EventIdempotency.csproj",
+      "msbuildProject": "../../../src/runtime/event-idempotency/Whycespace.EventIdempotency.csproj"
+    },
+    "Whycespace.EventSchema/1.0.0": {
+      "type": "project",
+      "path": "../../../src/runtime/event-schema/Whycespace.EventSchema.csproj",
+      "msbuildProject": "../../../src/runtime/event-schema/Whycespace.EventSchema.csproj"
+    },
     "Whycespace.Observability/1.0.0": {
       "type": "project",
       "path": "../../../src/runtime/observability/Whycespace.Observability.csproj",
@@ -1184,6 +1238,11 @@
       "type": "project",
       "path": "../../../src/runtime/partition/Whycespace.PartitionRuntime.csproj",
       "msbuildProject": "../../../src/runtime/partition/Whycespace.PartitionRuntime.csproj"
+    },
+    "Whycespace.Projections/1.0.0": {
+      "type": "project",
+      "path": "../../../src/runtime/projections/Whycespace.Projections.csproj",
+      "msbuildProject": "../../../src/runtime/projections/Whycespace.Projections.csproj"
     },
     "Whycespace.Reliability/1.0.0": {
       "type": "project",
@@ -1230,6 +1289,7 @@
       "Whycespace.Engines >= 1.0.0",
       "Whycespace.Observability >= 1.0.0",
       "Whycespace.PartitionRuntime >= 1.0.0",
+      "Whycespace.Projections >= 1.0.0",
       "Whycespace.Reliability >= 1.0.0",
       "Whycespace.Runtime >= 1.0.0",
       "Whycespace.RuntimeDispatcher >= 1.0.0",
@@ -1297,6 +1357,9 @@
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
