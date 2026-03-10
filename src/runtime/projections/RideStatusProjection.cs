@@ -5,21 +5,22 @@ using Whycespace.Projections.Storage;
 
 namespace Whycespace.Projections.Projections;
 
-public sealed class PropertyListingProjection : IProjection
+public sealed class RideStatusProjection : IProjection
 {
     private readonly IProjectionStore _store;
 
-    public PropertyListingProjection(IProjectionStore store)
+    public RideStatusProjection(IProjectionStore store)
     {
         _store = store;
     }
 
-    public string Name => "PropertyListingProjection";
+    public string Name => "RideStatusProjection";
 
     public IReadOnlyCollection<string> EventTypes =>
     [
-        "PropertyListingCreatedEvent",
-        "PropertyListingUpdatedEvent"
+        "RideCreatedEvent",
+        "RideCompletedEvent",
+        "RideCancelledEvent"
     ];
 
     public async Task HandleAsync(EventEnvelope envelope)
@@ -28,22 +29,24 @@ public sealed class PropertyListingProjection : IProjection
         if (payload is null)
             return;
 
-        var propertyId = payload.GetValueOrDefault("propertyId")?.ToString();
-        if (propertyId is null)
+        var rideId = payload.GetValueOrDefault("rideId")?.ToString();
+        if (rideId is null)
             return;
 
-        var address = payload.GetValueOrDefault("address")?.ToString() ?? "";
+        var driverId = payload.GetValueOrDefault("driverId")?.ToString() ?? "";
+        var passengerId = payload.GetValueOrDefault("passengerId")?.ToString() ?? "";
 
         var status = envelope.EventType switch
         {
-            "PropertyListingCreatedEvent" => "Active",
-            "PropertyListingUpdatedEvent" => "Updated",
+            "RideCreatedEvent" => "Created",
+            "RideCompletedEvent" => "Completed",
+            "RideCancelledEvent" => "Cancelled",
             _ => "Unknown"
         };
 
-        var model = new { PropertyId = propertyId, Address = address, Status = status };
+        var model = new { RideId = rideId, DriverId = driverId, PassengerId = passengerId, Status = status };
 
-        await _store.SetAsync($"property:{propertyId}", JsonSerializer.Serialize(model));
+        await _store.SetAsync($"ride:{rideId}", JsonSerializer.Serialize(model));
     }
 
     private static Dictionary<string, object>? ExtractPayload(object payload)

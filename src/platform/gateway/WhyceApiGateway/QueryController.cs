@@ -1,44 +1,63 @@
 namespace Whycespace.Platform.Gateway.WhyceApiGateway;
 
 using Microsoft.AspNetCore.Mvc;
-using Whycespace.Runtime.Projections;
+using Whycespace.Projections.Queries;
 using Whycespace.Runtime.Workflow;
 
 [ApiController]
 [Route("api/queries")]
 public sealed class QueryController : ControllerBase
 {
-    private readonly DriverLocationProjection _driverLocationProjection;
-    private readonly PropertyListingProjection _propertyListingProjection;
-    private readonly VaultBalanceProjection _vaultBalanceProjection;
-    private readonly RevenueProjection _revenueProjection;
+    private readonly ProjectionQueryService _queryService;
     private readonly WorkflowStateStore _workflowStateStore;
 
     public QueryController(
-        DriverLocationProjection driverLocationProjection,
-        PropertyListingProjection propertyListingProjection,
-        VaultBalanceProjection vaultBalanceProjection,
-        RevenueProjection revenueProjection,
+        ProjectionQueryService queryService,
         WorkflowStateStore workflowStateStore)
     {
-        _driverLocationProjection = driverLocationProjection;
-        _propertyListingProjection = propertyListingProjection;
-        _vaultBalanceProjection = vaultBalanceProjection;
-        _revenueProjection = revenueProjection;
+        _queryService = queryService;
         _workflowStateStore = workflowStateStore;
     }
 
     [HttpGet("drivers/locations")]
-    public IActionResult GetDriverLocations() => Ok(_driverLocationProjection.GetLocations());
+    public async Task<IActionResult> GetDriverLocations([FromQuery] string? driverId)
+    {
+        if (driverId is null)
+            return BadRequest(new { error = "driverId required" });
+
+        var result = await _queryService.GetAsync($"driver:{driverId}");
+        return result is not null ? Ok(result) : NotFound();
+    }
 
     [HttpGet("properties/listings")]
-    public IActionResult GetPropertyListings() => Ok(_propertyListingProjection.GetListings());
+    public async Task<IActionResult> GetPropertyListings([FromQuery] string? propertyId)
+    {
+        if (propertyId is null)
+            return BadRequest(new { error = "propertyId required" });
+
+        var result = await _queryService.GetAsync($"property:{propertyId}");
+        return result is not null ? Ok(result) : NotFound();
+    }
 
     [HttpGet("vaults/balances")]
-    public IActionResult GetVaultBalances() => Ok(_vaultBalanceProjection.GetBalances());
+    public async Task<IActionResult> GetVaultBalances([FromQuery] string? vaultId)
+    {
+        if (vaultId is null)
+            return BadRequest(new { error = "vaultId required" });
+
+        var result = await _queryService.GetAsync($"vault:{vaultId}");
+        return result is not null ? Ok(result) : NotFound();
+    }
 
     [HttpGet("revenue")]
-    public IActionResult GetRevenue() => Ok(_revenueProjection.GetRevenues());
+    public async Task<IActionResult> GetRevenue([FromQuery] string? aggregateId)
+    {
+        if (aggregateId is null)
+            return BadRequest(new { error = "aggregateId required" });
+
+        var result = await _queryService.GetAsync($"revenue:{aggregateId}");
+        return result is not null ? Ok(result) : NotFound();
+    }
 
     [HttpGet("workflows")]
     public IActionResult GetWorkflows() => Ok(_workflowStateStore.GetAll());

@@ -60,6 +60,14 @@
     <Content Remove="event-replay/**" />
     <None Remove="event-replay/**" />
     <EmbeddedResource Remove="event-replay/**" />
+    <Compile Remove="projections/**" />
+    <Content Remove="projections/**" />
+    <None Remove="projections/**" />
+    <EmbeddedResource Remove="projections/**" />
+    <Compile Remove="observability/**" />
+    <Content Remove="observability/**" />
+    <None Remove="observability/**" />
+    <EmbeddedResource Remove="observability/**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -82,6 +90,9 @@
     <ProjectReference Include="..\src\platform\Whycespace.Platform.csproj" />
     <ProjectReference Include="..\src\runtime\guardrails\Whycespace.ArchitectureGuardrails.csproj" />
     <ProjectReference Include="..\src\runtime\reliability\Whycespace.Reliability.csproj" />
+    <ProjectReference Include="..\src\runtime\projections\Whycespace.Projections.csproj" />
+    <ProjectReference Include="..\src\runtime\event-idempotency\Whycespace.EventIdempotency.csproj" />
+    <ProjectReference Include="..\src\runtime\event-fabric\Whycespace.EventFabric.csproj" />
   </ItemGroup>
 
 </Project>
