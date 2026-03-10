@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.SimulationRuntime.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e0ebec789151606ff4e1eb1c8944572a6c232620")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84e8556e716bef40163399f0fc44fb5002a92b00")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.SimulationRuntime.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.SimulationRuntime.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

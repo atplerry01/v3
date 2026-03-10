@@ -1234,6 +1234,20 @@
           "bin/placeholder/Whycespace.ClusterDomain.dll": {}
         }
       },
+      "Whycespace.ClusterTemplatePlatform/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ClusterTemplatePlatform.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ClusterTemplatePlatform.dll": {}
+        }
+      },
       "Whycespace.CommandSystem/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1380,6 +1394,7 @@
           "Serilog.AspNetCore": "10.0.0",
           "Whycespace.ArchitectureGuardrails": "1.0.0",
           "Whycespace.ClusterDomain": "1.0.0",
+          "Whycespace.ClusterTemplatePlatform": "1.0.0",
           "Whycespace.CommandSystem": "1.0.0",
           "Whycespace.Domain": "1.0.0",
           "Whycespace.Engines": "1.0.0",
@@ -3140,6 +3155,11 @@
       "type": "project",
       "path": "../src/domain/clusters/Whycespace.ClusterDomain.csproj",
       "msbuildProject": "../src/domain/clusters/Whycespace.ClusterDomain.csproj"
+    },
+    "Whycespace.ClusterTemplatePlatform/1.0.0": {
+      "type": "project",
+      "path": "../src/platform/cluster-templates/Whycespace.ClusterTemplatePlatform.csproj",
+      "msbuildProject": "../src/platform/cluster-templates/Whycespace.ClusterTemplatePlatform.csproj"
     },
     "Whycespace.CommandSystem/1.0.0": {
       "type": "project",

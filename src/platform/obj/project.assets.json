@@ -511,6 +511,20 @@
           "bin/placeholder/Whycespace.ClusterDomain.dll": {}
         }
       },
+      "Whycespace.ClusterTemplatePlatform/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ClusterTemplatePlatform.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ClusterTemplatePlatform.dll": {}
+        }
+      },
       "Whycespace.CommandSystem/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1354,6 +1368,11 @@
       "path": "../domain/clusters/Whycespace.ClusterDomain.csproj",
       "msbuildProject": "../domain/clusters/Whycespace.ClusterDomain.csproj"
     },
+    "Whycespace.ClusterTemplatePlatform/1.0.0": {
+      "type": "project",
+      "path": "cluster-templates/Whycespace.ClusterTemplatePlatform.csproj",
+      "msbuildProject": "cluster-templates/Whycespace.ClusterTemplatePlatform.csproj"
+    },
     "Whycespace.CommandSystem/1.0.0": {
       "type": "project",
       "path": "../runtime/command/Whycespace.CommandSystem.csproj",
@@ -1451,6 +1470,7 @@
       "Serilog.AspNetCore >= 10.0.0",
       "Whycespace.ArchitectureGuardrails >= 1.0.0",
       "Whycespace.ClusterDomain >= 1.0.0",
+      "Whycespace.ClusterTemplatePlatform >= 1.0.0",
       "Whycespace.CommandSystem >= 1.0.0",
       "Whycespace.Domain >= 1.0.0",
       "Whycespace.Engines >= 1.0.0",
@@ -1504,6 +1524,9 @@
             },
             "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"

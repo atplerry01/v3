@@ -11,6 +11,7 @@ using Whycespace.System.Midstream.WSS.Mapping;
 using Whycespace.ClusterDomain;
 using Whycespace.SimulationRuntime.Models;
 using Whycespace.SimulationRuntime.Services;
+using Whycespace.ClusterTemplatePlatform;
 
 [ApiController]
 [Route("dev")]
@@ -22,6 +23,7 @@ public sealed class DebugController : ControllerBase
     private readonly WorkflowMapper _workflowMapper;
     private readonly ClusterBootstrapper _clusterBootstrapper;
     private readonly SimulationService _simulationService;
+    private readonly ClusterTemplateService _clusterTemplateService;
 
     public DebugController(
         WorkflowStateStore stateStore,
@@ -29,7 +31,8 @@ public sealed class DebugController : ControllerBase
         EventBus eventBus,
         WorkflowMapper workflowMapper,
         ClusterBootstrapper clusterBootstrapper,
-        SimulationService simulationService)
+        SimulationService simulationService,
+        ClusterTemplateService clusterTemplateService)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
@@ -37,6 +40,7 @@ public sealed class DebugController : ControllerBase
         _workflowMapper = workflowMapper;
         _clusterBootstrapper = clusterBootstrapper;
         _simulationService = simulationService;
+        _clusterTemplateService = clusterTemplateService;
     }
 
     [HttpGet("workflows")]
@@ -162,8 +166,23 @@ public sealed class DebugController : ControllerBase
     {
         return Ok(_simulationService.GetResults());
     }
+
+    [HttpGet("cluster-templates")]
+    public IActionResult GetClusterTemplates()
+    {
+        var templates = _clusterTemplateService.Registry.ListTemplates();
+        return Ok(new { templates });
+    }
+
+    [HttpPost("cluster-templates/generate")]
+    public IActionResult GenerateClusterFromTemplate([FromBody] DebugGenerateClusterDto dto)
+    {
+        var result = _clusterTemplateService.Generator.GenerateCluster(dto.TemplateName);
+        return Ok(new { cluster = result.Cluster, subclusters = result.SubClusters });
+    }
 }
 
 public sealed record DebugRunWorkflowDto(string WorkflowName, Dictionary<string, object>? Context);
 public sealed record DebugReplayEventDto(string EventType, Guid AggregateId, Dictionary<string, object>? Payload);
 public sealed record DebugRunSimulationDto(Guid ScenarioId);
+public sealed record DebugGenerateClusterDto(string TemplateName);

@@ -92,6 +92,10 @@
     <Content Remove="provider-domain/**" />
     <None Remove="provider-domain/**" />
     <EmbeddedResource Remove="provider-domain/**" />
+    <Compile Remove="cluster-template/**" />
+    <Content Remove="cluster-template/**" />
+    <None Remove="cluster-template/**" />
+    <EmbeddedResource Remove="cluster-template/**" />
   </ItemGroup>
 
   <ItemGroup>
