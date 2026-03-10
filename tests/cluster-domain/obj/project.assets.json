@@ -934,8 +934,8 @@
     },
     "Whycespace.Contracts/1.0.0": {
       "type": "project",
-      "path": "../../src/shared/contracts/Whycespace.Contracts.csproj",
-      "msbuildProject": "../../src/shared/contracts/Whycespace.Contracts.csproj"
+      "path": "../../src/shared/Contracts/Whycespace.Contracts.csproj",
+      "msbuildProject": "../../src/shared/Contracts/Whycespace.Contracts.csproj"
     }
   },
   "projectFileDependencyGroups": {

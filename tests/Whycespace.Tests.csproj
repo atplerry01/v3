@@ -84,6 +84,14 @@
     <Content Remove="cluster-domain/**" />
     <None Remove="cluster-domain/**" />
     <EmbeddedResource Remove="cluster-domain/**" />
+    <Compile Remove="simulation-runtime/**" />
+    <Content Remove="simulation-runtime/**" />
+    <None Remove="simulation-runtime/**" />
+    <EmbeddedResource Remove="simulation-runtime/**" />
+    <Compile Remove="provider-domain/**" />
+    <Content Remove="provider-domain/**" />
+    <None Remove="provider-domain/**" />
+    <EmbeddedResource Remove="provider-domain/**" />
   </ItemGroup>
 
   <ItemGroup>

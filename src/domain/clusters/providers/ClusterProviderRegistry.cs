@@ -4,11 +4,16 @@ public sealed class ClusterProviderRegistry
 {
     private readonly List<ClusterProvider> _providers = new();
 
-    public ClusterProvider RegisterProvider(string providerName, Guid clusterId)
+    public ClusterProvider RegisterProvider(string providerName, string providerType, Guid clusterId)
     {
-        var provider = new ClusterProvider(Guid.NewGuid(), providerName, clusterId);
+        var provider = new ClusterProvider(Guid.NewGuid(), providerName, providerType, clusterId);
         _providers.Add(provider);
         return provider;
+    }
+
+    public ClusterProvider? GetProvider(Guid providerId)
+    {
+        return _providers.FirstOrDefault(p => p.ProviderId == providerId);
     }
 
     public IReadOnlyCollection<ClusterProvider> GetProviders()

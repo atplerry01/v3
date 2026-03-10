@@ -25,6 +25,7 @@
           "Whycespace.Reliability": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
           "Whycespace.Shared": "1.0.0",
+          "Whycespace.SimulationRuntime": "1.0.0",
           "Whycespace.System": "1.0.0"
         },
         "runtime": {
@@ -594,6 +595,18 @@
           }
         }
       },
+      "Whycespace.SimulationRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Domain": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.SimulationRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.System/1.0.0": {
         "dependencies": {
           "Confluent.Kafka": "2.13.2",
@@ -873,6 +886,11 @@
       "sha512": ""
     },
     "Whycespace.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.SimulationRuntime/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

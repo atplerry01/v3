@@ -22,6 +22,9 @@ using Whycespace.System.Midstream.WSS.Routing;
 using Whycespace.System.Midstream.WSS.Workflows;
 using Whycespace.System.Upstream.WhycePolicy;
 using Whycespace.ClusterDomain;
+using Whycespace.SimulationRuntime.Loader;
+using Whycespace.SimulationRuntime.Runtime;
+using Whycespace.SimulationRuntime.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -114,13 +117,20 @@ clusterRegistry.RegisterCluster(WhyceProperty.CreateCluster());
 clusterRegistry.RegisterSubCluster(WhyceProperty.PropertyLettingSubCluster());
 builder.Services.AddSingleton(clusterRegistry);
 
-// Cluster Domain (Phase 1.13)
+// Cluster Domain (Phase 1.13 + 1.14)
 var clusterAdmin = new ClusterAdministrationService();
 var clusterProviderRegistry = new ClusterProviderRegistry();
 var spvRegistry = new SpvRegistry();
-var clusterBootstrapper = new ClusterBootstrapper(clusterAdmin, clusterProviderRegistry, spvRegistry);
+var providerAssignmentService = new ProviderAssignmentService();
+var clusterBootstrapper = new ClusterBootstrapper(clusterAdmin, clusterProviderRegistry, spvRegistry, providerAssignmentService);
 clusterBootstrapper.Bootstrap();
 builder.Services.AddSingleton(clusterBootstrapper);
+
+// Simulation Runtime (Phase 1.13.5)
+var simulationLoader = new SimulationScenarioLoader();
+var simulationEngine = new SimulationRuntimeEngine();
+var simulationService = new SimulationService(simulationLoader, simulationEngine);
+builder.Services.AddSingleton(simulationService);
 
 // Upstream
 builder.Services.AddSingleton(new PolicyGovernor());

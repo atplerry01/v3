@@ -9,6 +9,8 @@ using Whycespace.Runtime.Workflow;
 using Whycespace.Contracts.Events;
 using Whycespace.System.Midstream.WSS.Mapping;
 using Whycespace.ClusterDomain;
+using Whycespace.SimulationRuntime.Models;
+using Whycespace.SimulationRuntime.Services;
 
 [ApiController]
 [Route("dev")]
@@ -19,19 +21,22 @@ public sealed class DebugController : ControllerBase
     private readonly EventBus _eventBus;
     private readonly WorkflowMapper _workflowMapper;
     private readonly ClusterBootstrapper _clusterBootstrapper;
+    private readonly SimulationService _simulationService;
 
     public DebugController(
         WorkflowStateStore stateStore,
         EngineRegistry engineRegistry,
         EventBus eventBus,
         WorkflowMapper workflowMapper,
-        ClusterBootstrapper clusterBootstrapper)
+        ClusterBootstrapper clusterBootstrapper,
+        SimulationService simulationService)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
         _eventBus = eventBus;
         _workflowMapper = workflowMapper;
         _clusterBootstrapper = clusterBootstrapper;
+        _simulationService = simulationService;
     }
 
     [HttpGet("workflows")]
@@ -91,9 +96,33 @@ public sealed class DebugController : ControllerBase
     public IActionResult GetClusterProviders()
     {
         var providers = _clusterBootstrapper.ProviderRegistry.GetProviders()
-            .Select(p => new { p.ProviderId, p.ProviderName, p.ClusterId })
+            .Select(p => new { p.ProviderId, p.ProviderName, p.ProviderType, p.ClusterId })
             .ToList();
         return Ok(new { providers });
+    }
+
+    [HttpGet("providers")]
+    public IActionResult GetProviders()
+    {
+        var providers = _clusterBootstrapper.ProviderRegistry.GetProviders()
+            .Select(p => p.ProviderName)
+            .ToList();
+        return Ok(new { providers });
+    }
+
+    [HttpGet("providers/assignments")]
+    public IActionResult GetProviderAssignments()
+    {
+        var assignments = _clusterBootstrapper.AssignmentService.GetAllAssignments();
+        var registry = _clusterBootstrapper.ProviderRegistry;
+
+        var result = assignments.ToDictionary(
+            kvp => kvp.Key,
+            kvp => kvp.Value
+                .Select(id => registry.GetProvider(id)?.ProviderName ?? id.ToString())
+                .ToList());
+
+        return Ok(result);
     }
 
     [HttpGet("guardrails/validate")]
@@ -114,7 +143,27 @@ public sealed class DebugController : ControllerBase
             violations = report.AllViolations
         });
     }
+
+    [HttpPost("simulation/run")]
+    public IActionResult RunSimulation([FromBody] DebugRunSimulationDto dto)
+    {
+        var result = _simulationService.RunScenario(dto.ScenarioId);
+        return Ok(new { result.ScenarioId, result.ProjectedRevenue, result.ProjectedAssets, result.ProjectedProfit });
+    }
+
+    [HttpGet("simulation/scenarios")]
+    public IActionResult GetSimulationScenarios()
+    {
+        return Ok(_simulationService.GetScenarios());
+    }
+
+    [HttpGet("simulation/results")]
+    public IActionResult GetSimulationResults()
+    {
+        return Ok(_simulationService.GetResults());
+    }
 }
 
 public sealed record DebugRunWorkflowDto(string WorkflowName, Dictionary<string, object>? Context);
 public sealed record DebugReplayEventDto(string EventType, Guid AggregateId, Dictionary<string, object>? Payload);
+public sealed record DebugRunSimulationDto(Guid ScenarioId);

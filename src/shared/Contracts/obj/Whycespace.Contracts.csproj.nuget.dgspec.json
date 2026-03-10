@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {}
+    "C:\\projects\\dev\\v3\\src\\shared\\Contracts\\Whycespace.Contracts.csproj": {}
   },
   "projects": {
-    "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+    "C:\\projects\\dev\\v3\\src\\shared\\Contracts\\Whycespace.Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\shared\\Contracts\\Whycespace.Contracts.csproj",
         "projectName": "Whycespace.Contracts",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Contracts\\Whycespace.Contracts.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\shared\\Contracts\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

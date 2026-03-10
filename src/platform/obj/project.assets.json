@@ -703,6 +703,20 @@
           "bin/placeholder/Whycespace.Shared.dll": {}
         }
       },
+      "Whycespace.SimulationRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.SimulationRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.SimulationRuntime.dll": {}
+        }
+      },
       "Whycespace.System/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1410,6 +1424,11 @@
       "path": "../shared/Whycespace.Shared.csproj",
       "msbuildProject": "../shared/Whycespace.Shared.csproj"
     },
+    "Whycespace.SimulationRuntime/1.0.0": {
+      "type": "project",
+      "path": "../runtime/simulation/Whycespace.SimulationRuntime.csproj",
+      "msbuildProject": "../runtime/simulation/Whycespace.SimulationRuntime.csproj"
+    },
     "Whycespace.System/1.0.0": {
       "type": "project",
       "path": "../system/Whycespace.System.csproj",
@@ -1440,6 +1459,7 @@
       "Whycespace.Reliability >= 1.0.0",
       "Whycespace.Runtime >= 1.0.0",
       "Whycespace.Shared >= 1.0.0",
+      "Whycespace.SimulationRuntime >= 1.0.0",
       "Whycespace.System >= 1.0.0"
     ]
   },
@@ -1499,6 +1519,9 @@
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"

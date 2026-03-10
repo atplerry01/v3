@@ -1388,6 +1388,7 @@
           "Whycespace.Reliability": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
           "Whycespace.Shared": "1.0.0",
+          "Whycespace.SimulationRuntime": "1.0.0",
           "Whycespace.System": "1.0.0"
         },
         "compile": {
@@ -1458,6 +1459,20 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.Shared.dll": {}
+        }
+      },
+      "Whycespace.SimulationRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.SimulationRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.SimulationRuntime.dll": {}
         }
       },
       "Whycespace.System/1.0.0": {
@@ -3200,6 +3215,11 @@
       "type": "project",
       "path": "../src/shared/Whycespace.Shared.csproj",
       "msbuildProject": "../src/shared/Whycespace.Shared.csproj"
+    },
+    "Whycespace.SimulationRuntime/1.0.0": {
+      "type": "project",
+      "path": "../src/runtime/simulation/Whycespace.SimulationRuntime.csproj",
+      "msbuildProject": "../src/runtime/simulation/Whycespace.SimulationRuntime.csproj"
     },
     "Whycespace.System/1.0.0": {
       "type": "project",
