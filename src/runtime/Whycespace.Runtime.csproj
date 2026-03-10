@@ -17,6 +17,10 @@
     <Content Remove="dispatcher/**" />
     <None Remove="dispatcher/**" />
     <EmbeddedResource Remove="dispatcher/**" />
+    <Compile Remove="engine/**" />
+    <Content Remove="engine/**" />
+    <None Remove="engine/**" />
+    <EmbeddedResource Remove="engine/**" />
   </ItemGroup>
 
   <ItemGroup>

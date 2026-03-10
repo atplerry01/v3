@@ -1,19 +1,20 @@
 namespace Whycespace.WorkflowRuntime.Executor;
 
+using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Primitives;
 using Whycespace.Contracts.Runtime;
 using Whycespace.Contracts.Workflows;
 using Whycespace.WorkflowRuntime.Context;
 using Whycespace.WorkflowRuntime.Events;
-using Whycespace.WorkflowRuntime.Step;
 
 public sealed class WorkflowExecutor : IWorkflowExecutor
 {
-    private readonly WorkflowStepExecutor _stepExecutor;
+    private readonly Func<WorkflowStep, string, PartitionKey, IReadOnlyDictionary<string, object>, Task<EngineResult>> _executeStep;
 
-    public WorkflowExecutor(WorkflowStepExecutor stepExecutor)
+    public WorkflowExecutor(
+        Func<WorkflowStep, string, PartitionKey, IReadOnlyDictionary<string, object>, Task<EngineResult>> executeStep)
     {
-        _stepExecutor = stepExecutor;
+        _executeStep = executeStep;
     }
 
     public async Task<ExecutionResult> ExecuteAsync(
@@ -32,7 +33,7 @@ public sealed class WorkflowExecutor : IWorkflowExecutor
             input: input);
 
         var context = new Dictionary<string, object>(input);
-        var allEvents = new List<Contracts.Engines.EngineEvent>();
+        var allEvents = new List<EngineEvent>();
 
         WorkflowStartedEvent.Create(graph.Name, instance.WorkflowInstanceId.ToString());
 
@@ -41,7 +42,7 @@ public sealed class WorkflowExecutor : IWorkflowExecutor
             instance.CurrentStepIndex = i;
             var step = graph.Steps[i];
 
-            var result = await _stepExecutor.ExecuteStepAsync(
+            var result = await _executeStep(
                 step, graph.WorkflowId, instance.PartitionKey, context);
 
             allEvents.AddRange(result.Events);

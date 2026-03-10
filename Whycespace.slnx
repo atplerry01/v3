@@ -27,6 +27,9 @@
   <Folder Name="/src/runtime/dispatcher/">
     <Project Path="src/runtime/dispatcher/Whycespace.RuntimeDispatcher.csproj" />
   </Folder>
+  <Folder Name="/src/runtime/engine/">
+    <Project Path="src/runtime/engine/Whycespace.EngineRuntime.csproj" />
+  </Folder>
   <Folder Name="/src/shared/">
     <Project Path="src/shared/Whycespace.Shared.csproj" />
   </Folder>
@@ -50,6 +53,9 @@
   </Folder>
   <Folder Name="/tests/runtime-dispatcher/">
     <Project Path="tests/runtime-dispatcher/Whycespace.RuntimeDispatcher.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/engine-runtime/">
+    <Project Path="tests/engine-runtime/Whycespace.EngineRuntime.Tests.csproj" />
   </Folder>
   <Folder Name="/simulation/">
     <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />

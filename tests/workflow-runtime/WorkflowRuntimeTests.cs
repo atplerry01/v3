@@ -5,7 +5,6 @@ using Whycespace.Contracts.Runtime;
 using Whycespace.Contracts.Workflows;
 using Whycespace.WorkflowRuntime.Executor;
 using Whycespace.WorkflowRuntime.Registry;
-using Whycespace.WorkflowRuntime.Step;
 using WfRuntime = Whycespace.WorkflowRuntime.Runtime.WorkflowRuntime;
 
 public class WorkflowRuntimeTests
@@ -15,12 +14,11 @@ public class WorkflowRuntimeTests
 
     public WorkflowRuntimeTests()
     {
-        var stepExecutor = new WorkflowStepExecutor(_ =>
+        var executor = new WorkflowExecutor((step, wfId, pk, ctx) =>
             Task.FromResult(EngineResult.Ok(
                 Array.Empty<EngineEvent>(),
                 new Dictionary<string, object> { ["executed"] = true })));
 
-        var executor = new WorkflowExecutor(stepExecutor);
         _runtime = new WfRuntime(_registry, executor);
 
         var graph = new WorkflowGraph(

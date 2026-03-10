@@ -24,6 +24,10 @@
     <Content Remove="runtime-dispatcher/**" />
     <None Remove="runtime-dispatcher/**" />
     <EmbeddedResource Remove="runtime-dispatcher/**" />
+    <Compile Remove="engine-runtime/**" />
+    <Content Remove="engine-runtime/**" />
+    <None Remove="engine-runtime/**" />
+    <EmbeddedResource Remove="engine-runtime/**" />
   </ItemGroup>
 
   <ItemGroup>
