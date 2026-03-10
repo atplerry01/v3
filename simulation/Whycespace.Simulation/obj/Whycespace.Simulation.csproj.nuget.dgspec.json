@@ -48,8 +48,8 @@
               "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
+              "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
               }
             }
           }
@@ -3833,14 +3833,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
+    "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj",
         "projectName": "Whycespace.System",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\system\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\system\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

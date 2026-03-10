@@ -1383,8 +1383,8 @@
             "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj"
+            "C:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
@@ -1398,8 +1398,8 @@
             "C:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
+            "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\projection-rebuild\\Whycespace.ProjectionRebuild.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projection-rebuild\\Whycespace.ProjectionRebuild.csproj"
@@ -1419,8 +1419,8 @@
             "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
+            "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
             }
           }
         }

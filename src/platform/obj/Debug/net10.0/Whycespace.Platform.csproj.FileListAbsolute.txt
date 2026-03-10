@@ -118,3 +118,11 @@ C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.EconomicDomain.dll
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.EconomicDomain.pdb
 c:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.RuntimeValidation.dll
 c:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.RuntimeValidation.pdb
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.WorkerPoolRuntime.dll
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.WorkerPoolRuntime.pdb
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.EventFabricRuntime.dll
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.EventFabricRuntime.pdb
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.ProjectionRuntime.dll
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.ProjectionRuntime.pdb
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.ReliabilityRuntime.dll
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.ReliabilityRuntime.pdb

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.Observability")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+96dbca0e7c2eb96c77fc15ec7c6308ef492cc025")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a5705484c0afac223352acd484272565c79d2c3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.Observability")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.Observability")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

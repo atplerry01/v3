@@ -42,8 +42,20 @@
   <Folder Name="/src/runtime/engine-workers/">
     <Project Path="src/runtime/engine-workers/Whycespace.EngineWorkerRuntime.csproj" />
   </Folder>
+  <Folder Name="/src/runtime/worker-pool/">
+    <Project Path="src/runtime/worker-pool/Whycespace.WorkerPoolRuntime.csproj" />
+  </Folder>
   <Folder Name="/src/runtime/event-fabric/">
     <Project Path="src/runtime/event-fabric/Whycespace.EventFabric.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/event-fabric-runtime/">
+    <Project Path="src/runtime/event-fabric-runtime/Whycespace.EventFabricRuntime.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/projection-runtime/">
+    <Project Path="src/runtime/projection-runtime/Whycespace.ProjectionRuntime.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/reliability-runtime/">
+    <Project Path="src/runtime/reliability-runtime/Whycespace.ReliabilityRuntime.csproj" />
   </Folder>
   <Folder Name="/src/runtime/event-schema/">
     <Project Path="src/runtime/event-schema/Whycespace.EventSchema.csproj" />
@@ -102,8 +114,20 @@
   <Folder Name="/tests/engine-worker-runtime/">
     <Project Path="tests/engine-worker-runtime/Whycespace.EngineWorkerRuntime.Tests.csproj" />
   </Folder>
+  <Folder Name="/tests/worker-pool/">
+    <Project Path="tests/worker-pool/Whycespace.WorkerPoolRuntime.Tests.csproj" />
+  </Folder>
   <Folder Name="/tests/event-fabric/">
     <Project Path="tests/event-fabric/Whycespace.EventFabric.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/event-fabric-runtime/">
+    <Project Path="tests/event-fabric-runtime/Whycespace.EventFabricRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/projection-runtime/">
+    <Project Path="tests/projection-runtime/Whycespace.ProjectionRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/reliability-runtime/">
+    <Project Path="tests/reliability-runtime/Whycespace.ReliabilityRuntime.Tests.csproj" />
   </Folder>
   <Folder Name="/tests/event-schema/">
     <Project Path="tests/event-schema/Whycespace.EventSchema.Tests.csproj" />

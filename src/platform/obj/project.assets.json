@@ -631,6 +631,20 @@
           "bin/placeholder/Whycespace.EventFabric.dll": {}
         }
       },
+      "Whycespace.EventFabricRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EventFabricRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EventFabricRuntime.dll": {}
+        }
+      },
       "Whycespace.EventIdempotency/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -672,6 +686,20 @@
           "bin/placeholder/Whycespace.Observability.dll": {}
         }
       },
+      "Whycespace.ProjectionRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabricRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ProjectionRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ProjectionRuntime.dll": {}
+        }
+      },
       "Whycespace.Projections/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -701,6 +729,20 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.Reliability.dll": {}
+        }
+      },
+      "Whycespace.ReliabilityRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ReliabilityRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ReliabilityRuntime.dll": {}
         }
       },
       "Whycespace.Runtime/1.0.0": {
@@ -779,6 +821,20 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.System.dll": {}
+        }
+      },
+      "Whycespace.WorkerPoolRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.WorkerPoolRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.WorkerPoolRuntime.dll": {}
         }
       },
       "Whycespace.WorkflowRuntime/1.0.0": {
@@ -1445,6 +1501,11 @@
       "path": "../runtime/event-fabric/Whycespace.EventFabric.csproj",
       "msbuildProject": "../runtime/event-fabric/Whycespace.EventFabric.csproj"
     },
+    "Whycespace.EventFabricRuntime/1.0.0": {
+      "type": "project",
+      "path": "../runtime/event-fabric-runtime/Whycespace.EventFabricRuntime.csproj",
+      "msbuildProject": "../runtime/event-fabric-runtime/Whycespace.EventFabricRuntime.csproj"
+    },
     "Whycespace.EventIdempotency/1.0.0": {
       "type": "project",
       "path": "../runtime/event-idempotency/Whycespace.EventIdempotency.csproj",
@@ -1460,6 +1521,11 @@
       "path": "../runtime/observability/Whycespace.Observability.csproj",
       "msbuildProject": "../runtime/observability/Whycespace.Observability.csproj"
     },
+    "Whycespace.ProjectionRuntime/1.0.0": {
+      "type": "project",
+      "path": "../runtime/projection-runtime/Whycespace.ProjectionRuntime.csproj",
+      "msbuildProject": "../runtime/projection-runtime/Whycespace.ProjectionRuntime.csproj"
+    },
     "Whycespace.Projections/1.0.0": {
       "type": "project",
       "path": "../runtime/projections/Whycespace.Projections.csproj",
@@ -1469,6 +1535,11 @@
       "type": "project",
       "path": "../runtime/reliability/Whycespace.Reliability.csproj",
       "msbuildProject": "../runtime/reliability/Whycespace.Reliability.csproj"
+    },
+    "Whycespace.ReliabilityRuntime/1.0.0": {
+      "type": "project",
+      "path": "../runtime/reliability-runtime/Whycespace.ReliabilityRuntime.csproj",
+      "msbuildProject": "../runtime/reliability-runtime/Whycespace.ReliabilityRuntime.csproj"
     },
     "Whycespace.Runtime/1.0.0": {
       "type": "project",
@@ -1495,6 +1566,11 @@
       "path": "../system/Whycespace.System.csproj",
       "msbuildProject": "../system/Whycespace.System.csproj"
     },
+    "Whycespace.WorkerPoolRuntime/1.0.0": {
+      "type": "project",
+      "path": "../runtime/worker-pool/Whycespace.WorkerPoolRuntime.csproj",
+      "msbuildProject": "../runtime/worker-pool/Whycespace.WorkerPoolRuntime.csproj"
+    },
     "Whycespace.WorkflowRuntime/1.0.0": {
       "type": "project",
       "path": "../runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj",
@@ -1516,15 +1592,20 @@
       "Whycespace.CommandSystem >= 1.0.0",
       "Whycespace.Domain >= 1.0.0",
       "Whycespace.EconomicDomain >= 1.0.0",
+      "Whycespace.EngineManifest >= 1.0.0",
       "Whycespace.Engines >= 1.0.0",
+      "Whycespace.EventFabricRuntime >= 1.0.0",
       "Whycespace.Observability >= 1.0.0",
+      "Whycespace.ProjectionRuntime >= 1.0.0",
       "Whycespace.Projections >= 1.0.0",
       "Whycespace.Reliability >= 1.0.0",
+      "Whycespace.ReliabilityRuntime >= 1.0.0",
       "Whycespace.Runtime >= 1.0.0",
       "Whycespace.RuntimeValidation >= 1.0.0",
       "Whycespace.Shared >= 1.0.0",
       "Whycespace.SimulationRuntime >= 1.0.0",
-      "Whycespace.System >= 1.0.0"
+      "Whycespace.System >= 1.0.0",
+      "Whycespace.WorkerPoolRuntime >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1563,8 +1644,8 @@
             "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj"
+            "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
@@ -1578,14 +1659,26 @@
             "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
             },
+            "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj"
+            },
             "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj"
             },
+            "C:\\projects\\dev\\v3\\src\\runtime\\projection-runtime\\Whycespace.ProjectionRuntime.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projection-runtime\\Whycespace.ProjectionRuntime.csproj"
+            },
             "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\Whycespace.ReliabilityRuntime.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\Whycespace.ReliabilityRuntime.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
@@ -1599,11 +1692,14 @@
             "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
             },
+            "C:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\Whycespace.WorkerPoolRuntime.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\Whycespace.WorkerPoolRuntime.csproj"
+            },
             "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
+            "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
             }
           }
         }

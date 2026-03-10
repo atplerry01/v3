@@ -1354,6 +1354,20 @@
           "bin/placeholder/Whycespace.EventFabric.dll": {}
         }
       },
+      "Whycespace.EventFabricRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EventFabricRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EventFabricRuntime.dll": {}
+        }
+      },
       "Whycespace.EventIdempotency/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1412,15 +1426,20 @@
           "Whycespace.CommandSystem": "1.0.0",
           "Whycespace.Domain": "1.0.0",
           "Whycespace.EconomicDomain": "1.0.0",
+          "Whycespace.EngineManifest": "1.0.0",
           "Whycespace.Engines": "1.0.0",
+          "Whycespace.EventFabricRuntime": "1.0.0",
           "Whycespace.Observability": "1.0.0",
+          "Whycespace.ProjectionRuntime": "1.0.0",
           "Whycespace.Projections": "1.0.0",
           "Whycespace.Reliability": "1.0.0",
+          "Whycespace.ReliabilityRuntime": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
           "Whycespace.RuntimeValidation": "1.0.0",
           "Whycespace.Shared": "1.0.0",
           "Whycespace.SimulationRuntime": "1.0.0",
-          "Whycespace.System": "1.0.0"
+          "Whycespace.System": "1.0.0",
+          "Whycespace.WorkerPoolRuntime": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Platform.dll": {}
@@ -1431,6 +1450,20 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "Whycespace.ProjectionRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabricRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ProjectionRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ProjectionRuntime.dll": {}
+        }
       },
       "Whycespace.Projections/1.0.0": {
         "type": "project",
@@ -1461,6 +1494,20 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.Reliability.dll": {}
+        }
+      },
+      "Whycespace.ReliabilityRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ReliabilityRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ReliabilityRuntime.dll": {}
         }
       },
       "Whycespace.Runtime/1.0.0": {
@@ -1541,6 +1588,20 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.System.dll": {}
+        }
+      },
+      "Whycespace.WorkerPoolRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.WorkerPoolRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.WorkerPoolRuntime.dll": {}
         }
       },
       "Whycespace.WorkflowRuntime/1.0.0": {
@@ -3235,6 +3296,11 @@
       "path": "../src/runtime/event-fabric/Whycespace.EventFabric.csproj",
       "msbuildProject": "../src/runtime/event-fabric/Whycespace.EventFabric.csproj"
     },
+    "Whycespace.EventFabricRuntime/1.0.0": {
+      "type": "project",
+      "path": "../src/runtime/event-fabric-runtime/Whycespace.EventFabricRuntime.csproj",
+      "msbuildProject": "../src/runtime/event-fabric-runtime/Whycespace.EventFabricRuntime.csproj"
+    },
     "Whycespace.EventIdempotency/1.0.0": {
       "type": "project",
       "path": "../src/runtime/event-idempotency/Whycespace.EventIdempotency.csproj",
@@ -3255,6 +3321,11 @@
       "path": "../src/platform/Whycespace.Platform.csproj",
       "msbuildProject": "../src/platform/Whycespace.Platform.csproj"
     },
+    "Whycespace.ProjectionRuntime/1.0.0": {
+      "type": "project",
+      "path": "../src/runtime/projection-runtime/Whycespace.ProjectionRuntime.csproj",
+      "msbuildProject": "../src/runtime/projection-runtime/Whycespace.ProjectionRuntime.csproj"
+    },
     "Whycespace.Projections/1.0.0": {
       "type": "project",
       "path": "../src/runtime/projections/Whycespace.Projections.csproj",
@@ -3264,6 +3335,11 @@
       "type": "project",
       "path": "../src/runtime/reliability/Whycespace.Reliability.csproj",
       "msbuildProject": "../src/runtime/reliability/Whycespace.Reliability.csproj"
+    },
+    "Whycespace.ReliabilityRuntime/1.0.0": {
+      "type": "project",
+      "path": "../src/runtime/reliability-runtime/Whycespace.ReliabilityRuntime.csproj",
+      "msbuildProject": "../src/runtime/reliability-runtime/Whycespace.ReliabilityRuntime.csproj"
     },
     "Whycespace.Runtime/1.0.0": {
       "type": "project",
@@ -3289,6 +3365,11 @@
       "type": "project",
       "path": "../src/system/Whycespace.System.csproj",
       "msbuildProject": "../src/system/Whycespace.System.csproj"
+    },
+    "Whycespace.WorkerPoolRuntime/1.0.0": {
+      "type": "project",
+      "path": "../src/runtime/worker-pool/Whycespace.WorkerPoolRuntime.csproj",
+      "msbuildProject": "../src/runtime/worker-pool/Whycespace.WorkerPoolRuntime.csproj"
     },
     "Whycespace.WorkflowRuntime/1.0.0": {
       "type": "project",
@@ -3378,8 +3459,8 @@
             "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
+            "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
             }
           }
         }

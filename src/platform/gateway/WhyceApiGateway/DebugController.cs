@@ -15,6 +15,17 @@ using Whycespace.ClusterTemplatePlatform;
 using Whycespace.EconomicDomain;
 using Whycespace.RuntimeValidation.Runners;
 using Whycespace.RuntimeValidation.Pipelines;
+using Whycespace.EngineManifest.Registry;
+using Whycespace.WorkerPoolRuntime.Pool;
+using Whycespace.WorkerPoolRuntime.Queue;
+using Whycespace.EventFabricRuntime.Routing;
+using Whycespace.EventFabricRuntime.Registry;
+using Whycespace.ProjectionRuntime.Registry;
+using Whycespace.ProjectionRuntime.Storage;
+using ProjectionRuntimeRegistry = Whycespace.ProjectionRuntime.Registry.ProjectionRegistry;
+using Whycespace.ReliabilityRuntime.Retry;
+using Whycespace.ReliabilityRuntime.Dlq;
+using Whycespace.ReliabilityRuntime.Timeout;
 
 [ApiController]
 [Route("dev")]
@@ -29,6 +40,16 @@ public sealed class DebugController : ControllerBase
     private readonly ClusterTemplateService _clusterTemplateService;
     private readonly SpvEconomicRegistry _spvEconomicRegistry;
     private readonly ValidationRunner _validationRunner;
+    private readonly EngineManifestRegistry _manifestRegistry;
+    private readonly EngineWorkerPoolManager _workerPoolManager;
+    private readonly EngineExecutionQueue _executionQueue;
+    private readonly EventTopicRouter _eventTopicRouter;
+    private readonly EventSubscriptionRegistry _eventSubscriptionRegistry;
+    private readonly ProjectionRuntimeRegistry _projectionRuntimeRegistry;
+    private readonly ProjectionStateStore _projectionStateStore;
+    private readonly RetryPolicyManager _retryPolicyManager;
+    private readonly DeadLetterQueueManager _deadLetterQueueManager;
+    private readonly WorkflowTimeoutManager _workflowTimeoutManager;
 
     public DebugController(
         WorkflowStateStore stateStore,
@@ -39,7 +60,17 @@ public sealed class DebugController : ControllerBase
         SimulationService simulationService,
         ClusterTemplateService clusterTemplateService,
         SpvEconomicRegistry spvEconomicRegistry,
-        ValidationRunner validationRunner)
+        ValidationRunner validationRunner,
+        EngineManifestRegistry manifestRegistry,
+        EngineWorkerPoolManager workerPoolManager,
+        EngineExecutionQueue executionQueue,
+        EventTopicRouter eventTopicRouter,
+        EventSubscriptionRegistry eventSubscriptionRegistry,
+        ProjectionRuntimeRegistry projectionRuntimeRegistry,
+        ProjectionStateStore projectionStateStore,
+        RetryPolicyManager retryPolicyManager,
+        DeadLetterQueueManager deadLetterQueueManager,
+        WorkflowTimeoutManager workflowTimeoutManager)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
@@ -50,6 +81,16 @@ public sealed class DebugController : ControllerBase
         _clusterTemplateService = clusterTemplateService;
         _spvEconomicRegistry = spvEconomicRegistry;
         _validationRunner = validationRunner;
+        _manifestRegistry = manifestRegistry;
+        _workerPoolManager = workerPoolManager;
+        _executionQueue = executionQueue;
+        _eventTopicRouter = eventTopicRouter;
+        _eventSubscriptionRegistry = eventSubscriptionRegistry;
+        _projectionRuntimeRegistry = projectionRuntimeRegistry;
+        _projectionStateStore = projectionStateStore;
+        _retryPolicyManager = retryPolicyManager;
+        _deadLetterQueueManager = deadLetterQueueManager;
+        _workflowTimeoutManager = workflowTimeoutManager;
     }
 
     [HttpGet("workflows")]
@@ -294,6 +335,65 @@ public sealed class DebugController : ControllerBase
             engines = status.Engines,
             events = status.Events,
             projections = status.Projections
+        });
+    }
+
+    [HttpGet("runtime/engine-manifests")]
+    public IActionResult GetEngineManifests()
+    {
+        var manifests = _manifestRegistry.GetAll()
+            .Select(m => new
+            {
+                engineName = m.EngineName,
+                engineType = m.EngineType,
+                inputContract = m.InputContract,
+                outputContract = m.OutputContract,
+                capabilities = m.Capabilities.Select(c => c.Name).ToList(),
+                version = m.Version
+            })
+            .ToList();
+
+        return Ok(manifests);
+    }
+
+    [HttpGet("runtime/worker-pool")]
+    public IActionResult GetWorkerPool()
+    {
+        return Ok(new
+        {
+            workers = _workerPoolManager.GetWorkers().Count,
+            queueSize = _executionQueue.Count()
+        });
+    }
+
+    [HttpGet("runtime/projections")]
+    public IActionResult GetProjectionRuntime()
+    {
+        return Ok(new
+        {
+            projections = _projectionRuntimeRegistry.GetMappings(),
+            records = _projectionStateStore.GetAll().Count
+        });
+    }
+
+    [HttpGet("runtime/reliability")]
+    public IActionResult GetReliabilityRuntime()
+    {
+        return Ok(new
+        {
+            retryAttempts = 0,
+            deadLetterRecords = _deadLetterQueueManager.GetAll().Count,
+            trackedWorkflows = _workflowTimeoutManager.TrackedCount
+        });
+    }
+
+    [HttpGet("runtime/event-fabric")]
+    public IActionResult GetEventFabric()
+    {
+        return Ok(new
+        {
+            routes = _eventTopicRouter.GetRoutes(),
+            subscriptions = _eventSubscriptionRegistry.GetSubscriptionCounts()
         });
     }
 }
