@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T2E_Execution;
 
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 
 public sealed class CapitalContributionEngine : IEngine
 {

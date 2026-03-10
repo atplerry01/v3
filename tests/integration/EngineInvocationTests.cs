@@ -6,7 +6,7 @@ using Whycespace.Engines.T3I_Intelligence;
 using Whycespace.Engines.T4A_Access;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Registry;
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 using Xunit;
 
 /// <summary>

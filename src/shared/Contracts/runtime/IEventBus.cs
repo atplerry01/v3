@@ -1,6 +1,6 @@
-namespace Whycespace.Shared.Contracts;
+namespace Whycespace.Contracts.Runtime;
 
-using Whycespace.Shared.Events;
+using Whycespace.Contracts.Events;
 
 public interface IEventBus
 {

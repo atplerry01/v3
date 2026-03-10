@@ -2,7 +2,7 @@ namespace Whycespace.Platform.Gateway.WhyceApiGateway;
 
 using Microsoft.AspNetCore.Mvc;
 using Whycespace.System.Midstream.WSS.Dispatcher;
-using Whycespace.Shared.Commands;
+using Whycespace.Contracts.Commands;
 
 [ApiController]
 [Route("api/commands")]

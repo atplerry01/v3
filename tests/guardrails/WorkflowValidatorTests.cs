@@ -5,7 +5,7 @@ using Whycespace.Engines.T0U_Constitutional;
 using Whycespace.Engines.T2E_Execution;
 using Whycespace.Engines.T3I_Intelligence;
 using Whycespace.Runtime.Registry;
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Workflows;
 using Whycespace.System.Midstream.WSS.Workflows;
 
 public sealed class WorkflowValidatorTests

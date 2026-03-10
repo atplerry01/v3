@@ -1,6 +1,6 @@
 namespace Whycespace.Runtime.Projections;
 
-using Whycespace.Shared.Events;
+using Whycespace.Contracts.Events;
 using Whycespace.Shared.Projections;
 
 public sealed class PropertyListingProjection : IProjection

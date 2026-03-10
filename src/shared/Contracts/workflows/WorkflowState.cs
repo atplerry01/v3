@@ -1,4 +1,4 @@
-namespace Whycespace.Shared.Workflow;
+namespace Whycespace.Contracts.Workflows;
 
 public sealed record WorkflowState(
     string WorkflowId,

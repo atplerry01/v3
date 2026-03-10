@@ -1,6 +1,6 @@
 namespace Whycespace.System.Midstream.WSS.Routing;
 
-using Whycespace.Shared.Commands;
+using Whycespace.Contracts.Commands;
 
 public sealed class WorkflowRouter
 {

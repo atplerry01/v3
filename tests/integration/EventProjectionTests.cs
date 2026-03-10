@@ -7,9 +7,9 @@ using Whycespace.Runtime.Events;
 using Whycespace.Runtime.Projections;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Workflow;
-using Whycespace.Shared.Contracts;
-using Whycespace.Shared.Events;
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Events;
+using Whycespace.Contracts.Workflows;
 using Xunit;
 
 /// <summary>

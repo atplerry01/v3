@@ -7,7 +7,7 @@ using Whycespace.Engines.T3I_Intelligence;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Workflow;
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Workflows;
 using Whycespace.System.Midstream.WSS.Dispatcher;
 using Whycespace.System.Midstream.WSS.Mapping;
 using Whycespace.System.Midstream.WSS.Orchestration;

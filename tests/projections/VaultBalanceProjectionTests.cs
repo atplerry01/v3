@@ -1,7 +1,7 @@
 namespace Whycespace.Tests.Projections;
 
 using Whycespace.Runtime.Projections;
-using Whycespace.Shared.Events;
+using Whycespace.Contracts.Events;
 using Xunit;
 
 public sealed class VaultBalanceProjectionTests

@@ -1,4 +1,6 @@
-namespace Whycespace.Shared.Contracts;
+namespace Whycespace.Contracts.Runtime;
+
+using Whycespace.Contracts.Engines;
 
 public interface IRuntimeDispatcher
 {

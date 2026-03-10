@@ -1,6 +1,6 @@
 namespace Whycespace.Runtime.Registry;
 
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 
 public sealed class EngineRegistry
 {

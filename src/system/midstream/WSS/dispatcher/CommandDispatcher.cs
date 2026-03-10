@@ -1,7 +1,7 @@
 namespace Whycespace.System.Midstream.WSS.Dispatcher;
 
-using Whycespace.Shared.Commands;
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Commands;
+using Whycespace.Contracts.Workflows;
 using Whycespace.System.Midstream.WSS.Orchestration;
 using Whycespace.System.Midstream.WSS.Routing;
 

@@ -1,6 +1,6 @@
 namespace Whycespace.Runtime.Workflow;
 
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Workflows;
 
 public sealed class WorkflowStateStore
 {

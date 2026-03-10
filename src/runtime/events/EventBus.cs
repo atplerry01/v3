@@ -1,7 +1,8 @@
 namespace Whycespace.Runtime.Events;
 
-using Whycespace.Shared.Contracts;
-using Whycespace.Shared.Events;
+using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Runtime;
+using Whycespace.Contracts.Events;
 
 public sealed class EventBus : IEventBus
 {

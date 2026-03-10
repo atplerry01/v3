@@ -1,4 +1,4 @@
-namespace Whycespace.Shared.Events;
+namespace Whycespace.Contracts.Events;
 
 public static class KafkaTopics
 {

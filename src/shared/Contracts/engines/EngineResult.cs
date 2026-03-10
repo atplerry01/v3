@@ -1,4 +1,4 @@
-namespace Whycespace.Shared.Contracts;
+namespace Whycespace.Contracts.Engines;
 
 public sealed record EngineResult(
     bool Success,

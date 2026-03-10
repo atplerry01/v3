@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T0U_Constitutional;
 
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 
 public sealed class ConstitutionalSafeguardEngine : IEngine
 {

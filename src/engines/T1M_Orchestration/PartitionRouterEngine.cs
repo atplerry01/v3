@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T1M_Orchestration;
 
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 
 public sealed class PartitionRouterEngine : IEngine
 {

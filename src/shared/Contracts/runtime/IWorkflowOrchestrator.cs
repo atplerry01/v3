@@ -1,6 +1,6 @@
-namespace Whycespace.Shared.Contracts;
+namespace Whycespace.Contracts.Runtime;
 
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Workflows;
 
 public interface IWorkflowOrchestrator
 {
