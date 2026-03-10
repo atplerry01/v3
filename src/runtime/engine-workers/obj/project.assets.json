@@ -318,11 +318,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\engine-workers\\Whycespace.EngineWorkerRuntime.csproj",
+      "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\engine-workers\\Whycespace.EngineWorkerRuntime.csproj",
       "projectName": "Whycespace.EngineWorkerRuntime",
-      "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-workers\\Whycespace.EngineWorkerRuntime.csproj",
+      "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-workers\\Whycespace.EngineWorkerRuntime.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-workers\\obj\\",
+      "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-workers\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

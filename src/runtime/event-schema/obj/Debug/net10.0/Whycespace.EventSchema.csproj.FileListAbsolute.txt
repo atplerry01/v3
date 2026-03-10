@@ -1,0 +1,17 @@
+c:\projects\dev\v3\src\runtime\event-schema\bin\Debug\net10.0\Whycespace.EventSchema.deps.json
+c:\projects\dev\v3\src\runtime\event-schema\bin\Debug\net10.0\Whycespace.EventSchema.dll
+c:\projects\dev\v3\src\runtime\event-schema\bin\Debug\net10.0\Whycespace.EventSchema.pdb
+c:\projects\dev\v3\src\runtime\event-schema\bin\Debug\net10.0\Whycespace.Contracts.dll
+c:\projects\dev\v3\src\runtime\event-schema\bin\Debug\net10.0\Whycespace.EventFabric.dll
+c:\projects\dev\v3\src\runtime\event-schema\bin\Debug\net10.0\Whycespace.Contracts.pdb
+c:\projects\dev\v3\src\runtime\event-schema\bin\Debug\net10.0\Whycespace.EventFabric.pdb
+c:\projects\dev\v3\src\runtime\event-schema\obj\Debug\net10.0\Whycespace.EventSchema.csproj.AssemblyReference.cache
+c:\projects\dev\v3\src\runtime\event-schema\obj\Debug\net10.0\Whycespace.EventSchema.GeneratedMSBuildEditorConfig.editorconfig
+c:\projects\dev\v3\src\runtime\event-schema\obj\Debug\net10.0\Whycespace.EventSchema.AssemblyInfoInputs.cache
+c:\projects\dev\v3\src\runtime\event-schema\obj\Debug\net10.0\Whycespace.EventSchema.AssemblyInfo.cs
+c:\projects\dev\v3\src\runtime\event-schema\obj\Debug\net10.0\Whycespace.EventSchema.csproj.CoreCompileInputs.cache
+c:\projects\dev\v3\src\runtime\event-schema\obj\Debug\net10.0\Whycespa.98E734FC.Up2Date
+c:\projects\dev\v3\src\runtime\event-schema\obj\Debug\net10.0\Whycespace.EventSchema.dll
+c:\projects\dev\v3\src\runtime\event-schema\obj\Debug\net10.0\refint\Whycespace.EventSchema.dll
+c:\projects\dev\v3\src\runtime\event-schema\obj\Debug\net10.0\Whycespace.EventSchema.pdb
+c:\projects\dev\v3\src\runtime\event-schema\obj\Debug\net10.0\ref\Whycespace.EventSchema.dll

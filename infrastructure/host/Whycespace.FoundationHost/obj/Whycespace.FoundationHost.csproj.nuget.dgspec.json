@@ -33,20 +33,20 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+              "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
               },
-              "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
+              "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
               },
               "c:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj": {
                 "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj"
               },
-              "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+              "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
               },
               "c:\\projects\\dev\\v3\\src\\runtime\\engine-workers\\Whycespace.EngineWorkerRuntime.csproj": {
                 "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-workers\\Whycespace.EngineWorkerRuntime.csproj"
@@ -54,20 +54,20 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
               },
               "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
                 "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
+              "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
               }
             }
           }
@@ -542,14 +542,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+    "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj",
         "projectName": "Whycespace.Domain",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\domain\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -886,14 +886,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+    "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj",
         "projectName": "Whycespace.Engines",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\engines\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\src\\engines\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -915,8 +915,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+              "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
               },
               "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
                 "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
@@ -1233,14 +1233,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
         "projectName": "Whycespace.CommandSystem",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1262,8 +1262,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -1606,17 +1606,17 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -1930,14 +1930,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+    "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj",
         "projectName": "Whycespace.EngineManifest",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1962,8 +1962,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -2309,14 +2309,14 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -2659,11 +2659,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -2977,14 +2977,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj",
         "projectName": "Whycespace.EventFabric",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3006,8 +3006,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -3327,14 +3327,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj",
         "projectName": "Whycespace.PartitionRuntime",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\partition\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3356,14 +3356,14 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -3677,14 +3677,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj",
         "projectName": "Whycespace.Runtime",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3706,8 +3706,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
+              "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
               },
               "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
                 "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
@@ -4034,14 +4034,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj",
         "projectName": "Whycespace.WorkflowRuntime",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4063,8 +4063,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -4378,14 +4378,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+    "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
         "projectName": "Whycespace.Contracts",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4747,8 +4747,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -5062,14 +5062,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
+    "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj",
         "projectName": "Whycespace.System",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\system\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\system\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5091,17 +5091,17 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+              "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
               },
-              "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
+              "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
               },
               "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
                 "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"

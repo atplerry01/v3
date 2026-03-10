@@ -134,8 +134,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+            "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
             },
             "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
               "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"

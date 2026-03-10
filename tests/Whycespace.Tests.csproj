@@ -44,6 +44,10 @@
     <Content Remove="event-fabric/**" />
     <None Remove="event-fabric/**" />
     <EmbeddedResource Remove="event-fabric/**" />
+    <Compile Remove="event-schema/**" />
+    <Content Remove="event-schema/**" />
+    <None Remove="event-schema/**" />
+    <EmbeddedResource Remove="event-schema/**" />
   </ItemGroup>
 
   <ItemGroup>

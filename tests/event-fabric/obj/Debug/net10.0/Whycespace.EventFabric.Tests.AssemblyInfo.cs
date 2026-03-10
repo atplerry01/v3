@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.EventFabric.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a07fd92a7448a3a89f7479797959c2ddc6424dc3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8dfaafe9231ef8a80d32f55a1053249cb78865b6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.EventFabric.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.EventFabric.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
