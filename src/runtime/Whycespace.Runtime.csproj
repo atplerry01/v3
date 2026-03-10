@@ -73,6 +73,22 @@
     <Content Remove="validation/**" />
     <None Remove="validation/**" />
     <EmbeddedResource Remove="validation/**" />
+    <Compile Remove="worker-pool/**" />
+    <Content Remove="worker-pool/**" />
+    <None Remove="worker-pool/**" />
+    <EmbeddedResource Remove="worker-pool/**" />
+    <Compile Remove="event-fabric-runtime/**" />
+    <Content Remove="event-fabric-runtime/**" />
+    <None Remove="event-fabric-runtime/**" />
+    <EmbeddedResource Remove="event-fabric-runtime/**" />
+    <Compile Remove="projection-runtime/**" />
+    <Content Remove="projection-runtime/**" />
+    <None Remove="projection-runtime/**" />
+    <EmbeddedResource Remove="projection-runtime/**" />
+    <Compile Remove="reliability-runtime/**" />
+    <Content Remove="reliability-runtime/**" />
+    <None Remove="reliability-runtime/**" />
+    <EmbeddedResource Remove="reliability-runtime/**" />
   </ItemGroup>
 
   <ItemGroup>
