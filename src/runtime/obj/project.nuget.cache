@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RRcIoM9BixY=",
+  "dgSpecHash": "hWbbO5BluA0=",
   "success": true,
-  "projectFilePath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj",
+  "projectFilePath": "c:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.3\\microsoft.extensions.dependencyinjection.abstractions.10.0.3.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.3\\microsoft.extensions.logging.abstractions.10.0.3.nupkg.sha512",

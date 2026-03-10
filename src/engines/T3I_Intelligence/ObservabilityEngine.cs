@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T3I_Intelligence;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("Observability", EngineTier.T3I, EngineKind.Projection, "ObservabilityRequest", typeof(EngineEvent))]
 public sealed class ObservabilityEngine : IEngine
 {
     public string Name => "Observability";

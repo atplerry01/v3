@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T1M_Orchestration;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("PartitionRouter", EngineTier.T1M, EngineKind.Decision, "PartitionRouterRequest", typeof(EngineEvent))]
 public sealed class PartitionRouterEngine : IEngine
 {
     public string Name => "PartitionRouter";

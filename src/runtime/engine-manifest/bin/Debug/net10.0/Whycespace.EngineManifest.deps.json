@@ -1,0 +1,73 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Whycespace.EngineManifest/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EngineManifest.dll": {}
+        }
+      },
+      "Whycespace.Contracts/1.0.0": {
+        "runtime": {
+          "Whycespace.Contracts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.EngineRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EngineRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.WorkflowRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.WorkflowRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Whycespace.EngineManifest/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.EngineRuntime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.WorkflowRuntime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

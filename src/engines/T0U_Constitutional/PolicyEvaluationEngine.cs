@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T0U_Constitutional;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("PolicyEvaluation", EngineTier.T0U, EngineKind.Validation, "PolicyEvaluationRequest", typeof(EngineEvent))]
 public sealed class PolicyEvaluationEngine : IEngine
 {
     public string Name => "PolicyEvaluation";

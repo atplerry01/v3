@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T4A_Access;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("OperatorControlPlane", EngineTier.T4A, EngineKind.Mutation, "OperatorControlPlaneRequest", typeof(EngineEvent))]
 public sealed class OperatorControlPlaneEngine : IEngine
 {
     public string Name => "OperatorControlPlane";

@@ -25,6 +25,14 @@
     <Content Remove="partition/**" />
     <None Remove="partition/**" />
     <EmbeddedResource Remove="partition/**" />
+    <Compile Remove="engine-manifest/**" />
+    <Content Remove="engine-manifest/**" />
+    <None Remove="engine-manifest/**" />
+    <EmbeddedResource Remove="engine-manifest/**" />
+    <Compile Remove="engine-workers/**" />
+    <Content Remove="engine-workers/**" />
+    <None Remove="engine-workers/**" />
+    <EmbeddedResource Remove="engine-workers/**" />
   </ItemGroup>
 
   <ItemGroup>

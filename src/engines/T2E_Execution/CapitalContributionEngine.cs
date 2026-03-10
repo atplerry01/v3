@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T2E_Execution;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("CapitalContribution", EngineTier.T2E, EngineKind.Mutation, "CapitalContributionRequest", typeof(EngineEvent))]
 public sealed class CapitalContributionEngine : IEngine
 {
     public string Name => "CapitalContribution";

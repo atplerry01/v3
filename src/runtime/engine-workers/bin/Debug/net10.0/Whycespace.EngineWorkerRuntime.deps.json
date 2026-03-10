@@ -1,0 +1,108 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Whycespace.EngineWorkerRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0",
+          "Whycespace.PartitionRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EngineWorkerRuntime.dll": {}
+        }
+      },
+      "Whycespace.CommandSystem/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.CommandSystem.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Contracts/1.0.0": {
+        "runtime": {
+          "Whycespace.Contracts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.EngineRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EngineRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.PartitionRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.CommandSystem": "1.0.0",
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.PartitionRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.WorkflowRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.WorkflowRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Whycespace.EngineWorkerRuntime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.CommandSystem/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.EngineRuntime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.PartitionRuntime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.WorkflowRuntime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

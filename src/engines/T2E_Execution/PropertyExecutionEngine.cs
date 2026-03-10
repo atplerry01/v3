@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T2E_Execution;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("PropertyExecution", EngineTier.T2E, EngineKind.Mutation, "PropertyExecutionRequest", typeof(EngineEvent))]
 public sealed class PropertyExecutionEngine : IEngine
 {
     public string Name => "PropertyExecution";

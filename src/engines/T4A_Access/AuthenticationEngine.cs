@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T4A_Access;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("Authentication", EngineTier.T4A, EngineKind.Validation, "AuthenticationRequest", typeof(EngineEvent))]
 public sealed class AuthenticationEngine : IEngine
 {
     public string Name => "Authentication";

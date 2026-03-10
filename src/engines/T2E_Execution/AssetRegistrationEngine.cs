@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T2E_Execution;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("AssetRegistration", EngineTier.T2E, EngineKind.Mutation, "AssetRegistrationRequest", typeof(EngineEvent))]
 public sealed class AssetRegistrationEngine : IEngine
 {
     public string Name => "AssetRegistration";

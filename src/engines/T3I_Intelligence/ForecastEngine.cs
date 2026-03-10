@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T3I_Intelligence;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("Forecast", EngineTier.T3I, EngineKind.Decision, "ForecastRequest", typeof(EngineEvent))]
 public sealed class ForecastEngine : IEngine
 {
     public string Name => "Forecast";

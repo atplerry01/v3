@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T3I_Intelligence;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("TenantMatching", EngineTier.T3I, EngineKind.Decision, "TenantMatchingRequest", typeof(EngineEvent))]
 public sealed class TenantMatchingEngine : IEngine
 {
     public string Name => "TenantMatching";

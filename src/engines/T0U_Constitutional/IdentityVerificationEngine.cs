@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T0U_Constitutional;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("IdentityVerification", EngineTier.T0U, EngineKind.Validation, "IdentityVerificationRequest", typeof(EngineEvent))]
 public sealed class IdentityVerificationEngine : IEngine
 {
     public string Name => "IdentityVerification";

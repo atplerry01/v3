@@ -57,3 +57,7 @@ C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Contracts.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.WorkflowRuntime.dll
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.WorkflowRuntime.pdb
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineManifest.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb

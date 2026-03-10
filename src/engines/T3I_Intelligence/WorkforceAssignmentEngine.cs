@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T3I_Intelligence;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("WorkforceAssignment", EngineTier.T3I, EngineKind.Decision, "WorkforceAssignmentRequest", typeof(EngineEvent))]
 public sealed class WorkforceAssignmentEngine : IEngine
 {
     public string Name => "WorkforceAssignment";

@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T2E_Execution;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("ProfitDistribution", EngineTier.T2E, EngineKind.Mutation, "ProfitDistributionRequest", typeof(EngineEvent))]
 public sealed class ProfitDistributionEngine : IEngine
 {
     public string Name => "ProfitDistribution";

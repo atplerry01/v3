@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projects\\dev\\v3\\tests\\workflow-runtime\\Whycespace.WorkflowRuntime.Tests.csproj": {}
+    "c:\\projects\\dev\\v3\\tests\\workflow-runtime\\Whycespace.WorkflowRuntime.Tests.csproj": {}
   },
   "projects": {
     "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
@@ -688,14 +688,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\tests\\workflow-runtime\\Whycespace.WorkflowRuntime.Tests.csproj": {
+    "c:\\projects\\dev\\v3\\tests\\workflow-runtime\\Whycespace.WorkflowRuntime.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\tests\\workflow-runtime\\Whycespace.WorkflowRuntime.Tests.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\tests\\workflow-runtime\\Whycespace.WorkflowRuntime.Tests.csproj",
         "projectName": "Whycespace.WorkflowRuntime.Tests",
-        "projectPath": "C:\\projects\\dev\\v3\\tests\\workflow-runtime\\Whycespace.WorkflowRuntime.Tests.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\tests\\workflow-runtime\\Whycespace.WorkflowRuntime.Tests.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\tests\\workflow-runtime\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\tests\\workflow-runtime\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

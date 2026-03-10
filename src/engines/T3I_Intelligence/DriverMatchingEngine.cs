@@ -1,7 +1,10 @@
 namespace Whycespace.Engines.T3I_Intelligence;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.EngineManifest.Manifest;
+using Whycespace.EngineManifest.Models;
 
+[EngineManifest("DriverMatching", EngineTier.T3I, EngineKind.Decision, "DriverMatchingRequest", typeof(EngineEvent))]
 public sealed class DriverMatchingEngine : IEngine
 {
     public string Name => "DriverMatching";
