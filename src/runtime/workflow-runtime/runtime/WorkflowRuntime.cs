@@ -20,6 +20,6 @@ public sealed class WorkflowRuntime
         var graph = _registry.Resolve(request.WorkflowName)
             ?? throw new InvalidOperationException($"Workflow not found: {request.WorkflowName}");
 
-        return await _executor.ExecuteAsync(graph, request.Context);
+        return await _executor.ExecuteAsync(graph, request.Context, request.PartitionKey);
     }
 }

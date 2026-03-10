@@ -1,6 +1,7 @@
 namespace Whycespace.WorkflowRuntime.Step;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Primitives;
 using Whycespace.Contracts.Workflows;
 
 public sealed class WorkflowStepExecutor
@@ -15,7 +16,7 @@ public sealed class WorkflowStepExecutor
     public async Task<EngineResult> ExecuteStepAsync(
         WorkflowStep step,
         string workflowId,
-        string partitionKey,
+        PartitionKey partitionKey,
         IReadOnlyDictionary<string, object> context)
     {
         var envelope = new EngineInvocationEnvelope(

@@ -1,5 +1,6 @@
 namespace Whycespace.WorkflowRuntime.Executor;
 
+using Whycespace.Contracts.Primitives;
 using Whycespace.Contracts.Runtime;
 using Whycespace.Contracts.Workflows;
 using Whycespace.WorkflowRuntime.Context;
@@ -17,12 +18,17 @@ public sealed class WorkflowExecutor : IWorkflowExecutor
 
     public async Task<ExecutionResult> ExecuteAsync(
         WorkflowGraph graph,
-        IReadOnlyDictionary<string, object> input)
+        IReadOnlyDictionary<string, object> input,
+        PartitionKey partitionKey = default)
     {
+        var effectivePartitionKey = partitionKey.IsEmpty
+            ? new PartitionKey(graph.WorkflowId)
+            : partitionKey;
+
         var instance = new WorkflowInstance(
             workflowInstanceId: Guid.NewGuid(),
             workflowName: graph.Name,
-            partitionKey: graph.WorkflowId,
+            partitionKey: effectivePartitionKey,
             input: input);
 
         var context = new Dictionary<string, object>(input);
