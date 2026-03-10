@@ -59,7 +59,7 @@ builder.Services.AddSingleton(eventBus);
 builder.Services.AddSingleton<IEventBus>(sp => new EventClient(sp.GetRequiredService<EventBus>()));
 
 var dispatcher = new RuntimeDispatcher(engineRegistry);
-builder.Services.AddSingleton<IRuntimeDispatcher>(sp => new RuntimeClient(dispatcher));
+builder.Services.AddSingleton<IEngineRuntimeDispatcher>(sp => new RuntimeClient(dispatcher));
 
 var workflowStateStore = new WorkflowStateStore();
 builder.Services.AddSingleton(workflowStateStore);

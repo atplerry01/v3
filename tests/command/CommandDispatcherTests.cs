@@ -1,105 +1,92 @@
 namespace Whycespace.CommandSystem.Tests;
 
 using Whycespace.CommandSystem.Dispatcher;
-using Whycespace.CommandSystem.Idempotency;
 using Whycespace.CommandSystem.Models;
-using Whycespace.CommandSystem.Routing;
-using Whycespace.CommandSystem.Validation;
+using Whycespace.Contracts.Runtime;
 
 public class CommandDispatcherTests
 {
-    private readonly CommandValidator _validator = new();
-    private readonly InMemoryIdempotencyRegistry _idempotency = new();
-    private readonly CommandRouter _router = new();
-    private readonly CommandDispatcher _dispatcher;
-
-    public CommandDispatcherTests()
-    {
-        _router.MapCommand("RequestRideCommand", "RideRequestWorkflow");
-        _router.MapCommand("ListPropertyCommand", "PropertyListingWorkflow");
-        _router.MapCommand("AllocateCapitalCommand", "EconomicLifecycleWorkflow");
-        _dispatcher = new CommandDispatcher(_validator, _idempotency, _router);
-    }
-
     [Fact]
-    public void Dispatch_ValidCommand_ReturnsWorkflowExecutionRequest()
+    public async Task DispatchAsync_ValidCommand_ReturnsExecutionResult()
     {
+        var called = false;
+        var dispatcher = new CommandDispatcher(async (cmd, ct) =>
+        {
+            called = true;
+            return ExecutionResult.Ok(new Dictionary<string, object>
+            {
+                ["workflowName"] = "RideRequestWorkflow"
+            });
+        });
+
         var envelope = new CommandEnvelope(
             Guid.NewGuid(),
             "RequestRideCommand",
             new Dictionary<string, object> { ["userId"] = "user-1" },
             DateTimeOffset.UtcNow);
 
-        var result = _dispatcher.Dispatch(envelope);
+        var result = await dispatcher.DispatchAsync(envelope);
 
-        Assert.Equal("RideRequestWorkflow", result.WorkflowName);
-        Assert.Equal(envelope.CommandId.ToString(), result.CorrelationId);
-        Assert.Equal("user-1", result.Context["userId"]);
+        Assert.True(result.Success);
+        Assert.True(called);
+        Assert.Equal("RideRequestWorkflow", result.Output["workflowName"]);
     }
 
     [Fact]
-    public void Dispatch_DuplicateCommandId_Throws()
+    public async Task DispatchAsync_DuplicateCommand_PropagatesException()
     {
-        var id = Guid.NewGuid();
-        var envelope = new CommandEnvelope(
-            id, "RequestRideCommand",
-            new Dictionary<string, object>(),
-            DateTimeOffset.UtcNow);
+        var dispatcher = new CommandDispatcher((cmd, ct) =>
+            throw new InvalidOperationException("Duplicate command"));
 
-        _dispatcher.Dispatch(envelope);
-
-        var ex = Assert.Throws<InvalidOperationException>(() => _dispatcher.Dispatch(envelope));
-        Assert.Contains("Duplicate", ex.Message);
-    }
-
-    [Fact]
-    public void Dispatch_UnmappedCommandType_Throws()
-    {
         var envelope = new CommandEnvelope(
             Guid.NewGuid(),
-            "UnknownCommand",
-            new Dictionary<string, object>(),
-            DateTimeOffset.UtcNow);
-
-        var ex = Assert.Throws<InvalidOperationException>(() => _dispatcher.Dispatch(envelope));
-        Assert.Contains("No workflow mapped", ex.Message);
-    }
-
-    [Fact]
-    public void Dispatch_InvalidEnvelope_ThrowsValidation()
-    {
-        var envelope = new CommandEnvelope(
-            Guid.Empty,
             "RequestRideCommand",
             new Dictionary<string, object>(),
             DateTimeOffset.UtcNow);
 
-        Assert.Throws<InvalidOperationException>(() => _dispatcher.Dispatch(envelope));
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(
+            () => dispatcher.DispatchAsync(envelope));
+        Assert.Contains("Duplicate", ex.Message);
     }
 
     [Fact]
-    public void Dispatch_PropertyListCommand_ResolvesCorrectWorkflow()
+    public async Task DispatchAsync_DelegatesToRuntimeDispatcher()
     {
+        CommandEnvelope? receivedCommand = null;
+        var dispatcher = new CommandDispatcher(async (cmd, ct) =>
+        {
+            receivedCommand = cmd;
+            return ExecutionResult.Ok();
+        });
+
         var envelope = new CommandEnvelope(
             Guid.NewGuid(),
             "ListPropertyCommand",
             new Dictionary<string, object> { ["title"] = "Apt 1" },
             DateTimeOffset.UtcNow);
 
-        var result = _dispatcher.Dispatch(envelope);
-        Assert.Equal("PropertyListingWorkflow", result.WorkflowName);
+        await dispatcher.DispatchAsync(envelope);
+
+        Assert.NotNull(receivedCommand);
+        Assert.Equal(envelope.CommandId, receivedCommand!.CommandId);
+        Assert.Equal("ListPropertyCommand", receivedCommand.CommandType);
     }
 
     [Fact]
-    public void Dispatch_AllocateCapitalCommand_ResolvesCorrectWorkflow()
+    public async Task DispatchAsync_FailedResult_ReturnsFailed()
     {
+        var dispatcher = new CommandDispatcher(async (cmd, ct) =>
+            ExecutionResult.Fail("workflow not found"));
+
         var envelope = new CommandEnvelope(
             Guid.NewGuid(),
-            "AllocateCapitalCommand",
-            new Dictionary<string, object> { ["amount"] = 1000m },
+            "UnknownCommand",
+            new Dictionary<string, object>(),
             DateTimeOffset.UtcNow);
 
-        var result = _dispatcher.Dispatch(envelope);
-        Assert.Equal("EconomicLifecycleWorkflow", result.WorkflowName);
+        var result = await dispatcher.DispatchAsync(envelope);
+
+        Assert.False(result.Success);
+        Assert.Contains("workflow not found", result.ErrorMessage);
     }
 }

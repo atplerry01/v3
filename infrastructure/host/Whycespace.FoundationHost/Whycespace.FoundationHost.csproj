@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\..\src\domain\Whycespace.Domain.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\command\Whycespace.CommandSystem.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
+    <ProjectReference Include="..\..\..\src\runtime\dispatcher\Whycespace.RuntimeDispatcher.csproj" />
   </ItemGroup>
 
   <ItemGroup>

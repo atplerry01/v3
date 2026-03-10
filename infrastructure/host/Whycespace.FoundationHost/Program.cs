@@ -33,6 +33,10 @@ using Whycespace.WorkflowRuntime.Executor;
 using Whycespace.WorkflowRuntime.Registry;
 using Whycespace.WorkflowRuntime.Step;
 using WfRuntime = Whycespace.WorkflowRuntime.Runtime.WorkflowRuntime;
+using Whycespace.RuntimeDispatcher.Resolver;
+using Whycespace.RuntimeDispatcher.Pipeline;
+using RtDispatcher = Whycespace.RuntimeDispatcher.Dispatcher.RuntimeDispatcher;
+using IRtDispatcher = Whycespace.RuntimeDispatcher.Dispatcher.IRuntimeDispatcher;
 
 // Serilog
 Log.Logger = new LoggerConfiguration()
@@ -109,14 +113,14 @@ try
     builder.Services.AddSingleton(engineRegistry);
 
     // Runtime services
-    var dispatcher = new RuntimeDispatcher(engineRegistry);
-    builder.Services.AddSingleton(dispatcher);
-    builder.Services.AddSingleton<IRuntimeDispatcher>(dispatcher);
+    var engineDispatcher = new Whycespace.Runtime.Dispatcher.RuntimeDispatcher(engineRegistry);
+    builder.Services.AddSingleton(engineDispatcher);
+    builder.Services.AddSingleton<IEngineRuntimeDispatcher>(engineDispatcher);
 
     var workflowStateStore = new WorkflowStateStore();
     builder.Services.AddSingleton(workflowStateStore);
 
-    var orchestrator = new WorkflowOrchestrator(dispatcher, workflowStateStore);
+    var orchestrator = new WorkflowOrchestrator(engineDispatcher, workflowStateStore);
     builder.Services.AddSingleton(orchestrator);
     builder.Services.AddSingleton<IWorkflowOrchestrator>(orchestrator);
 
@@ -176,7 +180,7 @@ try
     workflowRegistry.Register(economicGraph);
     builder.Services.AddSingleton<IWorkflowRegistry>(workflowRegistry);
 
-    var stepExecutor = new WorkflowStepExecutor(dispatcher.DispatchAsync);
+    var stepExecutor = new WorkflowStepExecutor(engineDispatcher.DispatchAsync);
     builder.Services.AddSingleton(stepExecutor);
 
     var workflowExecutor = new WorkflowExecutor(stepExecutor);
@@ -208,7 +212,19 @@ try
     commandRouter.MapCommand("AllocateCapitalCommand", "EconomicLifecycleWorkflow");
     builder.Services.AddSingleton<ICommandRouter>(commandRouter);
 
-    var cmdDispatcher = new CmdDispatcher(commandValidator, commandIdempotency, commandRouter);
+    // Runtime Dispatcher
+    var workflowResolver = new WorkflowResolver();
+    builder.Services.AddSingleton<IWorkflowResolver>(workflowResolver);
+
+    var runtimeDispatcher = new RtDispatcher(commandValidator, commandIdempotency, workflowResolver, workflowRuntime);
+    builder.Services.AddSingleton(runtimeDispatcher);
+    builder.Services.AddSingleton<IRtDispatcher>(runtimeDispatcher);
+
+    var executionPipeline = new ExecutionPipeline(commandValidator, commandIdempotency, workflowResolver, workflowRuntime);
+    builder.Services.AddSingleton(executionPipeline);
+
+    // Command Dispatcher — delegates to RuntimeDispatcher
+    var cmdDispatcher = new CmdDispatcher(runtimeDispatcher.DispatchAsync);
     builder.Services.AddSingleton(cmdDispatcher);
 
     // Kafka Publisher
@@ -251,11 +267,11 @@ try
         timestamp = DateTimeOffset.UtcNow
     }));
 
-    host.MapPost("/dev/commands/dispatch", (CommandEnvelope envelope) =>
+    host.MapPost("/dev/commands/dispatch", async (CommandEnvelope envelope) =>
     {
         try
         {
-            var result = cmdDispatcher.Dispatch(envelope);
+            var result = await cmdDispatcher.DispatchAsync(envelope);
             return Results.Ok(result);
         }
         catch (InvalidOperationException ex)
@@ -276,6 +292,31 @@ try
         {
             var result = await workflowRuntime.ExecuteAsync(request);
             return Results.Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Results.BadRequest(new { error = ex.Message });
+        }
+    });
+
+    // Runtime Dispatcher debug endpoints
+    host.MapGet("/dev/runtime/dispatcher", () => Results.Json(new
+    {
+        dispatcher = "active"
+    }));
+
+    host.MapPost("/dev/runtime/dispatch", async (CommandEnvelope envelope) =>
+    {
+        try
+        {
+            var result = await runtimeDispatcher.DispatchAsync(envelope, CancellationToken.None);
+            return Results.Ok(new
+            {
+                success = result.Success,
+                workflowName = workflowResolver.ResolveWorkflow(envelope.CommandType),
+                errorMessage = result.ErrorMessage,
+                output = result.Output
+            });
         }
         catch (InvalidOperationException ex)
         {
