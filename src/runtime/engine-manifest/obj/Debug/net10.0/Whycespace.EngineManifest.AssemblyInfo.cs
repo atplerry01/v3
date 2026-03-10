@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.EngineManifest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8dfaafe9231ef8a80d32f55a1053249cb78865b6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a969d7634b583f508886f4cc3dce7cf19e6f650")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.EngineManifest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.EngineManifest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

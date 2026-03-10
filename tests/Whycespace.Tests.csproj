@@ -48,6 +48,10 @@
     <Content Remove="event-schema/**" />
     <None Remove="event-schema/**" />
     <EmbeddedResource Remove="event-schema/**" />
+    <Compile Remove="event-idempotency/**" />
+    <Content Remove="event-idempotency/**" />
+    <None Remove="event-idempotency/**" />
+    <EmbeddedResource Remove="event-idempotency/**" />
   </ItemGroup>
 
   <ItemGroup>

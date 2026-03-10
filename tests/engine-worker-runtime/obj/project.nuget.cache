@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "S52qhdjmhBc=",
+  "dgSpecHash": "K8ElT0v4ezU=",
   "success": true,
-  "projectFilePath": "C:\\projects\\dev\\v3\\tests\\engine-worker-runtime\\Whycespace.EngineWorkerRuntime.Tests.csproj",
+  "projectFilePath": "c:\\projects\\dev\\v3\\tests\\engine-worker-runtime\\Whycespace.EngineWorkerRuntime.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\confluent.kafka\\2.8.0\\confluent.kafka.2.8.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\coverlet.collector\\6.0.4\\coverlet.collector.6.0.4.nupkg.sha512",

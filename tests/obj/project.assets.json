@@ -3122,20 +3122,20 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+            "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+              "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
             },
             "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
               "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
             },
-            "C:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj"
+            "c:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj": {
+              "projectPath": "c:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj"
             },
-            "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj"
+            "c:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj": {
+              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj"
             },
-            "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
+            "c:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
+              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
             },
             "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
               "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
