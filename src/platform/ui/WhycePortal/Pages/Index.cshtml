@@ -1,0 +1,53 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="card-grid">
+    <div class="card">
+        <div class="card-label">Registered Engines</div>
+        <div class="card-value">@CountArray(Model.Engines)</div>
+        <div class="card-sub">across all tiers</div>
+    </div>
+    <div class="card">
+        <div class="card-label">Clusters</div>
+        <div class="card-value">@CountArray(Model.Clusters)</div>
+        <div class="card-sub">active clusters</div>
+    </div>
+    <div class="card">
+        <div class="card-label">Workflows</div>
+        <div class="card-value">@CountArray(Model.Workflows)</div>
+        <div class="card-sub">tracked workflow states</div>
+    </div>
+    <div class="card">
+        <div class="card-label">Events</div>
+        <div class="card-value">@CountArray(Model.Events)</div>
+        <div class="card-sub">published events</div>
+    </div>
+</div>
+
+<h2 class="section-title">Engines</h2>
+@if (Model.Engines.ValueKind == System.Text.Json.JsonValueKind.Array)
+{
+    <table>
+        <thead><tr><th>#</th><th>Engine Name</th></tr></thead>
+        <tbody>
+        @{ var i = 0; }
+        @foreach (var engine in Model.Engines.EnumerateArray())
+        {
+            i++;
+            <tr><td>@i</td><td>@engine</td></tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="empty-state">No engine data available. Ensure the gateway is running.</p>
+}
+
+@functions {
+    static int CountArray(System.Text.Json.JsonElement el) =>
+        el.ValueKind == System.Text.Json.JsonValueKind.Array ? el.GetArrayLength() : 0;
+}

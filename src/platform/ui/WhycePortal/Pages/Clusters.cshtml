@@ -1,0 +1,44 @@
+@page
+@model ClustersModel
+@{
+    ViewData["Title"] = "Clusters";
+}
+
+@if (Model.Clusters.ValueKind == System.Text.Json.JsonValueKind.Array && Model.Clusters.GetArrayLength() > 0)
+{
+    <div class="card-grid">
+        @foreach (var cluster in Model.Clusters.EnumerateArray())
+        {
+            <div class="card">
+                <div class="card-label">@GetProp(cluster, "type", "Cluster")</div>
+                <div class="card-value">@GetProp(cluster, "name", "Unknown")</div>
+                <div class="card-sub">
+                    ID: @GetProp(cluster, "clusterId", "-")
+                </div>
+                @if (cluster.TryGetProperty("subClusters", out var subs) && subs.ValueKind == System.Text.Json.JsonValueKind.Array)
+                {
+                    <div class="card-sub">Sub-clusters: @subs.GetArrayLength()</div>
+                }
+            </div>
+        }
+    </div>
+
+    <h2 class="section-title">Cluster Details</h2>
+    <pre class="json-block">@FormatJson(Model.Clusters)</pre>
+}
+else
+{
+    <p class="empty-state">No cluster data available. Ensure the gateway is running.</p>
+}
+
+@functions {
+    static string GetProp(System.Text.Json.JsonElement el, string name, string fallback)
+    {
+        if (el.ValueKind == System.Text.Json.JsonValueKind.Object && el.TryGetProperty(name, out var val))
+            return val.ToString();
+        return fallback;
+    }
+
+    static string FormatJson(System.Text.Json.JsonElement el) =>
+        System.Text.Json.JsonSerializer.Serialize(el, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+}

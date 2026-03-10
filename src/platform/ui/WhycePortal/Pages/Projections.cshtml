@@ -1,0 +1,71 @@
+@page
+@model ProjectionsModel
+@{
+    ViewData["Title"] = "Projections";
+}
+
+<h2 class="section-title">Registered Projections</h2>
+@if (Model.ProjectionNames.ValueKind == System.Text.Json.JsonValueKind.Array)
+{
+    <div class="card-grid">
+        @foreach (var name in Model.ProjectionNames.EnumerateArray())
+        {
+            <div class="card">
+                <div class="card-label">Projection</div>
+                <div class="card-value" style="font-size:1.1rem;">@name</div>
+            </div>
+        }
+    </div>
+}
+
+<h2 class="section-title">Driver Locations</h2>
+@RenderProjectionTable(Model.DriverLocations, new[] { "driverId", "latitude", "longitude" })
+
+<h2 class="section-title">Property Listings</h2>
+@RenderProjectionTable(Model.PropertyListings, new[] { "listingId", "title", "monthlyRent", "status" })
+
+<h2 class="section-title">Vault Balances</h2>
+@RenderProjectionTable(Model.VaultBalances, new[] { "vaultId", "balance", "currency" })
+
+<h2 class="section-title">Revenue</h2>
+@RenderProjectionTable(Model.Revenue, new[] { "spvId", "amount", "source" })
+
+@functions {
+    static Microsoft.AspNetCore.Html.IHtmlContent RenderProjectionTable(System.Text.Json.JsonElement data, string[] columns)
+    {
+        var sb = new System.Text.StringBuilder();
+
+        if (data.ValueKind == System.Text.Json.JsonValueKind.Array && data.GetArrayLength() > 0)
+        {
+            sb.Append("<table><thead><tr>");
+            foreach (var col in columns)
+                sb.Append($"<th>{System.Web.HttpUtility.HtmlEncode(col)}</th>");
+            sb.Append("</tr></thead><tbody>");
+
+            foreach (var row in data.EnumerateArray())
+            {
+                sb.Append("<tr>");
+                foreach (var col in columns)
+                {
+                    var val = row.TryGetProperty(col, out var v) ? v.ToString() : "-";
+                    sb.Append($"<td>{System.Web.HttpUtility.HtmlEncode(val)}</td>");
+                }
+                sb.Append("</tr>");
+            }
+
+            sb.Append("</tbody></table>");
+        }
+        else if (data.ValueKind == System.Text.Json.JsonValueKind.Object)
+        {
+            var json = System.Text.Json.JsonSerializer.Serialize(data,
+                new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+            sb.Append($"<pre class=\"json-block\">{System.Web.HttpUtility.HtmlEncode(json)}</pre>");
+        }
+        else
+        {
+            sb.Append("<p class=\"empty-state\">No data available.</p>");
+        }
+
+        return new Microsoft.AspNetCore.Html.HtmlString(sb.ToString());
+    }
+}

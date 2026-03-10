@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Whycespace.Engines/1.0.0": {
+        "dependencies": {
+          "Whycespace.Shared": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Engines.dll": {}
+        }
+      },
+      "Whycespace.Shared/1.0.0": {
+        "runtime": {
+          "Whycespace.Shared.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Whycespace.Engines/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

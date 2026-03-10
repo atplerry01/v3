@@ -1,0 +1,17 @@
+C:\projects\dev\v3\src\runtime\bin\Debug\net10.0\Whycespace.Runtime.deps.json
+C:\projects\dev\v3\src\runtime\bin\Debug\net10.0\Whycespace.Runtime.dll
+C:\projects\dev\v3\src\runtime\bin\Debug\net10.0\Whycespace.Runtime.pdb
+C:\projects\dev\v3\src\runtime\bin\Debug\net10.0\Whycespace.Engines.dll
+C:\projects\dev\v3\src\runtime\bin\Debug\net10.0\Whycespace.Shared.dll
+C:\projects\dev\v3\src\runtime\bin\Debug\net10.0\Whycespace.Shared.pdb
+C:\projects\dev\v3\src\runtime\bin\Debug\net10.0\Whycespace.Engines.pdb
+C:\projects\dev\v3\src\runtime\obj\Debug\net10.0\Whycespace.Runtime.csproj.AssemblyReference.cache
+C:\projects\dev\v3\src\runtime\obj\Debug\net10.0\Whycespace.Runtime.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\dev\v3\src\runtime\obj\Debug\net10.0\Whycespace.Runtime.AssemblyInfoInputs.cache
+C:\projects\dev\v3\src\runtime\obj\Debug\net10.0\Whycespace.Runtime.AssemblyInfo.cs
+C:\projects\dev\v3\src\runtime\obj\Debug\net10.0\Whycespace.Runtime.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\runtime\obj\Debug\net10.0\Whycespa.A22FB909.Up2Date
+C:\projects\dev\v3\src\runtime\obj\Debug\net10.0\Whycespace.Runtime.dll
+C:\projects\dev\v3\src\runtime\obj\Debug\net10.0\refint\Whycespace.Runtime.dll
+C:\projects\dev\v3\src\runtime\obj\Debug\net10.0\Whycespace.Runtime.pdb
+C:\projects\dev\v3\src\runtime\obj\Debug\net10.0\ref\Whycespace.Runtime.dll
