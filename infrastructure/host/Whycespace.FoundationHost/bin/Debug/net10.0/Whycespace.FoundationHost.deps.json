@@ -422,10 +422,23 @@
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
           "Whycespace.EngineRuntime": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0",
           "Whycespace.PartitionRuntime": "1.0.0"
         },
         "runtime": {
           "Whycespace.EngineWorkerRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.EventFabric/1.0.0": {
+        "dependencies": {
+          "Confluent.Kafka": "2.13.2",
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EventFabric.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -681,6 +694,11 @@
       "sha512": ""
     },
     "Whycespace.EngineWorkerRuntime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.EventFabric/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

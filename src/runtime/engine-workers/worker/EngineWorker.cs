@@ -1,6 +1,10 @@
 using System.Threading.Channels;
 using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Primitives;
 using Whycespace.EngineRuntime.Resolver;
+using Whycespace.EventFabric.Models;
+using Whycespace.EventFabric.Publisher;
+using Whycespace.EventFabric.Topics;
 
 namespace Whycespace.EngineWorkerRuntime.Worker;
 
@@ -8,6 +12,7 @@ public sealed class EngineWorker
 {
     private readonly EngineResolver _resolver;
     private readonly ChannelReader<EngineInvocationEnvelope> _reader;
+    private readonly IEventPublisher? _eventPublisher;
     private readonly int _workerId;
     private readonly int _partitionId;
 
@@ -15,12 +20,14 @@ public sealed class EngineWorker
         int workerId,
         int partitionId,
         EngineResolver resolver,
-        ChannelReader<EngineInvocationEnvelope> reader)
+        ChannelReader<EngineInvocationEnvelope> reader,
+        IEventPublisher? eventPublisher = null)
     {
         _workerId = workerId;
         _partitionId = partitionId;
         _resolver = resolver;
         _reader = reader;
+        _eventPublisher = eventPublisher;
     }
 
     public int WorkerId => _workerId;
@@ -45,7 +52,26 @@ public sealed class EngineWorker
                     invocation.Context
                 );
 
-                await engine.ExecuteAsync(context);
+                var result = await engine.ExecuteAsync(context);
+
+                if (_eventPublisher is not null)
+                {
+                    foreach (var evt in result.Events)
+                    {
+                        await _eventPublisher.PublishAsync(
+                            EventTopics.EngineEvents,
+                            new EventEnvelope(
+                                Guid.NewGuid(),
+                                evt.EventType,
+                                EventTopics.EngineEvents,
+                                evt,
+                                context.PartitionKey,
+                                Timestamp.Now()
+                            ),
+                            cancellationToken
+                        );
+                    }
+                }
             }
         }
         finally

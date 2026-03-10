@@ -4,14 +4,14 @@
     "c:\\projects\\dev\\v3\\tests\\workflow-runtime\\Whycespace.WorkflowRuntime.Tests.csproj": {}
   },
   "projects": {
-    "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
+    "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj",
         "projectName": "Whycespace.WorkflowRuntime",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,8 +33,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -348,14 +348,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+    "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
         "projectName": "Whycespace.Contracts",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -717,8 +717,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
+              "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
               }
             }
           }

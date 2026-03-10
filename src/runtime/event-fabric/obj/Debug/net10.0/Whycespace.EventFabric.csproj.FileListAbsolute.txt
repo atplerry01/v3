@@ -1,0 +1,15 @@
+c:\projects\dev\v3\src\runtime\event-fabric\bin\Debug\net10.0\Whycespace.EventFabric.deps.json
+c:\projects\dev\v3\src\runtime\event-fabric\bin\Debug\net10.0\Whycespace.EventFabric.dll
+c:\projects\dev\v3\src\runtime\event-fabric\bin\Debug\net10.0\Whycespace.EventFabric.pdb
+c:\projects\dev\v3\src\runtime\event-fabric\bin\Debug\net10.0\Whycespace.Contracts.dll
+c:\projects\dev\v3\src\runtime\event-fabric\bin\Debug\net10.0\Whycespace.Contracts.pdb
+c:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.csproj.AssemblyReference.cache
+c:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.GeneratedMSBuildEditorConfig.editorconfig
+c:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.AssemblyInfoInputs.cache
+c:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.AssemblyInfo.cs
+c:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.csproj.CoreCompileInputs.cache
+c:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespa.C159BCF1.Up2Date
+c:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.dll
+c:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\refint\Whycespace.EventFabric.dll
+c:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.pdb
+c:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\ref\Whycespace.EventFabric.dll

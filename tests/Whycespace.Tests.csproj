@@ -40,6 +40,10 @@
     <Content Remove="engine-worker-runtime/**" />
     <None Remove="engine-worker-runtime/**" />
     <EmbeddedResource Remove="engine-worker-runtime/**" />
+    <Compile Remove="event-fabric/**" />
+    <Content Remove="event-fabric/**" />
+    <None Remove="event-fabric/**" />
+    <EmbeddedResource Remove="event-fabric/**" />
   </ItemGroup>
 
   <ItemGroup>

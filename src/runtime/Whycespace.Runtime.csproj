@@ -33,6 +33,10 @@
     <Content Remove="engine-workers/**" />
     <None Remove="engine-workers/**" />
     <EmbeddedResource Remove="engine-workers/**" />
+    <Compile Remove="event-fabric/**" />
+    <Content Remove="event-fabric/**" />
+    <None Remove="event-fabric/**" />
+    <EmbeddedResource Remove="event-fabric/**" />
   </ItemGroup>
 
   <ItemGroup>

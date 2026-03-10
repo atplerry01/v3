@@ -11,6 +11,7 @@
     <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
     <ProjectReference Include="..\engine\Whycespace.EngineRuntime.csproj" />
     <ProjectReference Include="..\partition\Whycespace.PartitionRuntime.csproj" />
+    <ProjectReference Include="..\event-fabric\Whycespace.EventFabric.csproj" />
   </ItemGroup>
 
 </Project>

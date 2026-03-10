@@ -21,3 +21,5 @@ c:\projects\dev\v3\src\runtime\engine-workers\obj\Debug\net10.0\Whycespace.Engin
 c:\projects\dev\v3\src\runtime\engine-workers\obj\Debug\net10.0\refint\Whycespace.EngineWorkerRuntime.dll
 c:\projects\dev\v3\src\runtime\engine-workers\obj\Debug\net10.0\Whycespace.EngineWorkerRuntime.pdb
 C:\projects\dev\v3\src\runtime\engine-workers\obj\Debug\net10.0\ref\Whycespace.EngineWorkerRuntime.dll
+c:\projects\dev\v3\src\runtime\engine-workers\bin\Debug\net10.0\Whycespace.EventFabric.dll
+c:\projects\dev\v3\src\runtime\engine-workers\bin\Debug\net10.0\Whycespace.EventFabric.pdb
