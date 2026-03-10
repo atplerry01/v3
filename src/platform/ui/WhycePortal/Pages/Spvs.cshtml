@@ -1,0 +1,69 @@
+@page
+@model SpvsModel
+@{
+    ViewData["Title"] = "SPVs";
+}
+
+<h2 class="section-title">Vault Balances</h2>
+@if (Model.VaultBalances.ValueKind == System.Text.Json.JsonValueKind.Array && Model.VaultBalances.GetArrayLength() > 0)
+{
+    <table>
+        <thead><tr><th>Vault ID</th><th>Balance</th><th>Currency</th></tr></thead>
+        <tbody>
+        @foreach (var vault in Model.VaultBalances.EnumerateArray())
+        {
+            <tr>
+                <td>@GetProp(vault, "vaultId", "-")</td>
+                <td>@GetProp(vault, "balance", "0")</td>
+                <td>@GetProp(vault, "currency", "-")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else if (Model.VaultBalances.ValueKind == System.Text.Json.JsonValueKind.Object)
+{
+    <pre class="json-block">@FormatJson(Model.VaultBalances)</pre>
+}
+else
+{
+    <p class="empty-state">No vault data available.</p>
+}
+
+<h2 class="section-title">Revenue Records</h2>
+@if (Model.Revenue.ValueKind == System.Text.Json.JsonValueKind.Array && Model.Revenue.GetArrayLength() > 0)
+{
+    <table>
+        <thead><tr><th>SPV ID</th><th>Amount</th><th>Source</th></tr></thead>
+        <tbody>
+        @foreach (var rev in Model.Revenue.EnumerateArray())
+        {
+            <tr>
+                <td>@GetProp(rev, "spvId", "-")</td>
+                <td>@GetProp(rev, "amount", "0")</td>
+                <td>@GetProp(rev, "source", "-")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else if (Model.Revenue.ValueKind == System.Text.Json.JsonValueKind.Object)
+{
+    <pre class="json-block">@FormatJson(Model.Revenue)</pre>
+}
+else
+{
+    <p class="empty-state">No revenue data available.</p>
+}
+
+@functions {
+    static string GetProp(System.Text.Json.JsonElement el, string name, string fallback)
+    {
+        if (el.ValueKind == System.Text.Json.JsonValueKind.Object && el.TryGetProperty(name, out var val))
+            return val.ToString();
+        return fallback;
+    }
+
+    static string FormatJson(System.Text.Json.JsonElement el) =>
+        System.Text.Json.JsonSerializer.Serialize(el, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+}

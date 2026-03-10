@@ -1,0 +1,14 @@
+@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="card">
+    <div class="card-label">Error</div>
+    <div class="card-value" style="font-size:1.1rem;">An unexpected error occurred.</div>
+    @if (!string.IsNullOrEmpty(Model.RequestId))
+    {
+        <div class="card-sub">Request ID: @Model.RequestId</div>
+    }
+</div>

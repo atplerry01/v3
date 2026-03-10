@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "Bash(dotnet new:*)",
+      "Bash(dotnet sln:*)",
+      "Bash(dotnet add:*)",
+      "Bash(mkdir -p src/system/upstream src/system/midstream src/system/downstream)",
+      "Bash(mkdir -p src/engines/T0U_Constitutional src/engines/T1M_Orchestration src/engines/T2E_Execution src/engines/T3I_Intelligence src/engines/T4A_Access)",
+      "Bash(mkdir -p src/runtime/dispatcher src/runtime/workflow src/runtime/events src/runtime/partitions src/runtime/projections src/runtime/reliability src/runtime/observability src/runtime/registry)",
+      "Bash(mkdir -p src/system/upstream/WhycePolicy src/system/upstream/WhyceChain src/system/upstream/WhyceID)",
+      "Bash(mkdir -p src/system/midstream/HEOS src/system/midstream/WSS src/system/midstream/WhyceAtlas src/system/midstream/WhycePlus)",
+      "Bash(mkdir -p src/system/midstream/WSS/contracts src/system/midstream/WSS/workflows src/system/midstream/WSS/mapping src/system/midstream/WSS/orchestration src/system/midstream/WSS/routing src/system/midstream/WSS/dispatcher src/system/midstream/WSS/execution src/system/midstream/WSS/kafka src/system/midstream/WSS/events src/system/midstream/WSS/observability src/system/midstream/WSS/configuration)",
+      "Bash(mkdir -p src/system/downstream/clusters src/system/downstream/spvs src/system/downstream/economic)",
+      "Bash(mkdir -p src/domain/economic)",
+      "Bash(mkdir -p src/platform/gateway/WhyceApiGateway src/platform/controlplane/OperatorConsole src/platform/ui/WhycePortal)",
+      "Bash(mkdir -p tests/engines tests/workflows tests/projections tests/domain)",
+      "Bash(rm -f src/shared/Class1.cs src/engines/Class1.cs src/runtime/Class1.cs src/system/Class1.cs src/domain/Class1.cs src/platform/Class1.cs tests/UnitTest1.cs)",
+      "Bash(dotnet build:*)",
+      "Bash(ls c:/projects/dev/v3/*.sln)",
+      "Bash(dotnet test:*)",
+      "Bash(dotnet run:*)"
+    ]
+  }
+}

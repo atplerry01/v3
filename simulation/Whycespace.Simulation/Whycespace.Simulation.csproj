@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Whycespace.Simulation</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\shared\Whycespace.Shared.csproj" />
+    <ProjectReference Include="..\..\src\engines\Whycespace.Engines.csproj" />
+    <ProjectReference Include="..\..\src\runtime\Whycespace.Runtime.csproj" />
+    <ProjectReference Include="..\..\src\system\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\src\domain\Whycespace.Domain.csproj" />
+  </ItemGroup>
+
+
+</Project>

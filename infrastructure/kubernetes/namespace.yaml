@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: whycespace
+  labels:
+    app.kubernetes.io/part-of: whycespace
+    app.kubernetes.io/managed-by: kubectl

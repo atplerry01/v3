@@ -1,0 +1,50 @@
+@page
+@model EventsModel
+@{
+    ViewData["Title"] = "Events";
+}
+
+@if (Model.Events.ValueKind == System.Text.Json.JsonValueKind.Array && Model.Events.GetArrayLength() > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Event ID</th>
+                <th>Event Type</th>
+                <th>Aggregate ID</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var ev in Model.Events.EnumerateArray())
+        {
+            <tr>
+                <td><code>@GetProp(ev, "eventId", "-")</code></td>
+                <td>@GetProp(ev, "eventType", "-")</td>
+                <td><code>@GetProp(ev, "aggregateId", "-")</code></td>
+                <td>@GetProp(ev, "timestamp", "-")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else if (Model.Events.ValueKind == System.Text.Json.JsonValueKind.Object)
+{
+    <pre class="json-block">@FormatJson(Model.Events)</pre>
+}
+else
+{
+    <p class="empty-state">No events published yet. Events appear after commands are dispatched through the gateway.</p>
+}
+
+@functions {
+    static string GetProp(System.Text.Json.JsonElement el, string name, string fallback)
+    {
+        if (el.ValueKind == System.Text.Json.JsonValueKind.Object && el.TryGetProperty(name, out var val))
+            return val.ToString();
+        return fallback;
+    }
+
+    static string FormatJson(System.Text.Json.JsonElement el) =>
+        System.Text.Json.JsonSerializer.Serialize(el, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+}

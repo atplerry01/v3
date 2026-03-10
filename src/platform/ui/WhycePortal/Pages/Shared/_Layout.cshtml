@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WhycePortal</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-brand">WhycePortal</div>
+        <a asp-page="/Index" class="nav-link">Dashboard</a>
+        <a asp-page="/Clusters" class="nav-link">Clusters</a>
+        <a asp-page="/Spvs" class="nav-link">SPVs</a>
+        <a asp-page="/Workflows" class="nav-link">Workflows</a>
+        <a asp-page="/Events" class="nav-link">Events</a>
+        <a asp-page="/Projections" class="nav-link">Projections</a>
+    </nav>
+    <main class="content">
+        <header class="content-header">
+            <h1>@ViewData["Title"]</h1>
+        </header>
+        <section class="content-body">
+            @RenderBody()
+        </section>
+    </main>
+</body>
+</html>

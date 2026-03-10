@@ -1,0 +1,33 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/domain/">
+    <Project Path="src/domain/Whycespace.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/engines/">
+    <Project Path="src/engines/Whycespace.Engines.csproj" />
+  </Folder>
+  <Folder Name="/src/platform/">
+    <Project Path="src/platform/Whycespace.Platform.csproj" />
+  </Folder>
+  <Folder Name="/src/platform/ui/">
+    <Project Path="src/platform/ui/WhycePortal/WhycePortal.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/">
+    <Project Path="src/runtime/Whycespace.Runtime.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/guardrails/">
+    <Project Path="src/runtime/guardrails/Whycespace.ArchitectureGuardrails.csproj" />
+  </Folder>
+  <Folder Name="/src/shared/">
+    <Project Path="src/shared/Whycespace.Shared.csproj" />
+  </Folder>
+  <Folder Name="/src/system/">
+    <Project Path="src/system/Whycespace.System.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Whycespace.Tests.csproj" />
+  </Folder>
+  <Folder Name="/simulation/">
+    <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />
+  </Folder>
+</Solution>
