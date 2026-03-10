@@ -8,6 +8,7 @@ using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Workflow;
 using Whycespace.Contracts.Events;
 using Whycespace.System.Midstream.WSS.Mapping;
+using Whycespace.ClusterDomain;
 
 [ApiController]
 [Route("dev")]
@@ -17,17 +18,20 @@ public sealed class DebugController : ControllerBase
     private readonly EngineRegistry _engineRegistry;
     private readonly EventBus _eventBus;
     private readonly WorkflowMapper _workflowMapper;
+    private readonly ClusterBootstrapper _clusterBootstrapper;
 
     public DebugController(
         WorkflowStateStore stateStore,
         EngineRegistry engineRegistry,
         EventBus eventBus,
-        WorkflowMapper workflowMapper)
+        WorkflowMapper workflowMapper,
+        ClusterBootstrapper clusterBootstrapper)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
         _eventBus = eventBus;
         _workflowMapper = workflowMapper;
+        _clusterBootstrapper = clusterBootstrapper;
     }
 
     [HttpGet("workflows")]
@@ -62,6 +66,34 @@ public sealed class DebugController : ControllerBase
     public IActionResult GetGuardrailRules()
     {
         return Ok(new { rules = ArchitectureRules.Names });
+    }
+
+    [HttpGet("clusters")]
+    public IActionResult GetClusters()
+    {
+        var clusters = _clusterBootstrapper.Administration.GetAllClusters()
+            .Select(c => c.ClusterName)
+            .ToList();
+        return Ok(new { clusters });
+    }
+
+    [HttpGet("clusters/subclusters")]
+    public IActionResult GetSubClusters()
+    {
+        var result = _clusterBootstrapper.Administration.GetAllClusters()
+            .ToDictionary(
+                c => c.ClusterName,
+                c => c.SubClusters.Select(s => s.SubClusterName).ToList());
+        return Ok(result);
+    }
+
+    [HttpGet("clusters/providers")]
+    public IActionResult GetClusterProviders()
+    {
+        var providers = _clusterBootstrapper.ProviderRegistry.GetProviders()
+            .Select(p => new { p.ProviderId, p.ProviderName, p.ClusterId })
+            .ToList();
+        return Ok(new { providers });
     }
 
     [HttpGet("guardrails/validate")]

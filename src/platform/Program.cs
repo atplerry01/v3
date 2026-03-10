@@ -21,6 +21,7 @@ using Whycespace.System.Midstream.WSS.Orchestration;
 using Whycespace.System.Midstream.WSS.Routing;
 using Whycespace.System.Midstream.WSS.Workflows;
 using Whycespace.System.Upstream.WhycePolicy;
+using Whycespace.ClusterDomain;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -112,6 +113,14 @@ clusterRegistry.RegisterSubCluster(WhyceMobility.TaxiSubCluster());
 clusterRegistry.RegisterCluster(WhyceProperty.CreateCluster());
 clusterRegistry.RegisterSubCluster(WhyceProperty.PropertyLettingSubCluster());
 builder.Services.AddSingleton(clusterRegistry);
+
+// Cluster Domain (Phase 1.13)
+var clusterAdmin = new ClusterAdministrationService();
+var clusterProviderRegistry = new ClusterProviderRegistry();
+var spvRegistry = new SpvRegistry();
+var clusterBootstrapper = new ClusterBootstrapper(clusterAdmin, clusterProviderRegistry, spvRegistry);
+clusterBootstrapper.Bootstrap();
+builder.Services.AddSingleton(clusterBootstrapper);
 
 // Upstream
 builder.Services.AddSingleton(new PolicyGovernor());

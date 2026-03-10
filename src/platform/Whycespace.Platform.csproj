@@ -24,6 +24,7 @@
     <ProjectReference Include="..\runtime\reliability\Whycespace.Reliability.csproj" />
     <ProjectReference Include="..\runtime\projections\Whycespace.Projections.csproj" />
     <ProjectReference Include="..\runtime\observability\Whycespace.Observability.csproj" />
+    <ProjectReference Include="..\domain\clusters\Whycespace.ClusterDomain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

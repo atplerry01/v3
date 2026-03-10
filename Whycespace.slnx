@@ -3,6 +3,9 @@
   <Folder Name="/src/domain/">
     <Project Path="src/domain/Whycespace.Domain.csproj" />
   </Folder>
+  <Folder Name="/src/domain/clusters/">
+    <Project Path="src/domain/clusters/Whycespace.ClusterDomain.csproj" />
+  </Folder>
   <Folder Name="/src/engines/">
     <Project Path="src/engines/Whycespace.Engines.csproj" />
   </Folder>
@@ -125,6 +128,9 @@
   </Folder>
   <Folder Name="/tests/execution-engines/">
     <Project Path="tests/execution-engines/Whycespace.ExecutionEngines.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/cluster-domain/">
+    <Project Path="tests/cluster-domain/Whycespace.ClusterDomain.Tests.csproj" />
   </Folder>
   <Folder Name="/tests/decision-engines/">
     <Project Path="tests/decision-engines/Whycespace.DecisionEngines.Tests.csproj" />
