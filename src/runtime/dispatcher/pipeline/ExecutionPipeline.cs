@@ -5,6 +5,7 @@ using Whycespace.CommandSystem.Models;
 using Whycespace.CommandSystem.Validation;
 using Whycespace.Contracts.Primitives;
 using Whycespace.Contracts.Runtime;
+using Whycespace.PartitionRuntime.Dispatcher;
 using Whycespace.RuntimeDispatcher.Resolver;
 using WfRuntime = Whycespace.WorkflowRuntime.Runtime.WorkflowRuntime;
 
@@ -14,17 +15,20 @@ public sealed class ExecutionPipeline
     private readonly IIdempotencyRegistry _idempotency;
     private readonly IWorkflowResolver _resolver;
     private readonly WfRuntime _runtime;
+    private readonly WorkflowPartitionDispatcher? _partitionDispatcher;
 
     public ExecutionPipeline(
         ICommandValidator validator,
         IIdempotencyRegistry idempotency,
         IWorkflowResolver resolver,
-        WfRuntime runtime)
+        WfRuntime runtime,
+        WorkflowPartitionDispatcher? partitionDispatcher = null)
     {
         _validator = validator;
         _idempotency = idempotency;
         _resolver = resolver;
         _runtime = runtime;
+        _partitionDispatcher = partitionDispatcher;
     }
 
     public async Task<ExecutionResult> ExecuteAsync(
@@ -67,6 +71,9 @@ public sealed class ExecutionPipeline
             ScheduledAt: null,
             PartitionKey: new PartitionKey(command.CommandId.ToString())
         );
+
+        if (_partitionDispatcher is not null)
+            return await _partitionDispatcher.DispatchAsync(command, request, cancellationToken);
 
         return await _runtime.ExecuteAsync(request);
     }

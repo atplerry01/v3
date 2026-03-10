@@ -42,6 +42,10 @@ using Whycespace.RuntimeDispatcher.Resolver;
 using Whycespace.RuntimeDispatcher.Pipeline;
 using RtDispatcher = Whycespace.RuntimeDispatcher.Dispatcher.RuntimeDispatcher;
 using IRtDispatcher = Whycespace.RuntimeDispatcher.Dispatcher.IRuntimeDispatcher;
+using Whycespace.PartitionRuntime.Resolver;
+using Whycespace.PartitionRuntime.Router;
+using Whycespace.PartitionRuntime.Worker;
+using Whycespace.PartitionRuntime.Dispatcher;
 
 // Serilog
 Log.Logger = new LoggerConfiguration()
@@ -230,15 +234,28 @@ try
     commandRouter.MapCommand("AllocateCapitalCommand", "EconomicLifecycleWorkflow");
     builder.Services.AddSingleton<ICommandRouter>(commandRouter);
 
+    // Partition Runtime
+    var partitionKeyResolver = new PartitionKeyResolver();
+    builder.Services.AddSingleton<IPartitionKeyResolver>(partitionKeyResolver);
+
+    var partitionRouter = new PartitionRouter(16);
+    builder.Services.AddSingleton<IPartitionRouter>(partitionRouter);
+
+    var partitionWorkerPool = new PartitionWorkerPool(16, workflowRuntime);
+    builder.Services.AddSingleton(partitionWorkerPool);
+
+    var workflowPartitionDispatcher = new WorkflowPartitionDispatcher(partitionKeyResolver, partitionRouter, partitionWorkerPool);
+    builder.Services.AddSingleton(workflowPartitionDispatcher);
+
     // Runtime Dispatcher
     var workflowResolver = new WorkflowResolver();
     builder.Services.AddSingleton<IWorkflowResolver>(workflowResolver);
 
-    var runtimeDispatcher = new RtDispatcher(commandValidator, commandIdempotency, workflowResolver, workflowRuntime);
+    var runtimeDispatcher = new RtDispatcher(commandValidator, commandIdempotency, workflowResolver, workflowRuntime, workflowPartitionDispatcher);
     builder.Services.AddSingleton(runtimeDispatcher);
     builder.Services.AddSingleton<IRtDispatcher>(runtimeDispatcher);
 
-    var executionPipeline = new ExecutionPipeline(commandValidator, commandIdempotency, workflowResolver, workflowRuntime);
+    var executionPipeline = new ExecutionPipeline(commandValidator, commandIdempotency, workflowResolver, workflowRuntime, workflowPartitionDispatcher);
     builder.Services.AddSingleton(executionPipeline);
 
     // Command Dispatcher — delegates to RuntimeDispatcher
@@ -341,6 +358,17 @@ try
             return Results.BadRequest(new { error = ex.Message });
         }
     });
+
+    // Partition Runtime debug endpoints
+    host.MapGet("/dev/partitions", () => Results.Json(new
+    {
+        partitionCount = partitionRouter.PartitionCount
+    }));
+
+    host.MapGet("/dev/partitions/workers", () => Results.Json(new
+    {
+        workers = partitionWorkerPool.GetActivePartitions().Select(id => new { partitionId = id })
+    }));
 
     // Engine Runtime debug endpoints
     host.MapGet("/dev/engines", () => Results.Json(new
