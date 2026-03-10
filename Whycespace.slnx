@@ -30,6 +30,9 @@
   <Folder Name="/src/runtime/engine/">
     <Project Path="src/runtime/engine/Whycespace.EngineRuntime.csproj" />
   </Folder>
+  <Folder Name="/src/runtime/partition/">
+    <Project Path="src/runtime/partition/Whycespace.PartitionRuntime.csproj" />
+  </Folder>
   <Folder Name="/src/shared/">
     <Project Path="src/shared/Whycespace.Shared.csproj" />
   </Folder>
@@ -56,6 +59,9 @@
   </Folder>
   <Folder Name="/tests/engine-runtime/">
     <Project Path="tests/engine-runtime/Whycespace.EngineRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/partition-runtime/">
+    <Project Path="tests/partition-runtime/Whycespace.PartitionRuntime.Tests.csproj" />
   </Folder>
   <Folder Name="/simulation/">
     <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />

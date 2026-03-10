@@ -350,10 +350,24 @@
           }
         }
       },
+      "Whycespace.PartitionRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.CommandSystem": "1.0.0",
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.PartitionRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.RuntimeDispatcher/1.0.0": {
         "dependencies": {
           "Whycespace.CommandSystem": "1.0.0",
           "Whycespace.Contracts": "1.0.0",
+          "Whycespace.PartitionRuntime": "1.0.0",
           "Whycespace.WorkflowRuntime": "1.0.0"
         },
         "runtime": {
@@ -465,6 +479,11 @@
       "sha512": ""
     },
     "Whycespace.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.PartitionRuntime/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

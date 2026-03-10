@@ -11,6 +11,7 @@
     <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
     <ProjectReference Include="..\command\Whycespace.CommandSystem.csproj" />
     <ProjectReference Include="..\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
+    <ProjectReference Include="..\partition\Whycespace.PartitionRuntime.csproj" />
   </ItemGroup>
 
 </Project>

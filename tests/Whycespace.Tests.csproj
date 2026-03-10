@@ -28,6 +28,10 @@
     <Content Remove="engine-runtime/**" />
     <None Remove="engine-runtime/**" />
     <EmbeddedResource Remove="engine-runtime/**" />
+    <Compile Remove="partition-runtime/**" />
+    <Content Remove="partition-runtime/**" />
+    <None Remove="partition-runtime/**" />
+    <EmbeddedResource Remove="partition-runtime/**" />
   </ItemGroup>
 
   <ItemGroup>

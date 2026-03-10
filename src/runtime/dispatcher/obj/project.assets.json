@@ -25,6 +25,21 @@
           "bin/placeholder/Whycespace.Contracts.dll": {}
         }
       },
+      "Whycespace.PartitionRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.CommandSystem": "1.0.0",
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.PartitionRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.PartitionRuntime.dll": {}
+        }
+      },
       "Whycespace.WorkflowRuntime/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -51,6 +66,11 @@
       "path": "../../shared/contracts/Whycespace.Contracts.csproj",
       "msbuildProject": "../../shared/contracts/Whycespace.Contracts.csproj"
     },
+    "Whycespace.PartitionRuntime/1.0.0": {
+      "type": "project",
+      "path": "../partition/Whycespace.PartitionRuntime.csproj",
+      "msbuildProject": "../partition/Whycespace.PartitionRuntime.csproj"
+    },
     "Whycespace.WorkflowRuntime/1.0.0": {
       "type": "project",
       "path": "../workflow-runtime/Whycespace.WorkflowRuntime.csproj",
@@ -61,6 +81,7 @@
     "net10.0": [
       "Whycespace.CommandSystem >= 1.0.0",
       "Whycespace.Contracts >= 1.0.0",
+      "Whycespace.PartitionRuntime >= 1.0.0",
       "Whycespace.WorkflowRuntime >= 1.0.0"
     ]
   },
@@ -99,6 +120,9 @@
           "projectReferences": {
             "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"

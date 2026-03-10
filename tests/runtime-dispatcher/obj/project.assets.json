@@ -417,12 +417,28 @@
           "bin/placeholder/Whycespace.Contracts.dll": {}
         }
       },
+      "Whycespace.PartitionRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.CommandSystem": "1.0.0",
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.PartitionRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.PartitionRuntime.dll": {}
+        }
+      },
       "Whycespace.RuntimeDispatcher/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Whycespace.CommandSystem": "1.0.0",
           "Whycespace.Contracts": "1.0.0",
+          "Whycespace.PartitionRuntime": "1.0.0",
           "Whycespace.WorkflowRuntime": "1.0.0"
         },
         "compile": {
@@ -964,6 +980,11 @@
       "type": "project",
       "path": "../../src/shared/contracts/Whycespace.Contracts.csproj",
       "msbuildProject": "../../src/shared/contracts/Whycespace.Contracts.csproj"
+    },
+    "Whycespace.PartitionRuntime/1.0.0": {
+      "type": "project",
+      "path": "../../src/runtime/partition/Whycespace.PartitionRuntime.csproj",
+      "msbuildProject": "../../src/runtime/partition/Whycespace.PartitionRuntime.csproj"
     },
     "Whycespace.RuntimeDispatcher/1.0.0": {
       "type": "project",

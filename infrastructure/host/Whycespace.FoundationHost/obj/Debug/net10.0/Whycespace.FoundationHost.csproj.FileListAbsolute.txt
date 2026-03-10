@@ -89,3 +89,5 @@ C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10
 C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.RuntimeDispatcher.pdb
 c:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
 c:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb
+C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.PartitionRuntime.dll
+C:\projects\dev\v3\infrastructure\host\Whycespace.FoundationHost\bin\Debug\net10.0\Whycespace.PartitionRuntime.pdb
