@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {}
+    "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {}
   },
   "projects": {
     "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
@@ -348,14 +348,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
+    "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj",
         "projectName": "Whycespace.EconomicDomain",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\domain\\economic\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\src\\domain\\economic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1019,8 +1019,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
+            "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
+              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"

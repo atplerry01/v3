@@ -348,14 +348,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
+    "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj",
         "projectName": "Whycespace.EconomicDomain",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\domain\\economic\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\src\\domain\\economic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1068,8 +1068,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
@@ -1386,14 +1386,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj": {
+    "C:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj",
         "projectName": "Whycespace.ClusterTemplatePlatform",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1765,8 +1765,8 @@
               "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
               },
-              "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj"
+              "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
@@ -1774,11 +1774,11 @@
               "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj"
+              "C:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj"
@@ -1789,8 +1789,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj"
@@ -1804,8 +1804,8 @@
               "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
               },
-              "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
+              "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
               }
             }
           }
@@ -2292,14 +2292,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
         "projectName": "Whycespace.CommandSystem",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2636,14 +2636,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj",
         "projectName": "Whycespace.EngineManifest",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4027,14 +4027,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
         "projectName": "Whycespace.EventSchema",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5103,8 +5103,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\Whycespace.EventIdempotency.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\Whycespace.EventIdempotency.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
@@ -5421,14 +5421,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj",
         "projectName": "Whycespace.Reliability",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -6147,14 +6147,14 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj"
+              "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
@@ -7862,14 +7862,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
+    "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj",
         "projectName": "Whycespace.System",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\system\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\src\\system\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

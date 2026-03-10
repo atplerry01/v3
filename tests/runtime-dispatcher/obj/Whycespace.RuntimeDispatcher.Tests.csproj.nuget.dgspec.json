@@ -4,14 +4,14 @@
     "C:\\projects\\dev\\v3\\tests\\runtime-dispatcher\\Whycespace.RuntimeDispatcher.Tests.csproj": {}
   },
   "projects": {
-    "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
         "projectName": "Whycespace.CommandSystem",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -348,14 +348,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj": {
+    "c:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj",
         "projectName": "Whycespace.RuntimeDispatcher",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -377,11 +377,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
               },
-              "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
+              "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
@@ -701,14 +701,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
+    "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj",
         "projectName": "Whycespace.PartitionRuntime",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\partition\\Whycespace.PartitionRuntime.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\partition\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\partition\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -730,8 +730,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
@@ -1764,8 +1764,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj"
+              "c:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj"
               }
             }
           }
