@@ -1,8 +1,9 @@
 namespace Whycespace.Runtime.Events;
 
+using Whycespace.Shared.Contracts;
 using Whycespace.Shared.Events;
 
-public sealed class EventBus
+public sealed class EventBus : IEventBus
 {
     private readonly List<SystemEvent> _events = new();
     private readonly Dictionary<string, List<Func<SystemEvent, Task>>> _handlers = new();
