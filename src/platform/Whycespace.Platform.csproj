@@ -11,6 +11,10 @@
     <Content Remove="ui/**" />
     <None Remove="ui/**" />
     <EmbeddedResource Remove="ui/**" />
+    <Compile Remove="cluster-templates/**" />
+    <Content Remove="cluster-templates/**" />
+    <None Remove="cluster-templates/**" />
+    <EmbeddedResource Remove="cluster-templates/**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +30,7 @@
     <ProjectReference Include="..\runtime\observability\Whycespace.Observability.csproj" />
     <ProjectReference Include="..\domain\clusters\Whycespace.ClusterDomain.csproj" />
     <ProjectReference Include="..\runtime\simulation\Whycespace.SimulationRuntime.csproj" />
+    <ProjectReference Include="cluster-templates\Whycespace.ClusterTemplatePlatform.csproj" />
   </ItemGroup>
 
   <ItemGroup>

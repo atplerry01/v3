@@ -141,6 +141,12 @@
   <Folder Name="/tests/provider-domain/">
     <Project Path="tests/provider-domain/Whycespace.ProviderDomain.Tests.csproj" />
   </Folder>
+  <Folder Name="/src/platform/cluster-templates/">
+    <Project Path="src/platform/cluster-templates/Whycespace.ClusterTemplatePlatform.csproj" />
+  </Folder>
+  <Folder Name="/tests/cluster-template/">
+    <Project Path="tests/cluster-template/Whycespace.ClusterTemplatePlatform.Tests.csproj" />
+  </Folder>
   <Folder Name="/src/runtime/simulation/">
     <Project Path="src/runtime/simulation/Whycespace.SimulationRuntime.csproj" />
   </Folder>

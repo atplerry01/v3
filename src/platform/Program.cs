@@ -25,6 +25,7 @@ using Whycespace.ClusterDomain;
 using Whycespace.SimulationRuntime.Loader;
 using Whycespace.SimulationRuntime.Runtime;
 using Whycespace.SimulationRuntime.Services;
+using Whycespace.ClusterTemplatePlatform;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -125,6 +126,10 @@ var providerAssignmentService = new ProviderAssignmentService();
 var clusterBootstrapper = new ClusterBootstrapper(clusterAdmin, clusterProviderRegistry, spvRegistry, providerAssignmentService);
 clusterBootstrapper.Bootstrap();
 builder.Services.AddSingleton(clusterBootstrapper);
+
+// Cluster Template Platform (Phase 1.14.5)
+var clusterTemplateService = new ClusterTemplateService(clusterAdmin, clusterProviderRegistry, providerAssignmentService);
+builder.Services.AddSingleton(clusterTemplateService);
 
 // Simulation Runtime (Phase 1.13.5)
 var simulationLoader = new SimulationScenarioLoader();
