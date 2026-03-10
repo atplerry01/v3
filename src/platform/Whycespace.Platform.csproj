@@ -32,6 +32,7 @@
     <ProjectReference Include="..\runtime\simulation\Whycespace.SimulationRuntime.csproj" />
     <ProjectReference Include="cluster-templates\Whycespace.ClusterTemplatePlatform.csproj" />
     <ProjectReference Include="..\domain\economic\Whycespace.EconomicDomain.csproj" />
+    <ProjectReference Include="..\runtime\validation\Whycespace.RuntimeValidation.csproj" />
   </ItemGroup>
 
   <ItemGroup>

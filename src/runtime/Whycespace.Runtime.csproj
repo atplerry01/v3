@@ -69,6 +69,10 @@
     <Content Remove="simulation/**" />
     <None Remove="simulation/**" />
     <EmbeddedResource Remove="simulation/**" />
+    <Compile Remove="validation/**" />
+    <Content Remove="validation/**" />
+    <None Remove="validation/**" />
+    <EmbeddedResource Remove="validation/**" />
   </ItemGroup>
 
   <ItemGroup>

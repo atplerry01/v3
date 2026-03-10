@@ -13,6 +13,8 @@ using Whycespace.SimulationRuntime.Models;
 using Whycespace.SimulationRuntime.Services;
 using Whycespace.ClusterTemplatePlatform;
 using Whycespace.EconomicDomain;
+using Whycespace.RuntimeValidation.Runners;
+using Whycespace.RuntimeValidation.Pipelines;
 
 [ApiController]
 [Route("dev")]
@@ -26,6 +28,7 @@ public sealed class DebugController : ControllerBase
     private readonly SimulationService _simulationService;
     private readonly ClusterTemplateService _clusterTemplateService;
     private readonly SpvEconomicRegistry _spvEconomicRegistry;
+    private readonly ValidationRunner _validationRunner;
 
     public DebugController(
         WorkflowStateStore stateStore,
@@ -35,7 +38,8 @@ public sealed class DebugController : ControllerBase
         ClusterBootstrapper clusterBootstrapper,
         SimulationService simulationService,
         ClusterTemplateService clusterTemplateService,
-        SpvEconomicRegistry spvEconomicRegistry)
+        SpvEconomicRegistry spvEconomicRegistry,
+        ValidationRunner validationRunner)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
@@ -45,6 +49,7 @@ public sealed class DebugController : ControllerBase
         _simulationService = simulationService;
         _clusterTemplateService = clusterTemplateService;
         _spvEconomicRegistry = spvEconomicRegistry;
+        _validationRunner = validationRunner;
     }
 
     [HttpGet("workflows")]
@@ -253,6 +258,42 @@ public sealed class DebugController : ControllerBase
             registeredEngines = engines.Count,
             publishedEvents = _eventBus.GetPublishedEvents().Count,
             timestamp = DateTimeOffset.UtcNow
+        });
+    }
+
+    [HttpPost("validation/run")]
+    public async Task<IActionResult> RunValidation()
+    {
+        var reports = await _validationRunner.RunAllAsync();
+        return Ok(new
+        {
+            status = "validation complete",
+            scenarios = reports.Select(r => new { name = r.ScenarioName, r.Success, r.ExecutionTime, r.Steps, r.Errors })
+        });
+    }
+
+    [HttpGet("validation/results")]
+    public IActionResult GetValidationResults()
+    {
+        var reports = _validationRunner.GetResults();
+        return Ok(new
+        {
+            scenarios = reports.Select(r => new { name = r.ScenarioName, r.Success })
+        });
+    }
+
+    [HttpGet("validation/pipeline")]
+    public IActionResult GetPipelineStatus()
+    {
+        var status = PipelineStatus.Healthy();
+        return Ok(new
+        {
+            api = status.Api,
+            commands = status.Commands,
+            workflows = status.Workflows,
+            engines = status.Engines,
+            events = status.Events,
+            projections = status.Projections
         });
     }
 }
