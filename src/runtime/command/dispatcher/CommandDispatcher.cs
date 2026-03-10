@@ -4,6 +4,7 @@ using Whycespace.CommandSystem.Idempotency;
 using Whycespace.CommandSystem.Models;
 using Whycespace.CommandSystem.Routing;
 using Whycespace.CommandSystem.Validation;
+using Whycespace.Contracts.Primitives;
 using Whycespace.Contracts.Runtime;
 
 public sealed class CommandDispatcher
@@ -43,7 +44,8 @@ public sealed class CommandDispatcher
             WorkflowName: workflowName,
             Context: command.Payload,
             CorrelationId: command.CommandId.ToString(),
-            ScheduledAt: null
+            ScheduledAt: null,
+            PartitionKey: new PartitionKey(command.CommandId.ToString())
         );
     }
 }
