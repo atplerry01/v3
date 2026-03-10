@@ -42,6 +42,9 @@
   <Folder Name="/src/runtime/event-fabric/">
     <Project Path="src/runtime/event-fabric/Whycespace.EventFabric.csproj" />
   </Folder>
+  <Folder Name="/src/runtime/event-schema/">
+    <Project Path="src/runtime/event-schema/Whycespace.EventSchema.csproj" />
+  </Folder>
   <Folder Name="/src/shared/">
     <Project Path="src/shared/Whycespace.Shared.csproj" />
   </Folder>
@@ -80,6 +83,9 @@
   </Folder>
   <Folder Name="/tests/event-fabric/">
     <Project Path="tests/event-fabric/Whycespace.EventFabric.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/event-schema/">
+    <Project Path="tests/event-schema/Whycespace.EventSchema.Tests.csproj" />
   </Folder>
   <Folder Name="/simulation/">
     <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />
