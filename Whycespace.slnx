@@ -18,6 +18,12 @@
   <Folder Name="/src/runtime/guardrails/">
     <Project Path="src/runtime/guardrails/Whycespace.ArchitectureGuardrails.csproj" />
   </Folder>
+  <Folder Name="/src/runtime/command/">
+    <Project Path="src/runtime/command/Whycespace.CommandSystem.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/workflow-runtime/">
+    <Project Path="src/runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj" />
+  </Folder>
   <Folder Name="/src/shared/">
     <Project Path="src/shared/Whycespace.Shared.csproj" />
   </Folder>
@@ -32,6 +38,12 @@
   </Folder>
   <Folder Name="/tests/contracts/">
     <Project Path="tests/contracts/Whycespace.Contracts.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/command/">
+    <Project Path="tests/command/Whycespace.CommandSystem.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/workflow-runtime/">
+    <Project Path="tests/workflow-runtime/Whycespace.WorkflowRuntime.Tests.csproj" />
   </Folder>
   <Folder Name="/simulation/">
     <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />

@@ -23,6 +23,16 @@ using Whycespace.System.Midstream.WSS.Kafka;
 using Whycespace.System.Midstream.WSS.Mapping;
 using Whycespace.System.Midstream.WSS.Orchestration;
 using Whycespace.System.Midstream.WSS.Workflows;
+using Whycespace.CommandSystem.Catalog;
+using Whycespace.CommandSystem.Idempotency;
+using Whycespace.CommandSystem.Models;
+using Whycespace.CommandSystem.Routing;
+using Whycespace.CommandSystem.Validation;
+using CmdDispatcher = Whycespace.CommandSystem.Dispatcher.CommandDispatcher;
+using Whycespace.WorkflowRuntime.Executor;
+using Whycespace.WorkflowRuntime.Registry;
+using Whycespace.WorkflowRuntime.Step;
+using WfRuntime = Whycespace.WorkflowRuntime.Runtime.WorkflowRuntime;
 
 // Serilog
 Log.Logger = new LoggerConfiguration()
@@ -156,9 +166,50 @@ try
     workflowMapper.Register(new EconomicLifecycleWorkflow());
     builder.Services.AddSingleton(workflowMapper);
 
+    // Workflow Runtime
+    var workflowRegistry = new WorkflowRegistry();
+    var rideGraph = new RideRequestWorkflow().BuildGraph();
+    var propertyGraph = new PropertyListingWorkflow().BuildGraph();
+    var economicGraph = new EconomicLifecycleWorkflow().BuildGraph();
+    workflowRegistry.Register(rideGraph);
+    workflowRegistry.Register(propertyGraph);
+    workflowRegistry.Register(economicGraph);
+    builder.Services.AddSingleton<IWorkflowRegistry>(workflowRegistry);
+
+    var stepExecutor = new WorkflowStepExecutor(dispatcher.DispatchAsync);
+    builder.Services.AddSingleton(stepExecutor);
+
+    var workflowExecutor = new WorkflowExecutor(stepExecutor);
+    builder.Services.AddSingleton<IWorkflowExecutor>(workflowExecutor);
+
+    var workflowRuntime = new WfRuntime(workflowRegistry, workflowExecutor);
+    builder.Services.AddSingleton(workflowRuntime);
+
     // WSS Orchestrator
-    var wssOrchestrator = new WSSOrchestrator(workflowMapper, orchestrator);
+    var wssOrchestrator = new WSSOrchestrator(workflowMapper, orchestrator, workflowRuntime);
     builder.Services.AddSingleton(wssOrchestrator);
+
+    // Command System
+    var commandCatalog = new CommandCatalog();
+    commandCatalog.Register("RequestRideCommand", typeof(Whycespace.Domain.Application.Commands.RequestRideCommand));
+    commandCatalog.Register("ListPropertyCommand", typeof(Whycespace.Domain.Application.Commands.ListPropertyCommand));
+    commandCatalog.Register("AllocateCapitalCommand", typeof(Whycespace.Domain.Application.Commands.AllocateCapitalCommand));
+    builder.Services.AddSingleton<ICommandCatalog>(commandCatalog);
+
+    var commandValidator = new CommandValidator();
+    builder.Services.AddSingleton<ICommandValidator>(commandValidator);
+
+    var commandIdempotency = new InMemoryIdempotencyRegistry();
+    builder.Services.AddSingleton<IIdempotencyRegistry>(commandIdempotency);
+
+    var commandRouter = new CommandRouter();
+    commandRouter.MapCommand("RequestRideCommand", "RideRequestWorkflow");
+    commandRouter.MapCommand("ListPropertyCommand", "PropertyListingWorkflow");
+    commandRouter.MapCommand("AllocateCapitalCommand", "EconomicLifecycleWorkflow");
+    builder.Services.AddSingleton<ICommandRouter>(commandRouter);
+
+    var cmdDispatcher = new CmdDispatcher(commandValidator, commandIdempotency, commandRouter);
+    builder.Services.AddSingleton(cmdDispatcher);
 
     // Kafka Publisher
     builder.Services.AddSingleton(new KafkaEventPublisher(eventBus, kafkaBrokers));
@@ -192,6 +243,45 @@ try
             "WorkflowContext"
         }
     }));
+
+    host.MapGet("/dev/commands", () => Results.Json(new
+    {
+        commands = commandCatalog.GetRegisteredCommands(),
+        routes = commandRouter.GetRoutes(),
+        timestamp = DateTimeOffset.UtcNow
+    }));
+
+    host.MapPost("/dev/commands/dispatch", (CommandEnvelope envelope) =>
+    {
+        try
+        {
+            var result = cmdDispatcher.Dispatch(envelope);
+            return Results.Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Results.BadRequest(new { error = ex.Message });
+        }
+    });
+
+    host.MapGet("/dev/workflows", () => Results.Json(new
+    {
+        workflows = workflowRegistry.GetRegisteredWorkflows(),
+        timestamp = DateTimeOffset.UtcNow
+    }));
+
+    host.MapPost("/dev/workflows/run", async (WorkflowExecutionRequest request) =>
+    {
+        try
+        {
+            var result = await workflowRuntime.ExecuteAsync(request);
+            return Results.Ok(result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Results.BadRequest(new { error = ex.Message });
+        }
+    });
 
     Log.Information("Foundation Host initialized with {EngineCount} engines", engineRegistry.GetRegisteredEngines().Count);
 

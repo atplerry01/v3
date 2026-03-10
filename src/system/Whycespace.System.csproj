@@ -5,6 +5,7 @@
     <ProjectReference Include="..\engines\Whycespace.Engines.csproj" />
     <ProjectReference Include="..\runtime\Whycespace.Runtime.csproj" />
     <ProjectReference Include="..\domain\Whycespace.Domain.csproj" />
+    <ProjectReference Include="..\runtime\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
   </ItemGroup>
 
   <ItemGroup>

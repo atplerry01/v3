@@ -725,6 +725,17 @@
           }
         }
       },
+      "Whycespace.CommandSystem/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.CommandSystem.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.Contracts/1.0.0": {
         "runtime": {
           "Whycespace.Contracts.dll": {
@@ -765,6 +776,7 @@
           "OpenTelemetry.Instrumentation.Http": "1.15.0",
           "Serilog.AspNetCore": "10.0.0",
           "Whycespace.ArchitectureGuardrails": "1.0.0",
+          "Whycespace.CommandSystem": "1.0.0",
           "Whycespace.Domain": "1.0.0",
           "Whycespace.Engines": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
@@ -808,10 +820,22 @@
           "Whycespace.Domain": "1.0.0",
           "Whycespace.Engines": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
-          "Whycespace.Shared": "1.0.0"
+          "Whycespace.Shared": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
         },
         "runtime": {
           "Whycespace.System.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.WorkflowRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.WorkflowRuntime.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1075,6 +1099,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Whycespace.CommandSystem/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Whycespace.Contracts/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -1106,6 +1135,11 @@
       "sha512": ""
     },
     "Whycespace.System/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.WorkflowRuntime/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

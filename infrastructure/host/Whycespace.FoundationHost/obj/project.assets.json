@@ -406,6 +406,19 @@
           }
         }
       },
+      "Whycespace.CommandSystem/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.CommandSystem.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.CommandSystem.dll": {}
+        }
+      },
       "Whycespace.Contracts/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -478,13 +491,27 @@
           "Whycespace.Domain": "1.0.0",
           "Whycespace.Engines": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
-          "Whycespace.Shared": "1.0.0"
+          "Whycespace.Shared": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.System.dll": {}
         },
         "runtime": {
           "bin/placeholder/Whycespace.System.dll": {}
+        }
+      },
+      "Whycespace.WorkflowRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.WorkflowRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.WorkflowRuntime.dll": {}
         }
       }
     }
@@ -990,6 +1017,11 @@
         "serilog.sinks.file.nuspec"
       ]
     },
+    "Whycespace.CommandSystem/1.0.0": {
+      "type": "project",
+      "path": "../../../src/runtime/command/Whycespace.CommandSystem.csproj",
+      "msbuildProject": "../../../src/runtime/command/Whycespace.CommandSystem.csproj"
+    },
     "Whycespace.Contracts/1.0.0": {
       "type": "project",
       "path": "../../../src/shared/contracts/Whycespace.Contracts.csproj",
@@ -1019,6 +1051,11 @@
       "type": "project",
       "path": "../../../src/system/Whycespace.System.csproj",
       "msbuildProject": "../../../src/system/Whycespace.System.csproj"
+    },
+    "Whycespace.WorkflowRuntime/1.0.0": {
+      "type": "project",
+      "path": "../../../src/runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj",
+      "msbuildProject": "../../../src/runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1027,11 +1064,13 @@
       "OpenTelemetry.Instrumentation.AspNetCore >= 1.15.0",
       "OpenTelemetry.Instrumentation.Http >= 1.15.0",
       "Serilog.AspNetCore >= 10.0.0",
+      "Whycespace.CommandSystem >= 1.0.0",
       "Whycespace.Domain >= 1.0.0",
       "Whycespace.Engines >= 1.0.0",
       "Whycespace.Runtime >= 1.0.0",
       "Whycespace.Shared >= 1.0.0",
-      "Whycespace.System >= 1.0.0"
+      "Whycespace.System >= 1.0.0",
+      "Whycespace.WorkflowRuntime >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1073,8 +1112,14 @@
             "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
             },
+            "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+            },
             "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"

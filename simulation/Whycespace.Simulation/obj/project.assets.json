@@ -251,13 +251,27 @@
           "Whycespace.Domain": "1.0.0",
           "Whycespace.Engines": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
-          "Whycespace.Shared": "1.0.0"
+          "Whycespace.Shared": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.System.dll": {}
         },
         "runtime": {
           "bin/placeholder/Whycespace.System.dll": {}
+        }
+      },
+      "Whycespace.WorkflowRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.WorkflowRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.WorkflowRuntime.dll": {}
         }
       }
     }
@@ -483,6 +497,11 @@
       "type": "project",
       "path": "../../src/system/Whycespace.System.csproj",
       "msbuildProject": "../../src/system/Whycespace.System.csproj"
+    },
+    "Whycespace.WorkflowRuntime/1.0.0": {
+      "type": "project",
+      "path": "../../src/runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj",
+      "msbuildProject": "../../src/runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj"
     }
   },
   "projectFileDependencyGroups": {
