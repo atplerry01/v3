@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.ReliabilityRuntime")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c362c52f7ade82a942a9a5f4fca7955a63bfcfa1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63eefdd2c5513bd574a219cb5d165e3bba0a962d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.ReliabilityRuntime")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.ReliabilityRuntime")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

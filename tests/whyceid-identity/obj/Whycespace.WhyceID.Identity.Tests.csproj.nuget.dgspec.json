@@ -4,14 +4,14 @@
     "C:\\projects\\dev\\v3\\tests\\whyceid-identity\\Whycespace.WhyceID.Identity.Tests.csproj": {}
   },
   "projects": {
-    "C:\\projects\\dev\\v3\\src\\engines\\T0U_Constitutional\\WhyceIdentity\\Whycespace.Engine.Identity.csproj": {
+    "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\engines\\T0U_Constitutional\\WhyceIdentity\\Whycespace.Engine.Identity.csproj",
-        "projectName": "Whycespace.Engine.Identity",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U_Constitutional\\WhyceIdentity\\Whycespace.Engine.Identity.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj",
+        "projectName": "Whycespace.Engines.T0U.WhyceID",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U_Constitutional\\WhyceIdentity\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1064,8 +1064,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\projects\\dev\\v3\\src\\engines\\T0U_Constitutional\\WhyceIdentity\\Whycespace.Engine.Identity.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U_Constitutional\\WhyceIdentity\\Whycespace.Engine.Identity.csproj"
+              "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\system\\upstream\\WhyceID\\Whycespace.System.WhyceID.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\system\\upstream\\WhyceID\\Whycespace.System.WhyceID.csproj"

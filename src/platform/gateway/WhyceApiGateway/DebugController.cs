@@ -27,6 +27,9 @@ using Whycespace.ReliabilityRuntime.Retry;
 using Whycespace.ReliabilityRuntime.Dlq;
 using Whycespace.ReliabilityRuntime.Timeout;
 using Whycespace.System.WhyceID.Registry;
+using Whycespace.System.WhyceID.Stores;
+using Whycespace.System.WhyceID.Models;
+using Whycespace.Engines.T0U.WhyceID;
 
 [ApiController]
 [Route("dev")]
@@ -52,6 +55,20 @@ public sealed class DebugController : ControllerBase
     private readonly DeadLetterQueueManager _deadLetterQueueManager;
     private readonly WorkflowTimeoutManager _workflowTimeoutManager;
     private readonly IdentityRegistry _identityRegistry;
+    private readonly IdentityAttributeStore _identityAttributeStore;
+    private readonly IdentityRoleStore _identityRoleStore;
+    private readonly IdentityPermissionStore _identityPermissionStore;
+    private readonly IdentityAccessScopeStore _identityAccessScopeStore;
+    private readonly IdentityTrustStore _identityTrustStore;
+    private readonly IdentityDeviceStore _identityDeviceStore;
+    private readonly IdentitySessionStore _identitySessionStore;
+    private readonly IdentityConsentStore _identityConsentStore;
+    private readonly IdentityGraphStore _identityGraphStore;
+    private readonly IdentityServiceStore _identityServiceStore;
+    private readonly IdentityFederationStore _identityFederationStore;
+    private readonly IdentityRecoveryStore _identityRecoveryStore;
+    private readonly IdentityRevocationStore _identityRevocationStore;
+    private readonly IdentityAuditStore _identityAuditStore;
 
     public DebugController(
         WorkflowStateStore stateStore,
@@ -73,7 +90,21 @@ public sealed class DebugController : ControllerBase
         RetryPolicyManager retryPolicyManager,
         DeadLetterQueueManager deadLetterQueueManager,
         WorkflowTimeoutManager workflowTimeoutManager,
-        IdentityRegistry identityRegistry)
+        IdentityRegistry identityRegistry,
+        IdentityAttributeStore identityAttributeStore,
+        IdentityRoleStore identityRoleStore,
+        IdentityPermissionStore identityPermissionStore,
+        IdentityAccessScopeStore identityAccessScopeStore,
+        IdentityTrustStore identityTrustStore,
+        IdentityDeviceStore identityDeviceStore,
+        IdentitySessionStore identitySessionStore,
+        IdentityConsentStore identityConsentStore,
+        IdentityGraphStore identityGraphStore,
+        IdentityServiceStore identityServiceStore,
+        IdentityFederationStore identityFederationStore,
+        IdentityRecoveryStore identityRecoveryStore,
+        IdentityRevocationStore identityRevocationStore,
+        IdentityAuditStore identityAuditStore)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
@@ -95,6 +126,20 @@ public sealed class DebugController : ControllerBase
         _deadLetterQueueManager = deadLetterQueueManager;
         _workflowTimeoutManager = workflowTimeoutManager;
         _identityRegistry = identityRegistry;
+        _identityAttributeStore = identityAttributeStore;
+        _identityRoleStore = identityRoleStore;
+        _identityPermissionStore = identityPermissionStore;
+        _identityAccessScopeStore = identityAccessScopeStore;
+        _identityTrustStore = identityTrustStore;
+        _identityDeviceStore = identityDeviceStore;
+        _identitySessionStore = identitySessionStore;
+        _identityConsentStore = identityConsentStore;
+        _identityGraphStore = identityGraphStore;
+        _identityServiceStore = identityServiceStore;
+        _identityFederationStore = identityFederationStore;
+        _identityRecoveryStore = identityRecoveryStore;
+        _identityRevocationStore = identityRevocationStore;
+        _identityAuditStore = identityAuditStore;
     }
 
     [HttpGet("workflows")]
@@ -415,7 +460,7 @@ public sealed class DebugController : ControllerBase
             var identity = _identityRegistry.Get(id);
             return Ok(new
             {
-                identityId = identity.IdentityId.Value,
+                identityId = identity.Id.Value,
                 type = identity.Type.ToString(),
                 status = identity.Status.ToString(),
                 createdAt = identity.CreatedAt
@@ -426,9 +471,635 @@ public sealed class DebugController : ControllerBase
             return NotFound(new { message = "Identity not found" });
         }
     }
+
+    [HttpGet("identity/{id:guid}/attributes")]
+    public IActionResult GetIdentityAttributes(Guid id)
+    {
+        var attributes = _identityAttributeStore.Get(id);
+        return Ok(new
+        {
+            identityId = id,
+            attributes = attributes.Select(a => new
+            {
+                key = a.Key,
+                value = a.Value,
+                createdAt = a.CreatedAt
+            })
+        });
+    }
+
+    [HttpGet("identity/{id:guid}/roles")]
+    public IActionResult GetIdentityRoles(Guid id)
+    {
+        var roles = _identityRoleStore.GetRoles(id);
+        return Ok(new
+        {
+            identityId = id,
+            roles
+        });
+    }
+
+    [HttpPost("identity/{id:guid}/verify")]
+    public IActionResult VerifyIdentity(Guid id)
+    {
+        try
+        {
+            var identity = _identityRegistry.Get(id);
+            identity.Verify();
+            _identityRegistry.Update(identity);
+            return Ok(new
+            {
+                identityId = id,
+                status = identity.Status.ToString(),
+                verifiedAt = identity.VerifiedAt
+            });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = "Identity not found" });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("identity/{id:guid}/trustscore")]
+    public IActionResult CalculateTrustScore(Guid id)
+    {
+        try
+        {
+            var engine = new Whycespace.Engines.T0U.WhyceID.TrustScoreEngine(
+                _identityRegistry, _identityTrustStore);
+            var result = engine.Calculate(id);
+            return Ok(new
+            {
+                identityId = id,
+                score = result.Score,
+                calculatedAt = result.CalculatedAt
+            });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpGet("identity/{id:guid}/devices")]
+    public IActionResult GetIdentityDevices(Guid id)
+    {
+        var devices = _identityDeviceStore.Get(id);
+        return Ok(new
+        {
+            identityId = id,
+            devices = devices.Select(d => new
+            {
+                deviceId = d.DeviceId,
+                fingerprint = d.Fingerprint,
+                trusted = d.Trusted,
+                registeredAt = d.RegisteredAt
+            })
+        });
+    }
+
+    [HttpPost("authenticate")]
+    public IActionResult Authenticate([FromBody] DebugAuthenticateDto dto)
+    {
+        var trustEngine = new Whycespace.Engines.T0U.WhyceID.TrustScoreEngine(
+            _identityRegistry, _identityTrustStore);
+        var deviceEngine = new Whycespace.Engines.T0U.WhyceID.DeviceTrustEngine(
+            _identityRegistry, _identityDeviceStore);
+        var authEngine = new Whycespace.Engines.T0U.WhyceID.AuthenticationEngine(
+            _identityRegistry, trustEngine, deviceEngine);
+
+        var result = authEngine.Authenticate(dto.IdentityId, dto.DeviceId);
+        return Ok(new
+        {
+            success = result.Success,
+            message = result.Message
+        });
+    }
+
+    [HttpPost("authorize")]
+    public IActionResult Authorize([FromBody] DebugAuthorizeDto dto)
+    {
+        var roleEngine = new Whycespace.Engines.T0U.WhyceID.IdentityRoleEngine(
+            _identityRegistry, _identityRoleStore);
+        var permissionEngine = new Whycespace.Engines.T0U.WhyceID.IdentityPermissionEngine(
+            _identityPermissionStore);
+        var scopeEngine = new Whycespace.Engines.T0U.WhyceID.IdentityAccessScopeEngine(
+            _identityAccessScopeStore);
+        var authzEngine = new Whycespace.Engines.T0U.WhyceID.AuthorizationEngine(
+            _identityRegistry, roleEngine, permissionEngine, scopeEngine);
+
+        var result = authzEngine.Authorize(new Whycespace.System.WhyceID.Models.AuthorizationRequest(
+            dto.IdentityId, dto.Resource, dto.Action, dto.Scope));
+        return Ok(new
+        {
+            allowed = result.Allowed,
+            reason = result.Reason
+        });
+    }
+
+    [HttpGet("identity/{id:guid}/sessions")]
+    public IActionResult GetIdentitySessions(Guid id)
+    {
+        var sessions = _identitySessionStore.GetByIdentity(id);
+        return Ok(new
+        {
+            identityId = id,
+            sessions = sessions.Select(s => new
+            {
+                sessionId = s.SessionId,
+                deviceId = s.DeviceId,
+                createdAt = s.CreatedAt,
+                expiresAt = s.ExpiresAt,
+                active = s.Active
+            })
+        });
+    }
+
+    [HttpPost("session/revoke")]
+    public IActionResult RevokeSession([FromBody] DebugRevokeSessionDto dto)
+    {
+        _identitySessionStore.Revoke(dto.SessionId);
+        return Ok(new { message = "Session revoked", sessionId = dto.SessionId });
+    }
+
+    [HttpGet("identity/{id:guid}/consents")]
+    public IActionResult GetIdentityConsents(Guid id)
+    {
+        var consents = _identityConsentStore.GetByIdentity(id);
+        return Ok(new
+        {
+            identityId = id,
+            consents = consents.Select(c => new
+            {
+                consentId = c.ConsentId,
+                target = c.Target,
+                scope = c.Scope,
+                grantedAt = c.GrantedAt,
+                revoked = c.Revoked
+            })
+        });
+    }
+
+    [HttpPost("identity/{id:guid}/consent")]
+    public IActionResult GrantConsent(Guid id, [FromBody] DebugGrantConsentDto dto)
+    {
+        try
+        {
+            var engine = new Whycespace.Engines.T0U.WhyceID.ConsentEngine(
+                _identityRegistry, _identityConsentStore);
+            var consent = engine.GrantConsent(id, dto.Target, dto.Scope);
+            return Ok(new
+            {
+                consentId = consent.ConsentId,
+                identityId = consent.IdentityId,
+                target = consent.Target,
+                scope = consent.Scope,
+                grantedAt = consent.GrantedAt
+            });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("consent/revoke")]
+    public IActionResult RevokeConsent([FromBody] DebugRevokeConsentDto dto)
+    {
+        _identityConsentStore.Revoke(dto.ConsentId);
+        return Ok(new { message = "Consent revoked", consentId = dto.ConsentId });
+    }
+
+    [HttpGet("roles/{role}/permissions")]
+    public IActionResult GetRolePermissions(string role)
+    {
+        var permissions = _identityPermissionStore.GetPermissions(role);
+        return Ok(new
+        {
+            role,
+            permissions
+        });
+    }
+
+    [HttpGet("roles/{role}/scopes")]
+    public IActionResult GetRoleScopes(string role)
+    {
+        var scopes = _identityAccessScopeStore.GetScopes(role);
+        return Ok(new
+        {
+            role,
+            scopes
+        });
+    }
+
+    [HttpGet("identity/registry")]
+    public IActionResult GetIdentityRegistry()
+    {
+        var all = _identityRegistry.GetAll();
+        return Ok(new
+        {
+            totalCount = _identityRegistry.Count,
+            identities = all.Select(i => new
+            {
+                identityId = i.Id.Value,
+                status = i.Status.ToString()
+            })
+        });
+    }
+
+    [HttpGet("identity/{id:guid}/relationships")]
+    public IActionResult GetIdentityRelationships(Guid id)
+    {
+        var engine = new IdentityGraphEngine(_identityRegistry, _identityGraphStore);
+        var relationships = engine.GetRelationships(id);
+        return Ok(new
+        {
+            identityId = id,
+            relationships = relationships.Select(e => new
+            {
+                edgeId = e.EdgeId,
+                targetEntityId = e.TargetEntityId,
+                relationship = e.Relationship,
+                createdAt = e.CreatedAt
+            })
+        });
+    }
+
+    [HttpPost("identity/{id:guid}/relationship")]
+    public IActionResult CreateRelationship(Guid id, [FromBody] DebugCreateRelationshipDto dto)
+    {
+        try
+        {
+            var engine = new IdentityGraphEngine(_identityRegistry, _identityGraphStore);
+            var edge = engine.CreateRelationship(id, dto.TargetEntityId, dto.Relationship);
+            return Ok(new
+            {
+                edgeId = edge.EdgeId,
+                sourceIdentityId = edge.SourceIdentityId,
+                targetEntityId = edge.TargetEntityId,
+                relationship = edge.Relationship,
+                createdAt = edge.CreatedAt
+            });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("relationship/remove")]
+    public IActionResult RemoveRelationship([FromBody] DebugRemoveRelationshipDto dto)
+    {
+        _identityGraphStore.Remove(dto.EdgeId);
+        return Ok(new { message = "Relationship removed", edgeId = dto.EdgeId });
+    }
+
+    [HttpGet("services")]
+    public IActionResult GetServices()
+    {
+        var engine = new ServiceIdentityEngine(_identityServiceStore);
+        var services = engine.GetServices();
+        return Ok(new
+        {
+            services = services.Select(s => new
+            {
+                serviceId = s.ServiceId,
+                name = s.Name,
+                type = s.Type,
+                createdAt = s.CreatedAt,
+                revoked = s.Revoked
+            })
+        });
+    }
+
+    [HttpPost("services/register")]
+    public IActionResult RegisterService([FromBody] DebugRegisterServiceDto dto)
+    {
+        try
+        {
+            var engine = new ServiceIdentityEngine(_identityServiceStore);
+            var service = engine.RegisterService(dto.Name, dto.Type, dto.Secret);
+            return Ok(new
+            {
+                serviceId = service.ServiceId,
+                name = service.Name,
+                type = service.Type,
+                createdAt = service.CreatedAt
+            });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("services/revoke")]
+    public IActionResult RevokeService([FromBody] DebugRevokeServiceDto dto)
+    {
+        _identityServiceStore.Revoke(dto.ServiceId);
+        return Ok(new { message = "Service revoked", serviceId = dto.ServiceId });
+    }
+
+    [HttpGet("federations")]
+    public IActionResult GetFederations()
+    {
+        var engine = new FederationEngine(_identityRegistry, _identityFederationStore);
+        var federations = engine.GetFederations();
+        return Ok(new
+        {
+            federations = federations.Select(f => new
+            {
+                federationId = f.FederationId,
+                provider = f.Provider,
+                externalIdentityId = f.ExternalIdentityId,
+                internalIdentityId = f.InternalIdentityId,
+                createdAt = f.CreatedAt,
+                revoked = f.Revoked
+            })
+        });
+    }
+
+    [HttpPost("federation/register")]
+    public IActionResult RegisterFederation([FromBody] DebugRegisterFederationDto dto)
+    {
+        try
+        {
+            var engine = new FederationEngine(_identityRegistry, _identityFederationStore);
+            var federation = engine.RegisterFederation(dto.Provider, dto.ExternalIdentityId, dto.InternalIdentityId);
+            return Ok(new
+            {
+                federationId = federation.FederationId,
+                provider = federation.Provider,
+                externalIdentityId = federation.ExternalIdentityId,
+                internalIdentityId = federation.InternalIdentityId,
+                createdAt = federation.CreatedAt
+            });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("federation/revoke")]
+    public IActionResult RevokeFederation([FromBody] DebugRevokeFederationDto dto)
+    {
+        _identityFederationStore.Revoke(dto.FederationId);
+        return Ok(new { message = "Federation revoked", federationId = dto.FederationId });
+    }
+
+    [HttpGet("identity/{id:guid}/recoveries")]
+    public IActionResult GetIdentityRecoveries(Guid id)
+    {
+        var engine = new IdentityRecoveryEngine(_identityRegistry, _identityRecoveryStore);
+        var recoveries = engine.GetRecoveries(id);
+        return Ok(new
+        {
+            identityId = id,
+            recoveries = recoveries.Select(r => new
+            {
+                recoveryId = r.RecoveryId,
+                reason = r.Reason,
+                status = r.Status,
+                createdAt = r.CreatedAt,
+                completedAt = r.CompletedAt
+            })
+        });
+    }
+
+    [HttpPost("recovery/create")]
+    public IActionResult CreateRecovery([FromBody] DebugCreateRecoveryDto dto)
+    {
+        try
+        {
+            var engine = new IdentityRecoveryEngine(_identityRegistry, _identityRecoveryStore);
+            var recovery = engine.CreateRecovery(dto.IdentityId, dto.Reason);
+            return Ok(new
+            {
+                recoveryId = recovery.RecoveryId,
+                identityId = recovery.IdentityId,
+                reason = recovery.Reason,
+                status = recovery.Status,
+                createdAt = recovery.CreatedAt
+            });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("recovery/approve")]
+    public IActionResult ApproveRecovery([FromBody] DebugRecoveryActionDto dto)
+    {
+        try
+        {
+            var engine = new IdentityRecoveryEngine(_identityRegistry, _identityRecoveryStore);
+            engine.ApproveRecovery(dto.RecoveryId);
+            return Ok(new { message = "Recovery approved", recoveryId = dto.RecoveryId });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = "Recovery not found" });
+        }
+    }
+
+    [HttpPost("recovery/reject")]
+    public IActionResult RejectRecovery([FromBody] DebugRecoveryActionDto dto)
+    {
+        try
+        {
+            var engine = new IdentityRecoveryEngine(_identityRegistry, _identityRecoveryStore);
+            engine.RejectRecovery(dto.RecoveryId);
+            return Ok(new { message = "Recovery rejected", recoveryId = dto.RecoveryId });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = "Recovery not found" });
+        }
+    }
+
+    [HttpPost("recovery/complete")]
+    public IActionResult CompleteRecovery([FromBody] DebugRecoveryActionDto dto)
+    {
+        try
+        {
+            var engine = new IdentityRecoveryEngine(_identityRegistry, _identityRecoveryStore);
+            engine.CompleteRecovery(dto.RecoveryId);
+            return Ok(new { message = "Recovery completed", recoveryId = dto.RecoveryId });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = "Recovery not found" });
+        }
+    }
+
+    [HttpGet("identity/{id:guid}/revocations")]
+    public IActionResult GetIdentityRevocations(Guid id)
+    {
+        var engine = new IdentityRevocationEngine(_identityRegistry, _identityRevocationStore);
+        var revocations = engine.GetRevocations(id);
+        return Ok(new
+        {
+            identityId = id,
+            revocations = revocations.Select(r => new
+            {
+                revocationId = r.RevocationId,
+                reason = r.Reason,
+                createdAt = r.CreatedAt,
+                active = r.Active
+            })
+        });
+    }
+
+    [HttpPost("identity/revoke")]
+    public IActionResult RevokeIdentity([FromBody] DebugRevokeIdentityDto dto)
+    {
+        try
+        {
+            var engine = new IdentityRevocationEngine(_identityRegistry, _identityRevocationStore);
+            var revocation = engine.RevokeIdentity(dto.IdentityId, dto.Reason);
+            return Ok(new
+            {
+                revocationId = revocation.RevocationId,
+                identityId = revocation.IdentityId,
+                reason = revocation.Reason,
+                createdAt = revocation.CreatedAt,
+                active = revocation.Active
+            });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpGet("revocations")]
+    public IActionResult GetAllRevocations()
+    {
+        var engine = new IdentityRevocationEngine(_identityRegistry, _identityRevocationStore);
+        var revocations = engine.GetAllRevocations();
+        return Ok(new
+        {
+            revocations = revocations.Select(r => new
+            {
+                revocationId = r.RevocationId,
+                identityId = r.IdentityId,
+                reason = r.Reason,
+                createdAt = r.CreatedAt,
+                active = r.Active
+            })
+        });
+    }
+
+    [HttpPost("identity/policy/evaluate")]
+    public IActionResult EvaluateIdentityPolicy([FromBody] DebugEvaluatePolicyDto dto)
+    {
+        try
+        {
+            var adapter = new IdentityPolicyEnforcementAdapter(
+                _identityRegistry, _identityRoleStore, _identityTrustStore, _identityRevocationStore);
+            var context = adapter.BuildContext(dto.IdentityId);
+            var allowed = adapter.EvaluateIdentityAccess(dto.IdentityId);
+            return Ok(new
+            {
+                identityId = dto.IdentityId,
+                allowed,
+                context = new
+                {
+                    roles = context.Roles,
+                    trustScore = context.TrustScore,
+                    verified = context.Verified,
+                    revoked = context.Revoked
+                }
+            });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpGet("identity/{id:guid}/audit")]
+    public IActionResult GetIdentityAudit(Guid id)
+    {
+        var engine = new IdentityAuditEngine(_identityRegistry, _identityAuditStore);
+        var events = engine.GetIdentityAudit(id);
+        return Ok(new
+        {
+            identityId = id,
+            events = events.Select(e => new
+            {
+                eventId = e.EventId,
+                eventType = e.EventType,
+                description = e.Description,
+                timestamp = e.Timestamp
+            })
+        });
+    }
+
+    [HttpPost("identity/audit")]
+    public IActionResult RecordAuditEvent([FromBody] DebugRecordAuditDto dto)
+    {
+        try
+        {
+            var engine = new IdentityAuditEngine(_identityRegistry, _identityAuditStore);
+            var auditEvent = engine.RecordEvent(dto.IdentityId, dto.EventType, dto.Description);
+            return Ok(new
+            {
+                eventId = auditEvent.EventId,
+                identityId = auditEvent.IdentityId,
+                eventType = auditEvent.EventType,
+                description = auditEvent.Description,
+                timestamp = auditEvent.Timestamp
+            });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpGet("audit")]
+    public IActionResult GetAllAuditEvents()
+    {
+        var engine = new IdentityAuditEngine(_identityRegistry, _identityAuditStore);
+        var events = engine.GetAllAuditEvents();
+        return Ok(new
+        {
+            events = events.Select(e => new
+            {
+                eventId = e.EventId,
+                identityId = e.IdentityId,
+                eventType = e.EventType,
+                description = e.Description,
+                timestamp = e.Timestamp
+            })
+        });
+    }
 }
 
 public sealed record DebugRunWorkflowDto(string WorkflowName, Dictionary<string, object>? Context);
 public sealed record DebugReplayEventDto(string EventType, Guid AggregateId, Dictionary<string, object>? Payload);
 public sealed record DebugRunSimulationDto(Guid ScenarioId);
 public sealed record DebugGenerateClusterDto(string TemplateName);
+public sealed record DebugAuthenticateDto(Guid IdentityId, Guid DeviceId);
+public sealed record DebugAuthorizeDto(Guid IdentityId, string Resource, string Action, string Scope);
+public sealed record DebugRevokeSessionDto(Guid SessionId);
+public sealed record DebugGrantConsentDto(string Target, string Scope);
+public sealed record DebugRevokeConsentDto(Guid ConsentId);
+public sealed record DebugCreateRelationshipDto(Guid TargetEntityId, string Relationship);
+public sealed record DebugRemoveRelationshipDto(Guid EdgeId);
+public sealed record DebugRegisterServiceDto(string Name, string Type, string Secret);
+public sealed record DebugRevokeServiceDto(Guid ServiceId);
+public sealed record DebugRegisterFederationDto(string Provider, string ExternalIdentityId, Guid InternalIdentityId);
+public sealed record DebugRevokeFederationDto(Guid FederationId);
+public sealed record DebugCreateRecoveryDto(Guid IdentityId, string Reason);
+public sealed record DebugRecoveryActionDto(Guid RecoveryId);
+public sealed record DebugRevokeIdentityDto(Guid IdentityId, string Reason);
+public sealed record DebugEvaluatePolicyDto(Guid IdentityId);
+public sealed record DebugRecordAuditDto(Guid IdentityId, string EventType, string Description);

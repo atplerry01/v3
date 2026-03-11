@@ -39,7 +39,7 @@
     <ProjectReference Include="..\runtime\projection-runtime\Whycespace.ProjectionRuntime.csproj" />
     <ProjectReference Include="..\runtime\reliability-runtime\Whycespace.ReliabilityRuntime.csproj" />
     <ProjectReference Include="..\system\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
-    <ProjectReference Include="..\engines\T0U_Constitutional\WhyceIdentity\Whycespace.Engine.Identity.csproj" />
+    <ProjectReference Include="..\engines\T0U\WhyceID\Whycespace.Engines.T0U.WhyceID.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\system\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
-    <ProjectReference Include="..\..\src\engines\T0U_Constitutional\WhyceIdentity\Whycespace.Engine.Identity.csproj" />
+    <ProjectReference Include="..\..\src\engines\T0U\WhyceID\Whycespace.Engines.T0U.WhyceID.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,38 +4,43 @@ using Whycespace.System.WhyceID.Models;
 
 public sealed class IdentityAggregate
 {
-    public IdentityId IdentityId { get; }
-
-    public IdentityType Type { get; }
+    public IdentityId Id { get; }
 
     public IdentityStatus Status { get; private set; }
 
+    public IdentityType Type { get; }
+
     public DateTime CreatedAt { get; }
 
-    public IdentityAggregate(
-        IdentityId identityId,
-        IdentityType type,
-        DateTime createdAt)
+    public DateTime? VerifiedAt { get; private set; }
+
+    public IdentityAggregate(IdentityId id, IdentityType type)
     {
-        IdentityId = identityId;
+        Id = id ?? throw new ArgumentNullException(nameof(id));
         Type = type;
-        CreatedAt = createdAt;
-        Status = IdentityStatus.PendingVerification;
+        Status = IdentityStatus.Pending;
+        CreatedAt = DateTime.UtcNow;
     }
 
-    public void Activate()
+    public void Verify()
     {
-        if (Status != IdentityStatus.PendingVerification)
-            throw new InvalidOperationException("Identity cannot be activated");
+        if (Status != IdentityStatus.Pending)
+            throw new InvalidOperationException("Only pending identities can be verified.");
 
-        Status = IdentityStatus.Active;
+        Status = IdentityStatus.Verified;
+        VerifiedAt = DateTime.UtcNow;
     }
 
     public void Suspend()
     {
-        if (Status != IdentityStatus.Active)
-            throw new InvalidOperationException("Only active identity may be suspended");
+        if (Status == IdentityStatus.Revoked)
+            throw new InvalidOperationException("Revoked identities cannot be suspended.");
 
         Status = IdentityStatus.Suspended;
+    }
+
+    public void Revoke()
+    {
+        Status = IdentityStatus.Revoked;
     }
 }

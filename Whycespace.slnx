@@ -91,7 +91,6 @@
     <Project Path="src/system/upstream/WhyceID/Whycespace.System.WhyceID.csproj" />
   </Folder>
   <Folder Name="/src/engines/t0u-whyce-identity/">
-    <Project Path="src/engines/T0U_Constitutional/WhyceIdentity/Whycespace.Engine.Identity.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Whycespace.Tests.csproj" />

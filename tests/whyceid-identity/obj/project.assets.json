@@ -404,7 +404,7 @@
           "bin/placeholder/Whycespace.Contracts.dll": {}
         }
       },
-      "Whycespace.Engine.Identity/1.0.0": {
+      "Whycespace.Engines.T0U.WhyceID/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
@@ -412,10 +412,10 @@
           "Whycespace.System.WhyceID": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Whycespace.Engine.Identity.dll": {}
+          "bin/placeholder/Whycespace.Engines.T0U.WhyceID.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Whycespace.Engine.Identity.dll": {}
+          "bin/placeholder/Whycespace.Engines.T0U.WhyceID.dll": {}
         }
       },
       "Whycespace.System.WhyceID/1.0.0": {
@@ -946,10 +946,10 @@
       "path": "../../src/shared/contracts/Whycespace.Contracts.csproj",
       "msbuildProject": "../../src/shared/contracts/Whycespace.Contracts.csproj"
     },
-    "Whycespace.Engine.Identity/1.0.0": {
+    "Whycespace.Engines.T0U.WhyceID/1.0.0": {
       "type": "project",
-      "path": "../../src/engines/T0U_Constitutional/WhyceIdentity/Whycespace.Engine.Identity.csproj",
-      "msbuildProject": "../../src/engines/T0U_Constitutional/WhyceIdentity/Whycespace.Engine.Identity.csproj"
+      "path": "../../src/engines/T0U/WhyceID/Whycespace.Engines.T0U.WhyceID.csproj",
+      "msbuildProject": "../../src/engines/T0U/WhyceID/Whycespace.Engines.T0U.WhyceID.csproj"
     },
     "Whycespace.System.WhyceID/1.0.0": {
       "type": "project",
@@ -960,7 +960,7 @@
   "projectFileDependencyGroups": {
     "net10.0": [
       "Microsoft.NET.Test.Sdk >= 17.14.1",
-      "Whycespace.Engine.Identity >= 1.0.0",
+      "Whycespace.Engines.T0U.WhyceID >= 1.0.0",
       "Whycespace.System.WhyceID >= 1.0.0",
       "coverlet.collector >= 6.0.4",
       "xunit >= 2.9.3",
@@ -1000,8 +1000,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\projects\\dev\\v3\\src\\engines\\T0U_Constitutional\\WhyceIdentity\\Whycespace.Engine.Identity.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U_Constitutional\\WhyceIdentity\\Whycespace.Engine.Identity.csproj"
+            "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\system\\upstream\\WhyceID\\Whycespace.System.WhyceID.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\system\\upstream\\WhyceID\\Whycespace.System.WhyceID.csproj"

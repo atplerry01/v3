@@ -9,7 +9,7 @@
       "Whycespace.WhyceID.Identity.Tests/1.0.0": {
         "dependencies": {
           "Microsoft.NET.Test.Sdk": "17.14.1",
-          "Whycespace.Engine.Identity": "1.0.0",
+          "Whycespace.Engines.T0U.WhyceID": "1.0.0",
           "Whycespace.System.WhyceID": "1.0.0",
           "xunit": "2.9.3"
         },
@@ -340,13 +340,13 @@
           }
         }
       },
-      "Whycespace.Engine.Identity/1.0.0": {
+      "Whycespace.Engines.T0U.WhyceID/1.0.0": {
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
           "Whycespace.System.WhyceID": "1.0.0"
         },
         "runtime": {
-          "Whycespace.Engine.Identity.dll": {
+          "Whycespace.Engines.T0U.WhyceID.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -453,7 +453,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Whycespace.Engine.Identity/1.0.0": {
+    "Whycespace.Engines.T0U.WhyceID/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -2,7 +2,9 @@ namespace Whycespace.System.WhyceID.Models;
 
 public enum IdentityType
 {
-    Individual = 1,
-    Organization = 2,
-    SystemService = 3
+    User = 0,
+    Service = 1,
+    System = 2,
+    Operator = 3,
+    Guardian = 4
 }

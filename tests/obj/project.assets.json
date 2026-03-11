@@ -1298,20 +1298,6 @@
           "bin/placeholder/Whycespace.EconomicDomain.dll": {}
         }
       },
-      "Whycespace.Engine.Identity/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0",
-          "Whycespace.System.WhyceID": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Whycespace.Engine.Identity.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Whycespace.Engine.Identity.dll": {}
-        }
-      },
       "Whycespace.EngineManifest/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1352,6 +1338,20 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.Engines.dll": {}
+        }
+      },
+      "Whycespace.Engines.T0U.WhyceID/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.System.WhyceID": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Engines.T0U.WhyceID.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Engines.T0U.WhyceID.dll": {}
         }
       },
       "Whycespace.EventFabric/1.0.0": {
@@ -1440,9 +1440,9 @@
           "Whycespace.CommandSystem": "1.0.0",
           "Whycespace.Domain": "1.0.0",
           "Whycespace.EconomicDomain": "1.0.0",
-          "Whycespace.Engine.Identity": "1.0.0",
           "Whycespace.EngineManifest": "1.0.0",
           "Whycespace.Engines": "1.0.0",
+          "Whycespace.Engines.T0U.WhyceID": "1.0.0",
           "Whycespace.EventFabricRuntime": "1.0.0",
           "Whycespace.Observability": "1.0.0",
           "Whycespace.ProjectionRuntime": "1.0.0",
@@ -3305,11 +3305,6 @@
       "path": "../src/domain/economic/Whycespace.EconomicDomain.csproj",
       "msbuildProject": "../src/domain/economic/Whycespace.EconomicDomain.csproj"
     },
-    "Whycespace.Engine.Identity/1.0.0": {
-      "type": "project",
-      "path": "../src/engines/T0U_Constitutional/WhyceIdentity/Whycespace.Engine.Identity.csproj",
-      "msbuildProject": "../src/engines/T0U_Constitutional/WhyceIdentity/Whycespace.Engine.Identity.csproj"
-    },
     "Whycespace.EngineManifest/1.0.0": {
       "type": "project",
       "path": "../src/runtime/engine-manifest/Whycespace.EngineManifest.csproj",
@@ -3324,6 +3319,11 @@
       "type": "project",
       "path": "../src/engines/Whycespace.Engines.csproj",
       "msbuildProject": "../src/engines/Whycespace.Engines.csproj"
+    },
+    "Whycespace.Engines.T0U.WhyceID/1.0.0": {
+      "type": "project",
+      "path": "../src/engines/T0U/WhyceID/Whycespace.Engines.T0U.WhyceID.csproj",
+      "msbuildProject": "../src/engines/T0U/WhyceID/Whycespace.Engines.T0U.WhyceID.csproj"
     },
     "Whycespace.EventFabric/1.0.0": {
       "type": "project",

@@ -954,11 +954,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\projects\\dev\\v3\\tests\\provider-domain\\Whycespace.ProviderDomain.Tests.csproj",
+      "projectUniqueName": "C:\\projects\\dev\\v3\\tests\\provider-domain\\Whycespace.ProviderDomain.Tests.csproj",
       "projectName": "Whycespace.ProviderDomain.Tests",
-      "projectPath": "c:\\projects\\dev\\v3\\tests\\provider-domain\\Whycespace.ProviderDomain.Tests.csproj",
+      "projectPath": "C:\\projects\\dev\\v3\\tests\\provider-domain\\Whycespace.ProviderDomain.Tests.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "c:\\projects\\dev\\v3\\tests\\provider-domain\\obj\\",
+      "outputPath": "C:\\projects\\dev\\v3\\tests\\provider-domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
