@@ -5,14 +5,15 @@
     <Content Remove="clusters/**" />
     <None Remove="clusters/**" />
     <EmbeddedResource Remove="clusters/**" />
-    <Compile Remove="economic/**" />
-    <Content Remove="economic/**" />
-    <None Remove="economic/**" />
-    <EmbeddedResource Remove="economic/**" />
+    <Compile Remove="core/economic/**" />
+    <Content Remove="core/economic/**" />
+    <None Remove="core/economic/**" />
+    <EmbeddedResource Remove="core/economic/**" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\shared\Whycespace.Shared.csproj" />
+    <ProjectReference Include="clusters\Whycespace.ClusterDomain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

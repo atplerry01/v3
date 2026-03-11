@@ -3,10 +3,12 @@ C:\projects\dev\v3\src\runtime\dispatcher\bin\Debug\net10.0\Whycespace.RuntimeDi
 C:\projects\dev\v3\src\runtime\dispatcher\bin\Debug\net10.0\Whycespace.RuntimeDispatcher.pdb
 C:\projects\dev\v3\src\runtime\dispatcher\bin\Debug\net10.0\Whycespace.CommandSystem.dll
 C:\projects\dev\v3\src\runtime\dispatcher\bin\Debug\net10.0\Whycespace.Contracts.dll
+C:\projects\dev\v3\src\runtime\dispatcher\bin\Debug\net10.0\Whycespace.PartitionRuntime.dll
 C:\projects\dev\v3\src\runtime\dispatcher\bin\Debug\net10.0\Whycespace.WorkflowRuntime.dll
 C:\projects\dev\v3\src\runtime\dispatcher\bin\Debug\net10.0\Whycespace.Contracts.pdb
 C:\projects\dev\v3\src\runtime\dispatcher\bin\Debug\net10.0\Whycespace.CommandSystem.pdb
 C:\projects\dev\v3\src\runtime\dispatcher\bin\Debug\net10.0\Whycespace.WorkflowRuntime.pdb
+C:\projects\dev\v3\src\runtime\dispatcher\bin\Debug\net10.0\Whycespace.PartitionRuntime.pdb
 C:\projects\dev\v3\src\runtime\dispatcher\obj\Debug\net10.0\Whycespace.RuntimeDispatcher.csproj.AssemblyReference.cache
 C:\projects\dev\v3\src\runtime\dispatcher\obj\Debug\net10.0\Whycespace.RuntimeDispatcher.GeneratedMSBuildEditorConfig.editorconfig
 C:\projects\dev\v3\src\runtime\dispatcher\obj\Debug\net10.0\Whycespace.RuntimeDispatcher.AssemblyInfoInputs.cache
@@ -17,5 +19,3 @@ C:\projects\dev\v3\src\runtime\dispatcher\obj\Debug\net10.0\Whycespace.RuntimeDi
 C:\projects\dev\v3\src\runtime\dispatcher\obj\Debug\net10.0\refint\Whycespace.RuntimeDispatcher.dll
 C:\projects\dev\v3\src\runtime\dispatcher\obj\Debug\net10.0\Whycespace.RuntimeDispatcher.pdb
 C:\projects\dev\v3\src\runtime\dispatcher\obj\Debug\net10.0\ref\Whycespace.RuntimeDispatcher.dll
-C:\projects\dev\v3\src\runtime\dispatcher\bin\Debug\net10.0\Whycespace.PartitionRuntime.dll
-C:\projects\dev\v3\src\runtime\dispatcher\bin\Debug\net10.0\Whycespace.PartitionRuntime.pdb

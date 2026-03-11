@@ -1030,11 +1030,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\projects\\dev\\v3\\tests\\execution-engines\\Whycespace.ExecutionEngines.Tests.csproj",
+      "projectUniqueName": "C:\\projects\\dev\\v3\\tests\\execution-engines\\Whycespace.ExecutionEngines.Tests.csproj",
       "projectName": "Whycespace.ExecutionEngines.Tests",
-      "projectPath": "c:\\projects\\dev\\v3\\tests\\execution-engines\\Whycespace.ExecutionEngines.Tests.csproj",
+      "projectPath": "C:\\projects\\dev\\v3\\tests\\execution-engines\\Whycespace.ExecutionEngines.Tests.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "c:\\projects\\dev\\v3\\tests\\execution-engines\\obj\\",
+      "outputPath": "C:\\projects\\dev\\v3\\tests\\execution-engines\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

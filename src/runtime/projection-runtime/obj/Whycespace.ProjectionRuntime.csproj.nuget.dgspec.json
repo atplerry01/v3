@@ -36,8 +36,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -351,14 +351,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj",
         "projectName": "Whycespace.EventFabricRuntime",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -383,8 +383,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -727,11 +727,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -1074,8 +1074,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -1389,14 +1389,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+    "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
         "projectName": "Whycespace.Contracts",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

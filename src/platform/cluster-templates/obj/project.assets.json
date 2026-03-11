@@ -6,7 +6,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.Contracts": "1.0.0"
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.ClusterDomain.dll": {}
@@ -24,6 +25,33 @@
         "runtime": {
           "bin/placeholder/Whycespace.Contracts.dll": {}
         }
+      },
+      "Whycespace.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Domain.dll": {}
+        }
+      },
+      "Whycespace.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Shared.dll": {}
+        }
       }
     }
   },
@@ -37,12 +65,23 @@
       "type": "project",
       "path": "../../shared/contracts/Whycespace.Contracts.csproj",
       "msbuildProject": "../../shared/contracts/Whycespace.Contracts.csproj"
+    },
+    "Whycespace.Domain/1.0.0": {
+      "type": "project",
+      "path": "../../domain/Whycespace.Domain.csproj",
+      "msbuildProject": "../../domain/Whycespace.Domain.csproj"
+    },
+    "Whycespace.Shared/1.0.0": {
+      "type": "project",
+      "path": "../../shared/Whycespace.Shared.csproj",
+      "msbuildProject": "../../shared/Whycespace.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "Whycespace.ClusterDomain >= 1.0.0",
-      "Whycespace.Contracts >= 1.0.0"
+      "Whycespace.Contracts >= 1.0.0",
+      "Whycespace.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -78,11 +117,14 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "c:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
+            "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+            "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
             }
           }
         }

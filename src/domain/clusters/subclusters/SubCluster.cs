@@ -1,4 +1,4 @@
-namespace Whycespace.ClusterDomain;
+namespace Whycespace.Domain.Clusters;
 
 public sealed class SubCluster
 {

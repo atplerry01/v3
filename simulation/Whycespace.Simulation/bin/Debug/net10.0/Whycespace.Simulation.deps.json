@@ -10,6 +10,7 @@
         "dependencies": {
           "Whycespace.Domain": "1.0.0",
           "Whycespace.Engines": "1.0.0",
+          "Whycespace.Engines.T0U.WhycePolicy": "1.0.0",
           "Whycespace.Reliability": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
           "Whycespace.Shared": "1.0.0",
@@ -189,6 +190,18 @@
           }
         }
       },
+      "Whycespace.ClusterDomain/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.ClusterDomain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.Contracts/1.0.0": {
         "runtime": {
           "Whycespace.Contracts.dll": {
@@ -199,6 +212,7 @@
       },
       "Whycespace.Domain/1.0.0": {
         "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
           "Whycespace.Shared": "1.0.0"
         },
         "runtime": {
@@ -239,6 +253,18 @@
         },
         "runtime": {
           "Whycespace.Engines.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Engines.T0U.WhycePolicy/1.0.0": {
+        "dependencies": {
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.System": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Engines.T0U.WhycePolicy.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -365,6 +391,11 @@
       "path": "npgsql/10.0.1",
       "hashPath": "npgsql.10.0.1.nupkg.sha512"
     },
+    "Whycespace.ClusterDomain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Whycespace.Contracts/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -386,6 +417,11 @@
       "sha512": ""
     },
     "Whycespace.Engines/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Engines.T0U.WhycePolicy/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

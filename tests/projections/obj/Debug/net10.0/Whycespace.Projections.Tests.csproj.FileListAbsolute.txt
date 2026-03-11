@@ -1,10 +1,5 @@
 C:\projects\dev\v3\tests\projections\bin\Debug\net10.0\.msCoverageSourceRootsMapping_Whycespace.Projections.Tests
 C:\projects\dev\v3\tests\projections\bin\Debug\net10.0\CoverletSourceRootsMapping_Whycespace.Projections.Tests
-C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.csproj.AssemblyReference.cache
-C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.GeneratedMSBuildEditorConfig.editorconfig
-C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.AssemblyInfoInputs.cache
-C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.AssemblyInfo.cs
-C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.csproj.CoreCompileInputs.cache
 C:\projects\dev\v3\tests\projections\bin\Debug\net10.0\testhost.dll
 C:\projects\dev\v3\tests\projections\bin\Debug\net10.0\xunit.abstractions.dll
 C:\projects\dev\v3\tests\projections\bin\Debug\net10.0\testhost.exe
@@ -125,6 +120,11 @@ C:\projects\dev\v3\tests\projections\bin\Debug\net10.0\Whycespace.Contracts.pdb
 C:\projects\dev\v3\tests\projections\bin\Debug\net10.0\Whycespace.EventFabric.pdb
 C:\projects\dev\v3\tests\projections\bin\Debug\net10.0\Whycespace.EventIdempotency.pdb
 C:\projects\dev\v3\tests\projections\bin\Debug\net10.0\Whycespace.EventSchema.pdb
+C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.csproj.AssemblyReference.cache
+C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.AssemblyInfoInputs.cache
+C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.AssemblyInfo.cs
+C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.csproj.CoreCompileInputs.cache
 C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespa.54D74AC1.Up2Date
 C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.dll
 C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\refint\Whycespace.Projections.Tests.dll

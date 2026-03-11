@@ -10,6 +10,7 @@
         "dependencies": {
           "Microsoft.NET.Test.Sdk": "17.14.1",
           "Whycespace.ClusterDomain": "1.0.0",
+          "Whycespace.Domain": "1.0.0",
           "xunit": "2.9.3"
         },
         "runtime": {
@@ -333,7 +334,8 @@
       },
       "Whycespace.ClusterDomain/1.0.0": {
         "dependencies": {
-          "Whycespace.Contracts": "1.0.0"
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
         },
         "runtime": {
           "Whycespace.ClusterDomain.dll": {
@@ -345,6 +347,29 @@
       "Whycespace.Contracts/1.0.0": {
         "runtime": {
           "Whycespace.Contracts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Domain/1.0.0": {
+        "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Shared/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Shared.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -441,6 +466,16 @@
       "sha512": ""
     },
     "Whycespace.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Shared/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

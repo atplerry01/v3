@@ -186,6 +186,18 @@
           }
         }
       },
+      "Whycespace.ClusterDomain/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.ClusterDomain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.Contracts/1.0.0": {
         "runtime": {
           "Whycespace.Contracts.dll": {
@@ -196,6 +208,7 @@
       },
       "Whycespace.Domain/1.0.0": {
         "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
           "Whycespace.Shared": "1.0.0"
         },
         "runtime": {
@@ -243,6 +256,7 @@
       },
       "Whycespace.Engines.T0U.WhyceChain/1.0.0": {
         "dependencies": {
+          "Whycespace.EngineManifest": "1.0.0",
           "Whycespace.System": "1.0.0"
         },
         "runtime": {
@@ -358,6 +372,11 @@
       "sha512": "sha512-XyUcxEfqlFomhNTG/ZdGlec+uSOQArKz0Mzz8jYKP/Jj9GM2YabU5CVZtp0yiC4f9hRp+tRZTnHMatJeJ3rwgw==",
       "path": "npgsql/10.0.1",
       "hashPath": "npgsql.10.0.1.nupkg.sha512"
+    },
+    "Whycespace.ClusterDomain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Whycespace.Contracts/1.0.0": {
       "type": "project",

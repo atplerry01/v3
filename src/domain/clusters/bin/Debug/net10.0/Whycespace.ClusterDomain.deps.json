@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v10.0": {
       "Whycespace.ClusterDomain/1.0.0": {
         "dependencies": {
-          "Whycespace.Contracts": "1.0.0"
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
         },
         "runtime": {
           "Whycespace.ClusterDomain.dll": {}
@@ -17,6 +18,17 @@
       "Whycespace.Contracts/1.0.0": {
         "runtime": {
           "Whycespace.Contracts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Shared/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Shared.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -31,6 +43,11 @@
       "sha512": ""
     },
     "Whycespace.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Shared/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

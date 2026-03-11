@@ -35,6 +35,9 @@
             "projectReferences": {
               "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              },
+              "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
               }
             }
           }
@@ -348,14 +351,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
+    "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj",
         "projectName": "Whycespace.EconomicDomain",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\domain\\economic\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2793,8 +2796,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj"
+              "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"

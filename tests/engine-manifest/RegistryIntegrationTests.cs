@@ -3,7 +3,7 @@ namespace Whycespace.EngineManifest.Tests;
 using Whycespace.EngineManifest.Loader;
 using Whycespace.EngineManifest.Models;
 using Whycespace.EngineRuntime.Registry;
-using Whycespace.Engines.T3I_Intelligence;
+using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
 
 public class RegistryIntegrationTests
 {
@@ -38,8 +38,8 @@ public class RegistryIntegrationTests
             .OrderBy(t => t)
             .ToList();
 
-        Assert.Contains(EngineTier.T0U, tiers);
-        Assert.Contains(EngineTier.T1M, tiers);
+        // T0U and T1M engines are in separate assemblies (Whycespace.Engines.T0U.* and T1M)
+        // so they are not discovered when scanning the Whycespace.Engines assembly.
         Assert.Contains(EngineTier.T2E, tiers);
         Assert.Contains(EngineTier.T3I, tiers);
         Assert.Contains(EngineTier.T4A, tiers);

@@ -170,8 +170,8 @@
   <Folder Name="/tests/provider-domain/">
     <Project Path="tests/provider-domain/Whycespace.ProviderDomain.Tests.csproj" />
   </Folder>
-  <Folder Name="/src/domain/economic/">
-    <Project Path="src/domain/economic/Whycespace.EconomicDomain.csproj" />
+  <Folder Name="/src/domain/core/economic/">
+    <Project Path="src/domain/core/economic/Whycespace.EconomicDomain.csproj" />
   </Folder>
   <Folder Name="/tests/economic-runtime/">
     <Project Path="tests/economic-runtime/Whycespace.EconomicRuntime.Tests.csproj" />

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj": {}
+    "C:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj": {}
   },
   "projects": {
-    "c:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
+    "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj",
         "projectName": "Whycespace.ClusterDomain",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\domain\\clusters\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,355 +33,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "10.0.100"
-      },
-      "frameworks": {
-        "net10.0": {
-          "targetAlias": "net10.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
-          "packagesToPrune": {
-            "Microsoft.CSharp": "(,4.7.32767]",
-            "Microsoft.VisualBasic": "(,10.4.32767]",
-            "Microsoft.Win32.Primitives": "(,4.3.32767]",
-            "Microsoft.Win32.Registry": "(,5.0.32767]",
-            "runtime.any.System.Collections": "(,4.3.32767]",
-            "runtime.any.System.Diagnostics.Tools": "(,4.3.32767]",
-            "runtime.any.System.Diagnostics.Tracing": "(,4.3.32767]",
-            "runtime.any.System.Globalization": "(,4.3.32767]",
-            "runtime.any.System.Globalization.Calendars": "(,4.3.32767]",
-            "runtime.any.System.IO": "(,4.3.32767]",
-            "runtime.any.System.Reflection": "(,4.3.32767]",
-            "runtime.any.System.Reflection.Extensions": "(,4.3.32767]",
-            "runtime.any.System.Reflection.Primitives": "(,4.3.32767]",
-            "runtime.any.System.Resources.ResourceManager": "(,4.3.32767]",
-            "runtime.any.System.Runtime": "(,4.3.32767]",
-            "runtime.any.System.Runtime.Handles": "(,4.3.32767]",
-            "runtime.any.System.Runtime.InteropServices": "(,4.3.32767]",
-            "runtime.any.System.Text.Encoding": "(,4.3.32767]",
-            "runtime.any.System.Text.Encoding.Extensions": "(,4.3.32767]",
-            "runtime.any.System.Threading.Tasks": "(,4.3.32767]",
-            "runtime.any.System.Threading.Timer": "(,4.3.32767]",
-            "runtime.aot.System.Collections": "(,4.3.32767]",
-            "runtime.aot.System.Diagnostics.Tools": "(,4.3.32767]",
-            "runtime.aot.System.Diagnostics.Tracing": "(,4.3.32767]",
-            "runtime.aot.System.Globalization": "(,4.3.32767]",
-            "runtime.aot.System.Globalization.Calendars": "(,4.3.32767]",
-            "runtime.aot.System.IO": "(,4.3.32767]",
-            "runtime.aot.System.Reflection": "(,4.3.32767]",
-            "runtime.aot.System.Reflection.Extensions": "(,4.3.32767]",
-            "runtime.aot.System.Reflection.Primitives": "(,4.3.32767]",
-            "runtime.aot.System.Resources.ResourceManager": "(,4.3.32767]",
-            "runtime.aot.System.Runtime": "(,4.3.32767]",
-            "runtime.aot.System.Runtime.Handles": "(,4.3.32767]",
-            "runtime.aot.System.Runtime.InteropServices": "(,4.3.32767]",
-            "runtime.aot.System.Text.Encoding": "(,4.3.32767]",
-            "runtime.aot.System.Text.Encoding.Extensions": "(,4.3.32767]",
-            "runtime.aot.System.Threading.Tasks": "(,4.3.32767]",
-            "runtime.aot.System.Threading.Timer": "(,4.3.32767]",
-            "runtime.debian.8-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.debian.8-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.debian.8-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.debian.8-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.debian.8-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
-            "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
-            "runtime.debian.9-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.debian.9-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.debian.9-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.debian.9-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.fedora.23-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.fedora.23-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.fedora.23-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.fedora.23-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
-            "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
-            "runtime.fedora.24-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.fedora.24-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.fedora.24-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.fedora.24-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
-            "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
-            "runtime.fedora.27-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.fedora.27-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.fedora.27-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.fedora.27-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.fedora.28-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.fedora.28-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.fedora.28-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.fedora.28-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.opensuse.13.2-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.opensuse.13.2-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.opensuse.13.2-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.opensuse.13.2-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
-            "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
-            "runtime.opensuse.42.1-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.opensuse.42.1-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.opensuse.42.1-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.opensuse.42.1-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
-            "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
-            "runtime.opensuse.42.3-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.opensuse.42.3-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.opensuse.42.3-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.opensuse.42.3-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.osx.10.10-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.osx.10.10-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.osx.10.10-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.osx.10.10-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
-            "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple": "(,4.3.32767]",
-            "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
-            "runtime.rhel.7-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.rhel.7-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.rhel.7-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.rhel.7-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
-            "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
-            "runtime.ubuntu.14.04-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.ubuntu.14.04-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.ubuntu.14.04-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.ubuntu.14.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
-            "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
-            "runtime.ubuntu.16.04-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.ubuntu.16.04-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.ubuntu.16.04-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.ubuntu.16.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
-            "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
-            "runtime.ubuntu.16.10-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.ubuntu.16.10-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.ubuntu.16.10-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.ubuntu.16.10-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
-            "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
-            "runtime.ubuntu.18.04-x64.runtime.native.System": "(,4.3.32767]",
-            "runtime.ubuntu.18.04-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.ubuntu.18.04-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
-            "runtime.ubuntu.18.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
-            "runtime.unix.Microsoft.Win32.Primitives": "(,4.3.32767]",
-            "runtime.unix.System.Console": "(,4.3.32767]",
-            "runtime.unix.System.Diagnostics.Debug": "(,4.3.32767]",
-            "runtime.unix.System.IO.FileSystem": "(,4.3.32767]",
-            "runtime.unix.System.Net.Primitives": "(,4.3.32767]",
-            "runtime.unix.System.Net.Sockets": "(,4.3.32767]",
-            "runtime.unix.System.Private.Uri": "(,4.3.32767]",
-            "runtime.unix.System.Runtime.Extensions": "(,4.3.32767]",
-            "runtime.win.Microsoft.Win32.Primitives": "(,4.3.32767]",
-            "runtime.win.System.Console": "(,4.3.32767]",
-            "runtime.win.System.Diagnostics.Debug": "(,4.3.32767]",
-            "runtime.win.System.IO.FileSystem": "(,4.3.32767]",
-            "runtime.win.System.Net.Primitives": "(,4.3.32767]",
-            "runtime.win.System.Net.Sockets": "(,4.3.32767]",
-            "runtime.win.System.Runtime.Extensions": "(,4.3.32767]",
-            "runtime.win10-arm-aot.runtime.native.System.IO.Compression": "(,4.0.32767]",
-            "runtime.win10-arm64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.win10-x64-aot.runtime.native.System.IO.Compression": "(,4.0.32767]",
-            "runtime.win10-x86-aot.runtime.native.System.IO.Compression": "(,4.0.32767]",
-            "runtime.win7-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.win7-x86.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "runtime.win7.System.Private.Uri": "(,4.3.32767]",
-            "runtime.win8-arm.runtime.native.System.IO.Compression": "(,4.3.32767]",
-            "System.AppContext": "(,4.3.32767]",
-            "System.Buffers": "(,5.0.32767]",
-            "System.Collections": "(,4.3.32767]",
-            "System.Collections.Concurrent": "(,4.3.32767]",
-            "System.Collections.Immutable": "(,10.0.32767]",
-            "System.Collections.NonGeneric": "(,4.3.32767]",
-            "System.Collections.Specialized": "(,4.3.32767]",
-            "System.ComponentModel": "(,4.3.32767]",
-            "System.ComponentModel.Annotations": "(,4.3.32767]",
-            "System.ComponentModel.EventBasedAsync": "(,4.3.32767]",
-            "System.ComponentModel.Primitives": "(,4.3.32767]",
-            "System.ComponentModel.TypeConverter": "(,4.3.32767]",
-            "System.Console": "(,4.3.32767]",
-            "System.Data.Common": "(,4.3.32767]",
-            "System.Data.DataSetExtensions": "(,4.4.32767]",
-            "System.Diagnostics.Contracts": "(,4.3.32767]",
-            "System.Diagnostics.Debug": "(,4.3.32767]",
-            "System.Diagnostics.DiagnosticSource": "(,10.0.32767]",
-            "System.Diagnostics.FileVersionInfo": "(,4.3.32767]",
-            "System.Diagnostics.Process": "(,4.3.32767]",
-            "System.Diagnostics.StackTrace": "(,4.3.32767]",
-            "System.Diagnostics.TextWriterTraceListener": "(,4.3.32767]",
-            "System.Diagnostics.Tools": "(,4.3.32767]",
-            "System.Diagnostics.TraceSource": "(,4.3.32767]",
-            "System.Diagnostics.Tracing": "(,4.3.32767]",
-            "System.Drawing.Primitives": "(,4.3.32767]",
-            "System.Dynamic.Runtime": "(,4.3.32767]",
-            "System.Formats.Asn1": "(,10.0.32767]",
-            "System.Formats.Tar": "(,10.0.32767]",
-            "System.Globalization": "(,4.3.32767]",
-            "System.Globalization.Calendars": "(,4.3.32767]",
-            "System.Globalization.Extensions": "(,4.3.32767]",
-            "System.IO": "(,4.3.32767]",
-            "System.IO.Compression": "(,4.3.32767]",
-            "System.IO.Compression.ZipFile": "(,4.3.32767]",
-            "System.IO.FileSystem": "(,4.3.32767]",
-            "System.IO.FileSystem.AccessControl": "(,4.4.32767]",
-            "System.IO.FileSystem.DriveInfo": "(,4.3.32767]",
-            "System.IO.FileSystem.Primitives": "(,4.3.32767]",
-            "System.IO.FileSystem.Watcher": "(,4.3.32767]",
-            "System.IO.IsolatedStorage": "(,4.3.32767]",
-            "System.IO.MemoryMappedFiles": "(,4.3.32767]",
-            "System.IO.Pipelines": "(,10.0.32767]",
-            "System.IO.Pipes": "(,4.3.32767]",
-            "System.IO.Pipes.AccessControl": "(,5.0.32767]",
-            "System.IO.UnmanagedMemoryStream": "(,4.3.32767]",
-            "System.Linq": "(,4.3.32767]",
-            "System.Linq.AsyncEnumerable": "(,10.0.32767]",
-            "System.Linq.Expressions": "(,4.3.32767]",
-            "System.Linq.Parallel": "(,4.3.32767]",
-            "System.Linq.Queryable": "(,4.3.32767]",
-            "System.Memory": "(,5.0.32767]",
-            "System.Net.Http": "(,4.3.32767]",
-            "System.Net.Http.Json": "(,10.0.32767]",
-            "System.Net.NameResolution": "(,4.3.32767]",
-            "System.Net.NetworkInformation": "(,4.3.32767]",
-            "System.Net.Ping": "(,4.3.32767]",
-            "System.Net.Primitives": "(,4.3.32767]",
-            "System.Net.Requests": "(,4.3.32767]",
-            "System.Net.Security": "(,4.3.32767]",
-            "System.Net.ServerSentEvents": "(,10.0.32767]",
-            "System.Net.Sockets": "(,4.3.32767]",
-            "System.Net.WebHeaderCollection": "(,4.3.32767]",
-            "System.Net.WebSockets": "(,4.3.32767]",
-            "System.Net.WebSockets.Client": "(,4.3.32767]",
-            "System.Numerics.Vectors": "(,5.0.32767]",
-            "System.ObjectModel": "(,4.3.32767]",
-            "System.Private.DataContractSerialization": "(,4.3.32767]",
-            "System.Private.Uri": "(,4.3.32767]",
-            "System.Reflection": "(,4.3.32767]",
-            "System.Reflection.DispatchProxy": "(,6.0.32767]",
-            "System.Reflection.Emit": "(,4.7.32767]",
-            "System.Reflection.Emit.ILGeneration": "(,4.7.32767]",
-            "System.Reflection.Emit.Lightweight": "(,4.7.32767]",
-            "System.Reflection.Extensions": "(,4.3.32767]",
-            "System.Reflection.Metadata": "(,10.0.32767]",
-            "System.Reflection.Primitives": "(,4.3.32767]",
-            "System.Reflection.TypeExtensions": "(,4.3.32767]",
-            "System.Resources.Reader": "(,4.3.32767]",
-            "System.Resources.ResourceManager": "(,4.3.32767]",
-            "System.Resources.Writer": "(,4.3.32767]",
-            "System.Runtime": "(,4.3.32767]",
-            "System.Runtime.CompilerServices.Unsafe": "(,7.0.32767]",
-            "System.Runtime.CompilerServices.VisualC": "(,4.3.32767]",
-            "System.Runtime.Extensions": "(,4.3.32767]",
-            "System.Runtime.Handles": "(,4.3.32767]",
-            "System.Runtime.InteropServices": "(,4.3.32767]",
-            "System.Runtime.InteropServices.RuntimeInformation": "(,4.3.32767]",
-            "System.Runtime.Loader": "(,4.3.32767]",
-            "System.Runtime.Numerics": "(,4.3.32767]",
-            "System.Runtime.Serialization.Formatters": "(,4.3.32767]",
-            "System.Runtime.Serialization.Json": "(,4.3.32767]",
-            "System.Runtime.Serialization.Primitives": "(,4.3.32767]",
-            "System.Runtime.Serialization.Xml": "(,4.3.32767]",
-            "System.Security.AccessControl": "(,6.0.32767]",
-            "System.Security.Claims": "(,4.3.32767]",
-            "System.Security.Cryptography.Algorithms": "(,4.3.32767]",
-            "System.Security.Cryptography.Cng": "(,5.0.32767]",
-            "System.Security.Cryptography.Csp": "(,4.3.32767]",
-            "System.Security.Cryptography.Encoding": "(,4.3.32767]",
-            "System.Security.Cryptography.OpenSsl": "(,5.0.32767]",
-            "System.Security.Cryptography.Primitives": "(,4.3.32767]",
-            "System.Security.Cryptography.X509Certificates": "(,4.3.32767]",
-            "System.Security.Principal": "(,4.3.32767]",
-            "System.Security.Principal.Windows": "(,5.0.32767]",
-            "System.Security.SecureString": "(,4.3.32767]",
-            "System.Text.Encoding": "(,4.3.32767]",
-            "System.Text.Encoding.CodePages": "(,10.0.32767]",
-            "System.Text.Encoding.Extensions": "(,4.3.32767]",
-            "System.Text.Encodings.Web": "(,10.0.32767]",
-            "System.Text.Json": "(,10.0.32767]",
-            "System.Text.RegularExpressions": "(,4.3.32767]",
-            "System.Threading": "(,4.3.32767]",
-            "System.Threading.AccessControl": "(,10.0.32767]",
-            "System.Threading.Channels": "(,10.0.32767]",
-            "System.Threading.Overlapped": "(,4.3.32767]",
-            "System.Threading.Tasks": "(,4.3.32767]",
-            "System.Threading.Tasks.Dataflow": "(,10.0.32767]",
-            "System.Threading.Tasks.Extensions": "(,5.0.32767]",
-            "System.Threading.Tasks.Parallel": "(,4.3.32767]",
-            "System.Threading.Thread": "(,4.3.32767]",
-            "System.Threading.ThreadPool": "(,4.3.32767]",
-            "System.Threading.Timer": "(,4.3.32767]",
-            "System.ValueTuple": "(,4.5.32767]",
-            "System.Xml.ReaderWriter": "(,4.3.32767]",
-            "System.Xml.XDocument": "(,4.3.32767]",
-            "System.Xml.XmlDocument": "(,4.3.32767]",
-            "System.Xml.XmlSerializer": "(,4.3.32767]",
-            "System.Xml.XPath": "(,4.3.32767]",
-            "System.Xml.XPath.XDocument": "(,5.0.32767]"
-          }
-        }
-      }
-    },
-    "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj",
-        "projectName": "Whycespace.EconomicDomain",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj",
-        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\domain\\economic\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net10.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net10.0": {
-            "targetAlias": "net10.0",
-            "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
               }
             }
           }
@@ -695,14 +351,361 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+    "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj",
+        "projectName": "Whycespace.EconomicDomain",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net10.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net10.0": {
+            "targetAlias": "net10.0",
+            "projectReferences": {
+              "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
+              },
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "10.0.100"
+      },
+      "frameworks": {
+        "net10.0": {
+          "targetAlias": "net10.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+          "packagesToPrune": {
+            "Microsoft.CSharp": "(,4.7.32767]",
+            "Microsoft.VisualBasic": "(,10.4.32767]",
+            "Microsoft.Win32.Primitives": "(,4.3.32767]",
+            "Microsoft.Win32.Registry": "(,5.0.32767]",
+            "runtime.any.System.Collections": "(,4.3.32767]",
+            "runtime.any.System.Diagnostics.Tools": "(,4.3.32767]",
+            "runtime.any.System.Diagnostics.Tracing": "(,4.3.32767]",
+            "runtime.any.System.Globalization": "(,4.3.32767]",
+            "runtime.any.System.Globalization.Calendars": "(,4.3.32767]",
+            "runtime.any.System.IO": "(,4.3.32767]",
+            "runtime.any.System.Reflection": "(,4.3.32767]",
+            "runtime.any.System.Reflection.Extensions": "(,4.3.32767]",
+            "runtime.any.System.Reflection.Primitives": "(,4.3.32767]",
+            "runtime.any.System.Resources.ResourceManager": "(,4.3.32767]",
+            "runtime.any.System.Runtime": "(,4.3.32767]",
+            "runtime.any.System.Runtime.Handles": "(,4.3.32767]",
+            "runtime.any.System.Runtime.InteropServices": "(,4.3.32767]",
+            "runtime.any.System.Text.Encoding": "(,4.3.32767]",
+            "runtime.any.System.Text.Encoding.Extensions": "(,4.3.32767]",
+            "runtime.any.System.Threading.Tasks": "(,4.3.32767]",
+            "runtime.any.System.Threading.Timer": "(,4.3.32767]",
+            "runtime.aot.System.Collections": "(,4.3.32767]",
+            "runtime.aot.System.Diagnostics.Tools": "(,4.3.32767]",
+            "runtime.aot.System.Diagnostics.Tracing": "(,4.3.32767]",
+            "runtime.aot.System.Globalization": "(,4.3.32767]",
+            "runtime.aot.System.Globalization.Calendars": "(,4.3.32767]",
+            "runtime.aot.System.IO": "(,4.3.32767]",
+            "runtime.aot.System.Reflection": "(,4.3.32767]",
+            "runtime.aot.System.Reflection.Extensions": "(,4.3.32767]",
+            "runtime.aot.System.Reflection.Primitives": "(,4.3.32767]",
+            "runtime.aot.System.Resources.ResourceManager": "(,4.3.32767]",
+            "runtime.aot.System.Runtime": "(,4.3.32767]",
+            "runtime.aot.System.Runtime.Handles": "(,4.3.32767]",
+            "runtime.aot.System.Runtime.InteropServices": "(,4.3.32767]",
+            "runtime.aot.System.Text.Encoding": "(,4.3.32767]",
+            "runtime.aot.System.Text.Encoding.Extensions": "(,4.3.32767]",
+            "runtime.aot.System.Threading.Tasks": "(,4.3.32767]",
+            "runtime.aot.System.Threading.Timer": "(,4.3.32767]",
+            "runtime.debian.8-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.debian.8-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.debian.8-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.debian.8-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.debian.8-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.debian.9-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.debian.9-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.debian.9-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.debian.9-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.fedora.23-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.fedora.23-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.fedora.23-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.fedora.23-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.fedora.24-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.fedora.24-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.fedora.24-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.fedora.24-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.fedora.27-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.fedora.27-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.fedora.27-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.fedora.27-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.fedora.28-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.fedora.28-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.fedora.28-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.fedora.28-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.opensuse.13.2-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.opensuse.13.2-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.opensuse.13.2-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.opensuse.13.2-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.opensuse.42.1-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.opensuse.42.1-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.opensuse.42.1-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.opensuse.42.1-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.opensuse.42.3-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.opensuse.42.3-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.opensuse.42.3-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.opensuse.42.3-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.rhel.7-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.rhel.7-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.rhel.7-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.rhel.7-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.ubuntu.14.04-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.ubuntu.14.04-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.ubuntu.14.04-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.ubuntu.14.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.ubuntu.16.04-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.ubuntu.16.04-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.ubuntu.16.04-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.ubuntu.16.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.ubuntu.16.10-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.ubuntu.16.10-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.ubuntu.16.10-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.ubuntu.16.10-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.ubuntu.18.04-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.ubuntu.18.04-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.ubuntu.18.04-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.ubuntu.18.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.unix.Microsoft.Win32.Primitives": "(,4.3.32767]",
+            "runtime.unix.System.Console": "(,4.3.32767]",
+            "runtime.unix.System.Diagnostics.Debug": "(,4.3.32767]",
+            "runtime.unix.System.IO.FileSystem": "(,4.3.32767]",
+            "runtime.unix.System.Net.Primitives": "(,4.3.32767]",
+            "runtime.unix.System.Net.Sockets": "(,4.3.32767]",
+            "runtime.unix.System.Private.Uri": "(,4.3.32767]",
+            "runtime.unix.System.Runtime.Extensions": "(,4.3.32767]",
+            "runtime.win.Microsoft.Win32.Primitives": "(,4.3.32767]",
+            "runtime.win.System.Console": "(,4.3.32767]",
+            "runtime.win.System.Diagnostics.Debug": "(,4.3.32767]",
+            "runtime.win.System.IO.FileSystem": "(,4.3.32767]",
+            "runtime.win.System.Net.Primitives": "(,4.3.32767]",
+            "runtime.win.System.Net.Sockets": "(,4.3.32767]",
+            "runtime.win.System.Runtime.Extensions": "(,4.3.32767]",
+            "runtime.win10-arm-aot.runtime.native.System.IO.Compression": "(,4.0.32767]",
+            "runtime.win10-arm64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.win10-x64-aot.runtime.native.System.IO.Compression": "(,4.0.32767]",
+            "runtime.win10-x86-aot.runtime.native.System.IO.Compression": "(,4.0.32767]",
+            "runtime.win7-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.win7-x86.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.win7.System.Private.Uri": "(,4.3.32767]",
+            "runtime.win8-arm.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "System.AppContext": "(,4.3.32767]",
+            "System.Buffers": "(,5.0.32767]",
+            "System.Collections": "(,4.3.32767]",
+            "System.Collections.Concurrent": "(,4.3.32767]",
+            "System.Collections.Immutable": "(,10.0.32767]",
+            "System.Collections.NonGeneric": "(,4.3.32767]",
+            "System.Collections.Specialized": "(,4.3.32767]",
+            "System.ComponentModel": "(,4.3.32767]",
+            "System.ComponentModel.Annotations": "(,4.3.32767]",
+            "System.ComponentModel.EventBasedAsync": "(,4.3.32767]",
+            "System.ComponentModel.Primitives": "(,4.3.32767]",
+            "System.ComponentModel.TypeConverter": "(,4.3.32767]",
+            "System.Console": "(,4.3.32767]",
+            "System.Data.Common": "(,4.3.32767]",
+            "System.Data.DataSetExtensions": "(,4.4.32767]",
+            "System.Diagnostics.Contracts": "(,4.3.32767]",
+            "System.Diagnostics.Debug": "(,4.3.32767]",
+            "System.Diagnostics.DiagnosticSource": "(,10.0.32767]",
+            "System.Diagnostics.FileVersionInfo": "(,4.3.32767]",
+            "System.Diagnostics.Process": "(,4.3.32767]",
+            "System.Diagnostics.StackTrace": "(,4.3.32767]",
+            "System.Diagnostics.TextWriterTraceListener": "(,4.3.32767]",
+            "System.Diagnostics.Tools": "(,4.3.32767]",
+            "System.Diagnostics.TraceSource": "(,4.3.32767]",
+            "System.Diagnostics.Tracing": "(,4.3.32767]",
+            "System.Drawing.Primitives": "(,4.3.32767]",
+            "System.Dynamic.Runtime": "(,4.3.32767]",
+            "System.Formats.Asn1": "(,10.0.32767]",
+            "System.Formats.Tar": "(,10.0.32767]",
+            "System.Globalization": "(,4.3.32767]",
+            "System.Globalization.Calendars": "(,4.3.32767]",
+            "System.Globalization.Extensions": "(,4.3.32767]",
+            "System.IO": "(,4.3.32767]",
+            "System.IO.Compression": "(,4.3.32767]",
+            "System.IO.Compression.ZipFile": "(,4.3.32767]",
+            "System.IO.FileSystem": "(,4.3.32767]",
+            "System.IO.FileSystem.AccessControl": "(,4.4.32767]",
+            "System.IO.FileSystem.DriveInfo": "(,4.3.32767]",
+            "System.IO.FileSystem.Primitives": "(,4.3.32767]",
+            "System.IO.FileSystem.Watcher": "(,4.3.32767]",
+            "System.IO.IsolatedStorage": "(,4.3.32767]",
+            "System.IO.MemoryMappedFiles": "(,4.3.32767]",
+            "System.IO.Pipelines": "(,10.0.32767]",
+            "System.IO.Pipes": "(,4.3.32767]",
+            "System.IO.Pipes.AccessControl": "(,5.0.32767]",
+            "System.IO.UnmanagedMemoryStream": "(,4.3.32767]",
+            "System.Linq": "(,4.3.32767]",
+            "System.Linq.AsyncEnumerable": "(,10.0.32767]",
+            "System.Linq.Expressions": "(,4.3.32767]",
+            "System.Linq.Parallel": "(,4.3.32767]",
+            "System.Linq.Queryable": "(,4.3.32767]",
+            "System.Memory": "(,5.0.32767]",
+            "System.Net.Http": "(,4.3.32767]",
+            "System.Net.Http.Json": "(,10.0.32767]",
+            "System.Net.NameResolution": "(,4.3.32767]",
+            "System.Net.NetworkInformation": "(,4.3.32767]",
+            "System.Net.Ping": "(,4.3.32767]",
+            "System.Net.Primitives": "(,4.3.32767]",
+            "System.Net.Requests": "(,4.3.32767]",
+            "System.Net.Security": "(,4.3.32767]",
+            "System.Net.ServerSentEvents": "(,10.0.32767]",
+            "System.Net.Sockets": "(,4.3.32767]",
+            "System.Net.WebHeaderCollection": "(,4.3.32767]",
+            "System.Net.WebSockets": "(,4.3.32767]",
+            "System.Net.WebSockets.Client": "(,4.3.32767]",
+            "System.Numerics.Vectors": "(,5.0.32767]",
+            "System.ObjectModel": "(,4.3.32767]",
+            "System.Private.DataContractSerialization": "(,4.3.32767]",
+            "System.Private.Uri": "(,4.3.32767]",
+            "System.Reflection": "(,4.3.32767]",
+            "System.Reflection.DispatchProxy": "(,6.0.32767]",
+            "System.Reflection.Emit": "(,4.7.32767]",
+            "System.Reflection.Emit.ILGeneration": "(,4.7.32767]",
+            "System.Reflection.Emit.Lightweight": "(,4.7.32767]",
+            "System.Reflection.Extensions": "(,4.3.32767]",
+            "System.Reflection.Metadata": "(,10.0.32767]",
+            "System.Reflection.Primitives": "(,4.3.32767]",
+            "System.Reflection.TypeExtensions": "(,4.3.32767]",
+            "System.Resources.Reader": "(,4.3.32767]",
+            "System.Resources.ResourceManager": "(,4.3.32767]",
+            "System.Resources.Writer": "(,4.3.32767]",
+            "System.Runtime": "(,4.3.32767]",
+            "System.Runtime.CompilerServices.Unsafe": "(,7.0.32767]",
+            "System.Runtime.CompilerServices.VisualC": "(,4.3.32767]",
+            "System.Runtime.Extensions": "(,4.3.32767]",
+            "System.Runtime.Handles": "(,4.3.32767]",
+            "System.Runtime.InteropServices": "(,4.3.32767]",
+            "System.Runtime.InteropServices.RuntimeInformation": "(,4.3.32767]",
+            "System.Runtime.Loader": "(,4.3.32767]",
+            "System.Runtime.Numerics": "(,4.3.32767]",
+            "System.Runtime.Serialization.Formatters": "(,4.3.32767]",
+            "System.Runtime.Serialization.Json": "(,4.3.32767]",
+            "System.Runtime.Serialization.Primitives": "(,4.3.32767]",
+            "System.Runtime.Serialization.Xml": "(,4.3.32767]",
+            "System.Security.AccessControl": "(,6.0.32767]",
+            "System.Security.Claims": "(,4.3.32767]",
+            "System.Security.Cryptography.Algorithms": "(,4.3.32767]",
+            "System.Security.Cryptography.Cng": "(,5.0.32767]",
+            "System.Security.Cryptography.Csp": "(,4.3.32767]",
+            "System.Security.Cryptography.Encoding": "(,4.3.32767]",
+            "System.Security.Cryptography.OpenSsl": "(,5.0.32767]",
+            "System.Security.Cryptography.Primitives": "(,4.3.32767]",
+            "System.Security.Cryptography.X509Certificates": "(,4.3.32767]",
+            "System.Security.Principal": "(,4.3.32767]",
+            "System.Security.Principal.Windows": "(,5.0.32767]",
+            "System.Security.SecureString": "(,4.3.32767]",
+            "System.Text.Encoding": "(,4.3.32767]",
+            "System.Text.Encoding.CodePages": "(,10.0.32767]",
+            "System.Text.Encoding.Extensions": "(,4.3.32767]",
+            "System.Text.Encodings.Web": "(,10.0.32767]",
+            "System.Text.Json": "(,10.0.32767]",
+            "System.Text.RegularExpressions": "(,4.3.32767]",
+            "System.Threading": "(,4.3.32767]",
+            "System.Threading.AccessControl": "(,10.0.32767]",
+            "System.Threading.Channels": "(,10.0.32767]",
+            "System.Threading.Overlapped": "(,4.3.32767]",
+            "System.Threading.Tasks": "(,4.3.32767]",
+            "System.Threading.Tasks.Dataflow": "(,10.0.32767]",
+            "System.Threading.Tasks.Extensions": "(,5.0.32767]",
+            "System.Threading.Tasks.Parallel": "(,4.3.32767]",
+            "System.Threading.Thread": "(,4.3.32767]",
+            "System.Threading.ThreadPool": "(,4.3.32767]",
+            "System.Threading.Timer": "(,4.3.32767]",
+            "System.ValueTuple": "(,4.5.32767]",
+            "System.Xml.ReaderWriter": "(,4.3.32767]",
+            "System.Xml.XDocument": "(,4.3.32767]",
+            "System.Xml.XmlDocument": "(,4.3.32767]",
+            "System.Xml.XmlSerializer": "(,4.3.32767]",
+            "System.Xml.XPath": "(,4.3.32767]",
+            "System.Xml.XPath.XDocument": "(,5.0.32767]"
+          }
+        }
+      }
+    },
+    "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj",
         "projectName": "Whycespace.Domain",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\domain\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -724,8 +727,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
+              "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
+              },
+              "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
               }
             }
           }
@@ -1039,14 +1045,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\Whycespace.Engines.T0U.Governance.csproj": {
+    "C:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\Whycespace.Engines.T0U.Governance.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\Whycespace.Engines.T0U.Governance.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\Whycespace.Engines.T0U.Governance.csproj",
         "projectName": "Whycespace.Engines.T0U.Governance",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\Whycespace.Engines.T0U.Governance.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\Whycespace.Engines.T0U.Governance.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1068,6 +1074,9 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
+              "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj"
+              },
               "C:\\projects\\dev\\v3\\src\\system\\upstream\\WhyceID\\Whycespace.System.WhyceID.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\system\\upstream\\WhyceID\\Whycespace.System.WhyceID.csproj"
               },
@@ -1386,14 +1395,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj": {
+    "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj",
         "projectName": "Whycespace.Engines.T0U.WhyceChain",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1415,6 +1424,9 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
+              "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+              },
               "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
               }
@@ -1730,14 +1742,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj": {
+    "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj",
         "projectName": "Whycespace.Engines.T0U.WhyceID",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1759,8 +1771,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\system\\upstream\\WhyceID\\Whycespace.System.WhyceID.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\system\\upstream\\WhyceID\\Whycespace.System.WhyceID.csproj"
@@ -2106,6 +2118,9 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
+              "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+              },
               "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
               }
@@ -2421,14 +2436,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+    "C:\\projects\\dev\\v3\\src\\engines\\T1M\\WSS\\Whycespace.Engines.T1M.WSS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj",
-        "projectName": "Whycespace.Engines",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\engines\\T1M\\WSS\\Whycespace.Engines.T1M.WSS.csproj",
+        "projectName": "Whycespace.Engines.T1M.WSS",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T1M\\WSS\\Whycespace.Engines.T1M.WSS.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\engines\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\engines\\T1M\\WSS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2450,11 +2465,358 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
+              "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "10.0.100"
+      },
+      "frameworks": {
+        "net10.0": {
+          "targetAlias": "net10.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+          "packagesToPrune": {
+            "Microsoft.CSharp": "(,4.7.32767]",
+            "Microsoft.VisualBasic": "(,10.4.32767]",
+            "Microsoft.Win32.Primitives": "(,4.3.32767]",
+            "Microsoft.Win32.Registry": "(,5.0.32767]",
+            "runtime.any.System.Collections": "(,4.3.32767]",
+            "runtime.any.System.Diagnostics.Tools": "(,4.3.32767]",
+            "runtime.any.System.Diagnostics.Tracing": "(,4.3.32767]",
+            "runtime.any.System.Globalization": "(,4.3.32767]",
+            "runtime.any.System.Globalization.Calendars": "(,4.3.32767]",
+            "runtime.any.System.IO": "(,4.3.32767]",
+            "runtime.any.System.Reflection": "(,4.3.32767]",
+            "runtime.any.System.Reflection.Extensions": "(,4.3.32767]",
+            "runtime.any.System.Reflection.Primitives": "(,4.3.32767]",
+            "runtime.any.System.Resources.ResourceManager": "(,4.3.32767]",
+            "runtime.any.System.Runtime": "(,4.3.32767]",
+            "runtime.any.System.Runtime.Handles": "(,4.3.32767]",
+            "runtime.any.System.Runtime.InteropServices": "(,4.3.32767]",
+            "runtime.any.System.Text.Encoding": "(,4.3.32767]",
+            "runtime.any.System.Text.Encoding.Extensions": "(,4.3.32767]",
+            "runtime.any.System.Threading.Tasks": "(,4.3.32767]",
+            "runtime.any.System.Threading.Timer": "(,4.3.32767]",
+            "runtime.aot.System.Collections": "(,4.3.32767]",
+            "runtime.aot.System.Diagnostics.Tools": "(,4.3.32767]",
+            "runtime.aot.System.Diagnostics.Tracing": "(,4.3.32767]",
+            "runtime.aot.System.Globalization": "(,4.3.32767]",
+            "runtime.aot.System.Globalization.Calendars": "(,4.3.32767]",
+            "runtime.aot.System.IO": "(,4.3.32767]",
+            "runtime.aot.System.Reflection": "(,4.3.32767]",
+            "runtime.aot.System.Reflection.Extensions": "(,4.3.32767]",
+            "runtime.aot.System.Reflection.Primitives": "(,4.3.32767]",
+            "runtime.aot.System.Resources.ResourceManager": "(,4.3.32767]",
+            "runtime.aot.System.Runtime": "(,4.3.32767]",
+            "runtime.aot.System.Runtime.Handles": "(,4.3.32767]",
+            "runtime.aot.System.Runtime.InteropServices": "(,4.3.32767]",
+            "runtime.aot.System.Text.Encoding": "(,4.3.32767]",
+            "runtime.aot.System.Text.Encoding.Extensions": "(,4.3.32767]",
+            "runtime.aot.System.Threading.Tasks": "(,4.3.32767]",
+            "runtime.aot.System.Threading.Timer": "(,4.3.32767]",
+            "runtime.debian.8-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.debian.8-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.debian.8-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.debian.8-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.debian.8-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.debian.9-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.debian.9-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.debian.9-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.debian.9-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.fedora.23-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.fedora.23-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.fedora.23-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.fedora.23-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.fedora.24-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.fedora.24-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.fedora.24-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.fedora.24-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.fedora.27-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.fedora.27-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.fedora.27-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.fedora.27-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.fedora.28-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.fedora.28-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.fedora.28-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.fedora.28-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.opensuse.13.2-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.opensuse.13.2-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.opensuse.13.2-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.opensuse.13.2-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.opensuse.42.1-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.opensuse.42.1-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.opensuse.42.1-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.opensuse.42.1-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.opensuse.42.3-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.opensuse.42.3-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.opensuse.42.3-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.opensuse.42.3-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple": "(,4.3.32767]",
+            "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.rhel.7-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.rhel.7-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.rhel.7-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.rhel.7-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.ubuntu.14.04-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.ubuntu.14.04-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.ubuntu.14.04-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.ubuntu.14.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.ubuntu.16.04-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.ubuntu.16.04-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.ubuntu.16.04-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.ubuntu.16.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.ubuntu.16.10-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.ubuntu.16.10-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.ubuntu.16.10-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.ubuntu.16.10-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+            "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+            "runtime.ubuntu.18.04-x64.runtime.native.System": "(,4.3.32767]",
+            "runtime.ubuntu.18.04-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.ubuntu.18.04-x64.runtime.native.System.Net.Http": "(,4.3.32767]",
+            "runtime.ubuntu.18.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+            "runtime.unix.Microsoft.Win32.Primitives": "(,4.3.32767]",
+            "runtime.unix.System.Console": "(,4.3.32767]",
+            "runtime.unix.System.Diagnostics.Debug": "(,4.3.32767]",
+            "runtime.unix.System.IO.FileSystem": "(,4.3.32767]",
+            "runtime.unix.System.Net.Primitives": "(,4.3.32767]",
+            "runtime.unix.System.Net.Sockets": "(,4.3.32767]",
+            "runtime.unix.System.Private.Uri": "(,4.3.32767]",
+            "runtime.unix.System.Runtime.Extensions": "(,4.3.32767]",
+            "runtime.win.Microsoft.Win32.Primitives": "(,4.3.32767]",
+            "runtime.win.System.Console": "(,4.3.32767]",
+            "runtime.win.System.Diagnostics.Debug": "(,4.3.32767]",
+            "runtime.win.System.IO.FileSystem": "(,4.3.32767]",
+            "runtime.win.System.Net.Primitives": "(,4.3.32767]",
+            "runtime.win.System.Net.Sockets": "(,4.3.32767]",
+            "runtime.win.System.Runtime.Extensions": "(,4.3.32767]",
+            "runtime.win10-arm-aot.runtime.native.System.IO.Compression": "(,4.0.32767]",
+            "runtime.win10-arm64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.win10-x64-aot.runtime.native.System.IO.Compression": "(,4.0.32767]",
+            "runtime.win10-x86-aot.runtime.native.System.IO.Compression": "(,4.0.32767]",
+            "runtime.win7-x64.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.win7-x86.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "runtime.win7.System.Private.Uri": "(,4.3.32767]",
+            "runtime.win8-arm.runtime.native.System.IO.Compression": "(,4.3.32767]",
+            "System.AppContext": "(,4.3.32767]",
+            "System.Buffers": "(,5.0.32767]",
+            "System.Collections": "(,4.3.32767]",
+            "System.Collections.Concurrent": "(,4.3.32767]",
+            "System.Collections.Immutable": "(,10.0.32767]",
+            "System.Collections.NonGeneric": "(,4.3.32767]",
+            "System.Collections.Specialized": "(,4.3.32767]",
+            "System.ComponentModel": "(,4.3.32767]",
+            "System.ComponentModel.Annotations": "(,4.3.32767]",
+            "System.ComponentModel.EventBasedAsync": "(,4.3.32767]",
+            "System.ComponentModel.Primitives": "(,4.3.32767]",
+            "System.ComponentModel.TypeConverter": "(,4.3.32767]",
+            "System.Console": "(,4.3.32767]",
+            "System.Data.Common": "(,4.3.32767]",
+            "System.Data.DataSetExtensions": "(,4.4.32767]",
+            "System.Diagnostics.Contracts": "(,4.3.32767]",
+            "System.Diagnostics.Debug": "(,4.3.32767]",
+            "System.Diagnostics.DiagnosticSource": "(,10.0.32767]",
+            "System.Diagnostics.FileVersionInfo": "(,4.3.32767]",
+            "System.Diagnostics.Process": "(,4.3.32767]",
+            "System.Diagnostics.StackTrace": "(,4.3.32767]",
+            "System.Diagnostics.TextWriterTraceListener": "(,4.3.32767]",
+            "System.Diagnostics.Tools": "(,4.3.32767]",
+            "System.Diagnostics.TraceSource": "(,4.3.32767]",
+            "System.Diagnostics.Tracing": "(,4.3.32767]",
+            "System.Drawing.Primitives": "(,4.3.32767]",
+            "System.Dynamic.Runtime": "(,4.3.32767]",
+            "System.Formats.Asn1": "(,10.0.32767]",
+            "System.Formats.Tar": "(,10.0.32767]",
+            "System.Globalization": "(,4.3.32767]",
+            "System.Globalization.Calendars": "(,4.3.32767]",
+            "System.Globalization.Extensions": "(,4.3.32767]",
+            "System.IO": "(,4.3.32767]",
+            "System.IO.Compression": "(,4.3.32767]",
+            "System.IO.Compression.ZipFile": "(,4.3.32767]",
+            "System.IO.FileSystem": "(,4.3.32767]",
+            "System.IO.FileSystem.AccessControl": "(,4.4.32767]",
+            "System.IO.FileSystem.DriveInfo": "(,4.3.32767]",
+            "System.IO.FileSystem.Primitives": "(,4.3.32767]",
+            "System.IO.FileSystem.Watcher": "(,4.3.32767]",
+            "System.IO.IsolatedStorage": "(,4.3.32767]",
+            "System.IO.MemoryMappedFiles": "(,4.3.32767]",
+            "System.IO.Pipelines": "(,10.0.32767]",
+            "System.IO.Pipes": "(,4.3.32767]",
+            "System.IO.Pipes.AccessControl": "(,5.0.32767]",
+            "System.IO.UnmanagedMemoryStream": "(,4.3.32767]",
+            "System.Linq": "(,4.3.32767]",
+            "System.Linq.AsyncEnumerable": "(,10.0.32767]",
+            "System.Linq.Expressions": "(,4.3.32767]",
+            "System.Linq.Parallel": "(,4.3.32767]",
+            "System.Linq.Queryable": "(,4.3.32767]",
+            "System.Memory": "(,5.0.32767]",
+            "System.Net.Http": "(,4.3.32767]",
+            "System.Net.Http.Json": "(,10.0.32767]",
+            "System.Net.NameResolution": "(,4.3.32767]",
+            "System.Net.NetworkInformation": "(,4.3.32767]",
+            "System.Net.Ping": "(,4.3.32767]",
+            "System.Net.Primitives": "(,4.3.32767]",
+            "System.Net.Requests": "(,4.3.32767]",
+            "System.Net.Security": "(,4.3.32767]",
+            "System.Net.ServerSentEvents": "(,10.0.32767]",
+            "System.Net.Sockets": "(,4.3.32767]",
+            "System.Net.WebHeaderCollection": "(,4.3.32767]",
+            "System.Net.WebSockets": "(,4.3.32767]",
+            "System.Net.WebSockets.Client": "(,4.3.32767]",
+            "System.Numerics.Vectors": "(,5.0.32767]",
+            "System.ObjectModel": "(,4.3.32767]",
+            "System.Private.DataContractSerialization": "(,4.3.32767]",
+            "System.Private.Uri": "(,4.3.32767]",
+            "System.Reflection": "(,4.3.32767]",
+            "System.Reflection.DispatchProxy": "(,6.0.32767]",
+            "System.Reflection.Emit": "(,4.7.32767]",
+            "System.Reflection.Emit.ILGeneration": "(,4.7.32767]",
+            "System.Reflection.Emit.Lightweight": "(,4.7.32767]",
+            "System.Reflection.Extensions": "(,4.3.32767]",
+            "System.Reflection.Metadata": "(,10.0.32767]",
+            "System.Reflection.Primitives": "(,4.3.32767]",
+            "System.Reflection.TypeExtensions": "(,4.3.32767]",
+            "System.Resources.Reader": "(,4.3.32767]",
+            "System.Resources.ResourceManager": "(,4.3.32767]",
+            "System.Resources.Writer": "(,4.3.32767]",
+            "System.Runtime": "(,4.3.32767]",
+            "System.Runtime.CompilerServices.Unsafe": "(,7.0.32767]",
+            "System.Runtime.CompilerServices.VisualC": "(,4.3.32767]",
+            "System.Runtime.Extensions": "(,4.3.32767]",
+            "System.Runtime.Handles": "(,4.3.32767]",
+            "System.Runtime.InteropServices": "(,4.3.32767]",
+            "System.Runtime.InteropServices.RuntimeInformation": "(,4.3.32767]",
+            "System.Runtime.Loader": "(,4.3.32767]",
+            "System.Runtime.Numerics": "(,4.3.32767]",
+            "System.Runtime.Serialization.Formatters": "(,4.3.32767]",
+            "System.Runtime.Serialization.Json": "(,4.3.32767]",
+            "System.Runtime.Serialization.Primitives": "(,4.3.32767]",
+            "System.Runtime.Serialization.Xml": "(,4.3.32767]",
+            "System.Security.AccessControl": "(,6.0.32767]",
+            "System.Security.Claims": "(,4.3.32767]",
+            "System.Security.Cryptography.Algorithms": "(,4.3.32767]",
+            "System.Security.Cryptography.Cng": "(,5.0.32767]",
+            "System.Security.Cryptography.Csp": "(,4.3.32767]",
+            "System.Security.Cryptography.Encoding": "(,4.3.32767]",
+            "System.Security.Cryptography.OpenSsl": "(,5.0.32767]",
+            "System.Security.Cryptography.Primitives": "(,4.3.32767]",
+            "System.Security.Cryptography.X509Certificates": "(,4.3.32767]",
+            "System.Security.Principal": "(,4.3.32767]",
+            "System.Security.Principal.Windows": "(,5.0.32767]",
+            "System.Security.SecureString": "(,4.3.32767]",
+            "System.Text.Encoding": "(,4.3.32767]",
+            "System.Text.Encoding.CodePages": "(,10.0.32767]",
+            "System.Text.Encoding.Extensions": "(,4.3.32767]",
+            "System.Text.Encodings.Web": "(,10.0.32767]",
+            "System.Text.Json": "(,10.0.32767]",
+            "System.Text.RegularExpressions": "(,4.3.32767]",
+            "System.Threading": "(,4.3.32767]",
+            "System.Threading.AccessControl": "(,10.0.32767]",
+            "System.Threading.Channels": "(,10.0.32767]",
+            "System.Threading.Overlapped": "(,4.3.32767]",
+            "System.Threading.Tasks": "(,4.3.32767]",
+            "System.Threading.Tasks.Dataflow": "(,10.0.32767]",
+            "System.Threading.Tasks.Extensions": "(,5.0.32767]",
+            "System.Threading.Tasks.Parallel": "(,4.3.32767]",
+            "System.Threading.Thread": "(,4.3.32767]",
+            "System.Threading.ThreadPool": "(,4.3.32767]",
+            "System.Threading.Timer": "(,4.3.32767]",
+            "System.ValueTuple": "(,4.5.32767]",
+            "System.Xml.ReaderWriter": "(,4.3.32767]",
+            "System.Xml.XDocument": "(,4.3.32767]",
+            "System.Xml.XmlDocument": "(,4.3.32767]",
+            "System.Xml.XmlSerializer": "(,4.3.32767]",
+            "System.Xml.XPath": "(,4.3.32767]",
+            "System.Xml.XPath.XDocument": "(,5.0.32767]"
+          }
+        }
+      }
+    },
+    "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj",
+        "projectName": "Whycespace.Engines",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\engines\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net10.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net10.0": {
+            "targetAlias": "net10.0",
+            "projectReferences": {
+              "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+              },
+              "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
               }
             }
           }
@@ -2797,11 +3159,14 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
+              "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+              },
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -3115,14 +3480,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj": {
+    "C:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj",
         "projectName": "Whycespace.Platform",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\platform\\Whycespace.Platform.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\platform\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\platform\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3144,74 +3509,77 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
+              "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj"
+              "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+              "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\Whycespace.Engines.T0U.Governance.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\Whycespace.Engines.T0U.Governance.csproj"
+              "C:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\Whycespace.Engines.T0U.Governance.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\Whycespace.Engines.T0U.Governance.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj"
+              "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj"
+              "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhycePolicy\\Whycespace.Engines.T0U.WhycePolicy.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhycePolicy\\Whycespace.Engines.T0U.WhycePolicy.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
+              "C:\\projects\\dev\\v3\\src\\engines\\T1M\\WSS\\Whycespace.Engines.T1M.WSS.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T1M\\WSS\\Whycespace.Engines.T1M.WSS.csproj"
+              },
+              "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\projection-runtime\\Whycespace.ProjectionRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projection-runtime\\Whycespace.ProjectionRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\Whycespace.ReliabilityRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\Whycespace.ReliabilityRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\Whycespace.ReliabilityRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\Whycespace.ReliabilityRuntime.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\Whycespace.WorkerPoolRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\Whycespace.WorkerPoolRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\Whycespace.WorkerPoolRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\Whycespace.WorkerPoolRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\system\\upstream\\WhyceID\\Whycespace.System.WhyceID.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\system\\upstream\\WhyceID\\Whycespace.System.WhyceID.csproj"
@@ -3704,14 +4072,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
         "projectName": "Whycespace.CommandSystem",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3733,8 +4101,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -4048,14 +4416,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj",
         "projectName": "Whycespace.EngineManifest",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4080,8 +4448,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -4427,8 +4795,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -4742,14 +5110,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj",
         "projectName": "Whycespace.EventFabricRuntime",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4774,8 +5142,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -5089,14 +5457,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj",
         "projectName": "Whycespace.EventFabric",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5118,8 +5486,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -5468,11 +5836,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -5786,14 +6154,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
         "projectName": "Whycespace.EventSchema",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5815,11 +6183,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -6133,14 +6501,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj",
         "projectName": "Whycespace.ArchitectureGuardrails",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\guardrails\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -6162,14 +6530,14 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
+              "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
               }
             }
           }
@@ -6483,14 +6851,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj",
         "projectName": "Whycespace.Observability",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\observability\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\observability\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -6512,8 +6880,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -6856,11 +7224,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -7174,14 +7542,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj",
         "projectName": "Whycespace.Projections",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\projections\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\projections\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -7203,17 +7571,17 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\Whycespace.EventIdempotency.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\Whycespace.EventIdempotency.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -7527,14 +7895,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\Whycespace.ReliabilityRuntime.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\Whycespace.ReliabilityRuntime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\Whycespace.ReliabilityRuntime.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\Whycespace.ReliabilityRuntime.csproj",
         "projectName": "Whycespace.ReliabilityRuntime",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\Whycespace.ReliabilityRuntime.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\Whycespace.ReliabilityRuntime.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability-runtime\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -7559,8 +7927,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -7903,14 +8271,14 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -8224,14 +8592,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj",
         "projectName": "Whycespace.SimulationRuntime",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\simulation\\Whycespace.SimulationRuntime.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\simulation\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\simulation\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -8253,11 +8621,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+              "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -8571,14 +8939,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj",
         "projectName": "Whycespace.RuntimeValidation",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\validation\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\validation\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -8600,23 +8968,23 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj"
+              "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
+              "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj"
+              "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
               }
             }
           }
@@ -8959,11 +9327,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
+              "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
               }
             }
           }
@@ -9287,14 +9655,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\Whycespace.WorkerPoolRuntime.csproj": {
+    "C:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\Whycespace.WorkerPoolRuntime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\Whycespace.WorkerPoolRuntime.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\Whycespace.WorkerPoolRuntime.csproj",
         "projectName": "Whycespace.WorkerPoolRuntime",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\Whycespace.WorkerPoolRuntime.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\Whycespace.WorkerPoolRuntime.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\worker-pool\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -9319,8 +9687,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -9663,8 +10031,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -9978,14 +10346,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+    "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
         "projectName": "Whycespace.Contracts",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -10318,14 +10686,14 @@
         }
       }
     },
-    "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
+    "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj",
         "projectName": "Whycespace.Shared",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\shared\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -10347,8 +10715,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -10691,8 +11059,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
               }
             }
           }
@@ -11035,11 +11403,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+              "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
+              "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
@@ -11047,8 +11415,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
               },
-              "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
-                "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
+              "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
+                "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
               }
             }
           }

@@ -126,7 +126,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.Contracts": "1.0.0"
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.ClusterDomain.dll": {}
@@ -386,8 +387,8 @@
     },
     "Whycespace.EconomicDomain/1.0.0": {
       "type": "project",
-      "path": "../../domain/economic/Whycespace.EconomicDomain.csproj",
-      "msbuildProject": "../../domain/economic/Whycespace.EconomicDomain.csproj"
+      "path": "../../domain/core/economic/Whycespace.EconomicDomain.csproj",
+      "msbuildProject": "../../domain/core/economic/Whycespace.EconomicDomain.csproj"
     },
     "Whycespace.EngineManifest/1.0.0": {
       "type": "project",
@@ -452,11 +453,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj",
+      "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj",
       "projectName": "Whycespace.RuntimeValidation",
-      "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj",
+      "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\validation\\Whycespace.RuntimeValidation.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\validation\\obj\\",
+      "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\validation\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -478,23 +479,23 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj"
+            "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
+            "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+            "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
+            "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj"
+            "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
+            "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
             }
           }
         }

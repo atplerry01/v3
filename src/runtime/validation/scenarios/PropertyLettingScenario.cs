@@ -1,8 +1,10 @@
 namespace Whycespace.RuntimeValidation.Scenarios;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Engines.T4A_Access;
-using Whycespace.Engines.T2E_Execution;
+using Whycespace.Engines.T4A.API;
+using Whycespace.Engines.T2E.Clusters.Property.Letting;
+using Whycespace.Engines.T2E.Core.Revenue;
+using Whycespace.Engines.T2E.Core.Capital;
 using Whycespace.RuntimeValidation.Models;
 using Whycespace.RuntimeValidation.Reports;
 using System.Diagnostics;

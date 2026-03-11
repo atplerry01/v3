@@ -27,6 +27,7 @@
           "Whycespace.Engines.T0U.WhyceChain": "1.0.0",
           "Whycespace.Engines.T0U.WhyceID": "1.0.0",
           "Whycespace.Engines.T0U.WhycePolicy": "1.0.0",
+          "Whycespace.Engines.T1M.WSS": "1.0.0",
           "Whycespace.EventFabricRuntime": "1.0.0",
           "Whycespace.Observability": "1.0.0",
           "Whycespace.ProjectionRuntime": "1.0.0",
@@ -435,7 +436,8 @@
       },
       "Whycespace.ClusterDomain/1.0.0": {
         "dependencies": {
-          "Whycespace.Contracts": "1.0.0"
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
         },
         "runtime": {
           "Whycespace.ClusterDomain.dll": {
@@ -447,7 +449,8 @@
       "Whycespace.ClusterTemplatePlatform/1.0.0": {
         "dependencies": {
           "Whycespace.ClusterDomain": "1.0.0",
-          "Whycespace.Contracts": "1.0.0"
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Domain": "1.0.0"
         },
         "runtime": {
           "Whycespace.ClusterTemplatePlatform.dll": {
@@ -477,6 +480,7 @@
       },
       "Whycespace.Domain/1.0.0": {
         "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
           "Whycespace.Shared": "1.0.0"
         },
         "runtime": {
@@ -536,6 +540,7 @@
       },
       "Whycespace.Engines.T0U.Governance/1.0.0": {
         "dependencies": {
+          "Whycespace.Engines.T0U.WhyceChain": "1.0.0",
           "Whycespace.System": "1.0.0",
           "Whycespace.System.WhyceID": "1.0.0"
         },
@@ -548,6 +553,7 @@
       },
       "Whycespace.Engines.T0U.WhyceChain/1.0.0": {
         "dependencies": {
+          "Whycespace.EngineManifest": "1.0.0",
           "Whycespace.System": "1.0.0"
         },
         "runtime": {
@@ -571,10 +577,23 @@
       },
       "Whycespace.Engines.T0U.WhycePolicy/1.0.0": {
         "dependencies": {
+          "Whycespace.EngineManifest": "1.0.0",
           "Whycespace.System": "1.0.0"
         },
         "runtime": {
           "Whycespace.Engines.T0U.WhycePolicy.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Engines.T1M.WSS/1.0.0": {
+        "dependencies": {
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.System": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Engines.T1M.WSS.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1034,6 +1053,11 @@
       "sha512": ""
     },
     "Whycespace.Engines.T0U.WhycePolicy/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Engines.T1M.WSS/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

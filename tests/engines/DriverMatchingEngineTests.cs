@@ -1,6 +1,6 @@
 namespace Whycespace.Tests.Engines;
 
-using Whycespace.Engines.T3I_Intelligence;
+using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
 using Whycespace.Contracts.Engines;
 using Xunit;
 

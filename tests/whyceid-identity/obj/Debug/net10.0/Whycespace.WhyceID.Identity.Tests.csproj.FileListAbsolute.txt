@@ -86,7 +86,11 @@ C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\zh-Hant\Microsoft.Te
 C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\Whycespace.Contracts.dll
+C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceID.dll
+C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\Whycespace.System.WhyceID.dll
+C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\Whycespace.System.WhyceID.pdb
 C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\Whycespace.Contracts.pdb
+C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceID.pdb
 C:\projects\dev\v3\tests\whyceid-identity\obj\Debug\net10.0\Whycespace.WhyceID.Identity.Tests.csproj.AssemblyReference.cache
 C:\projects\dev\v3\tests\whyceid-identity\obj\Debug\net10.0\Whycespace.WhyceID.Identity.Tests.GeneratedMSBuildEditorConfig.editorconfig
 C:\projects\dev\v3\tests\whyceid-identity\obj\Debug\net10.0\Whycespace.WhyceID.Identity.Tests.AssemblyInfoInputs.cache
@@ -98,7 +102,3 @@ C:\projects\dev\v3\tests\whyceid-identity\obj\Debug\net10.0\refint\Whycespace.Wh
 C:\projects\dev\v3\tests\whyceid-identity\obj\Debug\net10.0\Whycespace.WhyceID.Identity.Tests.pdb
 C:\projects\dev\v3\tests\whyceid-identity\obj\Debug\net10.0\Whycespace.WhyceID.Identity.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\whyceid-identity\obj\Debug\net10.0\ref\Whycespace.WhyceID.Identity.Tests.dll
-C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\Whycespace.System.WhyceID.dll
-C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\Whycespace.System.WhyceID.pdb
-C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceID.dll
-C:\projects\dev\v3\tests\whyceid-identity\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceID.pdb

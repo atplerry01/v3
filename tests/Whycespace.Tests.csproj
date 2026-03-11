@@ -120,6 +120,34 @@
     <Content Remove="governance/**" />
     <None Remove="governance/**" />
     <EmbeddedResource Remove="governance/**" />
+    <Compile Remove="projection-runtime/**" />
+    <Content Remove="projection-runtime/**" />
+    <None Remove="projection-runtime/**" />
+    <EmbeddedResource Remove="projection-runtime/**" />
+    <Compile Remove="reliability-runtime/**" />
+    <Content Remove="reliability-runtime/**" />
+    <None Remove="reliability-runtime/**" />
+    <EmbeddedResource Remove="reliability-runtime/**" />
+    <Compile Remove="worker-pool/**" />
+    <Content Remove="worker-pool/**" />
+    <None Remove="worker-pool/**" />
+    <EmbeddedResource Remove="worker-pool/**" />
+    <Compile Remove="wss-workflow-definition/**" />
+    <Content Remove="wss-workflow-definition/**" />
+    <None Remove="wss-workflow-definition/**" />
+    <EmbeddedResource Remove="wss-workflow-definition/**" />
+    <Compile Remove="whycechain/**" />
+    <Content Remove="whycechain/**" />
+    <None Remove="whycechain/**" />
+    <EmbeddedResource Remove="whycechain/**" />
+    <Compile Remove="runtime/**" />
+    <Content Remove="runtime/**" />
+    <None Remove="runtime/**" />
+    <EmbeddedResource Remove="runtime/**" />
+    <Compile Remove="event-fabric-runtime/**" />
+    <Content Remove="event-fabric-runtime/**" />
+    <None Remove="event-fabric-runtime/**" />
+    <EmbeddedResource Remove="event-fabric-runtime/**" />
   </ItemGroup>
 
   <ItemGroup>

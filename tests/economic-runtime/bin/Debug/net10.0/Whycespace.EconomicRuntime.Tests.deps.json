@@ -334,7 +334,8 @@
       },
       "Whycespace.ClusterDomain/1.0.0": {
         "dependencies": {
-          "Whycespace.Contracts": "1.0.0"
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
         },
         "runtime": {
           "Whycespace.ClusterDomain.dll": {

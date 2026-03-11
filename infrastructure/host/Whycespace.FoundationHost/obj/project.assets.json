@@ -406,6 +406,20 @@
           }
         }
       },
+      "Whycespace.ClusterDomain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        }
+      },
       "Whycespace.CommandSystem/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -433,6 +447,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
           "Whycespace.Shared": "1.0.0"
         },
         "compile": {
@@ -1210,6 +1225,11 @@
         "serilog.sinks.file.7.0.0.nupkg.sha512",
         "serilog.sinks.file.nuspec"
       ]
+    },
+    "Whycespace.ClusterDomain/1.0.0": {
+      "type": "project",
+      "path": "../../../src/domain/clusters/Whycespace.ClusterDomain.csproj",
+      "msbuildProject": "../../../src/domain/clusters/Whycespace.ClusterDomain.csproj"
     },
     "Whycespace.CommandSystem/1.0.0": {
       "type": "project",

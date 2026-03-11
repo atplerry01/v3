@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T4A_Access;
+namespace Whycespace.Engines.T4A.Auth;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.EngineManifest.Manifest;

@@ -1,10 +1,5 @@
 C:\projects\dev\v3\tests\projection-rebuild\bin\Debug\net10.0\.msCoverageSourceRootsMapping_Whycespace.ProjectionRebuild.Tests
 C:\projects\dev\v3\tests\projection-rebuild\bin\Debug\net10.0\CoverletSourceRootsMapping_Whycespace.ProjectionRebuild.Tests
-C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.Tests.csproj.AssemblyReference.cache
-C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.Tests.GeneratedMSBuildEditorConfig.editorconfig
-C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.Tests.AssemblyInfoInputs.cache
-C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.Tests.AssemblyInfo.cs
-C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.Tests.csproj.CoreCompileInputs.cache
 C:\projects\dev\v3\tests\projection-rebuild\bin\Debug\net10.0\testhost.dll
 C:\projects\dev\v3\tests\projection-rebuild\bin\Debug\net10.0\xunit.abstractions.dll
 C:\projects\dev\v3\tests\projection-rebuild\bin\Debug\net10.0\testhost.exe
@@ -133,6 +128,11 @@ C:\projects\dev\v3\tests\projection-rebuild\bin\Debug\net10.0\Whycespace.EventRe
 C:\projects\dev\v3\tests\projection-rebuild\bin\Debug\net10.0\Whycespace.EventSchema.pdb
 C:\projects\dev\v3\tests\projection-rebuild\bin\Debug\net10.0\Whycespace.Reliability.pdb
 C:\projects\dev\v3\tests\projection-rebuild\bin\Debug\net10.0\Whycespace.WorkflowRuntime.pdb
+C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.Tests.csproj.AssemblyReference.cache
+C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.Tests.AssemblyInfoInputs.cache
+C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.Tests.AssemblyInfo.cs
+C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.Tests.csproj.CoreCompileInputs.cache
 C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\Whycespa.F5447C49.Up2Date
 C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.Tests.dll
 C:\projects\dev\v3\tests\projection-rebuild\obj\Debug\net10.0\refint\Whycespace.ProjectionRebuild.Tests.dll

@@ -1,6 +1,7 @@
 C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.System.deps.json
 C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.System.dll
 C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.System.pdb
+C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.ClusterDomain.dll
 C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.Contracts.dll
 C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.Domain.dll
 C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.EngineManifest.dll
@@ -14,6 +15,7 @@ C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.Engines.pdb
 C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.Runtime.pdb
 C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.Domain.pdb
 C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.WorkflowRuntime.pdb
+C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.ClusterDomain.pdb
 C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.Contracts.pdb
 C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
 C:\projects\dev\v3\src\system\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb

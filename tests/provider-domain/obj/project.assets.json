@@ -398,7 +398,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.Contracts": "1.0.0"
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.ClusterDomain.dll": {}
@@ -415,6 +416,33 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.Contracts.dll": {}
+        }
+      },
+      "Whycespace.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Domain.dll": {}
+        }
+      },
+      "Whycespace.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Shared.dll": {}
         }
       }
     }
@@ -936,12 +964,23 @@
       "type": "project",
       "path": "../../src/shared/contracts/Whycespace.Contracts.csproj",
       "msbuildProject": "../../src/shared/contracts/Whycespace.Contracts.csproj"
+    },
+    "Whycespace.Domain/1.0.0": {
+      "type": "project",
+      "path": "../../src/domain/Whycespace.Domain.csproj",
+      "msbuildProject": "../../src/domain/Whycespace.Domain.csproj"
+    },
+    "Whycespace.Shared/1.0.0": {
+      "type": "project",
+      "path": "../../src/shared/Whycespace.Shared.csproj",
+      "msbuildProject": "../../src/shared/Whycespace.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "Microsoft.NET.Test.Sdk >= 17.14.1",
       "Whycespace.ClusterDomain >= 1.0.0",
+      "Whycespace.Domain >= 1.0.0",
       "coverlet.collector >= 6.0.4",
       "xunit >= 2.9.3",
       "xunit.runner.visualstudio >= 3.1.4"
@@ -982,6 +1021,9 @@
           "projectReferences": {
             "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
             }
           }
         }

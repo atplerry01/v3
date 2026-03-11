@@ -1,6 +1,7 @@
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.deps.json
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.dll
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.pdb
+C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.ClusterDomain.dll
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.Contracts.dll
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.Domain.dll
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.EngineManifest.dll
@@ -11,9 +12,10 @@ C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.Share
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.System.dll
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.WorkflowRuntime.dll
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.System.pdb
+C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
+C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.ClusterDomain.pdb
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.Contracts.pdb
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.Domain.pdb
-C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.Engines.pdb
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\bin\Debug\net10.0\Whycespace.Runtime.pdb

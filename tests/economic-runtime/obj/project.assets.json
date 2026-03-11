@@ -398,7 +398,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.Contracts": "1.0.0"
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.ClusterDomain.dll": {}
@@ -1021,8 +1022,8 @@
     },
     "Whycespace.EconomicDomain/1.0.0": {
       "type": "project",
-      "path": "../../src/domain/economic/Whycespace.EconomicDomain.csproj",
-      "msbuildProject": "../../src/domain/economic/Whycespace.EconomicDomain.csproj"
+      "path": "../../src/domain/core/economic/Whycespace.EconomicDomain.csproj",
+      "msbuildProject": "../../src/domain/core/economic/Whycespace.EconomicDomain.csproj"
     },
     "Whycespace.EngineManifest/1.0.0": {
       "type": "project",
@@ -1093,8 +1094,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\economic\\Whycespace.EconomicDomain.csproj"
+            "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\core\\economic\\Whycespace.EconomicDomain.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"

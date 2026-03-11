@@ -1,9 +1,13 @@
 namespace Whycespace.Simulation;
 
 using global::System.Diagnostics;
-using Whycespace.Engines.T0U_Constitutional;
-using Whycespace.Engines.T2E_Execution;
-using Whycespace.Engines.T3I_Intelligence;
+using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Engines.T2E;
+using Whycespace.Engines.T2E.Clusters.Mobility.Taxi;
+using Whycespace.Engines.T2E.Clusters.Property.Letting;
+using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
+using Whycespace.Engines.T3I.Clusters.Property.Letting;
+using Whycespace.Engines.T3I.Core.Workforce;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Reliability;
@@ -33,7 +37,6 @@ public sealed class SimulationRunner
         _faultInjector = new FaultInjector(config.FaultRate, _dlq, metrics);
 
         _registry = new EngineRegistry();
-        _registry.Register(new IdentityVerificationEngine());
         _registry.Register(new PolicyValidationEngine());
         _registry.Register(new DriverMatchingEngine());
         _registry.Register(new TenantMatchingEngine());

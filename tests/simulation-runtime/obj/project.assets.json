@@ -394,6 +394,20 @@
           "build/net8.0/xunit.runner.visualstudio.props": {}
         }
       },
+      "Whycespace.ClusterDomain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        }
+      },
       "Whycespace.Contracts/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -408,6 +422,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
           "Whycespace.Shared": "1.0.0"
         },
         "compile": {
@@ -953,6 +968,11 @@
         "xunit.runner.visualstudio.3.1.4.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
+    },
+    "Whycespace.ClusterDomain/1.0.0": {
+      "type": "project",
+      "path": "../../src/domain/clusters/Whycespace.ClusterDomain.csproj",
+      "msbuildProject": "../../src/domain/clusters/Whycespace.ClusterDomain.csproj"
     },
     "Whycespace.Contracts/1.0.0": {
       "type": "project",

@@ -177,6 +177,20 @@
           }
         }
       },
+      "Whycespace.ClusterDomain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        }
+      },
       "Whycespace.Contracts/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -191,6 +205,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
           "Whycespace.Shared": "1.0.0"
         },
         "compile": {
@@ -240,6 +255,20 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.Engines.dll": {}
+        }
+      },
+      "Whycespace.Engines.T0U.WhycePolicy/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.System": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Engines.T0U.WhycePolicy.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Engines.T0U.WhycePolicy.dll": {}
         }
       },
       "Whycespace.EventFabric/1.0.0": {
@@ -526,6 +555,11 @@
         "postgresql.png"
       ]
     },
+    "Whycespace.ClusterDomain/1.0.0": {
+      "type": "project",
+      "path": "../../src/domain/clusters/Whycespace.ClusterDomain.csproj",
+      "msbuildProject": "../../src/domain/clusters/Whycespace.ClusterDomain.csproj"
+    },
     "Whycespace.Contracts/1.0.0": {
       "type": "project",
       "path": "../../src/shared/contracts/Whycespace.Contracts.csproj",
@@ -550,6 +584,11 @@
       "type": "project",
       "path": "../../src/engines/Whycespace.Engines.csproj",
       "msbuildProject": "../../src/engines/Whycespace.Engines.csproj"
+    },
+    "Whycespace.Engines.T0U.WhycePolicy/1.0.0": {
+      "type": "project",
+      "path": "../../src/engines/T0U/WhycePolicy/Whycespace.Engines.T0U.WhycePolicy.csproj",
+      "msbuildProject": "../../src/engines/T0U/WhycePolicy/Whycespace.Engines.T0U.WhycePolicy.csproj"
     },
     "Whycespace.EventFabric/1.0.0": {
       "type": "project",
@@ -586,6 +625,7 @@
     "net10.0": [
       "Whycespace.Domain >= 1.0.0",
       "Whycespace.Engines >= 1.0.0",
+      "Whycespace.Engines.T0U.WhycePolicy >= 1.0.0",
       "Whycespace.Reliability >= 1.0.0",
       "Whycespace.Runtime >= 1.0.0",
       "Whycespace.Shared >= 1.0.0",
@@ -627,6 +667,9 @@
           "projectReferences": {
             "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhycePolicy\\Whycespace.Engines.T0U.WhycePolicy.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhycePolicy\\Whycespace.Engines.T0U.WhycePolicy.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"

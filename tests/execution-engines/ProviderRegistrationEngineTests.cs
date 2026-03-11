@@ -1,6 +1,6 @@
 namespace Whycespace.ExecutionEngines.Tests;
 
-using Whycespace.Engines.T2E_Execution;
+using Whycespace.Engines.T2E.System.Providers;
 using Whycespace.Contracts.Engines;
 
 public sealed class ProviderRegistrationEngineTests

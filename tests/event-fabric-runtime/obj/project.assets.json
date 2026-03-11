@@ -992,11 +992,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\projects\\dev\\v3\\tests\\event-fabric-runtime\\Whycespace.EventFabricRuntime.Tests.csproj",
+      "projectUniqueName": "C:\\projects\\dev\\v3\\tests\\event-fabric-runtime\\Whycespace.EventFabricRuntime.Tests.csproj",
       "projectName": "Whycespace.EventFabricRuntime.Tests",
-      "projectPath": "c:\\projects\\dev\\v3\\tests\\event-fabric-runtime\\Whycespace.EventFabricRuntime.Tests.csproj",
+      "projectPath": "C:\\projects\\dev\\v3\\tests\\event-fabric-runtime\\Whycespace.EventFabricRuntime.Tests.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "c:\\projects\\dev\\v3\\tests\\event-fabric-runtime\\obj\\",
+      "outputPath": "C:\\projects\\dev\\v3\\tests\\event-fabric-runtime\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

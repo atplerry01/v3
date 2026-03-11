@@ -177,6 +177,20 @@
           }
         }
       },
+      "Whycespace.ClusterDomain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        }
+      },
       "Whycespace.Contracts/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -191,6 +205,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
           "Whycespace.Shared": "1.0.0"
         },
         "compile": {
@@ -497,6 +512,11 @@
         "postgresql.png"
       ]
     },
+    "Whycespace.ClusterDomain/1.0.0": {
+      "type": "project",
+      "path": "../../../domain/clusters/Whycespace.ClusterDomain.csproj",
+      "msbuildProject": "../../../domain/clusters/Whycespace.ClusterDomain.csproj"
+    },
     "Whycespace.Contracts/1.0.0": {
       "type": "project",
       "path": "../../../shared/contracts/Whycespace.Contracts.csproj",
@@ -545,6 +565,7 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "Whycespace.EngineManifest >= 1.0.0",
       "Whycespace.System >= 1.0.0"
     ]
   },
@@ -581,6 +602,9 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
+            "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+            },
             "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\system\\Whycespace.System.csproj"
             }

@@ -85,11 +85,13 @@ C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\zh-Hans\Microsoft.
 C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\zh-Hant\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
 C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\Whycespace.ClusterDomain.dll
 C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\Whycespace.Contracts.dll
 C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\Whycespace.Domain.dll
 C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\Whycespace.Shared.dll
 C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\Whycespace.SimulationRuntime.dll
 C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\Whycespace.SimulationRuntime.pdb
+C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\Whycespace.ClusterDomain.pdb
 C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\Whycespace.Contracts.pdb
 C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\Whycespace.Domain.pdb
 C:\projects\dev\v3\tests\simulation-runtime\bin\Debug\net10.0\Whycespace.Shared.pdb

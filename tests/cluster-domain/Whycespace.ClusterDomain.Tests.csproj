@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\domain\clusters\Whycespace.ClusterDomain.csproj" />
+    <ProjectReference Include="..\..\src\domain\Whycespace.Domain.csproj" />
   </ItemGroup>
 
 </Project>

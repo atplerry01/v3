@@ -21,12 +21,15 @@ using Whycespace.System.Midstream.WSS.Orchestration;
 using Whycespace.System.Midstream.WSS.Routing;
 using Whycespace.System.Midstream.WSS.Workflows;
 using Whycespace.System.Upstream.WhycePolicy;
-using Whycespace.ClusterDomain;
+using Whycespace.Domain.Clusters;
+using Whycespace.Domain.Core.Cluster;
+using Whycespace.Domain.Core.Providers;
+using Whycespace.Domain.Core.Registry;
 using Whycespace.SimulationRuntime.Loader;
 using Whycespace.SimulationRuntime.Runtime;
 using Whycespace.SimulationRuntime.Services;
 using Whycespace.ClusterTemplatePlatform;
-using Whycespace.EconomicDomain;
+using Whycespace.Domain.Core.Economic;
 using Whycespace.RuntimeValidation.Runners;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -188,6 +191,18 @@ builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.C
 // Governance (Phase 2.0.54+)
 builder.Services.AddSingleton(new Whycespace.System.Upstream.Governance.Stores.GuardianRegistryStore());
 builder.Services.AddSingleton(new Whycespace.System.Upstream.Governance.Stores.GovernanceRoleStore());
+
+// WSS Workflow Definitions (Phase 2.1.1)
+builder.Services.AddSingleton(new Whycespace.System.Midstream.WSS.Stores.WorkflowDefinitionStore());
+
+// WSS Workflow Templates (Phase 2.1.3)
+builder.Services.AddSingleton(new Whycespace.System.Midstream.WSS.Stores.WorkflowTemplateStore());
+
+// WSS Workflow Registry (Phase 2.1.4)
+builder.Services.AddSingleton(new Whycespace.System.Midstream.WSS.Stores.WorkflowRegistryStore());
+
+// WSS Workflow Versioning (Phase 2.1.5)
+builder.Services.AddSingleton(new Whycespace.System.Midstream.WSS.Stores.WorkflowVersionStore());
 
 // Runtime Validation (Phase 1.17)
 var validationRunner = new ValidationRunner();
