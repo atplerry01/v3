@@ -112,6 +112,10 @@
     <Content Remove="whyceid-identity/**" />
     <None Remove="whyceid-identity/**" />
     <EmbeddedResource Remove="whyceid-identity/**" />
+    <Compile Remove="whycepolicy-dsl/**" />
+    <Content Remove="whycepolicy-dsl/**" />
+    <None Remove="whycepolicy-dsl/**" />
+    <EmbeddedResource Remove="whycepolicy-dsl/**" />
   </ItemGroup>
 
   <ItemGroup>

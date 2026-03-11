@@ -165,6 +165,20 @@ builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityAudit
 // Upstream
 builder.Services.AddSingleton(new PolicyGovernor());
 
+// WhycePolicy (Phase 2.0.21+)
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyRegistryStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyVersionStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyDependencyStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyContextStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyDecisionCacheStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyLifecycleStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyRolloutStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.GovernanceAuthorityStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.ConstitutionalPolicyStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyDomainBindingStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyMonitoringStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyEvidenceStore());
+
 // Runtime Validation (Phase 1.17)
 var validationRunner = new ValidationRunner();
 builder.Services.AddSingleton(validationRunner);
