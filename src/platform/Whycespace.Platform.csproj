@@ -42,6 +42,7 @@
     <ProjectReference Include="..\engines\T0U\WhyceID\Whycespace.Engines.T0U.WhyceID.csproj" />
     <ProjectReference Include="..\engines\T0U\WhycePolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
     <ProjectReference Include="..\engines\T0U\WhyceChain\Whycespace.Engines.T0U.WhyceChain.csproj" />
+    <ProjectReference Include="..\engines\T0U\Governance\Whycespace.Engines.T0U.Governance.csproj" />
   </ItemGroup>
 
   <ItemGroup>

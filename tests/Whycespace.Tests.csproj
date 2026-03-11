@@ -116,6 +116,10 @@
     <Content Remove="whycepolicy-dsl/**" />
     <None Remove="whycepolicy-dsl/**" />
     <EmbeddedResource Remove="whycepolicy-dsl/**" />
+    <Compile Remove="governance/**" />
+    <Content Remove="governance/**" />
+    <None Remove="governance/**" />
+    <EmbeddedResource Remove="governance/**" />
   </ItemGroup>
 
   <ItemGroup>
