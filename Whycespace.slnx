@@ -87,6 +87,12 @@
   <Folder Name="/src/system/">
     <Project Path="src/system/Whycespace.System.csproj" />
   </Folder>
+  <Folder Name="/src/system/upstream/whyceid/">
+    <Project Path="src/system/upstream/WhyceID/Whycespace.System.WhyceID.csproj" />
+  </Folder>
+  <Folder Name="/src/engines/t0u-whyce-identity/">
+    <Project Path="src/engines/T0U_Constitutional/WhyceIdentity/Whycespace.Engine.Identity.csproj" />
+  </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Whycespace.Tests.csproj" />
   </Folder>
@@ -173,6 +179,9 @@
   </Folder>
   <Folder Name="/tests/access-engines/">
     <Project Path="tests/access-engines/Whycespace.AccessEngines.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/whyceid-identity/">
+    <Project Path="tests/whyceid-identity/Whycespace.WhyceID.Identity.Tests.csproj" />
   </Folder>
   <Folder Name="/src/runtime/validation/">
     <Project Path="src/runtime/validation/Whycespace.RuntimeValidation.csproj" />

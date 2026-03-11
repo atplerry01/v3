@@ -38,6 +38,8 @@
     <ProjectReference Include="..\runtime\event-fabric-runtime\Whycespace.EventFabricRuntime.csproj" />
     <ProjectReference Include="..\runtime\projection-runtime\Whycespace.ProjectionRuntime.csproj" />
     <ProjectReference Include="..\runtime\reliability-runtime\Whycespace.ReliabilityRuntime.csproj" />
+    <ProjectReference Include="..\system\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
+    <ProjectReference Include="..\engines\T0U_Constitutional\WhyceIdentity\Whycespace.Engine.Identity.csproj" />
   </ItemGroup>
 
   <ItemGroup>

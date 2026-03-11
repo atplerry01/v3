@@ -108,6 +108,10 @@
     <Content Remove="system-validation/**" />
     <None Remove="system-validation/**" />
     <EmbeddedResource Remove="system-validation/**" />
+    <Compile Remove="whyceid-identity/**" />
+    <Content Remove="whyceid-identity/**" />
+    <None Remove="whyceid-identity/**" />
+    <EmbeddedResource Remove="whyceid-identity/**" />
   </ItemGroup>
 
   <ItemGroup>

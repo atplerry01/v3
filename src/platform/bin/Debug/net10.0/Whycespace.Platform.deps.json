@@ -21,6 +21,7 @@
           "Whycespace.CommandSystem": "1.0.0",
           "Whycespace.Domain": "1.0.0",
           "Whycespace.EconomicDomain": "1.0.0",
+          "Whycespace.Engine.Identity": "1.0.0",
           "Whycespace.EngineManifest": "1.0.0",
           "Whycespace.Engines": "1.0.0",
           "Whycespace.EventFabricRuntime": "1.0.0",
@@ -34,6 +35,7 @@
           "Whycespace.Shared": "1.0.0",
           "Whycespace.SimulationRuntime": "1.0.0",
           "Whycespace.System": "1.0.0",
+          "Whycespace.System.WhyceID": "1.0.0",
           "Whycespace.WorkerPoolRuntime": "1.0.0"
         },
         "runtime": {
@@ -493,6 +495,18 @@
           }
         }
       },
+      "Whycespace.Engine.Identity/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.System.WhyceID": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Engine.Identity.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.EngineManifest/1.0.0": {
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
@@ -702,6 +716,17 @@
         },
         "runtime": {
           "Whycespace.System.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.System.WhyceID/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.System.WhyceID.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -941,6 +966,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Whycespace.Engine.Identity/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Whycespace.EngineManifest/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -1022,6 +1052,11 @@
       "sha512": ""
     },
     "Whycespace.System/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.System.WhyceID/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -1298,6 +1298,20 @@
           "bin/placeholder/Whycespace.EconomicDomain.dll": {}
         }
       },
+      "Whycespace.Engine.Identity/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.System.WhyceID": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Engine.Identity.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Engine.Identity.dll": {}
+        }
+      },
       "Whycespace.EngineManifest/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1426,6 +1440,7 @@
           "Whycespace.CommandSystem": "1.0.0",
           "Whycespace.Domain": "1.0.0",
           "Whycespace.EconomicDomain": "1.0.0",
+          "Whycespace.Engine.Identity": "1.0.0",
           "Whycespace.EngineManifest": "1.0.0",
           "Whycespace.Engines": "1.0.0",
           "Whycespace.EventFabricRuntime": "1.0.0",
@@ -1439,6 +1454,7 @@
           "Whycespace.Shared": "1.0.0",
           "Whycespace.SimulationRuntime": "1.0.0",
           "Whycespace.System": "1.0.0",
+          "Whycespace.System.WhyceID": "1.0.0",
           "Whycespace.WorkerPoolRuntime": "1.0.0"
         },
         "compile": {
@@ -1588,6 +1604,19 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.System.dll": {}
+        }
+      },
+      "Whycespace.System.WhyceID/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.System.WhyceID.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.System.WhyceID.dll": {}
         }
       },
       "Whycespace.WorkerPoolRuntime/1.0.0": {
@@ -3276,6 +3305,11 @@
       "path": "../src/domain/economic/Whycespace.EconomicDomain.csproj",
       "msbuildProject": "../src/domain/economic/Whycespace.EconomicDomain.csproj"
     },
+    "Whycespace.Engine.Identity/1.0.0": {
+      "type": "project",
+      "path": "../src/engines/T0U_Constitutional/WhyceIdentity/Whycespace.Engine.Identity.csproj",
+      "msbuildProject": "../src/engines/T0U_Constitutional/WhyceIdentity/Whycespace.Engine.Identity.csproj"
+    },
     "Whycespace.EngineManifest/1.0.0": {
       "type": "project",
       "path": "../src/runtime/engine-manifest/Whycespace.EngineManifest.csproj",
@@ -3366,6 +3400,11 @@
       "path": "../src/system/Whycespace.System.csproj",
       "msbuildProject": "../src/system/Whycespace.System.csproj"
     },
+    "Whycespace.System.WhyceID/1.0.0": {
+      "type": "project",
+      "path": "../src/system/upstream/WhyceID/Whycespace.System.WhyceID.csproj",
+      "msbuildProject": "../src/system/upstream/WhyceID/Whycespace.System.WhyceID.csproj"
+    },
     "Whycespace.WorkerPoolRuntime/1.0.0": {
       "type": "project",
       "path": "../src/runtime/worker-pool/Whycespace.WorkerPoolRuntime.csproj",
@@ -3429,8 +3468,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+            "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
@@ -3450,8 +3489,8 @@
             "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj"
             },
-            "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
-              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
+            "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"

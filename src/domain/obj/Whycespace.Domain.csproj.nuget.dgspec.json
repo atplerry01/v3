@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {}
+    "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {}
   },
   "projects": {
-    "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+    "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj",
+        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj",
         "projectName": "Whycespace.Domain",
-        "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj",
+        "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "c:\\projects\\dev\\v3\\src\\domain\\obj\\",
+        "outputPath": "C:\\projects\\dev\\v3\\src\\domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
