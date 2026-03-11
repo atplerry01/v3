@@ -179,6 +179,12 @@ builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.
 builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyMonitoringStore());
 builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyEvidenceStore());
 
+// WhyceChain (Phase 2.0.40+)
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainLedgerStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainBlockStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainEventStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainIndexStore());
+
 // Runtime Validation (Phase 1.17)
 var validationRunner = new ValidationRunner();
 builder.Services.AddSingleton(validationRunner);
