@@ -26,6 +26,7 @@ using ProjectionRuntimeRegistry = Whycespace.ProjectionRuntime.Registry.Projecti
 using Whycespace.ReliabilityRuntime.Retry;
 using Whycespace.ReliabilityRuntime.Dlq;
 using Whycespace.ReliabilityRuntime.Timeout;
+using Whycespace.System.WhyceID.Registry;
 
 [ApiController]
 [Route("dev")]
@@ -50,6 +51,7 @@ public sealed class DebugController : ControllerBase
     private readonly RetryPolicyManager _retryPolicyManager;
     private readonly DeadLetterQueueManager _deadLetterQueueManager;
     private readonly WorkflowTimeoutManager _workflowTimeoutManager;
+    private readonly IdentityRegistry _identityRegistry;
 
     public DebugController(
         WorkflowStateStore stateStore,
@@ -70,7 +72,8 @@ public sealed class DebugController : ControllerBase
         ProjectionStateStore projectionStateStore,
         RetryPolicyManager retryPolicyManager,
         DeadLetterQueueManager deadLetterQueueManager,
-        WorkflowTimeoutManager workflowTimeoutManager)
+        WorkflowTimeoutManager workflowTimeoutManager,
+        IdentityRegistry identityRegistry)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
@@ -91,6 +94,7 @@ public sealed class DebugController : ControllerBase
         _retryPolicyManager = retryPolicyManager;
         _deadLetterQueueManager = deadLetterQueueManager;
         _workflowTimeoutManager = workflowTimeoutManager;
+        _identityRegistry = identityRegistry;
     }
 
     [HttpGet("workflows")]
@@ -395,6 +399,32 @@ public sealed class DebugController : ControllerBase
             routes = _eventTopicRouter.GetRoutes(),
             subscriptions = _eventSubscriptionRegistry.GetSubscriptionCounts()
         });
+    }
+
+    [HttpGet("identity/count")]
+    public IActionResult GetIdentityCount()
+    {
+        return Ok(new { count = _identityRegistry.Count });
+    }
+
+    [HttpGet("identity/{id:guid}")]
+    public IActionResult GetIdentity(Guid id)
+    {
+        try
+        {
+            var identity = _identityRegistry.Get(id);
+            return Ok(new
+            {
+                identityId = identity.IdentityId.Value,
+                type = identity.Type.ToString(),
+                status = identity.Status.ToString(),
+                createdAt = identity.CreatedAt
+            });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = "Identity not found" });
+        }
     }
 }
 

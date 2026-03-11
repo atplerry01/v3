@@ -1,6 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Compile Remove="upstream\WhyceID\aggregates\**" />
+    <Compile Remove="upstream\WhyceID\registry\**" />
+    <Compile Remove="upstream\WhyceID\models\**" />
+    <Compile Remove="upstream\WhyceID\commands\**" />
+    <Compile Remove="upstream\WhyceID\events\**" />
+    <Compile Remove="upstream\WhyceID\bin\**" />
+    <Compile Remove="upstream\WhyceID\obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\shared\Whycespace.Shared.csproj" />
     <ProjectReference Include="..\engines\Whycespace.Engines.csproj" />
     <ProjectReference Include="..\runtime\Whycespace.Runtime.csproj" />
