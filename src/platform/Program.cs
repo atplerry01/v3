@@ -185,6 +185,10 @@ builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.C
 builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainEventStore());
 builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainIndexStore());
 
+// Governance (Phase 2.0.54+)
+builder.Services.AddSingleton(new Whycespace.System.Upstream.Governance.Stores.GuardianRegistryStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.Governance.Stores.GovernanceRoleStore());
+
 // Runtime Validation (Phase 1.17)
 var validationRunner = new ValidationRunner();
 builder.Services.AddSingleton(validationRunner);

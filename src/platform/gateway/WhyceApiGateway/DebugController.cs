@@ -34,6 +34,8 @@ using Whycespace.Engines.T0U.WhycePolicy;
 using Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.System.Upstream.WhycePolicy.Stores;
 using Whycespace.System.Upstream.WhyceChain.Stores;
+using Whycespace.System.Upstream.Governance.Stores;
+using Whycespace.Engines.T0U.Governance;
 
 [ApiController]
 [Route("dev")]
@@ -88,6 +90,8 @@ public sealed class DebugController : ControllerBase
     private readonly ChainLedgerStore _chainLedgerStore;
     private readonly ChainBlockStore _chainBlockStore;
     private readonly ChainEventStore _chainEventStore;
+    private readonly GuardianRegistryStore _guardianRegistryStore;
+    private readonly GovernanceRoleStore _governanceRoleStore;
 
     public DebugController(
         WorkflowStateStore stateStore,
@@ -138,7 +142,9 @@ public sealed class DebugController : ControllerBase
         PolicyEvidenceStore policyEvidenceStore,
         ChainLedgerStore chainLedgerStore,
         ChainBlockStore chainBlockStore,
-        ChainEventStore chainEventStore)
+        ChainEventStore chainEventStore,
+        GuardianRegistryStore guardianRegistryStore,
+        GovernanceRoleStore governanceRoleStore)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
@@ -189,6 +195,8 @@ public sealed class DebugController : ControllerBase
         _chainLedgerStore = chainLedgerStore;
         _chainBlockStore = chainBlockStore;
         _chainEventStore = chainEventStore;
+        _guardianRegistryStore = guardianRegistryStore;
+        _governanceRoleStore = governanceRoleStore;
     }
 
     [HttpGet("workflows")]
@@ -1884,6 +1892,183 @@ public sealed class DebugController : ControllerBase
             e.Timestamp
         })});
     }
+
+    // Governance — Guardian Registry (Phase 2.0.54)
+
+    [HttpGet("governance/guardians")]
+    public IActionResult GetGuardians()
+    {
+        var guardians = _guardianRegistryStore.ListGuardians();
+        return Ok(new
+        {
+            guardians = guardians.Select(g => new
+            {
+                g.GuardianId,
+                g.IdentityId,
+                g.Name,
+                status = g.Status.ToString(),
+                g.Roles,
+                g.CreatedAt,
+                g.ActivatedAt
+            })
+        });
+    }
+
+    [HttpGet("governance/guardians/{id}")]
+    public IActionResult GetGuardian(string id)
+    {
+        var guardian = _guardianRegistryStore.GetGuardian(id);
+        if (guardian is null)
+            return NotFound(new { error = $"Guardian not found: {id}" });
+
+        return Ok(new
+        {
+            guardian.GuardianId,
+            guardian.IdentityId,
+            guardian.Name,
+            status = guardian.Status.ToString(),
+            guardian.Roles,
+            guardian.CreatedAt,
+            guardian.ActivatedAt
+        });
+    }
+
+    [HttpPost("governance/guardians/register")]
+    public IActionResult RegisterGuardian([FromBody] DebugRegisterGuardianDto dto)
+    {
+        try
+        {
+            var engine = new GuardianRegistryEngine(_guardianRegistryStore, _identityRegistry);
+            var guardian = engine.RegisterGuardian(dto.GuardianId, dto.IdentityId, dto.Name, dto.Roles);
+            return Ok(new
+            {
+                guardian.GuardianId,
+                guardian.IdentityId,
+                guardian.Name,
+                status = guardian.Status.ToString(),
+                guardian.Roles,
+                guardian.CreatedAt,
+                guardian.ActivatedAt
+            });
+        }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpPost("governance/guardians/{id}/activate")]
+    public IActionResult ActivateGuardian(string id)
+    {
+        try
+        {
+            var engine = new GuardianRegistryEngine(_guardianRegistryStore, _identityRegistry);
+            var guardian = engine.ActivateGuardian(id);
+            return Ok(new
+            {
+                guardian.GuardianId,
+                guardian.IdentityId,
+                guardian.Name,
+                status = guardian.Status.ToString(),
+                guardian.Roles,
+                guardian.CreatedAt,
+                guardian.ActivatedAt
+            });
+        }
+        catch (KeyNotFoundException) { return NotFound(new { error = $"Guardian not found: {id}" }); }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpPost("governance/guardians/{id}/deactivate")]
+    public IActionResult DeactivateGuardian(string id)
+    {
+        try
+        {
+            var engine = new GuardianRegistryEngine(_guardianRegistryStore, _identityRegistry);
+            var guardian = engine.DeactivateGuardian(id);
+            return Ok(new
+            {
+                guardian.GuardianId,
+                guardian.IdentityId,
+                guardian.Name,
+                status = guardian.Status.ToString(),
+                guardian.Roles,
+                guardian.CreatedAt,
+                guardian.ActivatedAt
+            });
+        }
+        catch (KeyNotFoundException) { return NotFound(new { error = $"Guardian not found: {id}" }); }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    // Governance — Role Engine (Phase 2.0.55)
+
+    [HttpPost("governance/roles")]
+    public IActionResult CreateGovernanceRole([FromBody] DebugCreateGovernanceRoleDto dto)
+    {
+        try
+        {
+            var engine = new GovernanceRoleEngine(_governanceRoleStore, _guardianRegistryStore);
+            var role = engine.CreateRole(dto.RoleId, dto.Name, dto.Description, dto.Permissions);
+            return Ok(new { role.RoleId, role.Name, role.Description, role.Permissions });
+        }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpGet("governance/roles")]
+    public IActionResult GetGovernanceRoles()
+    {
+        var roles = _governanceRoleStore.ListRoles();
+        return Ok(new
+        {
+            roles = roles.Select(r => new { r.RoleId, r.Name, r.Description, r.Permissions })
+        });
+    }
+
+    [HttpPost("governance/guardians/{id}/roles/assign")]
+    public IActionResult AssignGovernanceRoleToGuardian(string id, [FromBody] DebugAssignGovernanceRoleDto dto)
+    {
+        try
+        {
+            var engine = new GovernanceRoleEngine(_governanceRoleStore, _guardianRegistryStore);
+            engine.AssignRole(id, dto.RoleId);
+            var roles = engine.GetGuardianRoles(id);
+            return Ok(new
+            {
+                guardianId = id,
+                roles = roles.Select(r => new { r.RoleId, r.Name, r.Description, r.Permissions })
+            });
+        }
+        catch (KeyNotFoundException ex) { return NotFound(new { error = ex.Message }); }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpPost("governance/guardians/{id}/roles/revoke")]
+    public IActionResult RevokeGovernanceRoleFromGuardian(string id, [FromBody] DebugAssignGovernanceRoleDto dto)
+    {
+        try
+        {
+            var engine = new GovernanceRoleEngine(_governanceRoleStore, _guardianRegistryStore);
+            engine.RevokeRole(id, dto.RoleId);
+            var roles = engine.GetGuardianRoles(id);
+            return Ok(new
+            {
+                guardianId = id,
+                roles = roles.Select(r => new { r.RoleId, r.Name, r.Description, r.Permissions })
+            });
+        }
+        catch (KeyNotFoundException ex) { return NotFound(new { error = ex.Message }); }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpGet("governance/guardians/{id}/roles")]
+    public IActionResult GetGuardianGovernanceRoles(string id)
+    {
+        var engine = new GovernanceRoleEngine(_governanceRoleStore, _guardianRegistryStore);
+        var roles = engine.GetGuardianRoles(id);
+        return Ok(new
+        {
+            guardianId = id,
+            roles = roles.Select(r => new { r.RoleId, r.Name, r.Description, r.Permissions })
+        });
+    }
 }
 
 public sealed record DebugRunWorkflowDto(string WorkflowName, Dictionary<string, object>? Context);
@@ -1921,3 +2106,6 @@ public sealed record DebugEnforcePolicyDto(string ActorId, string Domain, string
 public sealed record DebugBindPolicyDomainDto(string PolicyId, string Version, string Domain);
 public sealed record DebugRecordPolicyEvidenceDto(string PolicyId, string ActorId, string Domain, string Operation, bool Allowed, string Reason);
 public sealed record DebugAuditPolicyDto(string? PolicyId, string? ActorId, string? Domain, DateTime? From, DateTime? To);
+public sealed record DebugRegisterGuardianDto(string GuardianId, Guid IdentityId, string Name, List<string> Roles);
+public sealed record DebugCreateGovernanceRoleDto(string RoleId, string Name, string Description, List<string> Permissions);
+public sealed record DebugAssignGovernanceRoleDto(string RoleId);

@@ -1340,6 +1340,33 @@
           "bin/placeholder/Whycespace.Engines.dll": {}
         }
       },
+      "Whycespace.Engines.T0U.Governance/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.System": "1.0.0",
+          "Whycespace.System.WhyceID": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Engines.T0U.Governance.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Engines.T0U.Governance.dll": {}
+        }
+      },
+      "Whycespace.Engines.T0U.WhyceChain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.System": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Engines.T0U.WhyceChain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Engines.T0U.WhyceChain.dll": {}
+        }
+      },
       "Whycespace.Engines.T0U.WhyceID/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1455,6 +1482,8 @@
           "Whycespace.EconomicDomain": "1.0.0",
           "Whycespace.EngineManifest": "1.0.0",
           "Whycespace.Engines": "1.0.0",
+          "Whycespace.Engines.T0U.Governance": "1.0.0",
+          "Whycespace.Engines.T0U.WhyceChain": "1.0.0",
           "Whycespace.Engines.T0U.WhyceID": "1.0.0",
           "Whycespace.Engines.T0U.WhycePolicy": "1.0.0",
           "Whycespace.EventFabricRuntime": "1.0.0",
@@ -3333,6 +3362,16 @@
       "type": "project",
       "path": "../src/engines/Whycespace.Engines.csproj",
       "msbuildProject": "../src/engines/Whycespace.Engines.csproj"
+    },
+    "Whycespace.Engines.T0U.Governance/1.0.0": {
+      "type": "project",
+      "path": "../src/engines/T0U/Governance/Whycespace.Engines.T0U.Governance.csproj",
+      "msbuildProject": "../src/engines/T0U/Governance/Whycespace.Engines.T0U.Governance.csproj"
+    },
+    "Whycespace.Engines.T0U.WhyceChain/1.0.0": {
+      "type": "project",
+      "path": "../src/engines/T0U/WhyceChain/Whycespace.Engines.T0U.WhyceChain.csproj",
+      "msbuildProject": "../src/engines/T0U/WhyceChain/Whycespace.Engines.T0U.WhyceChain.csproj"
     },
     "Whycespace.Engines.T0U.WhyceID/1.0.0": {
       "type": "project",
