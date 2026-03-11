@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.ClusterTemplatePlatform.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63eefdd2c5513bd574a219cb5d165e3bba0a962d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63d54ec4b644dbb0adcc08c6c8a59f6eace38869")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.ClusterTemplatePlatform.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.ClusterTemplatePlatform.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

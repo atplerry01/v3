@@ -30,6 +30,8 @@ using Whycespace.System.WhyceID.Registry;
 using Whycespace.System.WhyceID.Stores;
 using Whycespace.System.WhyceID.Models;
 using Whycespace.Engines.T0U.WhyceID;
+using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.System.Upstream.WhycePolicy.Stores;
 
 [ApiController]
 [Route("dev")]
@@ -69,6 +71,18 @@ public sealed class DebugController : ControllerBase
     private readonly IdentityRecoveryStore _identityRecoveryStore;
     private readonly IdentityRevocationStore _identityRevocationStore;
     private readonly IdentityAuditStore _identityAuditStore;
+    private readonly PolicyRegistryStore _policyRegistryStore;
+    private readonly PolicyVersionStore _policyVersionStore;
+    private readonly PolicyDependencyStore _policyDependencyStore;
+    private readonly PolicyContextStore _policyContextStore;
+    private readonly PolicyDecisionCacheStore _policyDecisionCacheStore;
+    private readonly PolicyLifecycleStore _policyLifecycleStore;
+    private readonly PolicyRolloutStore _policyRolloutStore;
+    private readonly GovernanceAuthorityStore _governanceAuthorityStore;
+    private readonly ConstitutionalPolicyStore _constitutionalPolicyStore;
+    private readonly PolicyDomainBindingStore _policyDomainBindingStore;
+    private readonly PolicyMonitoringStore _policyMonitoringStore;
+    private readonly PolicyEvidenceStore _policyEvidenceStore;
 
     public DebugController(
         WorkflowStateStore stateStore,
@@ -104,7 +118,19 @@ public sealed class DebugController : ControllerBase
         IdentityFederationStore identityFederationStore,
         IdentityRecoveryStore identityRecoveryStore,
         IdentityRevocationStore identityRevocationStore,
-        IdentityAuditStore identityAuditStore)
+        IdentityAuditStore identityAuditStore,
+        PolicyRegistryStore policyRegistryStore,
+        PolicyVersionStore policyVersionStore,
+        PolicyDependencyStore policyDependencyStore,
+        PolicyContextStore policyContextStore,
+        PolicyDecisionCacheStore policyDecisionCacheStore,
+        PolicyLifecycleStore policyLifecycleStore,
+        PolicyRolloutStore policyRolloutStore,
+        GovernanceAuthorityStore governanceAuthorityStore,
+        ConstitutionalPolicyStore constitutionalPolicyStore,
+        PolicyDomainBindingStore policyDomainBindingStore,
+        PolicyMonitoringStore policyMonitoringStore,
+        PolicyEvidenceStore policyEvidenceStore)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
@@ -140,6 +166,18 @@ public sealed class DebugController : ControllerBase
         _identityRecoveryStore = identityRecoveryStore;
         _identityRevocationStore = identityRevocationStore;
         _identityAuditStore = identityAuditStore;
+        _policyRegistryStore = policyRegistryStore;
+        _policyVersionStore = policyVersionStore;
+        _policyDependencyStore = policyDependencyStore;
+        _policyContextStore = policyContextStore;
+        _policyDecisionCacheStore = policyDecisionCacheStore;
+        _policyLifecycleStore = policyLifecycleStore;
+        _policyRolloutStore = policyRolloutStore;
+        _governanceAuthorityStore = governanceAuthorityStore;
+        _constitutionalPolicyStore = constitutionalPolicyStore;
+        _policyDomainBindingStore = policyDomainBindingStore;
+        _policyMonitoringStore = policyMonitoringStore;
+        _policyEvidenceStore = policyEvidenceStore;
     }
 
     [HttpGet("workflows")]
@@ -1064,6 +1102,647 @@ public sealed class DebugController : ControllerBase
         }
     }
 
+    [HttpPost("policy/parse")]
+    public IActionResult ParsePolicyDsl([FromBody] DebugParsePolicyDto dto)
+    {
+        try
+        {
+            var engine = new PolicyDslParserEngine();
+            var result = engine.Parse(dto.Dsl);
+            return Ok(new
+            {
+                policyId = result.PolicyId,
+                name = result.Name,
+                version = result.Version,
+                targetDomain = result.TargetDomain,
+                conditions = result.Conditions.Select(c => new
+                {
+                    field = c.Field,
+                    @operator = c.Operator,
+                    value = c.Value
+                }),
+                actions = result.Actions.Select(a => new
+                {
+                    actionType = a.ActionType,
+                    parameters = a.Parameters
+                }),
+                createdAt = result.CreatedAt
+            });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpGet("policies")]
+    public IActionResult GetPolicies()
+    {
+        var engine = new PolicyRegistryEngine(_policyRegistryStore);
+        var policies = engine.GetPolicies();
+        return Ok(new
+        {
+            policies = policies.Select(p => new
+            {
+                policyId = p.PolicyId,
+                version = p.Version,
+                name = p.PolicyDefinition.Name,
+                targetDomain = p.PolicyDefinition.TargetDomain,
+                status = p.Status.ToString(),
+                registeredAt = p.RegisteredAt
+            })
+        });
+    }
+
+    [HttpGet("policies/{id}")]
+    public IActionResult GetPolicy(string id)
+    {
+        try
+        {
+            var engine = new PolicyRegistryEngine(_policyRegistryStore);
+            var record = engine.GetPolicy(id);
+            return Ok(new
+            {
+                policyId = record.PolicyId,
+                version = record.Version,
+                name = record.PolicyDefinition.Name,
+                targetDomain = record.PolicyDefinition.TargetDomain,
+                conditions = record.PolicyDefinition.Conditions.Select(c => new
+                {
+                    field = c.Field,
+                    @operator = c.Operator,
+                    value = c.Value
+                }),
+                actions = record.PolicyDefinition.Actions.Select(a => new
+                {
+                    actionType = a.ActionType,
+                    parameters = a.Parameters
+                }),
+                status = record.Status.ToString(),
+                registeredAt = record.RegisteredAt
+            });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = $"Policy not found: '{id}'" });
+        }
+    }
+
+    [HttpGet("policies/{id}/versions")]
+    public IActionResult GetPolicyVersions(string id)
+    {
+        var engine = new PolicyVersionEngine(_policyVersionStore);
+        var versions = engine.GetVersions(id);
+        return Ok(new
+        {
+            policyId = id,
+            versions = versions.Select(v => new
+            {
+                version = v.Version,
+                status = v.Status.ToString(),
+                createdAt = v.CreatedAt
+            })
+        });
+    }
+
+    [HttpGet("policies/{id}/dependencies")]
+    public IActionResult GetPolicyDependencies(string id)
+    {
+        var engine = new PolicyDependencyEngine(_policyDependencyStore);
+        var dependencies = engine.GetDependencies(id);
+        var resolved = engine.ResolveDependencyGraph(id);
+        return Ok(new
+        {
+            policyId = id,
+            dependencies = dependencies.Select(d => d.DependsOnPolicyId),
+            resolvedOrder = resolved
+        });
+    }
+
+    [HttpPost("policy/evaluate")]
+    public IActionResult EvaluatePolicies([FromBody] DebugEvaluatePoliciesDto dto)
+    {
+        try
+        {
+            var engine = new PolicyEvaluationEngine(_policyRegistryStore, _policyDependencyStore);
+            var contextEngine = new PolicyContextEngine(_policyContextStore);
+            var context = contextEngine.BuildContext(dto.ActorId, dto.Domain, dto.Attributes);
+            var decisions = engine.EvaluatePolicies(dto.Domain, context);
+            return Ok(new
+            {
+                decisions = decisions.Select(d => new
+                {
+                    policyId = d.PolicyId,
+                    allowed = d.Allowed,
+                    action = d.Action,
+                    reason = d.Reason,
+                    evaluatedAt = d.EvaluatedAt
+                })
+            });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("policy/context")]
+    public IActionResult BuildPolicyContext([FromBody] DebugBuildPolicyContextDto dto)
+    {
+        try
+        {
+            var engine = new PolicyContextEngine(_policyContextStore);
+            var result = engine.BuildContext(dto.ActorId, dto.TargetDomain, dto.Attributes);
+            return Ok(new
+            {
+                contextId = result.ContextId,
+                actorId = result.ActorId,
+                targetDomain = result.TargetDomain,
+                attributes = result.Attributes,
+                timestamp = result.Timestamp
+            });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpGet("policy/cache")]
+    public IActionResult GetPolicyCache()
+    {
+        var engine = new PolicyDecisionCacheEngine(_policyDecisionCacheStore);
+        _policyDecisionCacheStore.ClearExpired();
+        var entries = _policyDecisionCacheStore.GetAll();
+        return Ok(new
+        {
+            entries = entries.Select(e => new
+            {
+                cacheKey = e.CacheKey,
+                decisions = e.Decisions.Select(d => new
+                {
+                    policyId = d.PolicyId,
+                    allowed = d.Allowed,
+                    action = d.Action,
+                    reason = d.Reason,
+                    evaluatedAt = d.EvaluatedAt
+                }),
+                cachedAt = e.CachedAt,
+                expiresAt = e.ExpiresAt
+            })
+        });
+    }
+
+    [HttpDelete("policy/cache")]
+    public IActionResult ClearPolicyCache()
+    {
+        _policyDecisionCacheStore.Clear();
+        return Ok(new { message = "Policy decision cache cleared." });
+    }
+
+    [HttpPost("policy/simulate")]
+    public IActionResult SimulatePolicyEvaluation([FromBody] DebugSimulatePolicyDto dto)
+    {
+        try
+        {
+            var engine = new PolicySimulationEngine(_policyRegistryStore, _policyDependencyStore);
+            var request = new Whycespace.System.Upstream.WhycePolicy.Models.PolicySimulationRequest(
+                dto.Domain, dto.ActorId, dto.Attributes);
+            var result = engine.SimulatePolicyEvaluation(request);
+            return Ok(new
+            {
+                domain = result.Domain,
+                actorId = result.ActorId,
+                decisions = result.Decisions.Select(d => new
+                {
+                    policyId = d.PolicyId,
+                    allowed = d.Allowed,
+                    action = d.Action,
+                    reason = d.Reason,
+                    evaluatedAt = d.EvaluatedAt
+                }),
+                simulatedAt = result.SimulatedAt
+            });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpGet("policy/conflicts/{domain}")]
+    public IActionResult DetectPolicyConflicts(string domain)
+    {
+        var engine = new PolicyConflictDetectionEngine(_policyRegistryStore, _policyDependencyStore);
+        var report = engine.DetectConflicts(domain);
+        return Ok(new
+        {
+            domain = report.Domain,
+            conflicts = report.Conflicts.Select(c => new
+            {
+                policyA = c.PolicyA,
+                policyB = c.PolicyB,
+                domain = c.Domain,
+                reason = c.Reason,
+                detectedAt = c.DetectedAt
+            }),
+            generatedAt = report.GeneratedAt
+        });
+    }
+
+    [HttpPost("policy/forecast")]
+    public IActionResult ForecastPolicyImpact([FromBody] DebugForecastPolicyDto dto)
+    {
+        try
+        {
+            var engine = new PolicyImpactForecastEngine(_policyRegistryStore, _policyDependencyStore);
+            var simContexts = dto.SimulationContexts
+                .Select(s => new Whycespace.System.Upstream.WhycePolicy.Models.PolicySimulationRequest(s.Domain, s.ActorId, s.Attributes))
+                .ToList();
+            var request = new Whycespace.System.Upstream.WhycePolicy.Models.PolicyImpactForecastRequest(dto.Domain, simContexts);
+            var forecast = engine.ForecastImpact(request);
+            return Ok(new
+            {
+                policyId = forecast.PolicyId,
+                domain = forecast.Domain,
+                simulatedContexts = forecast.SimulatedContexts,
+                allowedCount = forecast.AllowedCount,
+                deniedCount = forecast.DeniedCount,
+                loggedCount = forecast.LoggedCount,
+                generatedAt = forecast.GeneratedAt
+            });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("policy/lifecycle/approve")]
+    public IActionResult ApprovePolicyLifecycle([FromBody] DebugLifecycleTransitionDto dto)
+    {
+        try
+        {
+            var engine = new PolicyLifecycleManager(_policyLifecycleStore);
+            var result = engine.ApprovePolicy(dto.PolicyId, dto.Version);
+            return Ok(new { policyId = result.PolicyId, version = result.Version, state = result.State.ToString(), updatedAt = result.UpdatedAt });
+        }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpPost("policy/lifecycle/activate")]
+    public IActionResult ActivatePolicyLifecycle([FromBody] DebugLifecycleTransitionDto dto)
+    {
+        try
+        {
+            var engine = new PolicyLifecycleManager(_policyLifecycleStore);
+            var result = engine.ActivatePolicy(dto.PolicyId, dto.Version);
+            return Ok(new { policyId = result.PolicyId, version = result.Version, state = result.State.ToString(), updatedAt = result.UpdatedAt });
+        }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpPost("policy/lifecycle/deprecate")]
+    public IActionResult DeprecatePolicyLifecycle([FromBody] DebugLifecycleTransitionDto dto)
+    {
+        try
+        {
+            var engine = new PolicyLifecycleManager(_policyLifecycleStore);
+            var result = engine.DeprecatePolicy(dto.PolicyId, dto.Version);
+            return Ok(new { policyId = result.PolicyId, version = result.Version, state = result.State.ToString(), updatedAt = result.UpdatedAt });
+        }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpPost("policy/lifecycle/archive")]
+    public IActionResult ArchivePolicyLifecycle([FromBody] DebugLifecycleTransitionDto dto)
+    {
+        try
+        {
+            var engine = new PolicyLifecycleManager(_policyLifecycleStore);
+            var result = engine.ArchivePolicy(dto.PolicyId, dto.Version);
+            return Ok(new { policyId = result.PolicyId, version = result.Version, state = result.State.ToString(), updatedAt = result.UpdatedAt });
+        }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpGet("policy/lifecycle/{policyId}/{version}")]
+    public IActionResult GetPolicyLifecycle(string policyId, string version)
+    {
+        try
+        {
+            var engine = new PolicyLifecycleManager(_policyLifecycleStore);
+            var state = engine.GetLifecycleState(policyId, version);
+            var history = engine.GetLifecycleHistory(policyId, version);
+            return Ok(new
+            {
+                policyId = state.PolicyId,
+                version = state.Version,
+                currentState = state.State.ToString(),
+                updatedAt = state.UpdatedAt,
+                history = history.Select(h => new
+                {
+                    state = h.State.ToString(),
+                    updatedAt = h.UpdatedAt
+                })
+            });
+        }
+        catch (KeyNotFoundException) { return NotFound(new { message = $"No lifecycle state found for policy '{policyId}' version '{version}'." }); }
+    }
+
+    [HttpPost("policy/rollout")]
+    public IActionResult SetPolicyRollout([FromBody] DebugSetRolloutDto dto)
+    {
+        var config = new Whycespace.System.Upstream.WhycePolicy.Models.PolicyRolloutConfig(
+            dto.PolicyId, dto.Version,
+            Enum.Parse<Whycespace.System.Upstream.WhycePolicy.Models.PolicyRolloutStrategy>(dto.Strategy, ignoreCase: true),
+            dto.Percentage, dto.Actors ?? new List<string>(),
+            dto.Domains ?? new List<string>(), DateTime.UtcNow);
+        _policyRolloutStore.SetRolloutConfig(config);
+        return Ok(new
+        {
+            policyId = config.PolicyId, version = config.Version,
+            strategy = config.Strategy.ToString(), percentage = config.Percentage,
+            actors = config.Actors, domains = config.Domains, createdAt = config.CreatedAt
+        });
+    }
+
+    [HttpGet("policy/rollout/{policyId}/{version}")]
+    public IActionResult GetPolicyRollout(string policyId, string version)
+    {
+        var config = _policyRolloutStore.GetRolloutConfig(policyId, version);
+        if (config is null)
+            return NotFound(new { message = $"No rollout config found for policy '{policyId}' version '{version}'." });
+        return Ok(new
+        {
+            policyId = config.PolicyId, version = config.Version,
+            strategy = config.Strategy.ToString(), percentage = config.Percentage,
+            actors = config.Actors, domains = config.Domains, createdAt = config.CreatedAt
+        });
+    }
+
+    [HttpPost("policy/rollout/check")]
+    public IActionResult CheckPolicyRollout([FromBody] DebugCheckRolloutDto dto)
+    {
+        var engine = new PolicyRolloutEngine(_policyRolloutStore);
+        var active = engine.IsPolicyActiveForActor(dto.PolicyId, dto.Version, dto.ActorId, dto.Domain);
+        return Ok(new { active });
+    }
+
+    [HttpPost("policy/governance/assign")]
+    public IActionResult AssignGovernanceAuthority([FromBody] DebugGovernanceAssignDto dto)
+    {
+        try
+        {
+            var engine = new GovernanceAuthorityEngine(_governanceAuthorityStore);
+            var role = Enum.Parse<Whycespace.System.Upstream.WhycePolicy.Models.GovernanceRole>(dto.Role, ignoreCase: true);
+            var record = engine.AssignAuthority(dto.ActorId, role);
+            return Ok(new { actorId = record.ActorId, role = record.Role.ToString(), assignedAt = record.AssignedAt });
+        }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpGet("policy/governance/{actorId}")]
+    public IActionResult GetGovernanceAuthority(string actorId)
+    {
+        var engine = new GovernanceAuthorityEngine(_governanceAuthorityStore);
+        var roles = engine.GetRoles(actorId);
+        return Ok(new
+        {
+            actorId,
+            roles = roles.Select(r => new { role = r.Role.ToString(), assignedAt = r.AssignedAt })
+        });
+    }
+
+    [HttpPost("policy/governance/check")]
+    public IActionResult CheckGovernanceAuthority([FromBody] DebugGovernanceAssignDto dto)
+    {
+        var engine = new GovernanceAuthorityEngine(_governanceAuthorityStore);
+        var role = Enum.Parse<Whycespace.System.Upstream.WhycePolicy.Models.GovernanceRole>(dto.Role, ignoreCase: true);
+        var hasAuthority = engine.HasAuthority(dto.ActorId, role);
+        return Ok(new { hasAuthority });
+    }
+
+    [HttpPost("policy/constitutional/register")]
+    public IActionResult RegisterConstitutionalPolicy([FromBody] DebugConstitutionalRegisterDto dto)
+    {
+        var engine = new ConstitutionalSafeguardEngine(_constitutionalPolicyStore);
+        var record = engine.RegisterConstitutionalPolicy(dto.PolicyId, dto.Version, dto.ProtectionLevel);
+        return Ok(new { policyId = record.PolicyId, version = record.Version, protectionLevel = record.ProtectionLevel, registeredAt = record.RegisteredAt });
+    }
+
+    [HttpGet("policy/constitutional/{policyId}/{version}")]
+    public IActionResult GetConstitutionalPolicy(string policyId, string version)
+    {
+        var record = _constitutionalPolicyStore.Get(policyId, version);
+        if (record is null)
+            return NotFound(new { message = $"No constitutional protection found for policy '{policyId}' version '{version}'." });
+        return Ok(new { policyId = record.PolicyId, version = record.Version, protectionLevel = record.ProtectionLevel, registeredAt = record.RegisteredAt });
+    }
+
+    [HttpPost("policy/constitutional/check")]
+    public IActionResult CheckConstitutionalPolicy([FromBody] DebugConstitutionalCheckDto dto)
+    {
+        var isProtected = _constitutionalPolicyStore.IsProtectedPolicy(dto.PolicyId, dto.Version);
+        var protectionLevel = _constitutionalPolicyStore.GetProtectionLevel(dto.PolicyId, dto.Version);
+        return Ok(new { isProtected, protectionLevel });
+    }
+
+    [HttpPost("policy/enforce")]
+    public IActionResult EnforcePolicy([FromBody] DebugEnforcePolicyDto dto)
+    {
+        try
+        {
+            var evaluationEngine = new PolicyEvaluationEngine(_policyRegistryStore, _policyDependencyStore);
+            var contextEngine = new PolicyContextEngine(_policyContextStore);
+            var cacheEngine = new PolicyDecisionCacheEngine(_policyDecisionCacheStore);
+            var enforcementEngine = new PolicyEnforcementEngine(evaluationEngine, contextEngine, cacheEngine);
+
+            var request = new Whycespace.System.Upstream.WhycePolicy.Models.PolicyEnforcementRequest(
+                dto.ActorId, dto.Domain, dto.Operation, dto.Attributes);
+
+            var result = enforcementEngine.EnforcePolicy(request);
+            return Ok(new
+            {
+                allowed = result.Allowed,
+                reason = result.Reason,
+                decisions = result.Decisions.Select(d => new
+                {
+                    policyId = d.PolicyId,
+                    allowed = d.Allowed,
+                    action = d.Action,
+                    reason = d.Reason,
+                    evaluatedAt = d.EvaluatedAt
+                }),
+                evaluatedAt = result.EvaluatedAt
+            });
+        }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpPost("policy/domain/bind")]
+    public IActionResult BindPolicyToDomain([FromBody] DebugBindPolicyDomainDto dto)
+    {
+        try
+        {
+            var engine = new PolicyDomainBindingEngine(_policyDomainBindingStore);
+            var binding = engine.BindPolicy(dto.PolicyId, dto.Version, dto.Domain);
+            return Ok(new { policyId = binding.PolicyId, version = binding.Version, domain = binding.Domain, boundAt = binding.BoundAt });
+        }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpGet("policy/domain/{policyId}")]
+    public IActionResult GetDomainsForPolicy(string policyId)
+    {
+        var engine = new PolicyDomainBindingEngine(_policyDomainBindingStore);
+        var domains = engine.GetDomainsForPolicy(policyId);
+        return Ok(new { policyId, domains });
+    }
+
+    [HttpGet("policy/domain/policies/{domain}")]
+    public IActionResult GetPoliciesForDomain(string domain)
+    {
+        var engine = new PolicyDomainBindingEngine(_policyDomainBindingStore);
+        var bindings = engine.GetPoliciesForDomain(domain);
+        return Ok(new
+        {
+            domain,
+            policies = bindings.Select(b => new
+            {
+                policyId = b.PolicyId,
+                version = b.Version,
+                boundAt = b.BoundAt
+            })
+        });
+    }
+
+    [HttpGet("policy/monitoring")]
+    public IActionResult GetAllPolicyMonitoring()
+    {
+        var engine = new PolicyMonitoringEngine(_policyMonitoringStore);
+        var metrics = engine.GetAllMetrics();
+        return Ok(new
+        {
+            metrics = metrics.Select(m => new
+            {
+                policyId = m.PolicyId,
+                domain = m.Domain,
+                evaluations = m.Evaluations,
+                allowedCount = m.AllowedCount,
+                deniedCount = m.DeniedCount,
+                lastEvaluatedAt = m.LastEvaluatedAt
+            })
+        });
+    }
+
+    [HttpGet("policy/monitoring/{policyId}")]
+    public IActionResult GetPolicyMonitoring(string policyId)
+    {
+        var engine = new PolicyMonitoringEngine(_policyMonitoringStore);
+        var metrics = engine.GetPolicyMetrics(policyId);
+        if (metrics is null)
+            return NotFound(new { message = $"No monitoring data found for policy '{policyId}'." });
+        return Ok(new
+        {
+            policyId = metrics.PolicyId,
+            domain = metrics.Domain,
+            evaluations = metrics.Evaluations,
+            allowedCount = metrics.AllowedCount,
+            deniedCount = metrics.DeniedCount,
+            lastEvaluatedAt = metrics.LastEvaluatedAt
+        });
+    }
+
+    [HttpGet("policy/evidence")]
+    public IActionResult GetAllPolicyEvidence()
+    {
+        var engine = new PolicyEvidenceRecorderEngine(_policyEvidenceStore);
+        var records = engine.GetAllEvidence();
+        return Ok(new
+        {
+            evidence = records.Select(r => new
+            {
+                evidenceId = r.EvidenceId,
+                policyId = r.PolicyId,
+                actorId = r.ActorId,
+                domain = r.Domain,
+                operation = r.Operation,
+                allowed = r.Allowed,
+                reason = r.Reason,
+                recordedAt = r.RecordedAt
+            })
+        });
+    }
+
+    [HttpGet("policy/evidence/{evidenceId}")]
+    public IActionResult GetPolicyEvidence(string evidenceId)
+    {
+        var engine = new PolicyEvidenceRecorderEngine(_policyEvidenceStore);
+        var record = engine.GetEvidence(evidenceId);
+        if (record is null)
+            return NotFound(new { message = $"No evidence record found for '{evidenceId}'." });
+        return Ok(new
+        {
+            evidenceId = record.EvidenceId,
+            policyId = record.PolicyId,
+            actorId = record.ActorId,
+            domain = record.Domain,
+            operation = record.Operation,
+            allowed = record.Allowed,
+            reason = record.Reason,
+            recordedAt = record.RecordedAt
+        });
+    }
+
+    [HttpPost("policy/evidence")]
+    public IActionResult RecordPolicyEvidence([FromBody] DebugRecordPolicyEvidenceDto dto)
+    {
+        try
+        {
+            var engine = new PolicyEvidenceRecorderEngine(_policyEvidenceStore);
+            var record = engine.RecordPolicyEvidence(
+                dto.PolicyId, dto.ActorId, dto.Domain, dto.Operation, dto.Allowed, dto.Reason);
+            return Ok(new
+            {
+                evidenceId = record.EvidenceId,
+                policyId = record.PolicyId,
+                actorId = record.ActorId,
+                domain = record.Domain,
+                operation = record.Operation,
+                allowed = record.Allowed,
+                reason = record.Reason,
+                recordedAt = record.RecordedAt
+            });
+        }
+        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+    }
+
+    [HttpPost("policy/audit")]
+    public IActionResult AuditPolicy([FromBody] DebugAuditPolicyDto dto)
+    {
+        var engine = new PolicyAuditEngine(_policyEvidenceStore);
+        var query = new Whycespace.System.Upstream.WhycePolicy.Models.PolicyAuditQuery(
+            dto.PolicyId, dto.ActorId, dto.Domain, dto.From, dto.To);
+        var report = engine.AuditPolicy(query);
+        return Ok(new
+        {
+            evidenceRecords = report.EvidenceRecords.Select(r => new
+            {
+                evidenceId = r.EvidenceId,
+                policyId = r.PolicyId,
+                actorId = r.ActorId,
+                domain = r.Domain,
+                operation = r.Operation,
+                allowed = r.Allowed,
+                reason = r.Reason,
+                recordedAt = r.RecordedAt
+            }),
+            totalRecords = report.TotalRecords,
+            generatedAt = report.GeneratedAt
+        });
+    }
+
     [HttpGet("audit")]
     public IActionResult GetAllAuditEvents()
     {
@@ -1103,3 +1782,18 @@ public sealed record DebugRecoveryActionDto(Guid RecoveryId);
 public sealed record DebugRevokeIdentityDto(Guid IdentityId, string Reason);
 public sealed record DebugEvaluatePolicyDto(Guid IdentityId);
 public sealed record DebugRecordAuditDto(Guid IdentityId, string EventType, string Description);
+public sealed record DebugParsePolicyDto(string Dsl);
+public sealed record DebugEvaluatePoliciesDto(Guid ActorId, string Domain, Dictionary<string, string> Attributes);
+public sealed record DebugSimulatePolicyDto(string Domain, string ActorId, Dictionary<string, string> Attributes);
+public sealed record DebugForecastPolicyDto(string Domain, List<DebugSimulatePolicyDto> SimulationContexts);
+public sealed record DebugLifecycleTransitionDto(string PolicyId, string Version);
+public sealed record DebugSetRolloutDto(string PolicyId, string Version, string Strategy, int Percentage, List<string>? Actors, List<string>? Domains);
+public sealed record DebugCheckRolloutDto(string PolicyId, string Version, string ActorId, string Domain);
+public sealed record DebugGovernanceAssignDto(string ActorId, string Role);
+public sealed record DebugConstitutionalRegisterDto(string PolicyId, string Version, string ProtectionLevel);
+public sealed record DebugConstitutionalCheckDto(string PolicyId, string Version);
+public sealed record DebugBuildPolicyContextDto(Guid ActorId, string TargetDomain, Dictionary<string, string> Attributes);
+public sealed record DebugEnforcePolicyDto(string ActorId, string Domain, string Operation, Dictionary<string, string> Attributes);
+public sealed record DebugBindPolicyDomainDto(string PolicyId, string Version, string Domain);
+public sealed record DebugRecordPolicyEvidenceDto(string PolicyId, string ActorId, string Domain, string Operation, bool Allowed, string Reason);
+public sealed record DebugAuditPolicyDto(string? PolicyId, string? ActorId, string? Domain, DateTime? From, DateTime? To);

@@ -24,6 +24,7 @@
           "Whycespace.EngineManifest": "1.0.0",
           "Whycespace.Engines": "1.0.0",
           "Whycespace.Engines.T0U.WhyceID": "1.0.0",
+          "Whycespace.Engines.T0U.WhycePolicy": "1.0.0",
           "Whycespace.EventFabricRuntime": "1.0.0",
           "Whycespace.Observability": "1.0.0",
           "Whycespace.ProjectionRuntime": "1.0.0",
@@ -543,6 +544,17 @@
           }
         }
       },
+      "Whycespace.Engines.T0U.WhycePolicy/1.0.0": {
+        "dependencies": {
+          "Whycespace.System": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Engines.T0U.WhycePolicy.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.EventFabric/1.0.0": {
         "dependencies": {
           "Confluent.Kafka": "2.13.2",
@@ -982,6 +994,11 @@
       "sha512": ""
     },
     "Whycespace.Engines.T0U.WhyceID/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Engines.T0U.WhycePolicy/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

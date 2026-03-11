@@ -1,0 +1,8 @@
+namespace Whycespace.System.Upstream.WhycePolicy.Models;
+
+public sealed record PolicyDecisionCacheEntry(
+    string CacheKey,
+    IReadOnlyList<PolicyDecision> Decisions,
+    DateTime CachedAt,
+    DateTime ExpiresAt
+);
