@@ -298,3 +298,85 @@ WHYCE PROPERTY CLUSTER
 2.4.24 Rental Revenue Engine
 2.4.25 Property Policy Enforcement Adapter
 2.4.26 Property Evidence Recorder
+
+
+
+
+
+# WHYCESPACE WBSM v3
+# PHASE X.X.X — SYSTEM NAME
+
+You are implementing Phase X.X.X of the Whycespace system.
+
+---
+
+# ARCHITECTURE RULES
+
+ENGINE → stateless logic
+SYSTEM → stateful storage
+
+---
+
+# TARGET LOCATIONS
+
+Engine:
+src/engines/T0U/System/
+
+Store:
+src/system/upstream/System/stores/
+
+Model:
+src/system/upstream/System/models/
+
+---
+
+# FILES TO CREATE
+
+Model
+Store
+Engine
+Tests
+
+---
+
+# MODEL
+
+[code]
+
+---
+
+# STORE
+
+[code]
+
+---
+
+# ENGINE
+
+[code]
+
+---
+
+# TESTS
+
+Test scenarios
+
+---
+
+# DEBUG ENDPOINTS
+
+/dev/...
+
+---
+
+# SUCCESS CRITERIA
+
+0 warnings
+0 errors
+all tests passing
+
+---
+
+# NEXT PHASE
+
+X.X.X Next Engine

@@ -1,4 +1,4 @@
-using Whycespace.Engine.Identity;
+using Whycespace.Engines.T0U.WhyceID;
 using Whycespace.System.WhyceID.Commands;
 using Whycespace.System.WhyceID.Models;
 using Whycespace.System.WhyceID.Registry;
@@ -13,13 +13,13 @@ public class IdentityCreationTests
         var registry = new IdentityRegistry();
         var engine = new IdentityCreationEngine();
 
-        var cmd = new CreateIdentityCommand(Guid.NewGuid(), IdentityType.Individual);
+        var cmd = new CreateIdentityCommand(Guid.NewGuid(), IdentityType.User);
 
         var result = engine.Execute(cmd, registry);
 
         Assert.NotNull(result);
         Assert.Equal(cmd.IdentityId, result.IdentityId);
-        Assert.Equal(IdentityType.Individual, result.Type);
+        Assert.Equal(IdentityType.User, result.Type);
     }
 
     [Fact]
@@ -28,11 +28,11 @@ public class IdentityCreationTests
         var registry = new IdentityRegistry();
         var engine = new IdentityCreationEngine();
 
-        var cmd = new CreateIdentityCommand(Guid.NewGuid(), IdentityType.Organization);
+        var cmd = new CreateIdentityCommand(Guid.NewGuid(), IdentityType.Service);
 
         var result = engine.Execute(cmd, registry);
 
-        Assert.Equal(IdentityType.Organization, result.Type);
+        Assert.Equal(IdentityType.Service, result.Type);
     }
 
     [Fact]
@@ -42,9 +42,9 @@ public class IdentityCreationTests
         var engine = new IdentityCreationEngine();
         var id = Guid.NewGuid();
 
-        engine.Execute(new CreateIdentityCommand(id, IdentityType.Individual), registry);
+        engine.Execute(new CreateIdentityCommand(id, IdentityType.User), registry);
 
         Assert.Throws<InvalidOperationException>(() =>
-            engine.Execute(new CreateIdentityCommand(id, IdentityType.Individual), registry));
+            engine.Execute(new CreateIdentityCommand(id, IdentityType.User), registry));
     }
 }

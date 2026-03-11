@@ -1,5 +1,5 @@
-using Whycespace.Engine.Identity;
-using Whycespace.System.WhyceID.Commands;
+using Whycespace.Engines.T0U.WhyceID;
+using Whycespace.System.WhyceID.Aggregates;
 using Whycespace.System.WhyceID.Models;
 using Whycespace.System.WhyceID.Registry;
 
@@ -7,47 +7,82 @@ namespace Whycespace.WhyceID.Identity.Tests;
 
 public class IdentityVerificationTests
 {
-    [Fact]
-    public void IdentityVerification_ShouldActivateIdentity()
+    private readonly IdentityRegistry _registry;
+    private readonly IdentityVerificationEngine _engine;
+
+    public IdentityVerificationTests()
     {
-        var registry = new IdentityRegistry();
-        var creationEngine = new IdentityCreationEngine();
-        var verificationEngine = new IdentityVerificationEngine();
+        _registry = new IdentityRegistry();
+        _engine = new IdentityVerificationEngine(_registry);
+    }
 
-        var id = Guid.NewGuid();
-        creationEngine.Execute(new CreateIdentityCommand(id, IdentityType.Individual), registry);
-
-        var result = verificationEngine.Execute(new VerifyIdentityCommand(id), registry);
-
-        Assert.NotNull(result);
-        Assert.Equal(id, result.IdentityId);
-
-        var identity = registry.Get(id);
-        Assert.Equal(IdentityStatus.Active, identity.Status);
+    private Guid RegisterIdentity()
+    {
+        var id = IdentityId.New();
+        var identity = new IdentityAggregate(id, IdentityType.User);
+        _registry.Register(identity);
+        return id.Value;
     }
 
     [Fact]
-    public void IdentityVerification_AlreadyActive_ShouldThrow()
+    public void VerifyIdentity_ShouldSucceed()
     {
-        var registry = new IdentityRegistry();
-        var creationEngine = new IdentityCreationEngine();
-        var verificationEngine = new IdentityVerificationEngine();
+        var identityId = RegisterIdentity();
 
-        var id = Guid.NewGuid();
-        creationEngine.Execute(new CreateIdentityCommand(id, IdentityType.Individual), registry);
-        verificationEngine.Execute(new VerifyIdentityCommand(id), registry);
+        _engine.VerifyIdentity(identityId);
+
+        var identity = _registry.Get(identityId);
+        Assert.Equal(IdentityStatus.Verified, identity.Status);
+    }
+
+    [Fact]
+    public void VerifyIdentity_MissingIdentity_ShouldThrow()
+    {
+        Assert.Throws<InvalidOperationException>(() =>
+            _engine.VerifyIdentity(Guid.NewGuid()));
+    }
+
+    [Fact]
+    public void VerifyIdentity_AlreadyVerified_ShouldThrow()
+    {
+        var identityId = RegisterIdentity();
+        _engine.VerifyIdentity(identityId);
 
         Assert.Throws<InvalidOperationException>(() =>
-            verificationEngine.Execute(new VerifyIdentityCommand(id), registry));
+            _engine.VerifyIdentity(identityId));
     }
 
     [Fact]
-    public void IdentityVerification_NotFound_ShouldThrow()
+    public void VerifyIdentity_RevokedIdentity_ShouldThrow()
     {
-        var registry = new IdentityRegistry();
-        var verificationEngine = new IdentityVerificationEngine();
+        var identityId = RegisterIdentity();
+        var identity = _registry.Get(identityId);
+        identity.Revoke();
+        _registry.Update(identity);
 
-        Assert.Throws<KeyNotFoundException>(() =>
-            verificationEngine.Execute(new VerifyIdentityCommand(Guid.NewGuid()), registry));
+        Assert.Throws<InvalidOperationException>(() =>
+            _engine.VerifyIdentity(identityId));
+    }
+
+    [Fact]
+    public void VerifyIdentity_ShouldPersistInRegistry()
+    {
+        var identityId = RegisterIdentity();
+
+        _engine.VerifyIdentity(identityId);
+
+        var updated = _registry.Get(identityId);
+        Assert.Equal(IdentityStatus.Verified, updated.Status);
+    }
+
+    [Fact]
+    public void VerifyIdentity_ShouldSetVerificationTimestamp()
+    {
+        var identityId = RegisterIdentity();
+
+        _engine.VerifyIdentity(identityId);
+
+        var identity = _registry.Get(identityId);
+        Assert.NotNull(identity.VerifiedAt);
     }
 }

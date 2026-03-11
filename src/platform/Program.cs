@@ -145,6 +145,23 @@ var simulationEngine = new SimulationRuntimeEngine();
 var simulationService = new SimulationService(simulationLoader, simulationEngine);
 builder.Services.AddSingleton(simulationService);
 
+// WhyceID Identity (Phase 2.0)
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Registry.IdentityRegistry());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityAttributeStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityRoleStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityPermissionStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityAccessScopeStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityTrustStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityDeviceStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentitySessionStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityConsentStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityGraphStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityServiceStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityFederationStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityRecoveryStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityRevocationStore());
+builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityAuditStore());
+
 // Upstream
 builder.Services.AddSingleton(new PolicyGovernor());
 

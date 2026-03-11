@@ -1,4 +1,4 @@
-namespace Whycespace.Engine.Identity;
+namespace Whycespace.Engines.T0U.WhyceID;
 
 using Whycespace.System.WhyceID.Aggregates;
 using Whycespace.System.WhyceID.Commands;
@@ -16,9 +16,8 @@ public sealed class IdentityCreationEngine
             throw new InvalidOperationException("Identity already exists");
 
         var identity = new IdentityAggregate(
-            new IdentityId(command.IdentityId),
-            command.Type,
-            DateTime.UtcNow);
+            IdentityId.From(command.IdentityId),
+            command.Type);
 
         registry.Register(identity);
 

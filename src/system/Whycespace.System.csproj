@@ -6,6 +6,7 @@
     <Compile Remove="upstream\WhyceID\models\**" />
     <Compile Remove="upstream\WhyceID\commands\**" />
     <Compile Remove="upstream\WhyceID\events\**" />
+    <Compile Remove="upstream\WhyceID\stores\**" />
     <Compile Remove="upstream\WhyceID\bin\**" />
     <Compile Remove="upstream\WhyceID\obj\**" />
   </ItemGroup>

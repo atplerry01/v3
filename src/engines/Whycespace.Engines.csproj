@@ -5,6 +5,10 @@
     <Content Remove="T0U_Constitutional\WhyceIdentity\**" />
     <None Remove="T0U_Constitutional\WhyceIdentity\**" />
     <EmbeddedResource Remove="T0U_Constitutional\WhyceIdentity\**" />
+    <Compile Remove="T0U\**" />
+    <Content Remove="T0U\**" />
+    <None Remove="T0U\**" />
+    <EmbeddedResource Remove="T0U\**" />
   </ItemGroup>
 
   <ItemGroup>
