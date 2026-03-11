@@ -241,11 +241,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
+      "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
       "projectName": "Whycespace.EventSchema",
-      "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
+      "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\event-schema\\obj\\",
+      "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

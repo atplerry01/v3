@@ -31,7 +31,9 @@ using Whycespace.System.WhyceID.Stores;
 using Whycespace.System.WhyceID.Models;
 using Whycespace.Engines.T0U.WhyceID;
 using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.System.Upstream.WhycePolicy.Stores;
+using Whycespace.System.Upstream.WhyceChain.Stores;
 
 [ApiController]
 [Route("dev")]
@@ -83,6 +85,9 @@ public sealed class DebugController : ControllerBase
     private readonly PolicyDomainBindingStore _policyDomainBindingStore;
     private readonly PolicyMonitoringStore _policyMonitoringStore;
     private readonly PolicyEvidenceStore _policyEvidenceStore;
+    private readonly ChainLedgerStore _chainLedgerStore;
+    private readonly ChainBlockStore _chainBlockStore;
+    private readonly ChainEventStore _chainEventStore;
 
     public DebugController(
         WorkflowStateStore stateStore,
@@ -130,7 +135,10 @@ public sealed class DebugController : ControllerBase
         ConstitutionalPolicyStore constitutionalPolicyStore,
         PolicyDomainBindingStore policyDomainBindingStore,
         PolicyMonitoringStore policyMonitoringStore,
-        PolicyEvidenceStore policyEvidenceStore)
+        PolicyEvidenceStore policyEvidenceStore,
+        ChainLedgerStore chainLedgerStore,
+        ChainBlockStore chainBlockStore,
+        ChainEventStore chainEventStore)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
@@ -178,6 +186,9 @@ public sealed class DebugController : ControllerBase
         _policyDomainBindingStore = policyDomainBindingStore;
         _policyMonitoringStore = policyMonitoringStore;
         _policyEvidenceStore = policyEvidenceStore;
+        _chainLedgerStore = chainLedgerStore;
+        _chainBlockStore = chainBlockStore;
+        _chainEventStore = chainEventStore;
     }
 
     [HttpGet("workflows")]
@@ -1759,6 +1770,119 @@ public sealed class DebugController : ControllerBase
                 timestamp = e.Timestamp
             })
         });
+    }
+
+    // WhyceChain — Chain Ledger (Phase 2.0.40)
+
+    [HttpGet("chain/ledger")]
+    public IActionResult GetChainLedger()
+    {
+        var entries = _chainLedgerStore.GetAllEntries();
+        return Ok(new { entries = entries.Select(e => new
+        {
+            e.EntryId,
+            e.Timestamp,
+            e.EventType,
+            e.PayloadHash,
+            e.PreviousHash,
+            e.BlockId
+        })});
+    }
+
+    [HttpGet("chain/ledger/{id}")]
+    public IActionResult GetChainLedgerEntry(string id)
+    {
+        try
+        {
+            var entry = _chainLedgerStore.GetEntry(id);
+            return Ok(new
+            {
+                entry.EntryId,
+                entry.Timestamp,
+                entry.EventType,
+                entry.PayloadHash,
+                entry.PreviousHash,
+                entry.BlockId
+            });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { error = $"Ledger entry not found: {id}" });
+        }
+    }
+
+    // WhyceChain — Chain Block (Phase 2.0.41)
+
+    [HttpGet("chain/block/latest")]
+    public IActionResult GetLatestChainBlock()
+    {
+        var block = _chainBlockStore.GetLatestBlock();
+        if (block is null)
+            return NotFound(new { error = "No blocks in chain" });
+
+        return Ok(new
+        {
+            block.BlockId,
+            block.BlockNumber,
+            block.PreviousBlockHash,
+            block.BlockHash,
+            block.MerkleRoot,
+            block.Timestamp,
+            block.EntryIds
+        });
+    }
+
+    [HttpGet("chain/block/{number:long}")]
+    public IActionResult GetChainBlock(long number)
+    {
+        try
+        {
+            var block = _chainBlockStore.GetBlock(number);
+            return Ok(new
+            {
+                block.BlockId,
+                block.BlockNumber,
+                block.PreviousBlockHash,
+                block.BlockHash,
+                block.MerkleRoot,
+                block.Timestamp,
+                block.EntryIds
+            });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { error = $"Block not found: {number}" });
+        }
+    }
+
+    // WhyceChain — Immutable Event Ledger (Phase 2.0.42)
+
+    [HttpGet("chain/events")]
+    public IActionResult GetChainEvents()
+    {
+        var events = _chainEventStore.GetAllEvents();
+        return Ok(new { events = events.Select(e => new
+        {
+            e.EventId,
+            e.Domain,
+            e.EventType,
+            e.PayloadHash,
+            e.Timestamp
+        })});
+    }
+
+    [HttpGet("chain/events/{domain}")]
+    public IActionResult GetChainEventsByDomain(string domain)
+    {
+        var events = _chainEventStore.GetEventsByDomain(domain);
+        return Ok(new { events = events.Select(e => new
+        {
+            e.EventId,
+            e.Domain,
+            e.EventType,
+            e.PayloadHash,
+            e.Timestamp
+        })});
     }
 }
 

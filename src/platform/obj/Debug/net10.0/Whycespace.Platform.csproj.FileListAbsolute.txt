@@ -132,3 +132,5 @@ C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceID
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceID.pdb
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.Engines.T0U.WhycePolicy.dll
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.Engines.T0U.WhycePolicy.pdb
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.dll
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.pdb
