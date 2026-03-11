@@ -386,8 +386,8 @@
               "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
               },
-              "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
-                "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
+              "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
+                "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
               },
               "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
                 "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
@@ -707,14 +707,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
+    "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj",
         "projectName": "Whycespace.Reliability",
-        "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -625,14 +625,14 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+            "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+              "projectPath": "c:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
             },
-            "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
+            "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj": {
+              "projectPath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"

@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projects\\dev\\v3\\tests\\provider-domain\\Whycespace.ProviderDomain.Tests.csproj": {}
+    "c:\\projects\\dev\\v3\\tests\\provider-domain\\Whycespace.ProviderDomain.Tests.csproj": {}
   },
   "projects": {
     "C:\\projects\\dev\\v3\\src\\domain\\clusters\\Whycespace.ClusterDomain.csproj": {
@@ -688,14 +688,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\tests\\provider-domain\\Whycespace.ProviderDomain.Tests.csproj": {
+    "c:\\projects\\dev\\v3\\tests\\provider-domain\\Whycespace.ProviderDomain.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\tests\\provider-domain\\Whycespace.ProviderDomain.Tests.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\tests\\provider-domain\\Whycespace.ProviderDomain.Tests.csproj",
         "projectName": "Whycespace.ProviderDomain.Tests",
-        "projectPath": "C:\\projects\\dev\\v3\\tests\\provider-domain\\Whycespace.ProviderDomain.Tests.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\tests\\provider-domain\\Whycespace.ProviderDomain.Tests.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\tests\\provider-domain\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\tests\\provider-domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

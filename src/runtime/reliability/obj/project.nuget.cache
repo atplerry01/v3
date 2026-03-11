@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "E4RU/D65wZk=",
+  "dgSpecHash": "s/CBhiCRdb8=",
   "success": true,
-  "projectFilePath": "C:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj",
+  "projectFilePath": "c:\\projects\\dev\\v3\\src\\runtime\\reliability\\Whycespace.Reliability.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\confluent.kafka\\2.8.0\\confluent.kafka.2.8.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\librdkafka.redist\\2.8.0\\librdkafka.redist.2.8.0.nupkg.sha512"

@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projects\\dev\\v3\\tests\\event-idempotency\\Whycespace.EventIdempotency.Tests.csproj": {}
+    "c:\\projects\\dev\\v3\\tests\\event-idempotency\\Whycespace.EventIdempotency.Tests.csproj": {}
   },
   "projects": {
     "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
@@ -1041,14 +1041,14 @@
         }
       }
     },
-    "C:\\projects\\dev\\v3\\tests\\event-idempotency\\Whycespace.EventIdempotency.Tests.csproj": {
+    "c:\\projects\\dev\\v3\\tests\\event-idempotency\\Whycespace.EventIdempotency.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\dev\\v3\\tests\\event-idempotency\\Whycespace.EventIdempotency.Tests.csproj",
+        "projectUniqueName": "c:\\projects\\dev\\v3\\tests\\event-idempotency\\Whycespace.EventIdempotency.Tests.csproj",
         "projectName": "Whycespace.EventIdempotency.Tests",
-        "projectPath": "C:\\projects\\dev\\v3\\tests\\event-idempotency\\Whycespace.EventIdempotency.Tests.csproj",
+        "projectPath": "c:\\projects\\dev\\v3\\tests\\event-idempotency\\Whycespace.EventIdempotency.Tests.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\dev\\v3\\tests\\event-idempotency\\obj\\",
+        "outputPath": "c:\\projects\\dev\\v3\\tests\\event-idempotency\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
