@@ -4,7 +4,7 @@ using System.Reflection;
 using Whycespace.Contracts.Engines;
 using Whycespace.EngineManifest.Manifest;
 using Whycespace.EngineManifest.Models;
-using Whycespace.Engines.T3I_Intelligence;
+using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
 
 public class EngineMetadataTests
 {

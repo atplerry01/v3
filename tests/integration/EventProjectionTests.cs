@@ -1,7 +1,9 @@
 namespace Whycespace.Tests.Integration;
 
-using Whycespace.Engines.T2E_Execution;
-using Whycespace.Engines.T3I_Intelligence;
+using Whycespace.Engines.T2E;
+using Whycespace.Engines.T2E.Clusters.Mobility.Taxi;
+using Whycespace.Engines.T2E.Clusters.Property.Letting;
+using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Events;
 using Whycespace.Runtime.Registry;

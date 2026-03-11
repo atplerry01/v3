@@ -1,9 +1,11 @@
 namespace Whycespace.Tests.Integration;
 
 using Whycespace.Domain.Application.Commands;
-using Whycespace.Engines.T0U_Constitutional;
-using Whycespace.Engines.T2E_Execution;
-using Whycespace.Engines.T3I_Intelligence;
+using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Engines.T2E;
+using Whycespace.Engines.T2E.Clusters.Mobility.Taxi;
+using Whycespace.Engines.T2E.Clusters.Property.Letting;
+using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Workflow;
@@ -29,7 +31,6 @@ public sealed class WorkflowExecutionTests
     public WorkflowExecutionTests()
     {
         _registry = new EngineRegistry();
-        _registry.Register(new IdentityVerificationEngine());
         _registry.Register(new PolicyValidationEngine());
         _registry.Register(new DriverMatchingEngine());
         _registry.Register(new RideExecutionEngine());
@@ -77,7 +78,7 @@ public sealed class WorkflowExecutionTests
 
         var state = await _commandDispatcher.DispatchAsync(command, context);
 
-        // Workflow executes through IdentityVerification → PolicyValidation → DriverMatching
+        // Workflow executes through PolicyValidation → DriverMatching
         // → RideExecution (ValidateRequest, AssignDriver, CompleteTrip).
         // Step IDs are now aligned with engine expectations.
         Assert.NotNull(state);
@@ -87,27 +88,6 @@ public sealed class WorkflowExecutionTests
         // Verify workflow is persisted in state store
         var persisted = _stateStore.GetAll();
         Assert.Single(persisted);
-    }
-
-    [Fact]
-    public async Task RideRequest_MissingUserId_FailsAtIdentityVerification()
-    {
-        var command = new RequestRideCommand(
-            Guid.NewGuid(), Guid.NewGuid(),
-            new Shared.Location.GeoLocation(51.5074, -0.1278),
-            new Shared.Location.GeoLocation(51.5155, -0.1419));
-
-        // Omit userId to trigger IdentityVerification failure
-        var context = new Dictionary<string, object>
-        {
-            ["pickupLatitude"] = 51.5074,
-            ["pickupLongitude"] = -0.1278
-        };
-
-        var state = await _commandDispatcher.DispatchAsync(command, context);
-
-        Assert.Equal(WorkflowStatus.Failed, state.Status);
-        Assert.Equal("validate-identity", state.CurrentStepId);
     }
 
     // ---------------------------------------------------------------
@@ -121,7 +101,6 @@ public sealed class WorkflowExecutionTests
         // testing the full dispatcher → engine chain end-to-end.
         var graph = new WorkflowGraph(Guid.NewGuid().ToString(), "RideRequestCustom", new List<WorkflowStep>
         {
-            new("validate-identity", "Verify Identity", "IdentityVerification", new[] { "validate-policy" }),
             new("validate-policy", "Validate Policy", "PolicyValidation", new[] { "match-driver" }),
             new("match-driver", "Match Driver", "DriverMatching", new[] { "ValidateRequest" }),
             new("ValidateRequest", "Validate Request", "RideExecution", new[] { "AssignDriver" }),
@@ -141,7 +120,6 @@ public sealed class WorkflowExecutionTests
 
         var state = await orchestrator.ExecuteWorkflowAsync(graph, context);
 
-        // IdentityVerification passes (userId present)
         // PolicyValidation passes (default policy allows all)
         // DriverMatching passes (coordinates present), outputs assignedDriverId
         // RideExecution/ValidateRequest passes (pickupLatitude present)
@@ -181,7 +159,6 @@ public sealed class WorkflowExecutionTests
     {
         var graph = new WorkflowGraph(Guid.NewGuid().ToString(), "PropertyListingCustom", new List<WorkflowStep>
         {
-            new("validate-identity", "Verify Identity", "IdentityVerification", new[] { "ValidateListing" }),
             new("ValidateListing", "Validate Listing", "PropertyExecution", new[] { "PublishListing" }),
             new("PublishListing", "Publish Listing", "PropertyExecution", Array.Empty<string>())
         });

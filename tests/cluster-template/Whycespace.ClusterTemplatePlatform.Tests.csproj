@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\platform\cluster-templates\Whycespace.ClusterTemplatePlatform.csproj" />
+    <ProjectReference Include="..\..\src\domain\Whycespace.Domain.csproj" />
+    <ProjectReference Include="..\..\src\domain\clusters\Whycespace.ClusterDomain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,7 @@
 namespace Whycespace.ClusterDomain.Tests;
 
+using Whycespace.Domain.Core.Providers;
+
 public sealed class ProviderRegistryTests
 {
     [Fact]

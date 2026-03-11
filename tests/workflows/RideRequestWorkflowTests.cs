@@ -13,7 +13,7 @@ public sealed class RideRequestWorkflowTests
 
         Assert.Equal("RideRequest", workflow.WorkflowName);
         Assert.NotEmpty(graph.Steps);
-        Assert.Equal("validate-identity", graph.Steps[0].StepId);
+        Assert.Equal("validate-policy", graph.Steps[0].StepId);
     }
 
     [Fact]

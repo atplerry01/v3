@@ -12,7 +12,7 @@
     <ProjectReference Include="..\command\Whycespace.CommandSystem.csproj" />
     <ProjectReference Include="..\event-fabric\Whycespace.EventFabric.csproj" />
     <ProjectReference Include="..\projections\Whycespace.Projections.csproj" />
-    <ProjectReference Include="..\..\domain\economic\Whycespace.EconomicDomain.csproj" />
+    <ProjectReference Include="..\..\domain\core\economic\Whycespace.EconomicDomain.csproj" />
   </ItemGroup>
 
 </Project>

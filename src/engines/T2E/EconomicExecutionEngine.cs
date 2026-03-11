@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T2E_Execution;
+namespace Whycespace.Engines.T2E;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.EngineManifest.Manifest;

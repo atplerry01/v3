@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\shared\Contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="..\..\shared\Whycespace.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 namespace Whycespace.DecisionEngines.Tests;
 
-using Whycespace.Engines.T3I_Intelligence;
+using Whycespace.Engines.T3I.Clusters.Property.Letting;
 using Whycespace.Contracts.Engines;
 
 public sealed class TenantMatchingEngineTests
