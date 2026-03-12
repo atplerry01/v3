@@ -34,7 +34,7 @@ public class WorkflowTemplateEngineTests
             new("step-complete", "Complete trip", "PaymentEngine",
                 "${cluster}.${subcluster}.completeTrip",
                 new Dictionary<string, string>(),
-                new WorkflowFailurePolicy(FailureAction.Retry, 3, null))
+                new WorkflowFailurePolicy(FailureAction.Retry, 3, TimeSpan.FromSeconds(5), null))
         };
 
         var transitions = new Dictionary<string, IReadOnlyList<string>>

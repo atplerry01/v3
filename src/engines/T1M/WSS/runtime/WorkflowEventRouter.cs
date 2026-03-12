@@ -2,24 +2,26 @@ namespace Whycespace.Engines.T1M.WSS.Runtime;
 
 using global::System.Collections.Concurrent;
 using Whycespace.Contracts.Engines;
-using Whycespace.Contracts.Workflows;
-using Whycespace.Engines.T1M.WSS.Stores;
+using Whycespace.Contracts.Events;
 using Whycespace.EngineManifest.Manifest;
 using Whycespace.EngineManifest.Models;
+using Whycespace.System.Midstream.WSS.Events;
+using Whycespace.System.Midstream.WSS.Kafka;
 
 [EngineManifest("WorkflowEventRouter", EngineTier.T1M, EngineKind.Decision, "WorkflowEventRouterRequest", typeof(EngineEvent))]
-public sealed class WorkflowEventRouter : IEngine
+public sealed class WorkflowEventRouter : IEngine, IWorkflowEventRouter
 {
-    private readonly WorkflowInstanceStore _instanceStore;
-    private readonly WorkflowStateStore _stateStore;
-    private readonly ConcurrentDictionary<string, HashSet<Guid>> _eventSubscriptions = new();
+    private const string KafkaTopic = "whyce.wss.workflow.events";
+
+    private readonly KafkaEventPublisher _kafkaPublisher;
+    private readonly ConcurrentDictionary<string, List<Func<WorkflowEventEnvelope, Task>>> _subscribers = new();
+    private readonly object _subscriberLock = new();
 
     public string Name => "WorkflowEventRouter";
 
-    public WorkflowEventRouter(WorkflowInstanceStore instanceStore, WorkflowStateStore stateStore)
+    public WorkflowEventRouter(KafkaEventPublisher kafkaPublisher)
     {
-        _instanceStore = instanceStore;
-        _stateStore = stateStore;
+        _kafkaPublisher = kafkaPublisher;
     }
 
     public Task<EngineResult> ExecuteAsync(EngineContext context)
@@ -28,121 +30,156 @@ public sealed class WorkflowEventRouter : IEngine
 
         return action switch
         {
-            "route" => HandleRoute(context),
-            "subscribe" => HandleSubscribe(context),
-            _ => Task.FromResult(EngineResult.Fail($"Unknown action '{action}'. Expected: route, subscribe"))
+            "publish" => HandlePublishAction(context),
+            "subscribe" => HandleSubscribeAction(context),
+            "route" => HandleRouteAction(context),
+            _ => Task.FromResult(EngineResult.Fail($"Unknown action '{action}'. Expected: publish, subscribe, route"))
         };
     }
 
-    private Task<EngineResult> HandleRoute(EngineContext context)
+    public async Task PublishEvent(
+        string eventType,
+        string workflowId,
+        string instanceId,
+        IDictionary<string, object>? payload = null)
+    {
+        var envelope = WorkflowEventEnvelope.Create(eventType, workflowId, instanceId, payload);
+
+        var systemEvent = SystemEvent.Create(
+            eventType,
+            Guid.TryParse(workflowId, out var aggregateId) ? aggregateId : Guid.NewGuid(),
+            new Dictionary<string, object>
+            {
+                ["workflowId"] = workflowId,
+                ["instanceId"] = instanceId,
+                ["eventId"] = envelope.EventId.ToString(),
+                ["timestamp"] = envelope.Timestamp.ToString("O")
+            });
+
+        await _kafkaPublisher.PublishToTopicAsync(KafkaTopic, systemEvent);
+        await RouteInternalEvent(envelope);
+    }
+
+    public void Subscribe(string eventType, Func<WorkflowEventEnvelope, Task> handler)
+    {
+        lock (_subscriberLock)
+        {
+            var handlers = _subscribers.GetOrAdd(eventType, _ => new List<Func<WorkflowEventEnvelope, Task>>());
+            handlers.Add(handler);
+        }
+    }
+
+    public async Task RouteInternalEvent(WorkflowEventEnvelope envelope)
+    {
+        List<Func<WorkflowEventEnvelope, Task>>? handlers;
+
+        lock (_subscriberLock)
+        {
+            if (!_subscribers.TryGetValue(envelope.EventType, out var list))
+                return;
+
+            handlers = new List<Func<WorkflowEventEnvelope, Task>>(list);
+        }
+
+        foreach (var handler in handlers)
+        {
+            await handler(envelope);
+        }
+    }
+
+    private async Task<EngineResult> HandlePublishAction(EngineContext context)
     {
         var eventType = context.Data.GetValueOrDefault("eventType") as string;
-        var nextNode = context.Data.GetValueOrDefault("nextNode") as string;
+        var workflowId = context.Data.GetValueOrDefault("workflowId") as string ?? context.WorkflowId;
+        var instanceId = context.Data.GetValueOrDefault("instanceId") as string ?? context.InvocationId.ToString();
 
         if (string.IsNullOrWhiteSpace(eventType))
-            return Task.FromResult(EngineResult.Fail("Missing eventType"));
+            return EngineResult.Fail("Missing eventType");
 
-        var instances = RouteEvent(eventType);
+        var payload = context.Data
+            .Where(kv => kv.Key is not "action" and not "eventType" and not "workflowId" and not "instanceId")
+            .ToDictionary(kv => kv.Key, kv => kv.Value) as IDictionary<string, object>;
 
-        if (instances.Count == 0)
-        {
-            return Task.FromResult(EngineResult.Ok(
-                Array.Empty<EngineEvent>(),
-                new Dictionary<string, object>
-                {
-                    ["eventType"] = eventType,
-                    ["routedCount"] = 0
-                }));
-        }
-
-        var advanced = new List<Dictionary<string, object>>();
-        foreach (var instanceId in instances)
-        {
-            var instance = _instanceStore.Get(instanceId);
-            if (instance is null) continue;
-
-            var targetNode = nextNode ?? eventType;
-            var state = AdvanceWorkflow(instanceId, targetNode, context.Data);
-
-            advanced.Add(new Dictionary<string, object>
-            {
-                ["instanceId"] = instanceId.ToString(),
-                ["workflowId"] = instance.WorkflowId,
-                ["advancedTo"] = state.CurrentNode
-            });
-        }
+        await PublishEvent(eventType, workflowId, instanceId, payload);
 
         var events = new[]
         {
-            EngineEvent.Create("WorkflowEventRouted", Guid.Parse(context.WorkflowId),
+            EngineEvent.Create("WorkflowEventPublished", Guid.Parse(workflowId),
                 new Dictionary<string, object>
                 {
                     ["eventType"] = eventType,
-                    ["routedCount"] = advanced.Count
+                    ["workflowId"] = workflowId,
+                    ["instanceId"] = instanceId
                 })
         };
 
-        return Task.FromResult(EngineResult.Ok(events, new Dictionary<string, object>
+        return EngineResult.Ok(events, new Dictionary<string, object>
         {
             ["eventType"] = eventType,
-            ["routedCount"] = advanced.Count,
-            ["instances"] = advanced.Cast<object>().ToList()
-        }));
+            ["workflowId"] = workflowId,
+            ["instanceId"] = instanceId,
+            ["published"] = true
+        });
     }
 
-    private Task<EngineResult> HandleSubscribe(EngineContext context)
+    private Task<EngineResult> HandleSubscribeAction(EngineContext context)
     {
         var eventType = context.Data.GetValueOrDefault("eventType") as string;
-        var instanceIdStr = context.Data.GetValueOrDefault("instanceId") as string;
 
         if (string.IsNullOrWhiteSpace(eventType))
             return Task.FromResult(EngineResult.Fail("Missing eventType"));
-
-        if (string.IsNullOrWhiteSpace(instanceIdStr) || !Guid.TryParse(instanceIdStr, out var instanceId))
-            return Task.FromResult(EngineResult.Fail("Missing or invalid instanceId"));
-
-        var subs = _eventSubscriptions.GetOrAdd(eventType, _ => new HashSet<Guid>());
-        lock (subs)
-        {
-            subs.Add(instanceId);
-        }
 
         var events = new[]
         {
             EngineEvent.Create("WorkflowEventSubscribed", Guid.Parse(context.WorkflowId),
                 new Dictionary<string, object>
                 {
-                    ["eventType"] = eventType,
-                    ["instanceId"] = instanceId.ToString()
+                    ["eventType"] = eventType
                 })
         };
 
         return Task.FromResult(EngineResult.Ok(events, new Dictionary<string, object>
         {
             ["eventType"] = eventType,
-            ["instanceId"] = instanceId.ToString()
+            ["subscribed"] = true
         }));
     }
 
-    internal IReadOnlyList<Guid> RouteEvent(string eventType)
+    private async Task<EngineResult> HandleRouteAction(EngineContext context)
     {
-        var instances = FindWorkflowInstances(eventType);
-        return instances;
-    }
+        var eventType = context.Data.GetValueOrDefault("eventType") as string;
+        var workflowId = context.Data.GetValueOrDefault("workflowId") as string ?? context.WorkflowId;
+        var instanceId = context.Data.GetValueOrDefault("instanceId") as string ?? context.InvocationId.ToString();
 
-    internal IReadOnlyList<Guid> FindWorkflowInstances(string eventType)
-    {
-        if (!_eventSubscriptions.TryGetValue(eventType, out var subs))
-            return Array.Empty<Guid>();
+        if (string.IsNullOrWhiteSpace(eventType))
+            return EngineResult.Fail("Missing eventType");
 
-        lock (subs)
+        var envelope = WorkflowEventEnvelope.Create(eventType, workflowId, instanceId,
+            context.Data.ToDictionary(kv => kv.Key, kv => kv.Value));
+
+        await RouteInternalEvent(envelope);
+
+        int handlerCount;
+        lock (_subscriberLock)
         {
-            return subs.ToList();
+            handlerCount = _subscribers.TryGetValue(eventType, out var list) ? list.Count : 0;
         }
-    }
 
-    internal WorkflowRuntimeState AdvanceWorkflow(Guid instanceId, string nextNode, IReadOnlyDictionary<string, object>? contextData = null)
-    {
-        return _stateStore.Update(instanceId, nextNode, contextData);
+        var events = new[]
+        {
+            EngineEvent.Create("WorkflowEventRouted", Guid.Parse(workflowId),
+                new Dictionary<string, object>
+                {
+                    ["eventType"] = eventType,
+                    ["handlerCount"] = handlerCount
+                })
+        };
+
+        return EngineResult.Ok(events, new Dictionary<string, object>
+        {
+            ["eventType"] = eventType,
+            ["routed"] = true,
+            ["handlerCount"] = handlerCount
+        });
     }
 }

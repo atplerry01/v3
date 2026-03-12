@@ -11,5 +11,6 @@ public enum FailureAction
 public sealed record WorkflowFailurePolicy(
     FailureAction Action,
     int MaxRetries,
+    TimeSpan RetryDelay,
     string? CompensationStepId
 );

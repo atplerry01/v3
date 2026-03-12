@@ -46,7 +46,10 @@ using Whycespace.Engines.T1M.WSS.Dependency;
 using Whycespace.Engines.T1M.WSS.Mapping;
 using Whycespace.Engines.T1M.WSS.Instance;
 using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.System.Midstream.WSS.Events;
+using Whycespace.Engines.T1M.WSS.Runtime;
 using WorkflowStateStore = Whycespace.Runtime.Workflow.WorkflowStateStore;
+using WssWorkflowEventRouter = Whycespace.Engines.T1M.WSS.Runtime.WorkflowEventRouter;
 
 [ApiController]
 [Route("dev")]
@@ -111,6 +114,10 @@ public sealed class DebugController : ControllerBase
     private readonly WorkflowEngineMappingStore _engineMappingStore;
     private readonly WorkflowInstanceRegistryStore _instanceRegistryStore;
     private readonly WssWorkflowStateStore _wssWorkflowStateStore;
+    private readonly WssWorkflowEventRouter _wssWorkflowEventRouter;
+    private readonly WorkflowRetryPolicyEngine _workflowRetryPolicyEngine;
+    private readonly WorkflowTimeoutEngine _workflowTimeoutEngine;
+    private readonly WorkflowLifecycleEngine _workflowLifecycleEngine;
 
     public DebugController(
         WorkflowStateStore stateStore,
@@ -171,7 +178,11 @@ public sealed class DebugController : ControllerBase
         WorkflowRegistry workflowRegistry,
         WorkflowEngineMappingStore engineMappingStore,
         WorkflowInstanceRegistryStore instanceRegistryStore,
-        WssWorkflowStateStore wssWorkflowStateStore)
+        WssWorkflowStateStore wssWorkflowStateStore,
+        WssWorkflowEventRouter wssWorkflowEventRouter,
+        WorkflowRetryPolicyEngine workflowRetryPolicyEngine,
+        WorkflowTimeoutEngine workflowTimeoutEngine,
+        WorkflowLifecycleEngine workflowLifecycleEngine)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
@@ -232,6 +243,10 @@ public sealed class DebugController : ControllerBase
         _engineMappingStore = engineMappingStore;
         _instanceRegistryStore = instanceRegistryStore;
         _wssWorkflowStateStore = wssWorkflowStateStore;
+        _wssWorkflowEventRouter = wssWorkflowEventRouter;
+        _workflowRetryPolicyEngine = workflowRetryPolicyEngine;
+        _workflowTimeoutEngine = workflowTimeoutEngine;
+        _workflowLifecycleEngine = workflowLifecycleEngine;
     }
 
     [HttpGet("workflows")]
@@ -2799,6 +2814,216 @@ public sealed class DebugController : ControllerBase
             return NotFound(new { message = $"Workflow state not found: '{instanceId}'" });
         }
     }
+
+    // --- WSS Workflow Event Router (Phase 2.1.11) ---
+
+    [HttpPost("wss/events/publish")]
+    public async Task<IActionResult> PublishWssEvent([FromBody] DebugPublishWssEventDto dto)
+    {
+        await _wssWorkflowEventRouter.PublishEvent(
+            dto.EventType,
+            dto.WorkflowId,
+            dto.InstanceId,
+            dto.Payload);
+
+        return Ok(new
+        {
+            message = "Event published",
+            eventType = dto.EventType,
+            workflowId = dto.WorkflowId,
+            instanceId = dto.InstanceId
+        });
+    }
+
+    [HttpGet("wss/events/types")]
+    public IActionResult GetWssEventTypes()
+    {
+        return Ok(new { eventTypes = WorkflowEventTypes.All });
+    }
+
+    // --- WSS Workflow Retry Policy Engine (Phase 2.1.12) ---
+
+    [HttpGet("wss/retry/{instanceId}/{stepId}")]
+    public IActionResult GetWssRetryCount(string instanceId, string stepId)
+    {
+        var count = _workflowRetryPolicyEngine.GetRetryCount(instanceId, stepId);
+        return Ok(new { instanceId, stepId, retryCount = count });
+    }
+
+    [HttpPost("wss/retry/register")]
+    public IActionResult RegisterWssRetryAttempt([FromBody] DebugRetryRegisterDto dto)
+    {
+        _workflowRetryPolicyEngine.RegisterRetryAttempt(dto.InstanceId, dto.StepId);
+        var count = _workflowRetryPolicyEngine.GetRetryCount(dto.InstanceId, dto.StepId);
+        return Ok(new { instanceId = dto.InstanceId, stepId = dto.StepId, retryCount = count });
+    }
+
+    [HttpPost("wss/retry/reset")]
+    public IActionResult ResetWssRetryCount([FromBody] DebugRetryResetDto dto)
+    {
+        _workflowRetryPolicyEngine.ResetRetryCount(dto.InstanceId, dto.StepId);
+        return Ok(new { instanceId = dto.InstanceId, stepId = dto.StepId, retryCount = 0 });
+    }
+
+    // --- WSS Workflow Timeout Engine (Phase 2.1.13) ---
+
+    [HttpGet("wss/timeouts")]
+    public IActionResult GetWssTimeouts()
+    {
+        return Ok(new
+        {
+            endpoints = new[]
+            {
+                "POST /dev/wss/timeouts/register",
+                "POST /dev/wss/timeouts/check",
+                "POST /dev/wss/timeouts/clear"
+            }
+        });
+    }
+
+    [HttpPost("wss/timeouts/register")]
+    public IActionResult RegisterWssTimeout([FromBody] DebugTimeoutRegisterDto dto)
+    {
+        if (string.IsNullOrWhiteSpace(dto.StepId) || dto.StepId == "workflow")
+        {
+            _workflowTimeoutEngine.RegisterWorkflowTimeout(dto.InstanceId, TimeSpan.FromSeconds(dto.TimeoutSeconds));
+            return Ok(new { instanceId = dto.InstanceId, stepId = "workflow", timeoutSeconds = dto.TimeoutSeconds });
+        }
+
+        _workflowTimeoutEngine.RegisterStepTimeout(dto.InstanceId, dto.StepId, TimeSpan.FromSeconds(dto.TimeoutSeconds));
+        return Ok(new { instanceId = dto.InstanceId, stepId = dto.StepId, timeoutSeconds = dto.TimeoutSeconds });
+    }
+
+    [HttpPost("wss/timeouts/check")]
+    public IActionResult CheckWssTimeout([FromBody] DebugTimeoutCheckDto dto)
+    {
+        var decision = string.IsNullOrWhiteSpace(dto.StepId) || dto.StepId == "workflow"
+            ? _workflowTimeoutEngine.CheckWorkflowTimeout(dto.InstanceId)
+            : _workflowTimeoutEngine.CheckStepTimeout(dto.InstanceId, dto.StepId);
+
+        return Ok(new
+        {
+            isTimeout = decision.IsTimeout,
+            instanceId = decision.InstanceId,
+            stepId = decision.StepId,
+            timeoutDuration = decision.TimeoutDuration.TotalSeconds,
+            exceededBy = decision.ExceededBy.TotalSeconds
+        });
+    }
+
+    [HttpPost("wss/timeouts/clear")]
+    public IActionResult ClearWssTimeout([FromBody] DebugTimeoutClearDto dto)
+    {
+        _workflowTimeoutEngine.ClearTimeout(dto.InstanceId, dto.StepId);
+        return Ok(new { instanceId = dto.InstanceId, stepId = dto.StepId, cleared = true });
+    }
+
+    // --- WSS Workflow Instance Lifecycle Engine (Phase 2.1.14) ---
+
+    [HttpPost("wss/workflows/start")]
+    public async Task<IActionResult> StartWssWorkflow([FromBody] DebugLifecycleStartDto dto)
+    {
+        try
+        {
+            var decision = await _workflowLifecycleEngine.StartWorkflow(dto.WorkflowId, dto.Version, dto.Context);
+            return Ok(new
+            {
+                instanceId = decision.InstanceId,
+                nextStep = decision.NextStep,
+                status = decision.Status.ToString(),
+                reason = decision.Reason
+            });
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("wss/workflows/advance")]
+    public async Task<IActionResult> AdvanceWssWorkflow([FromBody] DebugLifecycleInstanceDto dto)
+    {
+        try
+        {
+            var decision = await _workflowLifecycleEngine.AdvanceStep(dto.InstanceId);
+            return Ok(new
+            {
+                instanceId = decision.InstanceId,
+                currentStep = decision.CurrentStep,
+                nextStep = decision.NextStep,
+                status = decision.Status.ToString(),
+                reason = decision.Reason
+            });
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("wss/workflows/complete")]
+    public async Task<IActionResult> CompleteWssWorkflow([FromBody] DebugLifecycleStepDto dto)
+    {
+        try
+        {
+            var decision = string.IsNullOrWhiteSpace(dto.StepId)
+                ? await _workflowLifecycleEngine.CompleteWorkflow(dto.InstanceId)
+                : await _workflowLifecycleEngine.CompleteStep(dto.InstanceId, dto.StepId);
+            return Ok(new
+            {
+                instanceId = decision.InstanceId,
+                currentStep = decision.CurrentStep,
+                nextStep = decision.NextStep,
+                status = decision.Status.ToString(),
+                reason = decision.Reason
+            });
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("wss/workflows/fail")]
+    public async Task<IActionResult> FailWssWorkflow([FromBody] DebugLifecycleFailDto dto)
+    {
+        try
+        {
+            var decision = await _workflowLifecycleEngine.FailStep(dto.InstanceId, dto.StepId, dto.Reason);
+            return Ok(new
+            {
+                instanceId = decision.InstanceId,
+                currentStep = decision.CurrentStep,
+                nextStep = decision.NextStep,
+                status = decision.Status.ToString(),
+                reason = decision.Reason
+            });
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("wss/workflows/terminate")]
+    public async Task<IActionResult> TerminateWssWorkflow([FromBody] DebugLifecycleInstanceDto dto)
+    {
+        try
+        {
+            var decision = await _workflowLifecycleEngine.TerminateWorkflow(dto.InstanceId);
+            return Ok(new
+            {
+                instanceId = decision.InstanceId,
+                currentStep = decision.CurrentStep,
+                status = decision.Status.ToString(),
+                reason = decision.Reason
+            });
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { message = ex.Message });
+        }
+    }
 }
 
 public sealed record DebugRunWorkflowDto(string WorkflowName, Dictionary<string, object>? Context);
@@ -2854,3 +3079,13 @@ public sealed record DebugCreateWssInstanceDto(string WorkflowId, string Version
 public sealed record DebugUpdateWssInstanceDto(string InstanceId, string CurrentStep, WorkflowInstanceStatus Status);
 public sealed record DebugSaveWssStateDto(string InstanceId, string WorkflowId, string WorkflowVersion, Dictionary<string, object>? ExecutionContext);
 public sealed record DebugUpdateWssStateDto(string InstanceId, string CurrentStep, WorkflowInstanceStatus Status);
+public sealed record DebugPublishWssEventDto(string EventType, string WorkflowId, string InstanceId, Dictionary<string, object>? Payload);
+public sealed record DebugRetryRegisterDto(string InstanceId, string StepId);
+public sealed record DebugRetryResetDto(string InstanceId, string StepId);
+public sealed record DebugTimeoutRegisterDto(string InstanceId, string StepId, int TimeoutSeconds);
+public sealed record DebugTimeoutCheckDto(string InstanceId, string? StepId);
+public sealed record DebugTimeoutClearDto(string InstanceId, string StepId);
+public sealed record DebugLifecycleStartDto(string WorkflowId, string Version, Dictionary<string, object>? Context);
+public sealed record DebugLifecycleInstanceDto(string InstanceId);
+public sealed record DebugLifecycleStepDto(string InstanceId, string? StepId);
+public sealed record DebugLifecycleFailDto(string InstanceId, string StepId, string Reason);
