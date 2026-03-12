@@ -200,7 +200,8 @@ builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowTemp
 
 // WSS Workflow Registry (Phase 2.1.4)
 builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowRegistryStore());
-builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Registry.WorkflowRegistry());
+var workflowRegistryInstance = new Whycespace.Engines.T1M.WSS.Registry.WorkflowRegistry();
+builder.Services.AddSingleton(workflowRegistryInstance);
 
 // WSS Workflow Versioning (Phase 2.1.5)
 builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowVersionStore());
@@ -209,17 +210,49 @@ builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowVers
 builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowEngineMappingStore());
 
 // WSS Workflow Instance Registry (Phase 2.1.9)
-builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowInstanceRegistryStore());
+var workflowInstanceRegistryStore = new Whycespace.Engines.T1M.WSS.Stores.WorkflowInstanceRegistryStore();
+builder.Services.AddSingleton(workflowInstanceRegistryStore);
 
 // WSS Workflow State Store (Phase 2.1.10)
-builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WssWorkflowStateStore());
+var wssWorkflowStateStore = new Whycespace.Engines.T1M.WSS.Stores.WssWorkflowStateStore();
+builder.Services.AddSingleton(wssWorkflowStateStore);
+
+// WSS Workflow Event Router (Phase 2.1.11)
+var kafkaPublisher = new KafkaEventPublisher(eventBus, kafkaBrokers);
+var wssWorkflowEventRouter = new Whycespace.Engines.T1M.WSS.Runtime.WorkflowEventRouter(kafkaPublisher);
+builder.Services.AddSingleton(wssWorkflowEventRouter);
+
+// WSS Workflow Retry Policy Engine (Phase 2.1.12)
+var workflowRetryStore = new Whycespace.Engines.T1M.WSS.Stores.WorkflowRetryStore();
+builder.Services.AddSingleton(workflowRetryStore);
+var workflowRetryPolicyEngine = new Whycespace.Engines.T1M.WSS.Runtime.WorkflowRetryPolicyEngine(workflowRetryStore);
+builder.Services.AddSingleton(workflowRetryPolicyEngine);
+
+// WSS Workflow Timeout Engine (Phase 2.1.13)
+var workflowTimeoutStore = new Whycespace.Engines.T1M.WSS.Stores.WorkflowTimeoutStore();
+builder.Services.AddSingleton(workflowTimeoutStore);
+var workflowTimeoutEngine = new Whycespace.Engines.T1M.WSS.Runtime.WorkflowTimeoutEngine(workflowTimeoutStore);
+builder.Services.AddSingleton(workflowTimeoutEngine);
+
+// WSS Workflow Instance Lifecycle Engine (Phase 2.1.14)
+var workflowInstanceRegistry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(workflowInstanceRegistryStore);
+var workflowGraphEngine = new Whycespace.Engines.T1M.WSS.Graph.WorkflowGraphEngine();
+var workflowLifecycleEngine = new Whycespace.Engines.T1M.WSS.Runtime.WorkflowLifecycleEngine(
+    workflowRegistryInstance,
+    workflowInstanceRegistry,
+    wssWorkflowStateStore,
+    wssWorkflowEventRouter,
+    workflowRetryPolicyEngine,
+    workflowTimeoutEngine,
+    workflowGraphEngine);
+builder.Services.AddSingleton(workflowLifecycleEngine);
 
 // Runtime Validation (Phase 1.17)
 var validationRunner = new ValidationRunner();
 builder.Services.AddSingleton(validationRunner);
 
 // Kafka Publisher
-builder.Services.AddSingleton(new KafkaEventPublisher(eventBus, kafkaBrokers));
+builder.Services.AddSingleton(kafkaPublisher);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
