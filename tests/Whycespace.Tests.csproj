@@ -148,6 +148,10 @@
     <Content Remove="event-fabric-runtime/**" />
     <None Remove="event-fabric-runtime/**" />
     <EmbeddedResource Remove="event-fabric-runtime/**" />
+    <Compile Remove="wss-workflow-lifecycle/**" />
+    <Content Remove="wss-workflow-lifecycle/**" />
+    <None Remove="wss-workflow-lifecycle/**" />
+    <EmbeddedResource Remove="wss-workflow-lifecycle/**" />
   </ItemGroup>
 
   <ItemGroup>
