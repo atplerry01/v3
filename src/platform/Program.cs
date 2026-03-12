@@ -31,6 +31,7 @@ using Whycespace.SimulationRuntime.Services;
 using Whycespace.ClusterTemplatePlatform;
 using Whycespace.Domain.Core.Economic;
 using Whycespace.RuntimeValidation.Runners;
+using Whycespace.Runtime.PlatformDispatch;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -149,38 +150,65 @@ var simulationService = new SimulationService(simulationLoader, simulationEngine
 builder.Services.AddSingleton(simulationService);
 
 // WhyceID Identity (Phase 2.0)
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Registry.IdentityRegistry());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityAttributeStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityRoleStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityPermissionStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityAccessScopeStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityTrustStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityDeviceStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentitySessionStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityConsentStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityGraphStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityServiceStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityFederationStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityRecoveryStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityRevocationStore());
-builder.Services.AddSingleton(new Whycespace.System.WhyceID.Stores.IdentityAuditStore());
+var identityRegistry = new Whycespace.System.WhyceID.Registry.IdentityRegistry();
+var identityAttributeStore = new Whycespace.System.WhyceID.Stores.IdentityAttributeStore();
+var identityRoleStore = new Whycespace.System.WhyceID.Stores.IdentityRoleStore();
+var identityPermissionStore = new Whycespace.System.WhyceID.Stores.IdentityPermissionStore();
+var identityAccessScopeStore = new Whycespace.System.WhyceID.Stores.IdentityAccessScopeStore();
+var identityTrustStore = new Whycespace.System.WhyceID.Stores.IdentityTrustStore();
+var identityDeviceStore = new Whycespace.System.WhyceID.Stores.IdentityDeviceStore();
+var identitySessionStore = new Whycespace.System.WhyceID.Stores.IdentitySessionStore();
+var identityConsentStore = new Whycespace.System.WhyceID.Stores.IdentityConsentStore();
+var identityGraphStore = new Whycespace.System.WhyceID.Stores.IdentityGraphStore();
+var identityServiceStore = new Whycespace.System.WhyceID.Stores.IdentityServiceStore();
+var identityFederationStore = new Whycespace.System.WhyceID.Stores.IdentityFederationStore();
+var identityRecoveryStore = new Whycespace.System.WhyceID.Stores.IdentityRecoveryStore();
+var identityRevocationStore = new Whycespace.System.WhyceID.Stores.IdentityRevocationStore();
+var identityAuditStore = new Whycespace.System.WhyceID.Stores.IdentityAuditStore();
+builder.Services.AddSingleton(identityRegistry);
+builder.Services.AddSingleton(identityAttributeStore);
+builder.Services.AddSingleton(identityRoleStore);
+builder.Services.AddSingleton(identityPermissionStore);
+builder.Services.AddSingleton(identityAccessScopeStore);
+builder.Services.AddSingleton(identityTrustStore);
+builder.Services.AddSingleton(identityDeviceStore);
+builder.Services.AddSingleton(identitySessionStore);
+builder.Services.AddSingleton(identityConsentStore);
+builder.Services.AddSingleton(identityGraphStore);
+builder.Services.AddSingleton(identityServiceStore);
+builder.Services.AddSingleton(identityFederationStore);
+builder.Services.AddSingleton(identityRecoveryStore);
+builder.Services.AddSingleton(identityRevocationStore);
+builder.Services.AddSingleton(identityAuditStore);
 
 // Upstream
 builder.Services.AddSingleton(new PolicyGovernor());
 
 // WhycePolicy (Phase 2.0.21+)
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyRegistryStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyVersionStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyDependencyStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyContextStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyDecisionCacheStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyLifecycleStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyRolloutStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.GovernanceAuthorityStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.ConstitutionalPolicyStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyDomainBindingStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyMonitoringStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyEvidenceStore());
+var policyRegistryStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyRegistryStore();
+var policyVersionStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyVersionStore();
+var policyDependencyStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyDependencyStore();
+var policyContextStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyContextStore();
+var policyDecisionCacheStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyDecisionCacheStore();
+var policyLifecycleStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyLifecycleStore();
+var policyRolloutStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyRolloutStore();
+var governanceAuthorityStore = new Whycespace.System.Upstream.WhycePolicy.Stores.GovernanceAuthorityStore();
+var constitutionalPolicyStore = new Whycespace.System.Upstream.WhycePolicy.Stores.ConstitutionalPolicyStore();
+var policyDomainBindingStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyDomainBindingStore();
+var policyMonitoringStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyMonitoringStore();
+var policyEvidenceStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyEvidenceStore();
+builder.Services.AddSingleton(policyRegistryStore);
+builder.Services.AddSingleton(policyVersionStore);
+builder.Services.AddSingleton(policyDependencyStore);
+builder.Services.AddSingleton(policyContextStore);
+builder.Services.AddSingleton(policyDecisionCacheStore);
+builder.Services.AddSingleton(policyLifecycleStore);
+builder.Services.AddSingleton(policyRolloutStore);
+builder.Services.AddSingleton(governanceAuthorityStore);
+builder.Services.AddSingleton(constitutionalPolicyStore);
+builder.Services.AddSingleton(policyDomainBindingStore);
+builder.Services.AddSingleton(policyMonitoringStore);
+builder.Services.AddSingleton(policyEvidenceStore);
 
 // WhyceChain (Phase 2.0.40+)
 builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainLedgerStore());
@@ -189,70 +217,56 @@ builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.C
 builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainIndexStore());
 
 // Governance (Phase 2.0.54+)
-builder.Services.AddSingleton(new Whycespace.System.Upstream.Governance.Stores.GuardianRegistryStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.Governance.Stores.GovernanceRoleStore());
+var guardianRegistryStore = new Whycespace.System.Upstream.Governance.Stores.GuardianRegistryStore();
+var governanceRoleStore = new Whycespace.System.Upstream.Governance.Stores.GovernanceRoleStore();
+builder.Services.AddSingleton(guardianRegistryStore);
+builder.Services.AddSingleton(governanceRoleStore);
 
-// WSS Workflow Definitions (Phase 2.1.1)
-builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowDefinitionStore());
+// WSS Runtime (Phase 2.1.x) — engines bootstrapped in runtime layer
+var wssBootstrapper = new WssRuntimeBootstrapper(eventBus, kafkaBrokers);
+builder.Services.AddSingleton(wssBootstrapper);
 
-// WSS Workflow Templates (Phase 2.1.3)
-builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowTemplateStore());
+// Platform Runtime Dispatcher — single entry point for all engine operations
+var platformDispatcher = PlatformDispatcherFactory.Create(
+    identityRegistry,
+    identityAttributeStore,
+    identityRoleStore,
+    identityPermissionStore,
+    identityAccessScopeStore,
+    identityTrustStore,
+    identityDeviceStore,
+    identitySessionStore,
+    identityConsentStore,
+    identityGraphStore,
+    identityServiceStore,
+    identityFederationStore,
+    identityRecoveryStore,
+    identityRevocationStore,
+    identityAuditStore,
+    policyRegistryStore,
+    policyVersionStore,
+    policyDependencyStore,
+    policyContextStore,
+    policyDecisionCacheStore,
+    policyLifecycleStore,
+    policyRolloutStore,
+    governanceAuthorityStore,
+    constitutionalPolicyStore,
+    policyDomainBindingStore,
+    policyMonitoringStore,
+    policyEvidenceStore,
+    guardianRegistryStore,
+    governanceRoleStore,
+    wssBootstrapper);
+builder.Services.AddSingleton<IPlatformDispatcher>(platformDispatcher);
 
-// WSS Workflow Registry (Phase 2.1.4)
-builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowRegistryStore());
-var workflowRegistryInstance = new Whycespace.Engines.T1M.WSS.Registry.WorkflowRegistry();
-builder.Services.AddSingleton(workflowRegistryInstance);
-
-// WSS Workflow Versioning (Phase 2.1.5)
-builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowVersionStore());
-
-// WSS Workflow Step Engine Mapping (Phase 2.1.8)
-builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowEngineMappingStore());
-
-// WSS Workflow Instance Registry (Phase 2.1.9)
-var workflowInstanceRegistryStore = new Whycespace.Engines.T1M.WSS.Stores.WorkflowInstanceRegistryStore();
-builder.Services.AddSingleton(workflowInstanceRegistryStore);
-
-// WSS Workflow State Store (Phase 2.1.10)
-var wssWorkflowStateStore = new Whycespace.Engines.T1M.WSS.Stores.WssWorkflowStateStore();
-builder.Services.AddSingleton(wssWorkflowStateStore);
-
-// WSS Workflow Event Router (Phase 2.1.11)
+// Kafka Publisher
 var kafkaPublisher = new KafkaEventPublisher(eventBus, kafkaBrokers);
-var wssWorkflowEventRouter = new Whycespace.Engines.T1M.WSS.Runtime.WorkflowEventRouter(kafkaPublisher);
-builder.Services.AddSingleton(wssWorkflowEventRouter);
-
-// WSS Workflow Retry Policy Engine (Phase 2.1.12)
-var workflowRetryStore = new Whycespace.Engines.T1M.WSS.Stores.WorkflowRetryStore();
-builder.Services.AddSingleton(workflowRetryStore);
-var workflowRetryPolicyEngine = new Whycespace.Engines.T1M.WSS.Runtime.WorkflowRetryPolicyEngine(workflowRetryStore);
-builder.Services.AddSingleton(workflowRetryPolicyEngine);
-
-// WSS Workflow Timeout Engine (Phase 2.1.13)
-var workflowTimeoutStore = new Whycespace.Engines.T1M.WSS.Stores.WorkflowTimeoutStore();
-builder.Services.AddSingleton(workflowTimeoutStore);
-var workflowTimeoutEngine = new Whycespace.Engines.T1M.WSS.Runtime.WorkflowTimeoutEngine(workflowTimeoutStore);
-builder.Services.AddSingleton(workflowTimeoutEngine);
-
-// WSS Workflow Instance Lifecycle Engine (Phase 2.1.14)
-var workflowInstanceRegistry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(workflowInstanceRegistryStore);
-var workflowGraphEngine = new Whycespace.Engines.T1M.WSS.Graph.WorkflowGraphEngine();
-var workflowLifecycleEngine = new Whycespace.Engines.T1M.WSS.Runtime.WorkflowLifecycleEngine(
-    workflowRegistryInstance,
-    workflowInstanceRegistry,
-    wssWorkflowStateStore,
-    wssWorkflowEventRouter,
-    workflowRetryPolicyEngine,
-    workflowTimeoutEngine,
-    workflowGraphEngine);
-builder.Services.AddSingleton(workflowLifecycleEngine);
+builder.Services.AddSingleton(kafkaPublisher);
 
 // Runtime Validation (Phase 1.17)
 var validationRunner = new ValidationRunner();
 builder.Services.AddSingleton(validationRunner);
-
-// Kafka Publisher
-builder.Services.AddSingleton(kafkaPublisher);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -7,7 +7,10 @@ using Whycespace.Runtime.Events;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Workflow;
 using Whycespace.Contracts.Events;
+using Whycespace.Contracts.Runtime;
 using Whycespace.System.Midstream.WSS.Mapping;
+using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.System.Midstream.WSS.Events;
 using Whycespace.Domain.Clusters;
 using Whycespace.Domain.Core.Cluster;
 using Whycespace.SimulationRuntime.Models;
@@ -30,31 +33,15 @@ using Whycespace.ReliabilityRuntime.Timeout;
 using Whycespace.System.WhyceID.Registry;
 using Whycespace.System.WhyceID.Stores;
 using Whycespace.System.WhyceID.Models;
-using Whycespace.Engines.T0U.WhyceID;
-using Whycespace.Engines.T0U.WhycePolicy;
-using Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.System.Upstream.WhycePolicy.Stores;
 using Whycespace.System.Upstream.WhyceChain.Stores;
 using Whycespace.System.Upstream.Governance.Stores;
-using Whycespace.Engines.T0U.Governance;
-using Whycespace.Engines.T1M.WSS.Stores;
-using Whycespace.Engines.T1M.WSS.Definition;
-using Whycespace.Engines.T1M.WSS.Graph;
-using Whycespace.Engines.T1M.WSS.Registry;
-using Whycespace.Engines.T1M.WSS.Validation;
-using Whycespace.Engines.T1M.WSS.Dependency;
-using Whycespace.Engines.T1M.WSS.Mapping;
-using Whycespace.Engines.T1M.WSS.Instance;
-using Whycespace.System.Midstream.WSS.Models;
-using Whycespace.System.Midstream.WSS.Events;
-using Whycespace.Engines.T1M.WSS.Runtime;
-using WorkflowStateStore = Whycespace.Runtime.Workflow.WorkflowStateStore;
-using WssWorkflowEventRouter = Whycespace.Engines.T1M.WSS.Runtime.WorkflowEventRouter;
 
 [ApiController]
 [Route("dev")]
 public sealed class DebugController : ControllerBase
 {
+    private readonly IPlatformDispatcher _dispatcher;
     private readonly WorkflowStateStore _stateStore;
     private readonly EngineRegistry _engineRegistry;
     private readonly EventBus _eventBus;
@@ -79,47 +66,23 @@ public sealed class DebugController : ControllerBase
     private readonly IdentityRoleStore _identityRoleStore;
     private readonly IdentityPermissionStore _identityPermissionStore;
     private readonly IdentityAccessScopeStore _identityAccessScopeStore;
-    private readonly IdentityTrustStore _identityTrustStore;
     private readonly IdentityDeviceStore _identityDeviceStore;
     private readonly IdentitySessionStore _identitySessionStore;
     private readonly IdentityConsentStore _identityConsentStore;
     private readonly IdentityGraphStore _identityGraphStore;
     private readonly IdentityServiceStore _identityServiceStore;
     private readonly IdentityFederationStore _identityFederationStore;
-    private readonly IdentityRecoveryStore _identityRecoveryStore;
-    private readonly IdentityRevocationStore _identityRevocationStore;
-    private readonly IdentityAuditStore _identityAuditStore;
-    private readonly PolicyRegistryStore _policyRegistryStore;
-    private readonly PolicyVersionStore _policyVersionStore;
-    private readonly PolicyDependencyStore _policyDependencyStore;
-    private readonly PolicyContextStore _policyContextStore;
-    private readonly PolicyDecisionCacheStore _policyDecisionCacheStore;
-    private readonly PolicyLifecycleStore _policyLifecycleStore;
     private readonly PolicyRolloutStore _policyRolloutStore;
-    private readonly GovernanceAuthorityStore _governanceAuthorityStore;
+    private readonly PolicyDecisionCacheStore _policyDecisionCacheStore;
     private readonly ConstitutionalPolicyStore _constitutionalPolicyStore;
-    private readonly PolicyDomainBindingStore _policyDomainBindingStore;
-    private readonly PolicyMonitoringStore _policyMonitoringStore;
-    private readonly PolicyEvidenceStore _policyEvidenceStore;
     private readonly ChainLedgerStore _chainLedgerStore;
     private readonly ChainBlockStore _chainBlockStore;
     private readonly ChainEventStore _chainEventStore;
     private readonly GuardianRegistryStore _guardianRegistryStore;
     private readonly GovernanceRoleStore _governanceRoleStore;
-    private readonly WorkflowDefinitionStore _workflowDefinitionStore;
-    private readonly WorkflowTemplateStore _workflowTemplateStore;
-    private readonly WorkflowRegistryStore _workflowRegistryStore;
-    private readonly WorkflowVersionStore _workflowVersionStore;
-    private readonly WorkflowRegistry _workflowRegistry;
-    private readonly WorkflowEngineMappingStore _engineMappingStore;
-    private readonly WorkflowInstanceRegistryStore _instanceRegistryStore;
-    private readonly WssWorkflowStateStore _wssWorkflowStateStore;
-    private readonly WssWorkflowEventRouter _wssWorkflowEventRouter;
-    private readonly WorkflowRetryPolicyEngine _workflowRetryPolicyEngine;
-    private readonly WorkflowTimeoutEngine _workflowTimeoutEngine;
-    private readonly WorkflowLifecycleEngine _workflowLifecycleEngine;
 
     public DebugController(
+        IPlatformDispatcher dispatcher,
         WorkflowStateStore stateStore,
         EngineRegistry engineRegistry,
         EventBus eventBus,
@@ -144,46 +107,22 @@ public sealed class DebugController : ControllerBase
         IdentityRoleStore identityRoleStore,
         IdentityPermissionStore identityPermissionStore,
         IdentityAccessScopeStore identityAccessScopeStore,
-        IdentityTrustStore identityTrustStore,
         IdentityDeviceStore identityDeviceStore,
         IdentitySessionStore identitySessionStore,
         IdentityConsentStore identityConsentStore,
         IdentityGraphStore identityGraphStore,
         IdentityServiceStore identityServiceStore,
         IdentityFederationStore identityFederationStore,
-        IdentityRecoveryStore identityRecoveryStore,
-        IdentityRevocationStore identityRevocationStore,
-        IdentityAuditStore identityAuditStore,
-        PolicyRegistryStore policyRegistryStore,
-        PolicyVersionStore policyVersionStore,
-        PolicyDependencyStore policyDependencyStore,
-        PolicyContextStore policyContextStore,
-        PolicyDecisionCacheStore policyDecisionCacheStore,
-        PolicyLifecycleStore policyLifecycleStore,
         PolicyRolloutStore policyRolloutStore,
-        GovernanceAuthorityStore governanceAuthorityStore,
+        PolicyDecisionCacheStore policyDecisionCacheStore,
         ConstitutionalPolicyStore constitutionalPolicyStore,
-        PolicyDomainBindingStore policyDomainBindingStore,
-        PolicyMonitoringStore policyMonitoringStore,
-        PolicyEvidenceStore policyEvidenceStore,
         ChainLedgerStore chainLedgerStore,
         ChainBlockStore chainBlockStore,
         ChainEventStore chainEventStore,
         GuardianRegistryStore guardianRegistryStore,
-        GovernanceRoleStore governanceRoleStore,
-        WorkflowDefinitionStore workflowDefinitionStore,
-        WorkflowTemplateStore workflowTemplateStore,
-        WorkflowRegistryStore workflowRegistryStore,
-        WorkflowVersionStore workflowVersionStore,
-        WorkflowRegistry workflowRegistry,
-        WorkflowEngineMappingStore engineMappingStore,
-        WorkflowInstanceRegistryStore instanceRegistryStore,
-        WssWorkflowStateStore wssWorkflowStateStore,
-        WssWorkflowEventRouter wssWorkflowEventRouter,
-        WorkflowRetryPolicyEngine workflowRetryPolicyEngine,
-        WorkflowTimeoutEngine workflowTimeoutEngine,
-        WorkflowLifecycleEngine workflowLifecycleEngine)
+        GovernanceRoleStore governanceRoleStore)
     {
+        _dispatcher = dispatcher;
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
         _eventBus = eventBus;
@@ -208,45 +147,20 @@ public sealed class DebugController : ControllerBase
         _identityRoleStore = identityRoleStore;
         _identityPermissionStore = identityPermissionStore;
         _identityAccessScopeStore = identityAccessScopeStore;
-        _identityTrustStore = identityTrustStore;
         _identityDeviceStore = identityDeviceStore;
         _identitySessionStore = identitySessionStore;
         _identityConsentStore = identityConsentStore;
         _identityGraphStore = identityGraphStore;
         _identityServiceStore = identityServiceStore;
         _identityFederationStore = identityFederationStore;
-        _identityRecoveryStore = identityRecoveryStore;
-        _identityRevocationStore = identityRevocationStore;
-        _identityAuditStore = identityAuditStore;
-        _policyRegistryStore = policyRegistryStore;
-        _policyVersionStore = policyVersionStore;
-        _policyDependencyStore = policyDependencyStore;
-        _policyContextStore = policyContextStore;
-        _policyDecisionCacheStore = policyDecisionCacheStore;
-        _policyLifecycleStore = policyLifecycleStore;
         _policyRolloutStore = policyRolloutStore;
-        _governanceAuthorityStore = governanceAuthorityStore;
+        _policyDecisionCacheStore = policyDecisionCacheStore;
         _constitutionalPolicyStore = constitutionalPolicyStore;
-        _policyDomainBindingStore = policyDomainBindingStore;
-        _policyMonitoringStore = policyMonitoringStore;
-        _policyEvidenceStore = policyEvidenceStore;
         _chainLedgerStore = chainLedgerStore;
         _chainBlockStore = chainBlockStore;
         _chainEventStore = chainEventStore;
         _guardianRegistryStore = guardianRegistryStore;
         _governanceRoleStore = governanceRoleStore;
-        _workflowDefinitionStore = workflowDefinitionStore;
-        _workflowTemplateStore = workflowTemplateStore;
-        _workflowRegistryStore = workflowRegistryStore;
-        _workflowVersionStore = workflowVersionStore;
-        _workflowRegistry = workflowRegistry;
-        _engineMappingStore = engineMappingStore;
-        _instanceRegistryStore = instanceRegistryStore;
-        _wssWorkflowStateStore = wssWorkflowStateStore;
-        _wssWorkflowEventRouter = wssWorkflowEventRouter;
-        _workflowRetryPolicyEngine = workflowRetryPolicyEngine;
-        _workflowTimeoutEngine = workflowTimeoutEngine;
-        _workflowLifecycleEngine = workflowLifecycleEngine;
     }
 
     [HttpGet("workflows")]
@@ -339,10 +253,9 @@ public sealed class DebugController : ControllerBase
     public IActionResult ValidateGuardrails()
     {
         var enforcement = new GuardrailEnforcementEngine();
-        var engineAssembly = typeof(Whycespace.Engines.T2E.Clusters.Mobility.Taxi.RideExecutionEngine).Assembly;
         var sharedAssembly = typeof(Whycespace.Contracts.Engines.IEngine).Assembly;
 
-        var report = enforcement.Validate(engineAssembly, sharedAssembly);
+        var report = enforcement.Validate(sharedAssembly, sharedAssembly);
 
         if (report.IsValid)
             return Ok(new { status = "valid" });
@@ -632,24 +545,17 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpPost("identity/{id:guid}/trustscore")]
-    public IActionResult CalculateTrustScore(Guid id)
+    public async Task<IActionResult> CalculateTrustScore(Guid id)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("identity.trustscore.calculate", new Dictionary<string, object>
         {
-            var engine = new Whycespace.Engines.T0U.WhyceID.TrustScoreEngine(
-                _identityRegistry, _identityTrustStore);
-            var result = engine.Calculate(id);
-            return Ok(new
-            {
-                identityId = id,
-                score = result.Score,
-                calculatedAt = result.CalculatedAt
-            });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["identityId"] = id
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("identity/{id:guid}/devices")]
@@ -670,42 +576,35 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpPost("authenticate")]
-    public IActionResult Authenticate([FromBody] DebugAuthenticateDto dto)
+    public async Task<IActionResult> Authenticate([FromBody] DebugAuthenticateDto dto)
     {
-        var trustEngine = new Whycespace.Engines.T0U.WhyceID.TrustScoreEngine(
-            _identityRegistry, _identityTrustStore);
-        var deviceEngine = new Whycespace.Engines.T0U.WhyceID.DeviceTrustEngine(
-            _identityRegistry, _identityDeviceStore);
-        var authEngine = new Whycespace.Engines.T0U.WhyceID.AuthenticationEngine(
-            _identityRegistry, trustEngine, deviceEngine);
-
-        var result = authEngine.Authenticate(dto.IdentityId, dto.DeviceId);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("identity.authenticate", new Dictionary<string, object>
         {
-            success = result.Success,
-            message = result.Message
+            ["identityId"] = dto.IdentityId,
+            ["deviceId"] = dto.DeviceId
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("authorize")]
-    public IActionResult Authorize([FromBody] DebugAuthorizeDto dto)
+    public async Task<IActionResult> Authorize([FromBody] DebugAuthorizeDto dto)
     {
-        var roleEngine = new Whycespace.Engines.T0U.WhyceID.IdentityRoleEngine(
-            _identityRegistry, _identityRoleStore);
-        var permissionEngine = new Whycespace.Engines.T0U.WhyceID.IdentityPermissionEngine(
-            _identityPermissionStore);
-        var scopeEngine = new Whycespace.Engines.T0U.WhyceID.IdentityAccessScopeEngine(
-            _identityAccessScopeStore);
-        var authzEngine = new Whycespace.Engines.T0U.WhyceID.AuthorizationEngine(
-            _identityRegistry, roleEngine, permissionEngine, scopeEngine);
-
-        var result = authzEngine.Authorize(new Whycespace.System.WhyceID.Models.AuthorizationRequest(
-            dto.IdentityId, dto.Resource, dto.Action, dto.Scope));
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("identity.authorize", new Dictionary<string, object>
         {
-            allowed = result.Allowed,
-            reason = result.Reason
+            ["identityId"] = dto.IdentityId,
+            ["resource"] = dto.Resource,
+            ["action"] = dto.Action,
+            ["scope"] = dto.Scope
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("identity/{id:guid}/sessions")]
@@ -752,26 +651,19 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpPost("identity/{id:guid}/consent")]
-    public IActionResult GrantConsent(Guid id, [FromBody] DebugGrantConsentDto dto)
+    public async Task<IActionResult> GrantConsent(Guid id, [FromBody] DebugGrantConsentDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("identity.consent.grant", new Dictionary<string, object>
         {
-            var engine = new Whycespace.Engines.T0U.WhyceID.ConsentEngine(
-                _identityRegistry, _identityConsentStore);
-            var consent = engine.GrantConsent(id, dto.Target, dto.Scope);
-            return Ok(new
-            {
-                consentId = consent.ConsentId,
-                identityId = consent.IdentityId,
-                target = consent.Target,
-                scope = consent.Scope,
-                grantedAt = consent.GrantedAt
-            });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["identityId"] = id,
+            ["target"] = dto.Target,
+            ["scope"] = dto.Scope
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("consent/revoke")]
@@ -819,43 +711,33 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpGet("identity/{id:guid}/relationships")]
-    public IActionResult GetIdentityRelationships(Guid id)
+    public async Task<IActionResult> GetIdentityRelationships(Guid id)
     {
-        var engine = new IdentityGraphEngine(_identityRegistry, _identityGraphStore);
-        var relationships = engine.GetRelationships(id);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("identity.graph.getRelationships", new Dictionary<string, object>
         {
-            identityId = id,
-            relationships = relationships.Select(e => new
-            {
-                edgeId = e.EdgeId,
-                targetEntityId = e.TargetEntityId,
-                relationship = e.Relationship,
-                createdAt = e.CreatedAt
-            })
+            ["identityId"] = id
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("identity/{id:guid}/relationship")]
-    public IActionResult CreateRelationship(Guid id, [FromBody] DebugCreateRelationshipDto dto)
+    public async Task<IActionResult> CreateRelationship(Guid id, [FromBody] DebugCreateRelationshipDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("identity.graph.createRelationship", new Dictionary<string, object>
         {
-            var engine = new IdentityGraphEngine(_identityRegistry, _identityGraphStore);
-            var edge = engine.CreateRelationship(id, dto.TargetEntityId, dto.Relationship);
-            return Ok(new
-            {
-                edgeId = edge.EdgeId,
-                sourceIdentityId = edge.SourceIdentityId,
-                targetEntityId = edge.TargetEntityId,
-                relationship = edge.Relationship,
-                createdAt = edge.CreatedAt
-            });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["identityId"] = id,
+            ["targetEntityId"] = dto.TargetEntityId,
+            ["relationship"] = dto.Relationship
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("relationship/remove")]
@@ -866,42 +748,30 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpGet("services")]
-    public IActionResult GetServices()
+    public async Task<IActionResult> GetServices()
     {
-        var engine = new ServiceIdentityEngine(_identityServiceStore);
-        var services = engine.GetServices();
-        return Ok(new
-        {
-            services = services.Select(s => new
-            {
-                serviceId = s.ServiceId,
-                name = s.Name,
-                type = s.Type,
-                createdAt = s.CreatedAt,
-                revoked = s.Revoked
-            })
-        });
+        var result = await _dispatcher.DispatchAsync("identity.service.getServices", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("services/register")]
-    public IActionResult RegisterService([FromBody] DebugRegisterServiceDto dto)
+    public async Task<IActionResult> RegisterService([FromBody] DebugRegisterServiceDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("identity.service.register", new Dictionary<string, object>
         {
-            var engine = new ServiceIdentityEngine(_identityServiceStore);
-            var service = engine.RegisterService(dto.Name, dto.Type, dto.Secret);
-            return Ok(new
-            {
-                serviceId = service.ServiceId,
-                name = service.Name,
-                type = service.Type,
-                createdAt = service.CreatedAt
-            });
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["name"] = dto.Name,
+            ["type"] = dto.Type,
+            ["secret"] = dto.Secret
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("services/revoke")]
@@ -912,44 +782,30 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpGet("federations")]
-    public IActionResult GetFederations()
+    public async Task<IActionResult> GetFederations()
     {
-        var engine = new FederationEngine(_identityRegistry, _identityFederationStore);
-        var federations = engine.GetFederations();
-        return Ok(new
-        {
-            federations = federations.Select(f => new
-            {
-                federationId = f.FederationId,
-                provider = f.Provider,
-                externalIdentityId = f.ExternalIdentityId,
-                internalIdentityId = f.InternalIdentityId,
-                createdAt = f.CreatedAt,
-                revoked = f.Revoked
-            })
-        });
+        var result = await _dispatcher.DispatchAsync("identity.federation.getFederations", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("federation/register")]
-    public IActionResult RegisterFederation([FromBody] DebugRegisterFederationDto dto)
+    public async Task<IActionResult> RegisterFederation([FromBody] DebugRegisterFederationDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("identity.federation.register", new Dictionary<string, object>
         {
-            var engine = new FederationEngine(_identityRegistry, _identityFederationStore);
-            var federation = engine.RegisterFederation(dto.Provider, dto.ExternalIdentityId, dto.InternalIdentityId);
-            return Ok(new
-            {
-                federationId = federation.FederationId,
-                provider = federation.Provider,
-                externalIdentityId = federation.ExternalIdentityId,
-                internalIdentityId = federation.InternalIdentityId,
-                createdAt = federation.CreatedAt
-            });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["provider"] = dto.Provider,
+            ["externalIdentityId"] = dto.ExternalIdentityId,
+            ["internalIdentityId"] = dto.InternalIdentityId
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("federation/revoke")]
@@ -960,406 +816,268 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpGet("identity/{id:guid}/recoveries")]
-    public IActionResult GetIdentityRecoveries(Guid id)
+    public async Task<IActionResult> GetIdentityRecoveries(Guid id)
     {
-        var engine = new IdentityRecoveryEngine(_identityRegistry, _identityRecoveryStore);
-        var recoveries = engine.GetRecoveries(id);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("identity.recovery.getRecoveries", new Dictionary<string, object>
         {
-            identityId = id,
-            recoveries = recoveries.Select(r => new
-            {
-                recoveryId = r.RecoveryId,
-                reason = r.Reason,
-                status = r.Status,
-                createdAt = r.CreatedAt,
-                completedAt = r.CompletedAt
-            })
+            ["identityId"] = id
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("recovery/create")]
-    public IActionResult CreateRecovery([FromBody] DebugCreateRecoveryDto dto)
+    public async Task<IActionResult> CreateRecovery([FromBody] DebugCreateRecoveryDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("identity.recovery.create", new Dictionary<string, object>
         {
-            var engine = new IdentityRecoveryEngine(_identityRegistry, _identityRecoveryStore);
-            var recovery = engine.CreateRecovery(dto.IdentityId, dto.Reason);
-            return Ok(new
-            {
-                recoveryId = recovery.RecoveryId,
-                identityId = recovery.IdentityId,
-                reason = recovery.Reason,
-                status = recovery.Status,
-                createdAt = recovery.CreatedAt
-            });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["identityId"] = dto.IdentityId,
+            ["reason"] = dto.Reason
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("recovery/approve")]
-    public IActionResult ApproveRecovery([FromBody] DebugRecoveryActionDto dto)
+    public async Task<IActionResult> ApproveRecovery([FromBody] DebugRecoveryActionDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("identity.recovery.approve", new Dictionary<string, object>
         {
-            var engine = new IdentityRecoveryEngine(_identityRegistry, _identityRecoveryStore);
-            engine.ApproveRecovery(dto.RecoveryId);
-            return Ok(new { message = "Recovery approved", recoveryId = dto.RecoveryId });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = "Recovery not found" });
-        }
+            ["recoveryId"] = dto.RecoveryId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("recovery/reject")]
-    public IActionResult RejectRecovery([FromBody] DebugRecoveryActionDto dto)
+    public async Task<IActionResult> RejectRecovery([FromBody] DebugRecoveryActionDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("identity.recovery.reject", new Dictionary<string, object>
         {
-            var engine = new IdentityRecoveryEngine(_identityRegistry, _identityRecoveryStore);
-            engine.RejectRecovery(dto.RecoveryId);
-            return Ok(new { message = "Recovery rejected", recoveryId = dto.RecoveryId });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = "Recovery not found" });
-        }
+            ["recoveryId"] = dto.RecoveryId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("recovery/complete")]
-    public IActionResult CompleteRecovery([FromBody] DebugRecoveryActionDto dto)
+    public async Task<IActionResult> CompleteRecovery([FromBody] DebugRecoveryActionDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("identity.recovery.complete", new Dictionary<string, object>
         {
-            var engine = new IdentityRecoveryEngine(_identityRegistry, _identityRecoveryStore);
-            engine.CompleteRecovery(dto.RecoveryId);
-            return Ok(new { message = "Recovery completed", recoveryId = dto.RecoveryId });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = "Recovery not found" });
-        }
+            ["recoveryId"] = dto.RecoveryId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("identity/{id:guid}/revocations")]
-    public IActionResult GetIdentityRevocations(Guid id)
+    public async Task<IActionResult> GetIdentityRevocations(Guid id)
     {
-        var engine = new IdentityRevocationEngine(_identityRegistry, _identityRevocationStore);
-        var revocations = engine.GetRevocations(id);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("identity.revocation.getRevocations", new Dictionary<string, object>
         {
-            identityId = id,
-            revocations = revocations.Select(r => new
-            {
-                revocationId = r.RevocationId,
-                reason = r.Reason,
-                createdAt = r.CreatedAt,
-                active = r.Active
-            })
+            ["identityId"] = id
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("identity/revoke")]
-    public IActionResult RevokeIdentity([FromBody] DebugRevokeIdentityDto dto)
+    public async Task<IActionResult> RevokeIdentity([FromBody] DebugRevokeIdentityDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("identity.revocation.revoke", new Dictionary<string, object>
         {
-            var engine = new IdentityRevocationEngine(_identityRegistry, _identityRevocationStore);
-            var revocation = engine.RevokeIdentity(dto.IdentityId, dto.Reason);
-            return Ok(new
-            {
-                revocationId = revocation.RevocationId,
-                identityId = revocation.IdentityId,
-                reason = revocation.Reason,
-                createdAt = revocation.CreatedAt,
-                active = revocation.Active
-            });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["identityId"] = dto.IdentityId,
+            ["reason"] = dto.Reason
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("revocations")]
-    public IActionResult GetAllRevocations()
+    public async Task<IActionResult> GetAllRevocations()
     {
-        var engine = new IdentityRevocationEngine(_identityRegistry, _identityRevocationStore);
-        var revocations = engine.GetAllRevocations();
-        return Ok(new
-        {
-            revocations = revocations.Select(r => new
-            {
-                revocationId = r.RevocationId,
-                identityId = r.IdentityId,
-                reason = r.Reason,
-                createdAt = r.CreatedAt,
-                active = r.Active
-            })
-        });
+        var result = await _dispatcher.DispatchAsync("identity.revocation.getAll", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("identity/policy/evaluate")]
-    public IActionResult EvaluateIdentityPolicy([FromBody] DebugEvaluatePolicyDto dto)
+    public async Task<IActionResult> EvaluateIdentityPolicy([FromBody] DebugEvaluatePolicyDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("identity.policy.evaluate", new Dictionary<string, object>
         {
-            var adapter = new IdentityPolicyEnforcementAdapter(
-                _identityRegistry, _identityRoleStore, _identityTrustStore, _identityRevocationStore);
-            var context = adapter.BuildContext(dto.IdentityId);
-            var allowed = adapter.EvaluateIdentityAccess(dto.IdentityId);
-            return Ok(new
-            {
-                identityId = dto.IdentityId,
-                allowed,
-                context = new
-                {
-                    roles = context.Roles,
-                    trustScore = context.TrustScore,
-                    verified = context.Verified,
-                    revoked = context.Revoked
-                }
-            });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["identityId"] = dto.IdentityId
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("identity/{id:guid}/audit")]
-    public IActionResult GetIdentityAudit(Guid id)
+    public async Task<IActionResult> GetIdentityAudit(Guid id)
     {
-        var engine = new IdentityAuditEngine(_identityRegistry, _identityAuditStore);
-        var events = engine.GetIdentityAudit(id);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("identity.audit.get", new Dictionary<string, object>
         {
-            identityId = id,
-            events = events.Select(e => new
-            {
-                eventId = e.EventId,
-                eventType = e.EventType,
-                description = e.Description,
-                timestamp = e.Timestamp
-            })
+            ["identityId"] = id
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("identity/audit")]
-    public IActionResult RecordAuditEvent([FromBody] DebugRecordAuditDto dto)
+    public async Task<IActionResult> RecordAuditEvent([FromBody] DebugRecordAuditDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("identity.audit.record", new Dictionary<string, object>
         {
-            var engine = new IdentityAuditEngine(_identityRegistry, _identityAuditStore);
-            var auditEvent = engine.RecordEvent(dto.IdentityId, dto.EventType, dto.Description);
-            return Ok(new
-            {
-                eventId = auditEvent.EventId,
-                identityId = auditEvent.IdentityId,
-                eventType = auditEvent.EventType,
-                description = auditEvent.Description,
-                timestamp = auditEvent.Timestamp
-            });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["identityId"] = dto.IdentityId,
+            ["eventType"] = dto.EventType,
+            ["description"] = dto.Description
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/parse")]
-    public IActionResult ParsePolicyDsl([FromBody] DebugParsePolicyDto dto)
+    public async Task<IActionResult> ParsePolicyDsl([FromBody] DebugParsePolicyDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.dsl.parse", new Dictionary<string, object>
         {
-            var engine = new PolicyDslParserEngine();
-            var result = engine.Parse(dto.Dsl);
-            return Ok(new
-            {
-                policyId = result.PolicyId,
-                name = result.Name,
-                version = result.Version,
-                targetDomain = result.TargetDomain,
-                conditions = result.Conditions.Select(c => new
-                {
-                    field = c.Field,
-                    @operator = c.Operator,
-                    value = c.Value
-                }),
-                actions = result.Actions.Select(a => new
-                {
-                    actionType = a.ActionType,
-                    parameters = a.Parameters
-                }),
-                createdAt = result.CreatedAt
-            });
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["dsl"] = dto.Dsl
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policies")]
-    public IActionResult GetPolicies()
+    public async Task<IActionResult> GetPolicies()
     {
-        var engine = new PolicyRegistryEngine(_policyRegistryStore);
-        var policies = engine.GetPolicies();
-        return Ok(new
-        {
-            policies = policies.Select(p => new
-            {
-                policyId = p.PolicyId,
-                version = p.Version,
-                name = p.PolicyDefinition.Name,
-                targetDomain = p.PolicyDefinition.TargetDomain,
-                status = p.Status.ToString(),
-                registeredAt = p.RegisteredAt
-            })
-        });
+        var result = await _dispatcher.DispatchAsync("policy.registry.list", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policies/{id}")]
-    public IActionResult GetPolicy(string id)
+    public async Task<IActionResult> GetPolicy(string id)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.registry.get", new Dictionary<string, object>
         {
-            var engine = new PolicyRegistryEngine(_policyRegistryStore);
-            var record = engine.GetPolicy(id);
-            return Ok(new
-            {
-                policyId = record.PolicyId,
-                version = record.Version,
-                name = record.PolicyDefinition.Name,
-                targetDomain = record.PolicyDefinition.TargetDomain,
-                conditions = record.PolicyDefinition.Conditions.Select(c => new
-                {
-                    field = c.Field,
-                    @operator = c.Operator,
-                    value = c.Value
-                }),
-                actions = record.PolicyDefinition.Actions.Select(a => new
-                {
-                    actionType = a.ActionType,
-                    parameters = a.Parameters
-                }),
-                status = record.Status.ToString(),
-                registeredAt = record.RegisteredAt
-            });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Policy not found: '{id}'" });
-        }
+            ["policyId"] = id
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policies/{id}/versions")]
-    public IActionResult GetPolicyVersions(string id)
+    public async Task<IActionResult> GetPolicyVersions(string id)
     {
-        var engine = new PolicyVersionEngine(_policyVersionStore);
-        var versions = engine.GetVersions(id);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("policy.version.list", new Dictionary<string, object>
         {
-            policyId = id,
-            versions = versions.Select(v => new
-            {
-                version = v.Version,
-                status = v.Status.ToString(),
-                createdAt = v.CreatedAt
-            })
+            ["policyId"] = id
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policies/{id}/dependencies")]
-    public IActionResult GetPolicyDependencies(string id)
+    public async Task<IActionResult> GetPolicyDependencies(string id)
     {
-        var engine = new PolicyDependencyEngine(_policyDependencyStore);
-        var dependencies = engine.GetDependencies(id);
-        var resolved = engine.ResolveDependencyGraph(id);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("policy.dependency.get", new Dictionary<string, object>
         {
-            policyId = id,
-            dependencies = dependencies.Select(d => d.DependsOnPolicyId),
-            resolvedOrder = resolved
+            ["policyId"] = id
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/evaluate")]
-    public IActionResult EvaluatePolicies([FromBody] DebugEvaluatePoliciesDto dto)
+    public async Task<IActionResult> EvaluatePolicies([FromBody] DebugEvaluatePoliciesDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.evaluate", new Dictionary<string, object>
         {
-            var engine = new PolicyEvaluationEngine(_policyRegistryStore, _policyDependencyStore);
-            var contextEngine = new PolicyContextEngine(_policyContextStore);
-            var context = contextEngine.BuildContext(dto.ActorId, dto.Domain, dto.Attributes);
-            var decisions = engine.EvaluatePolicies(dto.Domain, context);
-            return Ok(new
-            {
-                decisions = decisions.Select(d => new
-                {
-                    policyId = d.PolicyId,
-                    allowed = d.Allowed,
-                    action = d.Action,
-                    reason = d.Reason,
-                    evaluatedAt = d.EvaluatedAt
-                })
-            });
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["actorId"] = dto.ActorId,
+            ["domain"] = dto.Domain,
+            ["attributes"] = dto.Attributes
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/context")]
-    public IActionResult BuildPolicyContext([FromBody] DebugBuildPolicyContextDto dto)
+    public async Task<IActionResult> BuildPolicyContext([FromBody] DebugBuildPolicyContextDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.context.build", new Dictionary<string, object>
         {
-            var engine = new PolicyContextEngine(_policyContextStore);
-            var result = engine.BuildContext(dto.ActorId, dto.TargetDomain, dto.Attributes);
-            return Ok(new
-            {
-                contextId = result.ContextId,
-                actorId = result.ActorId,
-                targetDomain = result.TargetDomain,
-                attributes = result.Attributes,
-                timestamp = result.Timestamp
-            });
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["actorId"] = dto.ActorId,
+            ["targetDomain"] = dto.TargetDomain,
+            ["attributes"] = dto.Attributes
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policy/cache")]
-    public IActionResult GetPolicyCache()
+    public async Task<IActionResult> GetPolicyCache()
     {
-        var engine = new PolicyDecisionCacheEngine(_policyDecisionCacheStore);
-        _policyDecisionCacheStore.ClearExpired();
-        var entries = _policyDecisionCacheStore.GetAll();
-        return Ok(new
-        {
-            entries = entries.Select(e => new
-            {
-                cacheKey = e.CacheKey,
-                decisions = e.Decisions.Select(d => new
-                {
-                    policyId = d.PolicyId,
-                    allowed = d.Allowed,
-                    action = d.Action,
-                    reason = d.Reason,
-                    evaluatedAt = d.EvaluatedAt
-                }),
-                cachedAt = e.CachedAt,
-                expiresAt = e.ExpiresAt
-            })
-        });
+        var result = await _dispatcher.DispatchAsync("policy.cache.get", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpDelete("policy/cache")]
@@ -1370,153 +1088,123 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpPost("policy/simulate")]
-    public IActionResult SimulatePolicyEvaluation([FromBody] DebugSimulatePolicyDto dto)
+    public async Task<IActionResult> SimulatePolicyEvaluation([FromBody] DebugSimulatePolicyDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.simulate", new Dictionary<string, object>
         {
-            var engine = new PolicySimulationEngine(_policyRegistryStore, _policyDependencyStore);
-            var request = new Whycespace.System.Upstream.WhycePolicy.Models.PolicySimulationRequest(
-                dto.Domain, dto.ActorId, dto.Attributes);
-            var result = engine.SimulatePolicyEvaluation(request);
-            return Ok(new
-            {
-                domain = result.Domain,
-                actorId = result.ActorId,
-                decisions = result.Decisions.Select(d => new
-                {
-                    policyId = d.PolicyId,
-                    allowed = d.Allowed,
-                    action = d.Action,
-                    reason = d.Reason,
-                    evaluatedAt = d.EvaluatedAt
-                }),
-                simulatedAt = result.SimulatedAt
-            });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["domain"] = dto.Domain,
+            ["actorId"] = dto.ActorId,
+            ["attributes"] = dto.Attributes
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policy/conflicts/{domain}")]
-    public IActionResult DetectPolicyConflicts(string domain)
+    public async Task<IActionResult> DetectPolicyConflicts(string domain)
     {
-        var engine = new PolicyConflictDetectionEngine(_policyRegistryStore, _policyDependencyStore);
-        var report = engine.DetectConflicts(domain);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("policy.conflict.detect", new Dictionary<string, object>
         {
-            domain = report.Domain,
-            conflicts = report.Conflicts.Select(c => new
-            {
-                policyA = c.PolicyA,
-                policyB = c.PolicyB,
-                domain = c.Domain,
-                reason = c.Reason,
-                detectedAt = c.DetectedAt
-            }),
-            generatedAt = report.GeneratedAt
+            ["domain"] = domain
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/forecast")]
-    public IActionResult ForecastPolicyImpact([FromBody] DebugForecastPolicyDto dto)
+    public async Task<IActionResult> ForecastPolicyImpact([FromBody] DebugForecastPolicyDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.forecast", new Dictionary<string, object>
         {
-            var engine = new PolicyImpactForecastEngine(_policyRegistryStore, _policyDependencyStore);
-            var simContexts = dto.SimulationContexts
-                .Select(s => new Whycespace.System.Upstream.WhycePolicy.Models.PolicySimulationRequest(s.Domain, s.ActorId, s.Attributes))
-                .ToList();
-            var request = new Whycespace.System.Upstream.WhycePolicy.Models.PolicyImpactForecastRequest(dto.Domain, simContexts);
-            var forecast = engine.ForecastImpact(request);
-            return Ok(new
-            {
-                policyId = forecast.PolicyId,
-                domain = forecast.Domain,
-                simulatedContexts = forecast.SimulatedContexts,
-                allowedCount = forecast.AllowedCount,
-                deniedCount = forecast.DeniedCount,
-                loggedCount = forecast.LoggedCount,
-                generatedAt = forecast.GeneratedAt
-            });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["domain"] = dto.Domain,
+            ["simulationContexts"] = dto.SimulationContexts
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/lifecycle/approve")]
-    public IActionResult ApprovePolicyLifecycle([FromBody] DebugLifecycleTransitionDto dto)
+    public async Task<IActionResult> ApprovePolicyLifecycle([FromBody] DebugLifecycleTransitionDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.lifecycle.approve", new Dictionary<string, object>
         {
-            var engine = new PolicyLifecycleManager(_policyLifecycleStore);
-            var result = engine.ApprovePolicy(dto.PolicyId, dto.Version);
-            return Ok(new { policyId = result.PolicyId, version = result.Version, state = result.State.ToString(), updatedAt = result.UpdatedAt });
-        }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["policyId"] = dto.PolicyId,
+            ["version"] = dto.Version
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/lifecycle/activate")]
-    public IActionResult ActivatePolicyLifecycle([FromBody] DebugLifecycleTransitionDto dto)
+    public async Task<IActionResult> ActivatePolicyLifecycle([FromBody] DebugLifecycleTransitionDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.lifecycle.activate", new Dictionary<string, object>
         {
-            var engine = new PolicyLifecycleManager(_policyLifecycleStore);
-            var result = engine.ActivatePolicy(dto.PolicyId, dto.Version);
-            return Ok(new { policyId = result.PolicyId, version = result.Version, state = result.State.ToString(), updatedAt = result.UpdatedAt });
-        }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["policyId"] = dto.PolicyId,
+            ["version"] = dto.Version
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/lifecycle/deprecate")]
-    public IActionResult DeprecatePolicyLifecycle([FromBody] DebugLifecycleTransitionDto dto)
+    public async Task<IActionResult> DeprecatePolicyLifecycle([FromBody] DebugLifecycleTransitionDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.lifecycle.deprecate", new Dictionary<string, object>
         {
-            var engine = new PolicyLifecycleManager(_policyLifecycleStore);
-            var result = engine.DeprecatePolicy(dto.PolicyId, dto.Version);
-            return Ok(new { policyId = result.PolicyId, version = result.Version, state = result.State.ToString(), updatedAt = result.UpdatedAt });
-        }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["policyId"] = dto.PolicyId,
+            ["version"] = dto.Version
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/lifecycle/archive")]
-    public IActionResult ArchivePolicyLifecycle([FromBody] DebugLifecycleTransitionDto dto)
+    public async Task<IActionResult> ArchivePolicyLifecycle([FromBody] DebugLifecycleTransitionDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.lifecycle.archive", new Dictionary<string, object>
         {
-            var engine = new PolicyLifecycleManager(_policyLifecycleStore);
-            var result = engine.ArchivePolicy(dto.PolicyId, dto.Version);
-            return Ok(new { policyId = result.PolicyId, version = result.Version, state = result.State.ToString(), updatedAt = result.UpdatedAt });
-        }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["policyId"] = dto.PolicyId,
+            ["version"] = dto.Version
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policy/lifecycle/{policyId}/{version}")]
-    public IActionResult GetPolicyLifecycle(string policyId, string version)
+    public async Task<IActionResult> GetPolicyLifecycle(string policyId, string version)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.lifecycle.get", new Dictionary<string, object>
         {
-            var engine = new PolicyLifecycleManager(_policyLifecycleStore);
-            var state = engine.GetLifecycleState(policyId, version);
-            var history = engine.GetLifecycleHistory(policyId, version);
-            return Ok(new
-            {
-                policyId = state.PolicyId,
-                version = state.Version,
-                currentState = state.State.ToString(),
-                updatedAt = state.UpdatedAt,
-                history = history.Select(h => new
-                {
-                    state = h.State.ToString(),
-                    updatedAt = h.UpdatedAt
-                })
-            });
-        }
-        catch (KeyNotFoundException) { return NotFound(new { message = $"No lifecycle state found for policy '{policyId}' version '{version}'." }); }
+            ["policyId"] = policyId,
+            ["version"] = version
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/rollout")]
@@ -1551,53 +1239,80 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpPost("policy/rollout/check")]
-    public IActionResult CheckPolicyRollout([FromBody] DebugCheckRolloutDto dto)
+    public async Task<IActionResult> CheckPolicyRollout([FromBody] DebugCheckRolloutDto dto)
     {
-        var engine = new PolicyRolloutEngine(_policyRolloutStore);
-        var active = engine.IsPolicyActiveForActor(dto.PolicyId, dto.Version, dto.ActorId, dto.Domain);
-        return Ok(new { active });
+        var result = await _dispatcher.DispatchAsync("policy.rollout.check", new Dictionary<string, object>
+        {
+            ["policyId"] = dto.PolicyId,
+            ["version"] = dto.Version,
+            ["actorId"] = dto.ActorId,
+            ["domain"] = dto.Domain
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/governance/assign")]
-    public IActionResult AssignGovernanceAuthority([FromBody] DebugGovernanceAssignDto dto)
+    public async Task<IActionResult> AssignGovernanceAuthority([FromBody] DebugGovernanceAssignDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.governance.assign", new Dictionary<string, object>
         {
-            var engine = new GovernanceAuthorityEngine(_governanceAuthorityStore);
-            var role = Enum.Parse<Whycespace.System.Upstream.WhycePolicy.Models.GovernanceRole>(dto.Role, ignoreCase: true);
-            var record = engine.AssignAuthority(dto.ActorId, role);
-            return Ok(new { actorId = record.ActorId, role = record.Role.ToString(), assignedAt = record.AssignedAt });
-        }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["actorId"] = dto.ActorId,
+            ["role"] = dto.Role
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policy/governance/{actorId}")]
-    public IActionResult GetGovernanceAuthority(string actorId)
+    public async Task<IActionResult> GetGovernanceAuthority(string actorId)
     {
-        var engine = new GovernanceAuthorityEngine(_governanceAuthorityStore);
-        var roles = engine.GetRoles(actorId);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("policy.governance.get", new Dictionary<string, object>
         {
-            actorId,
-            roles = roles.Select(r => new { role = r.Role.ToString(), assignedAt = r.AssignedAt })
+            ["actorId"] = actorId
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/governance/check")]
-    public IActionResult CheckGovernanceAuthority([FromBody] DebugGovernanceAssignDto dto)
+    public async Task<IActionResult> CheckGovernanceAuthority([FromBody] DebugGovernanceAssignDto dto)
     {
-        var engine = new GovernanceAuthorityEngine(_governanceAuthorityStore);
-        var role = Enum.Parse<Whycespace.System.Upstream.WhycePolicy.Models.GovernanceRole>(dto.Role, ignoreCase: true);
-        var hasAuthority = engine.HasAuthority(dto.ActorId, role);
-        return Ok(new { hasAuthority });
+        var result = await _dispatcher.DispatchAsync("policy.governance.check", new Dictionary<string, object>
+        {
+            ["actorId"] = dto.ActorId,
+            ["role"] = dto.Role
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/constitutional/register")]
-    public IActionResult RegisterConstitutionalPolicy([FromBody] DebugConstitutionalRegisterDto dto)
+    public async Task<IActionResult> RegisterConstitutionalPolicy([FromBody] DebugConstitutionalRegisterDto dto)
     {
-        var engine = new ConstitutionalSafeguardEngine(_constitutionalPolicyStore);
-        var record = engine.RegisterConstitutionalPolicy(dto.PolicyId, dto.Version, dto.ProtectionLevel);
-        return Ok(new { policyId = record.PolicyId, version = record.Version, protectionLevel = record.ProtectionLevel, registeredAt = record.RegisteredAt });
+        var result = await _dispatcher.DispatchAsync("policy.constitutional.register", new Dictionary<string, object>
+        {
+            ["policyId"] = dto.PolicyId,
+            ["version"] = dto.Version,
+            ["protectionLevel"] = dto.ProtectionLevel
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policy/constitutional/{policyId}/{version}")]
@@ -1618,216 +1333,162 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpPost("policy/enforce")]
-    public IActionResult EnforcePolicy([FromBody] DebugEnforcePolicyDto dto)
+    public async Task<IActionResult> EnforcePolicy([FromBody] DebugEnforcePolicyDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.enforce", new Dictionary<string, object>
         {
-            var evaluationEngine = new PolicyEvaluationEngine(_policyRegistryStore, _policyDependencyStore);
-            var contextEngine = new PolicyContextEngine(_policyContextStore);
-            var cacheEngine = new PolicyDecisionCacheEngine(_policyDecisionCacheStore);
-            var enforcementEngine = new PolicyEnforcementEngine(evaluationEngine, contextEngine, cacheEngine);
+            ["actorId"] = dto.ActorId,
+            ["domain"] = dto.Domain,
+            ["operation"] = dto.Operation,
+            ["attributes"] = dto.Attributes
+        });
 
-            var request = new Whycespace.System.Upstream.WhycePolicy.Models.PolicyEnforcementRequest(
-                dto.ActorId, dto.Domain, dto.Operation, dto.Attributes);
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
 
-            var result = enforcementEngine.EnforcePolicy(request);
-            return Ok(new
-            {
-                allowed = result.Allowed,
-                reason = result.Reason,
-                decisions = result.Decisions.Select(d => new
-                {
-                    policyId = d.PolicyId,
-                    allowed = d.Allowed,
-                    action = d.Action,
-                    reason = d.Reason,
-                    evaluatedAt = d.EvaluatedAt
-                }),
-                evaluatedAt = result.EvaluatedAt
-            });
-        }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/domain/bind")]
-    public IActionResult BindPolicyToDomain([FromBody] DebugBindPolicyDomainDto dto)
+    public async Task<IActionResult> BindPolicyToDomain([FromBody] DebugBindPolicyDomainDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.domain.bind", new Dictionary<string, object>
         {
-            var engine = new PolicyDomainBindingEngine(_policyDomainBindingStore);
-            var binding = engine.BindPolicy(dto.PolicyId, dto.Version, dto.Domain);
-            return Ok(new { policyId = binding.PolicyId, version = binding.Version, domain = binding.Domain, boundAt = binding.BoundAt });
-        }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["policyId"] = dto.PolicyId,
+            ["version"] = dto.Version,
+            ["domain"] = dto.Domain
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policy/domain/{policyId}")]
-    public IActionResult GetDomainsForPolicy(string policyId)
+    public async Task<IActionResult> GetDomainsForPolicy(string policyId)
     {
-        var engine = new PolicyDomainBindingEngine(_policyDomainBindingStore);
-        var domains = engine.GetDomainsForPolicy(policyId);
-        return Ok(new { policyId, domains });
+        var result = await _dispatcher.DispatchAsync("policy.domain.getDomains", new Dictionary<string, object>
+        {
+            ["policyId"] = policyId
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policy/domain/policies/{domain}")]
-    public IActionResult GetPoliciesForDomain(string domain)
+    public async Task<IActionResult> GetPoliciesForDomain(string domain)
     {
-        var engine = new PolicyDomainBindingEngine(_policyDomainBindingStore);
-        var bindings = engine.GetPoliciesForDomain(domain);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("policy.domain.getPolicies", new Dictionary<string, object>
         {
-            domain,
-            policies = bindings.Select(b => new
-            {
-                policyId = b.PolicyId,
-                version = b.Version,
-                boundAt = b.BoundAt
-            })
+            ["domain"] = domain
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policy/monitoring")]
-    public IActionResult GetAllPolicyMonitoring()
+    public async Task<IActionResult> GetAllPolicyMonitoring()
     {
-        var engine = new PolicyMonitoringEngine(_policyMonitoringStore);
-        var metrics = engine.GetAllMetrics();
-        return Ok(new
-        {
-            metrics = metrics.Select(m => new
-            {
-                policyId = m.PolicyId,
-                domain = m.Domain,
-                evaluations = m.Evaluations,
-                allowedCount = m.AllowedCount,
-                deniedCount = m.DeniedCount,
-                lastEvaluatedAt = m.LastEvaluatedAt
-            })
-        });
+        var result = await _dispatcher.DispatchAsync("policy.monitoring.getAll", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policy/monitoring/{policyId}")]
-    public IActionResult GetPolicyMonitoring(string policyId)
+    public async Task<IActionResult> GetPolicyMonitoring(string policyId)
     {
-        var engine = new PolicyMonitoringEngine(_policyMonitoringStore);
-        var metrics = engine.GetPolicyMetrics(policyId);
-        if (metrics is null)
-            return NotFound(new { message = $"No monitoring data found for policy '{policyId}'." });
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("policy.monitoring.get", new Dictionary<string, object>
         {
-            policyId = metrics.PolicyId,
-            domain = metrics.Domain,
-            evaluations = metrics.Evaluations,
-            allowedCount = metrics.AllowedCount,
-            deniedCount = metrics.DeniedCount,
-            lastEvaluatedAt = metrics.LastEvaluatedAt
+            ["policyId"] = policyId
         });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policy/evidence")]
-    public IActionResult GetAllPolicyEvidence()
+    public async Task<IActionResult> GetAllPolicyEvidence()
     {
-        var engine = new PolicyEvidenceRecorderEngine(_policyEvidenceStore);
-        var records = engine.GetAllEvidence();
-        return Ok(new
-        {
-            evidence = records.Select(r => new
-            {
-                evidenceId = r.EvidenceId,
-                policyId = r.PolicyId,
-                actorId = r.ActorId,
-                domain = r.Domain,
-                operation = r.Operation,
-                allowed = r.Allowed,
-                reason = r.Reason,
-                recordedAt = r.RecordedAt
-            })
-        });
+        var result = await _dispatcher.DispatchAsync("policy.evidence.getAll", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("policy/evidence/{evidenceId}")]
-    public IActionResult GetPolicyEvidence(string evidenceId)
+    public async Task<IActionResult> GetPolicyEvidence(string evidenceId)
     {
-        var engine = new PolicyEvidenceRecorderEngine(_policyEvidenceStore);
-        var record = engine.GetEvidence(evidenceId);
-        if (record is null)
-            return NotFound(new { message = $"No evidence record found for '{evidenceId}'." });
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("policy.evidence.get", new Dictionary<string, object>
         {
-            evidenceId = record.EvidenceId,
-            policyId = record.PolicyId,
-            actorId = record.ActorId,
-            domain = record.Domain,
-            operation = record.Operation,
-            allowed = record.Allowed,
-            reason = record.Reason,
-            recordedAt = record.RecordedAt
+            ["evidenceId"] = evidenceId
         });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/evidence")]
-    public IActionResult RecordPolicyEvidence([FromBody] DebugRecordPolicyEvidenceDto dto)
+    public async Task<IActionResult> RecordPolicyEvidence([FromBody] DebugRecordPolicyEvidenceDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("policy.evidence.record", new Dictionary<string, object>
         {
-            var engine = new PolicyEvidenceRecorderEngine(_policyEvidenceStore);
-            var record = engine.RecordPolicyEvidence(
-                dto.PolicyId, dto.ActorId, dto.Domain, dto.Operation, dto.Allowed, dto.Reason);
-            return Ok(new
-            {
-                evidenceId = record.EvidenceId,
-                policyId = record.PolicyId,
-                actorId = record.ActorId,
-                domain = record.Domain,
-                operation = record.Operation,
-                allowed = record.Allowed,
-                reason = record.Reason,
-                recordedAt = record.RecordedAt
-            });
-        }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["policyId"] = dto.PolicyId,
+            ["actorId"] = dto.ActorId,
+            ["domain"] = dto.Domain,
+            ["operation"] = dto.Operation,
+            ["allowed"] = dto.Allowed,
+            ["reason"] = dto.Reason
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("policy/audit")]
-    public IActionResult AuditPolicy([FromBody] DebugAuditPolicyDto dto)
+    public async Task<IActionResult> AuditPolicy([FromBody] DebugAuditPolicyDto dto)
     {
-        var engine = new PolicyAuditEngine(_policyEvidenceStore);
-        var query = new Whycespace.System.Upstream.WhycePolicy.Models.PolicyAuditQuery(
-            dto.PolicyId, dto.ActorId, dto.Domain, dto.From, dto.To);
-        var report = engine.AuditPolicy(query);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("policy.audit", new Dictionary<string, object>
         {
-            evidenceRecords = report.EvidenceRecords.Select(r => new
-            {
-                evidenceId = r.EvidenceId,
-                policyId = r.PolicyId,
-                actorId = r.ActorId,
-                domain = r.Domain,
-                operation = r.Operation,
-                allowed = r.Allowed,
-                reason = r.Reason,
-                recordedAt = r.RecordedAt
-            }),
-            totalRecords = report.TotalRecords,
-            generatedAt = report.GeneratedAt
+            ["policyId"] = dto.PolicyId!,
+            ["actorId"] = dto.ActorId!,
+            ["domain"] = dto.Domain!,
+            ["from"] = dto.From!,
+            ["to"] = dto.To!
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("audit")]
-    public IActionResult GetAllAuditEvents()
+    public async Task<IActionResult> GetAllAuditEvents()
     {
-        var engine = new IdentityAuditEngine(_identityRegistry, _identityAuditStore);
-        var events = engine.GetAllAuditEvents();
-        return Ok(new
-        {
-            events = events.Select(e => new
-            {
-                eventId = e.EventId,
-                identityId = e.IdentityId,
-                eventType = e.EventType,
-                description = e.Description,
-                timestamp = e.Timestamp
-            })
-        });
+        var result = await _dispatcher.DispatchAsync("identity.audit.getAll", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     // WhyceChain — Chain Ledger (Phase 2.0.40)
@@ -1984,82 +1645,67 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpPost("governance/guardians/register")]
-    public IActionResult RegisterGuardian([FromBody] DebugRegisterGuardianDto dto)
+    public async Task<IActionResult> RegisterGuardian([FromBody] DebugRegisterGuardianDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("governance.guardian.register", new Dictionary<string, object>
         {
-            var engine = new GuardianRegistryEngine(_guardianRegistryStore, _identityRegistry);
-            var guardian = engine.RegisterGuardian(dto.GuardianId, dto.IdentityId, dto.Name, dto.Roles);
-            return Ok(new
-            {
-                guardian.GuardianId,
-                guardian.IdentityId,
-                guardian.Name,
-                status = guardian.Status.ToString(),
-                guardian.Roles,
-                guardian.CreatedAt,
-                guardian.ActivatedAt
-            });
-        }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["guardianId"] = dto.GuardianId,
+            ["identityId"] = dto.IdentityId,
+            ["name"] = dto.Name,
+            ["roles"] = dto.Roles
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("governance/guardians/{id}/activate")]
-    public IActionResult ActivateGuardian(string id)
+    public async Task<IActionResult> ActivateGuardian(string id)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("governance.guardian.activate", new Dictionary<string, object>
         {
-            var engine = new GuardianRegistryEngine(_guardianRegistryStore, _identityRegistry);
-            var guardian = engine.ActivateGuardian(id);
-            return Ok(new
-            {
-                guardian.GuardianId,
-                guardian.IdentityId,
-                guardian.Name,
-                status = guardian.Status.ToString(),
-                guardian.Roles,
-                guardian.CreatedAt,
-                guardian.ActivatedAt
-            });
-        }
-        catch (KeyNotFoundException) { return NotFound(new { error = $"Guardian not found: {id}" }); }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["guardianId"] = id
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("governance/guardians/{id}/deactivate")]
-    public IActionResult DeactivateGuardian(string id)
+    public async Task<IActionResult> DeactivateGuardian(string id)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("governance.guardian.deactivate", new Dictionary<string, object>
         {
-            var engine = new GuardianRegistryEngine(_guardianRegistryStore, _identityRegistry);
-            var guardian = engine.DeactivateGuardian(id);
-            return Ok(new
-            {
-                guardian.GuardianId,
-                guardian.IdentityId,
-                guardian.Name,
-                status = guardian.Status.ToString(),
-                guardian.Roles,
-                guardian.CreatedAt,
-                guardian.ActivatedAt
-            });
-        }
-        catch (KeyNotFoundException) { return NotFound(new { error = $"Guardian not found: {id}" }); }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["guardianId"] = id
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     // Governance — Role Engine (Phase 2.0.55)
 
     [HttpPost("governance/roles")]
-    public IActionResult CreateGovernanceRole([FromBody] DebugCreateGovernanceRoleDto dto)
+    public async Task<IActionResult> CreateGovernanceRole([FromBody] DebugCreateGovernanceRoleDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("governance.role.create", new Dictionary<string, object>
         {
-            var engine = new GovernanceRoleEngine(_governanceRoleStore, _guardianRegistryStore);
-            var role = engine.CreateRole(dto.RoleId, dto.Name, dto.Description, dto.Permissions);
-            return Ok(new { role.RoleId, role.Name, role.Description, role.Permissions });
-        }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["roleId"] = dto.RoleId,
+            ["name"] = dto.Name,
+            ["description"] = dto.Description,
+            ["permissions"] = dto.Permissions
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("governance/roles")]
@@ -2073,746 +1719,583 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpPost("governance/guardians/{id}/roles/assign")]
-    public IActionResult AssignGovernanceRoleToGuardian(string id, [FromBody] DebugAssignGovernanceRoleDto dto)
+    public async Task<IActionResult> AssignGovernanceRoleToGuardian(string id, [FromBody] DebugAssignGovernanceRoleDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("governance.role.assign", new Dictionary<string, object>
         {
-            var engine = new GovernanceRoleEngine(_governanceRoleStore, _guardianRegistryStore);
-            engine.AssignRole(id, dto.RoleId);
-            var roles = engine.GetGuardianRoles(id);
-            return Ok(new
-            {
-                guardianId = id,
-                roles = roles.Select(r => new { r.RoleId, r.Name, r.Description, r.Permissions })
-            });
-        }
-        catch (KeyNotFoundException ex) { return NotFound(new { error = ex.Message }); }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["guardianId"] = id,
+            ["roleId"] = dto.RoleId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("governance/guardians/{id}/roles/revoke")]
-    public IActionResult RevokeGovernanceRoleFromGuardian(string id, [FromBody] DebugAssignGovernanceRoleDto dto)
+    public async Task<IActionResult> RevokeGovernanceRoleFromGuardian(string id, [FromBody] DebugAssignGovernanceRoleDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("governance.role.revoke", new Dictionary<string, object>
         {
-            var engine = new GovernanceRoleEngine(_governanceRoleStore, _guardianRegistryStore);
-            engine.RevokeRole(id, dto.RoleId);
-            var roles = engine.GetGuardianRoles(id);
-            return Ok(new
-            {
-                guardianId = id,
-                roles = roles.Select(r => new { r.RoleId, r.Name, r.Description, r.Permissions })
-            });
-        }
-        catch (KeyNotFoundException ex) { return NotFound(new { error = ex.Message }); }
-        catch (Exception ex) { return BadRequest(new { message = ex.Message }); }
+            ["guardianId"] = id,
+            ["roleId"] = dto.RoleId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("governance/guardians/{id}/roles")]
-    public IActionResult GetGuardianGovernanceRoles(string id)
+    public async Task<IActionResult> GetGuardianGovernanceRoles(string id)
     {
-        var engine = new GovernanceRoleEngine(_governanceRoleStore, _guardianRegistryStore);
-        var roles = engine.GetGuardianRoles(id);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("governance.role.getGuardianRoles", new Dictionary<string, object>
         {
-            guardianId = id,
-            roles = roles.Select(r => new { r.RoleId, r.Name, r.Description, r.Permissions })
+            ["guardianId"] = id
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("workflows/definitions")]
-    public IActionResult GetWorkflowDefinitions()
+    public async Task<IActionResult> GetWorkflowDefinitions()
     {
-        var engine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
-        var workflows = engine.ListWorkflowDefinitions();
-        return Ok(new
-        {
-            workflows = workflows.Select(w => new
-            {
-                workflowId = w.WorkflowId,
-                name = w.Name,
-                description = w.Description,
-                version = w.Version,
-                steps = w.Steps.Select(s => new { s.StepId, s.Name, s.EngineName, s.NextSteps }),
-                createdAt = w.CreatedAt
-            })
-        });
+        var result = await _dispatcher.DispatchAsync("wss.definition.list", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("workflows/definitions/{id}")]
-    public IActionResult GetWorkflowDefinition(string id)
+    public async Task<IActionResult> GetWorkflowDefinition(string id)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.definition.get", new Dictionary<string, object>
         {
-            var engine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
-            var workflow = engine.GetWorkflowDefinition(id);
-            return Ok(new
-            {
-                workflowId = workflow.WorkflowId,
-                name = workflow.Name,
-                description = workflow.Description,
-                version = workflow.Version,
-                steps = workflow.Steps.Select(s => new { s.StepId, s.Name, s.EngineName, s.NextSteps }),
-                createdAt = workflow.CreatedAt
-            });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Workflow definition not found: '{id}'" });
-        }
+            ["workflowId"] = id
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("workflows/definitions/register")]
-    public IActionResult RegisterWorkflowDefinition([FromBody] DebugRegisterWorkflowDefinitionDto dto)
+    public async Task<IActionResult> RegisterWorkflowDefinition([FromBody] DebugRegisterWorkflowDefinitionDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.definition.register", new Dictionary<string, object>
         {
-            var engine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
-            var steps = dto.Steps.Select(s => new Whycespace.Contracts.Workflows.WorkflowStep(
-                s.StepId, s.Name, s.EngineName, s.NextSteps)).ToList();
-            var workflow = engine.RegisterWorkflowDefinition(dto.WorkflowId, dto.Name, dto.Description, dto.Version, steps);
-            return Ok(new
-            {
-                workflowId = workflow.WorkflowId,
-                name = workflow.Name,
-                description = workflow.Description,
-                version = workflow.Version,
-                steps = workflow.Steps.Select(s => new { s.StepId, s.Name, s.EngineName, s.NextSteps }),
-                createdAt = workflow.CreatedAt
-            });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+            ["workflowId"] = dto.WorkflowId,
+            ["name"] = dto.Name,
+            ["description"] = dto.Description,
+            ["version"] = dto.Version,
+            ["steps"] = dto.Steps
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("workflows/graph/{workflowId}")]
-    public IActionResult GetWorkflowGraph(string workflowId)
+    public async Task<IActionResult> GetWorkflowGraph(string workflowId)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.graph.build", new Dictionary<string, object>
         {
-            var defEngine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
-            var workflow = defEngine.GetWorkflowDefinition(workflowId);
-            var graphEngine = new Whycespace.Engines.T1M.WSS.Graph.WorkflowGraphEngine();
-            var stepDefs = workflow.Steps.Select(s => new Whycespace.System.Midstream.WSS.Models.WorkflowStepDefinition(
-                s.StepId, s.Name, s.EngineName, "", s.NextSteps, null)).ToList();
-            var graph = graphEngine.BuildGraph(stepDefs);
-            return Ok(new
-            {
-                workflowId = workflowId,
-                transitions = graph.Transitions,
-                startSteps = graphEngine.GetStartSteps(graph)
-            });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Workflow definition not found: '{workflowId}'" });
-        }
+            ["workflowId"] = workflowId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("workflows/graph/validate")]
-    public IActionResult ValidateWorkflowGraph([FromBody] DebugValidateGraphDto dto)
+    public async Task<IActionResult> ValidateWorkflowGraph([FromBody] DebugValidateGraphDto dto)
     {
-        var graphEngine = new Whycespace.Engines.T1M.WSS.Graph.WorkflowGraphEngine();
-        var transitions = dto.Transitions.ToDictionary(
-            kv => kv.Key,
-            kv => (IReadOnlyList<string>)kv.Value);
-        var graph = new Whycespace.System.Midstream.WSS.Models.WorkflowGraph(dto.WorkflowId, transitions);
-        var violations = graphEngine.ValidateGraph(graph);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("wss.graph.validate", new Dictionary<string, object>
         {
-            workflowId = dto.WorkflowId,
-            isValid = violations.Count == 0,
-            violations = violations
+            ["workflowId"] = dto.WorkflowId,
+            ["transitions"] = dto.Transitions
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("wss/templates")]
-    public IActionResult GetWssTemplates()
+    public async Task<IActionResult> GetWssTemplates()
     {
-        var graphEngine = new WorkflowGraphEngine();
-        var engine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
-        var templates = engine.ListTemplates();
-        return Ok(new
-        {
-            templates = templates.Select(t => new
-            {
-                templateId = t.TemplateId,
-                name = t.Name,
-                version = t.Version,
-                description = t.Description,
-                stepCount = t.Steps.Count
-            })
-        });
+        var result = await _dispatcher.DispatchAsync("wss.template.list", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("wss/templates/{id}")]
-    public IActionResult GetWssTemplate(string id)
+    public async Task<IActionResult> GetWssTemplate(string id)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.template.get", new Dictionary<string, object>
         {
-            var graphEngine = new WorkflowGraphEngine();
-            var engine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
-            var template = engine.GetTemplate(id);
-            return Ok(new
-            {
-                templateId = template.TemplateId,
-                name = template.Name,
-                version = template.Version,
-                description = template.Description,
-                steps = template.Steps.Select(s => new
-                {
-                    stepId = s.StepId,
-                    description = s.Description,
-                    engine = s.Engine,
-                    command = s.Command
-                }),
-                graph = template.Graph.Transitions
-            });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Workflow template not found: '{id}'" });
-        }
+            ["templateId"] = id
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/templates/register")]
-    public IActionResult RegisterWssTemplate([FromBody] DebugRegisterWorkflowTemplateDto dto)
+    public async Task<IActionResult> RegisterWssTemplate([FromBody] DebugRegisterWorkflowTemplateDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.template.register", new Dictionary<string, object>
         {
-            var graphEngine = new WorkflowGraphEngine();
-            var engine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
+            ["templateId"] = dto.TemplateId,
+            ["name"] = dto.Name,
+            ["version"] = dto.Version,
+            ["description"] = dto.Description,
+            ["steps"] = dto.Steps,
+            ["transitions"] = dto.Transitions
+        });
 
-            var steps = dto.Steps.Select(s => new Whycespace.System.Midstream.WSS.Models.WorkflowTemplateStep(
-                s.StepId, s.Description, s.Engine, s.Command,
-                s.Parameters ?? new Dictionary<string, string>(),
-                null)).ToList();
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
 
-            var transitions = dto.Transitions.ToDictionary(
-                kvp => kvp.Key,
-                kvp => (IReadOnlyList<string>)kvp.Value.AsReadOnly());
-
-            var graph = new Whycespace.System.Midstream.WSS.Models.WorkflowGraph(
-                dto.TemplateId, transitions);
-
-            var template = new Whycespace.System.Midstream.WSS.Models.WorkflowTemplate(
-                dto.TemplateId, dto.Name, dto.Version, dto.Description, steps, graph);
-
-            engine.RegisterTemplate(template);
-
-            return Ok(new
-            {
-                templateId = template.TemplateId,
-                name = template.Name,
-                version = template.Version,
-                stepCount = template.Steps.Count
-            });
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/templates/generate")]
-    public IActionResult GenerateWssWorkflowFromTemplate([FromBody] DebugGenerateWorkflowFromTemplateDto dto)
+    public async Task<IActionResult> GenerateWssWorkflowFromTemplate([FromBody] DebugGenerateWorkflowFromTemplateDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.template.generate", new Dictionary<string, object>
         {
-            var graphEngine = new WorkflowGraphEngine();
-            var engine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
-            var definition = engine.GenerateWorkflowDefinition(dto.TemplateId, dto.Parameters);
+            ["templateId"] = dto.TemplateId,
+            ["parameters"] = dto.Parameters
+        });
 
-            return Ok(new
-            {
-                workflowId = definition.WorkflowId,
-                name = definition.Name,
-                description = definition.Description,
-                version = definition.Version,
-                steps = definition.Steps.Select(s => new
-                {
-                    stepId = s.StepId,
-                    name = s.Name,
-                    engineName = s.EngineName,
-                    nextSteps = s.NextSteps
-                }),
-                createdAt = definition.CreatedAt
-            });
-        }
-        catch (KeyNotFoundException ex)
-        {
-            return NotFound(new { message = ex.Message });
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("wss/registry")]
-    public IActionResult GetWssRegistry()
+    public async Task<IActionResult> GetWssRegistry()
     {
-        var workflows = _workflowRegistry.ListWorkflows();
-        return Ok(new
-        {
-            workflows = workflows.Select(w => new
-            {
-                workflowId = w.WorkflowId,
-                name = w.Name,
-                version = w.Version,
-                description = w.Description,
-                stepCount = w.Steps.Count,
-                createdAt = w.CreatedAt
-            })
-        });
+        var result = await _dispatcher.DispatchAsync("wss.registry.list", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("wss/registry/{id}")]
-    public IActionResult GetWssRegistryEntry(string id)
+    public async Task<IActionResult> GetWssRegistryEntry(string id)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.registry.get", new Dictionary<string, object>
         {
-            var workflow = _workflowRegistry.GetWorkflow(id);
-            return Ok(new
-            {
-                workflowId = workflow.WorkflowId,
-                name = workflow.Name,
-                version = workflow.Version,
-                description = workflow.Description,
-                steps = workflow.Steps.Select(s => new
-                {
-                    stepId = s.StepId,
-                    name = s.Name,
-                    engineName = s.EngineName,
-                    nextSteps = s.NextSteps
-                }),
-                createdAt = workflow.CreatedAt
-            });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Workflow not registered: '{id}'" });
-        }
+            ["workflowId"] = id
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/registry/register")]
-    public IActionResult RegisterWssWorkflow([FromBody] DebugRegisterWorkflowDefinitionDto dto)
+    public async Task<IActionResult> RegisterWssWorkflow([FromBody] DebugRegisterWorkflowDefinitionDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.registry.register", new Dictionary<string, object>
         {
-            var steps = dto.Steps.Select(s =>
-                new Whycespace.Contracts.Workflows.WorkflowStep(
-                    s.StepId, s.Name, s.EngineName, s.NextSteps)).ToList();
+            ["workflowId"] = dto.WorkflowId,
+            ["name"] = dto.Name,
+            ["description"] = dto.Description,
+            ["version"] = dto.Version,
+            ["steps"] = dto.Steps
+        });
 
-            var definition = new Whycespace.System.Midstream.WSS.Models.WorkflowDefinition(
-                dto.WorkflowId, dto.Name, dto.Description, dto.Version,
-                steps, DateTimeOffset.UtcNow);
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
 
-            _workflowRegistry.RegisterWorkflow(definition);
-
-            return Ok(new
-            {
-                workflowId = definition.WorkflowId,
-                name = definition.Name,
-                version = definition.Version,
-                stepCount = definition.Steps.Count,
-                createdAt = definition.CreatedAt
-            });
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return Ok(result.Data);
     }
 
     [HttpDelete("wss/registry/{id}")]
-    public IActionResult RemoveWssWorkflow(string id)
+    public async Task<IActionResult> RemoveWssWorkflow(string id)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.registry.remove", new Dictionary<string, object>
         {
-            _workflowRegistry.RemoveWorkflow(id);
-            return Ok(new { message = $"Workflow removed: {id}" });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Workflow not found: '{id}'" });
-        }
+            ["workflowId"] = id
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("wss/versions/{workflowId}")]
-    public IActionResult GetWssVersions(string workflowId)
+    public async Task<IActionResult> GetWssVersions(string workflowId)
     {
-        var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
-        var versions = engine.ListWorkflowVersions(workflowId);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("wss.version.list", new Dictionary<string, object>
         {
-            workflowId,
-            versions = versions.Select(v => new
-            {
-                version = v.Version,
-                name = v.Name,
-                description = v.Description,
-                createdAt = v.CreatedAt
-            })
+            ["workflowId"] = workflowId
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("wss/versions/{workflowId}/{version}")]
-    public IActionResult GetWssVersion(string workflowId, string version)
+    public async Task<IActionResult> GetWssVersion(string workflowId, string version)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.version.get", new Dictionary<string, object>
         {
-            var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
-            var workflow = engine.GetWorkflowVersion(workflowId, version);
-            return Ok(new
-            {
-                workflowId = workflow.WorkflowId,
-                name = workflow.Name,
-                version = workflow.Version,
-                description = workflow.Description,
-                steps = workflow.Steps.Select(s => new { s.StepId, s.Name, s.EngineName, s.NextSteps }),
-                createdAt = workflow.CreatedAt
-            });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Version '{version}' not found for workflow: '{workflowId}'" });
-        }
+            ["workflowId"] = workflowId,
+            ["version"] = version
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("wss/versions/{workflowId}/latest")]
-    public IActionResult GetWssLatestVersion(string workflowId)
+    public async Task<IActionResult> GetWssLatestVersion(string workflowId)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.version.latest", new Dictionary<string, object>
         {
-            var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
-            var workflow = engine.GetLatestWorkflow(workflowId);
-            return Ok(new
-            {
-                workflowId = workflow.WorkflowId,
-                name = workflow.Name,
-                version = workflow.Version,
-                description = workflow.Description,
-                createdAt = workflow.CreatedAt
-            });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"No versions found for workflow: '{workflowId}'" });
-        }
+            ["workflowId"] = workflowId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/versions/register")]
-    public IActionResult RegisterWssVersion([FromBody] DebugRegisterWorkflowVersionDto dto)
+    public async Task<IActionResult> RegisterWssVersion([FromBody] DebugRegisterWorkflowVersionDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.version.register", new Dictionary<string, object>
         {
-            var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
-            var steps = dto.Steps.Select(s =>
-                new Whycespace.Contracts.Workflows.WorkflowStep(s.StepId, s.Name, s.EngineName, s.NextSteps)).ToList();
+            ["workflowId"] = dto.WorkflowId,
+            ["name"] = dto.Name,
+            ["description"] = dto.Description,
+            ["version"] = dto.Version,
+            ["steps"] = dto.Steps
+        });
 
-            var workflow = new Whycespace.System.Midstream.WSS.Models.WorkflowDefinition(
-                dto.WorkflowId, dto.Name, dto.Description, dto.Version, steps, DateTimeOffset.UtcNow);
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
 
-            var result = engine.RegisterWorkflowVersion(workflow);
-            return Ok(new
-            {
-                workflowId = result.WorkflowId,
-                name = result.Name,
-                version = result.Version,
-                createdAt = result.CreatedAt
-            });
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return Ok(result.Data);
     }
-
-    private WorkflowValidationOrchestrator CreateValidationOrchestrator()
-    {
-        var graphEngine = new WorkflowGraphEngine();
-        var definitionEngine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
-        var templateEngine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
-        var versioningEngine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
-        return new WorkflowValidationOrchestrator(definitionEngine, graphEngine, templateEngine, versioningEngine);
-    }
-
-    private static object FormatValidationResult(WorkflowValidationResult result) => new
-    {
-        isValid = result.IsValid,
-        errors = result.Errors.Select(e => new { code = e.Code, message = e.Message, component = e.Component, stepId = e.StepId }),
-        warnings = result.Warnings.Select(w => new { code = w.Code, message = w.Message, component = w.Component, stepId = w.StepId })
-    };
 
     [HttpPost("wss/validation/workflow")]
-    public IActionResult ValidateWssWorkflow([FromBody] DebugRegisterWorkflowDefinitionDto dto)
+    public async Task<IActionResult> ValidateWssWorkflow([FromBody] DebugRegisterWorkflowDefinitionDto dto)
     {
-        var steps = dto.Steps.Select(s =>
-            new Whycespace.Contracts.Workflows.WorkflowStep(s.StepId, s.Name, s.EngineName, s.NextSteps)).ToList();
+        var result = await _dispatcher.DispatchAsync("wss.validation.workflow", new Dictionary<string, object>
+        {
+            ["workflowId"] = dto.WorkflowId,
+            ["name"] = dto.Name,
+            ["description"] = dto.Description,
+            ["version"] = dto.Version,
+            ["steps"] = dto.Steps
+        });
 
-        var workflow = new Whycespace.System.Midstream.WSS.Models.WorkflowDefinition(
-            dto.WorkflowId, dto.Name, dto.Description, dto.Version, steps, DateTimeOffset.UtcNow);
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
 
-        var orchestrator = CreateValidationOrchestrator();
-        var result = orchestrator.ValidateCompleteWorkflow(workflow);
-        return Ok(FormatValidationResult(result));
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/validation/template")]
-    public IActionResult ValidateWssTemplate([FromBody] DebugValidateWorkflowTemplateDto dto)
+    public async Task<IActionResult> ValidateWssTemplate([FromBody] DebugValidateWorkflowTemplateDto dto)
     {
-        var orchestrator = CreateValidationOrchestrator();
-        var result = orchestrator.ValidateWorkflowTemplate(dto.TemplateId, dto.Parameters);
-        return Ok(FormatValidationResult(result));
+        var result = await _dispatcher.DispatchAsync("wss.validation.template", new Dictionary<string, object>
+        {
+            ["templateId"] = dto.TemplateId,
+            ["parameters"] = dto.Parameters
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/validation/version")]
-    public IActionResult ValidateWssVersion([FromBody] DebugValidateWorkflowVersionDto dto)
+    public async Task<IActionResult> ValidateWssVersion([FromBody] DebugValidateWorkflowVersionDto dto)
     {
-        var orchestrator = CreateValidationOrchestrator();
-        var result = orchestrator.ValidateWorkflowVersion(dto.WorkflowId, dto.Version);
-        return Ok(FormatValidationResult(result));
-    }
+        var result = await _dispatcher.DispatchAsync("wss.validation.version", new Dictionary<string, object>
+        {
+            ["workflowId"] = dto.WorkflowId,
+            ["version"] = dto.Version
+        });
 
-    private WorkflowDependencyAnalyzer CreateDependencyAnalyzer()
-    {
-        return new WorkflowDependencyAnalyzer(_workflowDefinitionStore);
-    }
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
 
-    private static object FormatDependencyResult(WorkflowDependencyResult result) => new
-    {
-        workflowId = result.WorkflowId,
-        hasIssues = result.HasIssues,
-        dependencies = result.Dependencies,
-        executionOrder = result.ExecutionOrder,
-        missingDependencies = result.MissingDependencies,
-        circularDependencies = result.CircularDependencies,
-        externalWorkflowDependencies = result.ExternalWorkflowDependencies
-    };
+        return Ok(result.Data);
+    }
 
     [HttpPost("wss/dependency/analyze")]
-    public IActionResult AnalyzeWssDependencies([FromBody] DebugRegisterWorkflowDefinitionDto dto)
+    public async Task<IActionResult> AnalyzeWssDependencies([FromBody] DebugRegisterWorkflowDefinitionDto dto)
     {
-        var steps = dto.Steps.Select(s =>
-            new Whycespace.Contracts.Workflows.WorkflowStep(s.StepId, s.Name, s.EngineName, s.NextSteps)).ToList();
+        var result = await _dispatcher.DispatchAsync("wss.dependency.analyze", new Dictionary<string, object>
+        {
+            ["workflowId"] = dto.WorkflowId,
+            ["name"] = dto.Name,
+            ["description"] = dto.Description,
+            ["version"] = dto.Version,
+            ["steps"] = dto.Steps
+        });
 
-        var workflow = new Whycespace.System.Midstream.WSS.Models.WorkflowDefinition(
-            dto.WorkflowId, dto.Name, dto.Description, dto.Version, steps, DateTimeOffset.UtcNow);
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
 
-        var analyzer = CreateDependencyAnalyzer();
-        var result = analyzer.AnalyzeWorkflowDependencies(workflow);
-        return Ok(FormatDependencyResult(result));
+        return Ok(result.Data);
     }
 
     [HttpGet("wss/dependency/{workflowId}")]
-    public IActionResult GetWssDependencies(string workflowId)
+    public async Task<IActionResult> GetWssDependencies(string workflowId)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.dependency.get", new Dictionary<string, object>
         {
-            var workflow = _workflowDefinitionStore.Get(workflowId);
-            var analyzer = CreateDependencyAnalyzer();
-            var result = analyzer.AnalyzeWorkflowDependencies(workflow);
-            return Ok(FormatDependencyResult(result));
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Workflow not found: '{workflowId}'" });
-        }
+            ["workflowId"] = workflowId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/dependency/resolve")]
-    public IActionResult ResolveWssDependencies([FromBody] DebugRegisterWorkflowDefinitionDto dto)
+    public async Task<IActionResult> ResolveWssDependencies([FromBody] DebugRegisterWorkflowDefinitionDto dto)
     {
-        var steps = dto.Steps.Select(s =>
-            new Whycespace.Contracts.Workflows.WorkflowStep(s.StepId, s.Name, s.EngineName, s.NextSteps)).ToList();
-
-        var workflow = new Whycespace.System.Midstream.WSS.Models.WorkflowDefinition(
-            dto.WorkflowId, dto.Name, dto.Description, dto.Version, steps, DateTimeOffset.UtcNow);
-
-        var analyzer = CreateDependencyAnalyzer();
-        var order = analyzer.ResolveExecutionOrder(workflow);
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("wss.dependency.resolve", new Dictionary<string, object>
         {
-            workflowId = dto.WorkflowId,
-            executionOrder = order
+            ["workflowId"] = dto.WorkflowId,
+            ["name"] = dto.Name,
+            ["description"] = dto.Description,
+            ["version"] = dto.Version,
+            ["steps"] = dto.Steps
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     // --- WSS Engine Mapping (Phase 2.1.8) ---
 
     [HttpGet("wss/engines")]
-    public IActionResult GetWssEngines()
+    public async Task<IActionResult> GetWssEngines()
     {
-        var mapper = new WorkflowStepEngineMapper(_engineMappingStore);
-        var engines = mapper.ListEngines();
-        return Ok(new { engines });
+        var result = await _dispatcher.DispatchAsync("wss.engine.list", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/engines/register")]
-    public IActionResult RegisterWssEngine([FromBody] DebugRegisterEngineMappingDto dto)
+    public async Task<IActionResult> RegisterWssEngine([FromBody] DebugRegisterEngineMappingDto dto)
     {
-        var mapper = new WorkflowStepEngineMapper(_engineMappingStore);
-        mapper.RegisterEngine(dto.EngineName, dto.RuntimeIdentifier);
-        return Ok(new { message = $"Engine '{dto.EngineName}' mapped to '{dto.RuntimeIdentifier}'" });
+        var result = await _dispatcher.DispatchAsync("wss.engine.register", new Dictionary<string, object>
+        {
+            ["engineName"] = dto.EngineName,
+            ["runtimeIdentifier"] = dto.RuntimeIdentifier
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("wss/engines/{engineName}")]
-    public IActionResult ResolveWssEngine(string engineName)
+    public async Task<IActionResult> ResolveWssEngine(string engineName)
     {
-        var mapper = new WorkflowStepEngineMapper(_engineMappingStore);
-        if (!mapper.EngineExists(engineName))
-            return NotFound(new { message = $"Engine mapping not found: '{engineName}'" });
+        var result = await _dispatcher.DispatchAsync("wss.engine.resolve", new Dictionary<string, object>
+        {
+            ["engineName"] = engineName
+        });
 
-        var runtimeIdentifier = mapper.ResolveEngine(engineName);
-        return Ok(new { engineName, runtimeIdentifier });
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     // --- WSS Instance Registry (Phase 2.1.9) ---
 
     [HttpGet("wss/instances")]
-    public IActionResult GetWssInstances()
+    public async Task<IActionResult> GetWssInstances()
     {
-        var registry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(_instanceRegistryStore);
-        var instances = registry.ListInstances();
-        return Ok(new { count = instances.Count, instances });
+        var result = await _dispatcher.DispatchAsync("wss.instance.list", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("wss/instances/{instanceId}")]
-    public IActionResult GetWssInstance(string instanceId)
+    public async Task<IActionResult> GetWssInstance(string instanceId)
     {
-        var registry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(_instanceRegistryStore);
-        try
+        var result = await _dispatcher.DispatchAsync("wss.instance.get", new Dictionary<string, object>
         {
-            var instance = registry.GetInstance(instanceId);
-            return Ok(instance);
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Instance not found: '{instanceId}'" });
-        }
+            ["instanceId"] = instanceId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/instances/create")]
-    public IActionResult CreateWssInstance([FromBody] DebugCreateWssInstanceDto dto)
+    public async Task<IActionResult> CreateWssInstance([FromBody] DebugCreateWssInstanceDto dto)
     {
-        var registry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(_instanceRegistryStore);
-        var instance = registry.CreateInstance(dto.WorkflowId, dto.Version, dto.Context);
-        return Ok(instance);
+        var result = await _dispatcher.DispatchAsync("wss.instance.create", new Dictionary<string, object>
+        {
+            ["workflowId"] = dto.WorkflowId,
+            ["version"] = dto.Version,
+            ["context"] = dto.Context!
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/instances/update")]
-    public IActionResult UpdateWssInstance([FromBody] DebugUpdateWssInstanceDto dto)
+    public async Task<IActionResult> UpdateWssInstance([FromBody] DebugUpdateWssInstanceDto dto)
     {
-        var registry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(_instanceRegistryStore);
-        try
+        var result = await _dispatcher.DispatchAsync("wss.instance.update", new Dictionary<string, object>
         {
-            var updated = registry.UpdateInstanceState(dto.InstanceId, dto.CurrentStep, dto.Status);
-            return Ok(updated);
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Instance not found: '{dto.InstanceId}'" });
-        }
+            ["instanceId"] = dto.InstanceId,
+            ["currentStep"] = dto.CurrentStep,
+            ["status"] = dto.Status
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpDelete("wss/instances/{instanceId}")]
-    public IActionResult RemoveWssInstance(string instanceId)
+    public async Task<IActionResult> RemoveWssInstance(string instanceId)
     {
-        var registry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(_instanceRegistryStore);
-        try
+        var result = await _dispatcher.DispatchAsync("wss.instance.remove", new Dictionary<string, object>
         {
-            registry.RemoveInstance(instanceId);
-            return Ok(new { message = $"Instance '{instanceId}' removed" });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Instance not found: '{instanceId}'" });
-        }
+            ["instanceId"] = instanceId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     // --- WSS Workflow State Store (Phase 2.1.10) ---
 
     [HttpGet("wss/state")]
-    public IActionResult GetWssActiveStates()
+    public async Task<IActionResult> GetWssActiveStates()
     {
-        var states = _wssWorkflowStateStore.ListActiveStates();
-        return Ok(new { count = states.Count, states });
+        var result = await _dispatcher.DispatchAsync("wss.state.list", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("wss/state/{instanceId}")]
-    public IActionResult GetWssState(string instanceId)
+    public async Task<IActionResult> GetWssState(string instanceId)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.state.get", new Dictionary<string, object>
         {
-            var state = _wssWorkflowStateStore.GetState(instanceId);
-            return Ok(state);
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Workflow state not found: '{instanceId}'" });
-        }
+            ["instanceId"] = instanceId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/state/save")]
-    public IActionResult SaveWssState([FromBody] DebugSaveWssStateDto dto)
+    public async Task<IActionResult> SaveWssState([FromBody] DebugSaveWssStateDto dto)
     {
-        var state = new WorkflowState(
-            dto.InstanceId,
-            dto.WorkflowId,
-            dto.WorkflowVersion,
-            string.Empty,
-            new List<string>(),
-            WorkflowInstanceStatus.Created,
-            DateTimeOffset.UtcNow,
-            DateTimeOffset.UtcNow,
-            dto.ExecutionContext ?? new Dictionary<string, object>()
-        );
+        var result = await _dispatcher.DispatchAsync("wss.state.save", new Dictionary<string, object>
+        {
+            ["instanceId"] = dto.InstanceId,
+            ["workflowId"] = dto.WorkflowId,
+            ["workflowVersion"] = dto.WorkflowVersion,
+            ["executionContext"] = dto.ExecutionContext!
+        });
 
-        _wssWorkflowStateStore.SaveState(state);
-        return Ok(state);
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/state/update")]
-    public IActionResult UpdateWssState([FromBody] DebugUpdateWssStateDto dto)
+    public async Task<IActionResult> UpdateWssState([FromBody] DebugUpdateWssStateDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.state.update", new Dictionary<string, object>
         {
-            var updated = _wssWorkflowStateStore.UpdateState(dto.InstanceId, dto.CurrentStep, dto.Status);
-            return Ok(updated);
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Workflow state not found: '{dto.InstanceId}'" });
-        }
+            ["instanceId"] = dto.InstanceId,
+            ["currentStep"] = dto.CurrentStep,
+            ["status"] = dto.Status
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpDelete("wss/state/{instanceId}")]
-    public IActionResult DeleteWssState(string instanceId)
+    public async Task<IActionResult> DeleteWssState(string instanceId)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.state.delete", new Dictionary<string, object>
         {
-            _wssWorkflowStateStore.DeleteState(instanceId);
-            return Ok(new { message = $"Workflow state '{instanceId}' deleted" });
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound(new { message = $"Workflow state not found: '{instanceId}'" });
-        }
+            ["instanceId"] = instanceId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     // --- WSS Workflow Event Router (Phase 2.1.11) ---
@@ -2820,49 +2303,76 @@ public sealed class DebugController : ControllerBase
     [HttpPost("wss/events/publish")]
     public async Task<IActionResult> PublishWssEvent([FromBody] DebugPublishWssEventDto dto)
     {
-        await _wssWorkflowEventRouter.PublishEvent(
-            dto.EventType,
-            dto.WorkflowId,
-            dto.InstanceId,
-            dto.Payload);
-
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("wss.events.publish", new Dictionary<string, object>
         {
-            message = "Event published",
-            eventType = dto.EventType,
-            workflowId = dto.WorkflowId,
-            instanceId = dto.InstanceId
+            ["eventType"] = dto.EventType,
+            ["workflowId"] = dto.WorkflowId,
+            ["instanceId"] = dto.InstanceId,
+            ["payload"] = dto.Payload!
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpGet("wss/events/types")]
-    public IActionResult GetWssEventTypes()
+    public async Task<IActionResult> GetWssEventTypes()
     {
-        return Ok(new { eventTypes = WorkflowEventTypes.All });
+        var result = await _dispatcher.DispatchAsync("wss.events.types", new Dictionary<string, object>());
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     // --- WSS Workflow Retry Policy Engine (Phase 2.1.12) ---
 
     [HttpGet("wss/retry/{instanceId}/{stepId}")]
-    public IActionResult GetWssRetryCount(string instanceId, string stepId)
+    public async Task<IActionResult> GetWssRetryCount(string instanceId, string stepId)
     {
-        var count = _workflowRetryPolicyEngine.GetRetryCount(instanceId, stepId);
-        return Ok(new { instanceId, stepId, retryCount = count });
+        var result = await _dispatcher.DispatchAsync("wss.retry.get", new Dictionary<string, object>
+        {
+            ["instanceId"] = instanceId,
+            ["stepId"] = stepId
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/retry/register")]
-    public IActionResult RegisterWssRetryAttempt([FromBody] DebugRetryRegisterDto dto)
+    public async Task<IActionResult> RegisterWssRetryAttempt([FromBody] DebugRetryRegisterDto dto)
     {
-        _workflowRetryPolicyEngine.RegisterRetryAttempt(dto.InstanceId, dto.StepId);
-        var count = _workflowRetryPolicyEngine.GetRetryCount(dto.InstanceId, dto.StepId);
-        return Ok(new { instanceId = dto.InstanceId, stepId = dto.StepId, retryCount = count });
+        var result = await _dispatcher.DispatchAsync("wss.retry.register", new Dictionary<string, object>
+        {
+            ["instanceId"] = dto.InstanceId,
+            ["stepId"] = dto.StepId
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/retry/reset")]
-    public IActionResult ResetWssRetryCount([FromBody] DebugRetryResetDto dto)
+    public async Task<IActionResult> ResetWssRetryCount([FromBody] DebugRetryResetDto dto)
     {
-        _workflowRetryPolicyEngine.ResetRetryCount(dto.InstanceId, dto.StepId);
-        return Ok(new { instanceId = dto.InstanceId, stepId = dto.StepId, retryCount = 0 });
+        var result = await _dispatcher.DispatchAsync("wss.retry.reset", new Dictionary<string, object>
+        {
+            ["instanceId"] = dto.InstanceId,
+            ["stepId"] = dto.StepId
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     // --- WSS Workflow Timeout Engine (Phase 2.1.13) ---
@@ -2882,40 +2392,49 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpPost("wss/timeouts/register")]
-    public IActionResult RegisterWssTimeout([FromBody] DebugTimeoutRegisterDto dto)
+    public async Task<IActionResult> RegisterWssTimeout([FromBody] DebugTimeoutRegisterDto dto)
     {
-        if (string.IsNullOrWhiteSpace(dto.StepId) || dto.StepId == "workflow")
+        var result = await _dispatcher.DispatchAsync("wss.timeout.register", new Dictionary<string, object>
         {
-            _workflowTimeoutEngine.RegisterWorkflowTimeout(dto.InstanceId, TimeSpan.FromSeconds(dto.TimeoutSeconds));
-            return Ok(new { instanceId = dto.InstanceId, stepId = "workflow", timeoutSeconds = dto.TimeoutSeconds });
-        }
+            ["instanceId"] = dto.InstanceId,
+            ["stepId"] = dto.StepId,
+            ["timeoutSeconds"] = dto.TimeoutSeconds
+        });
 
-        _workflowTimeoutEngine.RegisterStepTimeout(dto.InstanceId, dto.StepId, TimeSpan.FromSeconds(dto.TimeoutSeconds));
-        return Ok(new { instanceId = dto.InstanceId, stepId = dto.StepId, timeoutSeconds = dto.TimeoutSeconds });
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/timeouts/check")]
-    public IActionResult CheckWssTimeout([FromBody] DebugTimeoutCheckDto dto)
+    public async Task<IActionResult> CheckWssTimeout([FromBody] DebugTimeoutCheckDto dto)
     {
-        var decision = string.IsNullOrWhiteSpace(dto.StepId) || dto.StepId == "workflow"
-            ? _workflowTimeoutEngine.CheckWorkflowTimeout(dto.InstanceId)
-            : _workflowTimeoutEngine.CheckStepTimeout(dto.InstanceId, dto.StepId);
-
-        return Ok(new
+        var result = await _dispatcher.DispatchAsync("wss.timeout.check", new Dictionary<string, object>
         {
-            isTimeout = decision.IsTimeout,
-            instanceId = decision.InstanceId,
-            stepId = decision.StepId,
-            timeoutDuration = decision.TimeoutDuration.TotalSeconds,
-            exceededBy = decision.ExceededBy.TotalSeconds
+            ["instanceId"] = dto.InstanceId,
+            ["stepId"] = dto.StepId!
         });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/timeouts/clear")]
-    public IActionResult ClearWssTimeout([FromBody] DebugTimeoutClearDto dto)
+    public async Task<IActionResult> ClearWssTimeout([FromBody] DebugTimeoutClearDto dto)
     {
-        _workflowTimeoutEngine.ClearTimeout(dto.InstanceId, dto.StepId);
-        return Ok(new { instanceId = dto.InstanceId, stepId = dto.StepId, cleared = true });
+        var result = await _dispatcher.DispatchAsync("wss.timeout.clear", new Dictionary<string, object>
+        {
+            ["instanceId"] = dto.InstanceId,
+            ["stepId"] = dto.StepId
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     // --- WSS Workflow Instance Lifecycle Engine (Phase 2.1.14) ---
@@ -2923,106 +2442,76 @@ public sealed class DebugController : ControllerBase
     [HttpPost("wss/workflows/start")]
     public async Task<IActionResult> StartWssWorkflow([FromBody] DebugLifecycleStartDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.lifecycle.start", new Dictionary<string, object>
         {
-            var decision = await _workflowLifecycleEngine.StartWorkflow(dto.WorkflowId, dto.Version, dto.Context);
-            return Ok(new
-            {
-                instanceId = decision.InstanceId,
-                nextStep = decision.NextStep,
-                status = decision.Status.ToString(),
-                reason = decision.Reason
-            });
-        }
-        catch (KeyNotFoundException ex)
-        {
-            return NotFound(new { message = ex.Message });
-        }
+            ["workflowId"] = dto.WorkflowId,
+            ["version"] = dto.Version,
+            ["context"] = dto.Context!
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/workflows/advance")]
     public async Task<IActionResult> AdvanceWssWorkflow([FromBody] DebugLifecycleInstanceDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.lifecycle.advance", new Dictionary<string, object>
         {
-            var decision = await _workflowLifecycleEngine.AdvanceStep(dto.InstanceId);
-            return Ok(new
-            {
-                instanceId = decision.InstanceId,
-                currentStep = decision.CurrentStep,
-                nextStep = decision.NextStep,
-                status = decision.Status.ToString(),
-                reason = decision.Reason
-            });
-        }
-        catch (KeyNotFoundException ex)
-        {
-            return NotFound(new { message = ex.Message });
-        }
+            ["instanceId"] = dto.InstanceId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/workflows/complete")]
     public async Task<IActionResult> CompleteWssWorkflow([FromBody] DebugLifecycleStepDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.lifecycle.complete", new Dictionary<string, object>
         {
-            var decision = string.IsNullOrWhiteSpace(dto.StepId)
-                ? await _workflowLifecycleEngine.CompleteWorkflow(dto.InstanceId)
-                : await _workflowLifecycleEngine.CompleteStep(dto.InstanceId, dto.StepId);
-            return Ok(new
-            {
-                instanceId = decision.InstanceId,
-                currentStep = decision.CurrentStep,
-                nextStep = decision.NextStep,
-                status = decision.Status.ToString(),
-                reason = decision.Reason
-            });
-        }
-        catch (KeyNotFoundException ex)
-        {
-            return NotFound(new { message = ex.Message });
-        }
+            ["instanceId"] = dto.InstanceId,
+            ["stepId"] = dto.StepId!
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/workflows/fail")]
     public async Task<IActionResult> FailWssWorkflow([FromBody] DebugLifecycleFailDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.lifecycle.fail", new Dictionary<string, object>
         {
-            var decision = await _workflowLifecycleEngine.FailStep(dto.InstanceId, dto.StepId, dto.Reason);
-            return Ok(new
-            {
-                instanceId = decision.InstanceId,
-                currentStep = decision.CurrentStep,
-                nextStep = decision.NextStep,
-                status = decision.Status.ToString(),
-                reason = decision.Reason
-            });
-        }
-        catch (KeyNotFoundException ex)
-        {
-            return NotFound(new { message = ex.Message });
-        }
+            ["instanceId"] = dto.InstanceId,
+            ["stepId"] = dto.StepId,
+            ["reason"] = dto.Reason
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 
     [HttpPost("wss/workflows/terminate")]
     public async Task<IActionResult> TerminateWssWorkflow([FromBody] DebugLifecycleInstanceDto dto)
     {
-        try
+        var result = await _dispatcher.DispatchAsync("wss.lifecycle.terminate", new Dictionary<string, object>
         {
-            var decision = await _workflowLifecycleEngine.TerminateWorkflow(dto.InstanceId);
-            return Ok(new
-            {
-                instanceId = decision.InstanceId,
-                currentStep = decision.CurrentStep,
-                status = decision.Status.ToString(),
-                reason = decision.Reason
-            });
-        }
-        catch (KeyNotFoundException ex)
-        {
-            return NotFound(new { message = ex.Message });
-        }
+            ["instanceId"] = dto.InstanceId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
     }
 }
 
