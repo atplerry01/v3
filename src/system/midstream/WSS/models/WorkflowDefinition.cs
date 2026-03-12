@@ -6,7 +6,7 @@ public sealed record WorkflowDefinition(
     string WorkflowId,
     string Name,
     string Description,
-    int Version,
+    string Version,
     IReadOnlyList<WorkflowStep> Steps,
     DateTimeOffset CreatedAt
 );

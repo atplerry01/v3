@@ -1,46 +1,141 @@
 namespace Whycespace.Engines.T1M.WSS.Graph;
 
-using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.System.Midstream.WSS.Models;
 
-[EngineManifest("WorkflowGraph", EngineTier.T1M, EngineKind.Decision, "WorkflowGraphRequest", typeof(EngineEvent))]
-public sealed class WorkflowGraphEngine : IEngine
+public sealed class WorkflowGraphEngine : IWorkflowGraphEngine
 {
-    public string Name => "WorkflowGraph";
-
-    public Task<EngineResult> ExecuteAsync(EngineContext context)
+    public WorkflowGraph BuildGraph(IEnumerable<WorkflowStepDefinition> steps)
     {
-        var workflowName = context.Data.GetValueOrDefault("workflowName") as string;
-        if (string.IsNullOrEmpty(workflowName))
-            return Task.FromResult(EngineResult.Fail("Missing workflowName"));
+        var transitions = new Dictionary<string, IReadOnlyList<string>>();
 
-        var stepCount = 0;
-        if (context.Data.GetValueOrDefault("stepCount") is int sc)
-            stepCount = sc;
-        else if (context.Data.GetValueOrDefault("stepCount") is string scs && int.TryParse(scs, out var parsed))
-            stepCount = parsed;
-
-        var graphId = Guid.NewGuid();
-
-        var events = new[]
+        foreach (var step in steps)
         {
-            EngineEvent.Create("WorkflowGraphBuilt", Guid.Parse(context.WorkflowId),
-                new Dictionary<string, object>
-                {
-                    ["graphId"] = graphId.ToString(),
-                    ["workflowName"] = workflowName,
-                    ["stepCount"] = stepCount,
-                    ["builtAt"] = DateTimeOffset.UtcNow.ToString("O")
-                })
-        };
+            transitions[step.StepId] = step.NextSteps;
+        }
 
-        return Task.FromResult(EngineResult.Ok(events,
-            new Dictionary<string, object>
+        return new WorkflowGraph(string.Empty, transitions);
+    }
+
+    public IReadOnlyList<string> ValidateGraph(WorkflowGraph graph)
+    {
+        var violations = new List<string>();
+
+        if (graph.Transitions.Count == 0)
+        {
+            violations.Add("Graph has no steps.");
+            return violations;
+        }
+
+        var allNodes = new HashSet<string>(graph.Transitions.Keys);
+
+        // Check for missing nodes (referenced but not defined)
+        foreach (var (stepId, nextSteps) in graph.Transitions)
+        {
+            foreach (var next in nextSteps)
             {
-                ["graphId"] = graphId.ToString(),
-                ["workflowName"] = workflowName,
-                ["stepCount"] = stepCount
-            }));
+                if (!allNodes.Contains(next))
+                    violations.Add($"Step '{stepId}' references undefined node '{next}'.");
+            }
+        }
+
+        // Identify start steps (no incoming edges)
+        var startSteps = GetStartSteps(graph);
+
+        if (startSteps.Count == 0)
+        {
+            violations.Add("Graph has no start step (all nodes have incoming edges).");
+        }
+        else
+        {
+            // BFS from the first start step to find all reachable nodes
+            var reachable = new HashSet<string>();
+            var queue = new Queue<string>();
+            queue.Enqueue(startSteps[0]);
+
+            while (queue.Count > 0)
+            {
+                var current = queue.Dequeue();
+                if (!reachable.Add(current)) continue;
+
+                if (graph.Transitions.TryGetValue(current, out var nextSteps))
+                {
+                    foreach (var next in nextSteps)
+                    {
+                        if (!reachable.Contains(next) && allNodes.Contains(next))
+                            queue.Enqueue(next);
+                    }
+                }
+            }
+
+            var orphans = allNodes.Except(reachable).ToList();
+            foreach (var orphan in orphans)
+                violations.Add($"Orphan node detected: '{orphan}' is unreachable from any start step.");
+        }
+
+        // Circular dependency detection using DFS
+        var visited = new HashSet<string>();
+        var recStack = new HashSet<string>();
+
+        foreach (var node in allNodes)
+        {
+            if (DetectCycleDfs(node, graph, visited, recStack))
+            {
+                violations.Add("Circular dependency detected in workflow graph.");
+                break;
+            }
+        }
+
+        return violations;
+    }
+
+    public IReadOnlyList<string> GetNextSteps(WorkflowGraph graph, string currentStep)
+    {
+        if (!graph.Transitions.TryGetValue(currentStep, out var nextSteps))
+            throw new KeyNotFoundException($"Step '{currentStep}' not found in graph.");
+
+        return nextSteps;
+    }
+
+    public IReadOnlyList<string> GetStartSteps(WorkflowGraph graph)
+    {
+        var allTargets = new HashSet<string>();
+
+        foreach (var nextSteps in graph.Transitions.Values)
+        {
+            foreach (var next in nextSteps)
+                allTargets.Add(next);
+        }
+
+        return graph.Transitions.Keys
+            .Where(k => !allTargets.Contains(k))
+            .ToList();
+    }
+
+    private static bool DetectCycleDfs(
+        string node,
+        WorkflowGraph graph,
+        HashSet<string> visited,
+        HashSet<string> recStack)
+    {
+        if (recStack.Contains(node))
+            return true;
+
+        if (visited.Contains(node))
+            return false;
+
+        visited.Add(node);
+        recStack.Add(node);
+
+        if (graph.Transitions.TryGetValue(node, out var nextSteps))
+        {
+            foreach (var next in nextSteps)
+            {
+                if (graph.Transitions.ContainsKey(next) && DetectCycleDfs(next, graph, visited, recStack))
+                    return true;
+            }
+        }
+
+        recStack.Remove(node);
+        return false;
     }
 }

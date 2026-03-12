@@ -1,0 +1,18 @@
+namespace Whycespace.Engines.T1M.WSS.Validation;
+
+using Whycespace.System.Midstream.WSS.Models;
+
+public interface IWorkflowValidationEngine
+{
+    WorkflowValidationResult ValidateWorkflowDefinition(WorkflowDefinition workflow);
+
+    WorkflowValidationResult ValidateWorkflowTemplate(
+        string templateId,
+        IDictionary<string, string> parameters);
+
+    WorkflowValidationResult ValidateWorkflowVersion(
+        string workflowId,
+        string version);
+
+    WorkflowValidationResult ValidateCompleteWorkflow(WorkflowDefinition workflow);
+}

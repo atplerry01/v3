@@ -1,64 +1,44 @@
 namespace Whycespace.Engines.T1M.WSS.Definition;
 
+using Whycespace.Engines.T1M.WSS.Versioning;
 using Whycespace.System.Midstream.WSS.Models;
-using Whycespace.System.Midstream.WSS.Stores;
+using Whycespace.Engines.T1M.WSS.Stores;
 
 public sealed class WorkflowVersioningEngine
 {
     private readonly WorkflowVersionStore _versionStore;
     private readonly WorkflowDefinitionStore _definitionStore;
+    private readonly IWorkflowVersioningEngine _versioningEngine;
 
     public WorkflowVersioningEngine(WorkflowVersionStore versionStore, WorkflowDefinitionStore definitionStore)
     {
         _versionStore = versionStore;
         _definitionStore = definitionStore;
+        _versioningEngine = new Whycespace.Engines.T1M.WSS.Versioning.WorkflowVersioningEngine(versionStore);
     }
 
-    public WorkflowVersion CreateVersion(string workflowId, int version)
+    public WorkflowDefinition RegisterWorkflowVersion(WorkflowDefinition workflow)
     {
-        _definitionStore.Get(workflowId);
-
-        if (_versionStore.VersionExists(workflowId, version))
-            throw new InvalidOperationException($"Version {version} already exists for workflow: {workflowId}");
-
-        var workflowVersion = new WorkflowVersion(
-            workflowId,
-            version,
-            WorkflowVersionStatus.Draft,
-            DateTimeOffset.UtcNow);
-
-        _versionStore.Store(workflowVersion);
-        return workflowVersion;
+        return _versioningEngine.RegisterWorkflowVersion(workflow);
     }
 
-    public WorkflowVersion ActivateVersion(string workflowId, int version)
+    public WorkflowDefinition GetWorkflowVersion(string workflowId, string version)
     {
-        var versions = _versionStore.GetVersions(workflowId);
-        var target = versions.FirstOrDefault(v => v.Version == version)
-            ?? throw new KeyNotFoundException($"Version {version} not found for workflow: {workflowId}");
-
-        if (target.Status == WorkflowVersionStatus.Active)
-            return target;
-
-        var currentActive = _versionStore.GetActive(workflowId);
-        if (currentActive is not null)
-        {
-            _versionStore.Update(currentActive with { Status = WorkflowVersionStatus.Superseded });
-        }
-
-        var activated = target with { Status = WorkflowVersionStatus.Active };
-        _versionStore.Update(activated);
-        return activated;
+        return _versioningEngine.GetWorkflowVersion(workflowId, version);
     }
 
-    public WorkflowVersion GetActiveVersion(string workflowId)
+    public WorkflowDefinition GetLatestWorkflow(string workflowId)
     {
-        return _versionStore.GetActive(workflowId)
-            ?? throw new KeyNotFoundException($"No active version for workflow: {workflowId}");
+        return _versioningEngine.GetLatestWorkflow(workflowId);
     }
 
-    public IReadOnlyList<WorkflowVersion> GetVersions(string workflowId)
+    public IReadOnlyList<WorkflowDefinition> ListWorkflowVersions(string workflowId)
     {
-        return _versionStore.GetVersions(workflowId);
+        return _versioningEngine.ListWorkflowVersions(workflowId);
+    }
+
+    public bool WorkflowVersionExists(string workflowId, string version)
+    {
+        return _versioningEngine.WorkflowVersionExists(workflowId, version);
     }
 }

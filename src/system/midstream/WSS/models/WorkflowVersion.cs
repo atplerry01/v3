@@ -2,7 +2,7 @@ namespace Whycespace.System.Midstream.WSS.Models;
 
 public sealed record WorkflowVersion(
     string WorkflowId,
-    int Version,
+    string Version,
     WorkflowVersionStatus Status,
     DateTimeOffset CreatedAt
 );
