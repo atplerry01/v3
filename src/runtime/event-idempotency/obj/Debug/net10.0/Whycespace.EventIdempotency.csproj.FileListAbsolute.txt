@@ -10,6 +10,7 @@ C:\projects\dev\v3\src\runtime\event-idempotency\obj\Debug\net10.0\Whycespace.Ev
 C:\projects\dev\v3\src\runtime\event-idempotency\obj\Debug\net10.0\Whycespace.EventIdempotency.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\runtime\event-idempotency\obj\Debug\net10.0\Whycespace.EventIdempotency.AssemblyInfo.cs
 C:\projects\dev\v3\src\runtime\event-idempotency\obj\Debug\net10.0\Whycespace.EventIdempotency.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\runtime\event-idempotency\obj\Debug\net10.0\Whycespace.EventIdempotency.sourcelink.json
 C:\projects\dev\v3\src\runtime\event-idempotency\obj\Debug\net10.0\Whycespa.EFE95BE9.Up2Date
 C:\projects\dev\v3\src\runtime\event-idempotency\obj\Debug\net10.0\Whycespace.EventIdempotency.dll
 C:\projects\dev\v3\src\runtime\event-idempotency\obj\Debug\net10.0\refint\Whycespace.EventIdempotency.dll

@@ -10,6 +10,7 @@ C:\projects\dev\v3\src\runtime\engine\obj\Debug\net10.0\Whycespace.EngineRuntime
 C:\projects\dev\v3\src\runtime\engine\obj\Debug\net10.0\Whycespace.EngineRuntime.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\runtime\engine\obj\Debug\net10.0\Whycespace.EngineRuntime.AssemblyInfo.cs
 C:\projects\dev\v3\src\runtime\engine\obj\Debug\net10.0\Whycespace.EngineRuntime.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\runtime\engine\obj\Debug\net10.0\Whycespace.EngineRuntime.sourcelink.json
 C:\projects\dev\v3\src\runtime\engine\obj\Debug\net10.0\Whycespa.6F774FDE.Up2Date
 C:\projects\dev\v3\src\runtime\engine\obj\Debug\net10.0\Whycespace.EngineRuntime.dll
 C:\projects\dev\v3\src\runtime\engine\obj\Debug\net10.0\refint\Whycespace.EngineRuntime.dll

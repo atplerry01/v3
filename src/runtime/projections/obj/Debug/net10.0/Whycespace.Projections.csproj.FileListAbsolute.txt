@@ -14,6 +14,7 @@ C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\Whycespace.Projecti
 C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\Whycespace.Projections.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\Whycespace.Projections.AssemblyInfo.cs
 C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\Whycespace.Projections.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\Whycespace.Projections.sourcelink.json
 C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\Whycespa.6DB8021F.Up2Date
 C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\Whycespace.Projections.dll
 C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\refint\Whycespace.Projections.dll

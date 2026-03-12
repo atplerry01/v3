@@ -5,6 +5,7 @@ C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.G
 C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.AssemblyInfo.cs
 C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.sourcelink.json
 C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.dll
 C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\refint\Whycespace.Contracts.dll
 C:\projects\dev\v3\src\shared\contracts\obj\Debug\net10.0\Whycespace.Contracts.pdb

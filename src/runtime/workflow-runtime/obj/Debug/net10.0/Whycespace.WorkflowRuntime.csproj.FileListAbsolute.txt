@@ -8,6 +8,7 @@ C:\projects\dev\v3\src\runtime\workflow-runtime\obj\Debug\net10.0\Whycespace.Wor
 C:\projects\dev\v3\src\runtime\workflow-runtime\obj\Debug\net10.0\Whycespace.WorkflowRuntime.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\runtime\workflow-runtime\obj\Debug\net10.0\Whycespace.WorkflowRuntime.AssemblyInfo.cs
 C:\projects\dev\v3\src\runtime\workflow-runtime\obj\Debug\net10.0\Whycespace.WorkflowRuntime.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\runtime\workflow-runtime\obj\Debug\net10.0\Whycespace.WorkflowRuntime.sourcelink.json
 C:\projects\dev\v3\src\runtime\workflow-runtime\obj\Debug\net10.0\Whycespa.41DC07B0.Up2Date
 C:\projects\dev\v3\src\runtime\workflow-runtime\obj\Debug\net10.0\Whycespace.WorkflowRuntime.dll
 C:\projects\dev\v3\src\runtime\workflow-runtime\obj\Debug\net10.0\refint\Whycespace.WorkflowRuntime.dll

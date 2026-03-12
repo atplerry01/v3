@@ -1,8 +1,10 @@
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.RuntimeValidation.deps.json
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.RuntimeValidation.dll
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.RuntimeValidation.pdb
+C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.ClusterDomain.dll
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.CommandSystem.dll
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.Contracts.dll
+C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.EconomicDomain.dll
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.EngineManifest.dll
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.Engines.dll
@@ -17,6 +19,8 @@ C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.Engines.p
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.CommandSystem.pdb
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.EventFabric.pdb
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.Projections.pdb
+C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.EconomicDomain.pdb
+C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.ClusterDomain.pdb
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.Contracts.pdb
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
 C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb
@@ -28,12 +32,9 @@ C:\projects\dev\v3\src\runtime\validation\obj\Debug\net10.0\Whycespace.RuntimeVa
 C:\projects\dev\v3\src\runtime\validation\obj\Debug\net10.0\Whycespace.RuntimeValidation.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\runtime\validation\obj\Debug\net10.0\Whycespace.RuntimeValidation.AssemblyInfo.cs
 C:\projects\dev\v3\src\runtime\validation\obj\Debug\net10.0\Whycespace.RuntimeValidation.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\runtime\validation\obj\Debug\net10.0\Whycespace.RuntimeValidation.sourcelink.json
 C:\projects\dev\v3\src\runtime\validation\obj\Debug\net10.0\Whycespa.378637AA.Up2Date
 C:\projects\dev\v3\src\runtime\validation\obj\Debug\net10.0\Whycespace.RuntimeValidation.dll
 C:\projects\dev\v3\src\runtime\validation\obj\Debug\net10.0\refint\Whycespace.RuntimeValidation.dll
 C:\projects\dev\v3\src\runtime\validation\obj\Debug\net10.0\Whycespace.RuntimeValidation.pdb
 C:\projects\dev\v3\src\runtime\validation\obj\Debug\net10.0\ref\Whycespace.RuntimeValidation.dll
-C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.ClusterDomain.dll
-C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.EconomicDomain.dll
-C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.EconomicDomain.pdb
-C:\projects\dev\v3\src\runtime\validation\bin\Debug\net10.0\Whycespace.ClusterDomain.pdb

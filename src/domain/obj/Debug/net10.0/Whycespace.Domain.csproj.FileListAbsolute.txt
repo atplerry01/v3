@@ -12,6 +12,7 @@ C:\projects\dev\v3\src\domain\obj\Debug\net10.0\Whycespace.Domain.GeneratedMSBui
 C:\projects\dev\v3\src\domain\obj\Debug\net10.0\Whycespace.Domain.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\domain\obj\Debug\net10.0\Whycespace.Domain.AssemblyInfo.cs
 C:\projects\dev\v3\src\domain\obj\Debug\net10.0\Whycespace.Domain.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\domain\obj\Debug\net10.0\Whycespace.Domain.sourcelink.json
 C:\projects\dev\v3\src\domain\obj\Debug\net10.0\Whycespa.61A64048.Up2Date
 C:\projects\dev\v3\src\domain\obj\Debug\net10.0\Whycespace.Domain.dll
 C:\projects\dev\v3\src\domain\obj\Debug\net10.0\refint\Whycespace.Domain.dll

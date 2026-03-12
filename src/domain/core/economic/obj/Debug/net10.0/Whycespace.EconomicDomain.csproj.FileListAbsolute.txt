@@ -12,6 +12,7 @@ C:\projects\dev\v3\src\domain\core\economic\obj\Debug\net10.0\Whycespace.Economi
 C:\projects\dev\v3\src\domain\core\economic\obj\Debug\net10.0\Whycespace.EconomicDomain.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\domain\core\economic\obj\Debug\net10.0\Whycespace.EconomicDomain.AssemblyInfo.cs
 C:\projects\dev\v3\src\domain\core\economic\obj\Debug\net10.0\Whycespace.EconomicDomain.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\domain\core\economic\obj\Debug\net10.0\Whycespace.EconomicDomain.sourcelink.json
 C:\projects\dev\v3\src\domain\core\economic\obj\Debug\net10.0\Whycespa.8B7F3FA7.Up2Date
 C:\projects\dev\v3\src\domain\core\economic\obj\Debug\net10.0\Whycespace.EconomicDomain.dll
 C:\projects\dev\v3\src\domain\core\economic\obj\Debug\net10.0\refint\Whycespace.EconomicDomain.dll

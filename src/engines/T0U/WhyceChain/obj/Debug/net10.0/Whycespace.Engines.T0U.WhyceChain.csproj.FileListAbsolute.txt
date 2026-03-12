@@ -26,6 +26,7 @@ C:\projects\dev\v3\src\engines\T0U\WhyceChain\obj\Debug\net10.0\Whycespace.Engin
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\obj\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\obj\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.AssemblyInfo.cs
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\obj\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\engines\T0U\WhyceChain\obj\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.sourcelink.json
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\obj\Debug\net10.0\Whycespa.814A8CE0.Up2Date
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\obj\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.dll
 C:\projects\dev\v3\src\engines\T0U\WhyceChain\obj\Debug\net10.0\refint\Whycespace.Engines.T0U.WhyceChain.dll

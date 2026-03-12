@@ -12,6 +12,7 @@ C:\projects\dev\v3\src\runtime\worker-pool\obj\Debug\net10.0\Whycespace.WorkerPo
 C:\projects\dev\v3\src\runtime\worker-pool\obj\Debug\net10.0\Whycespace.WorkerPoolRuntime.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\runtime\worker-pool\obj\Debug\net10.0\Whycespace.WorkerPoolRuntime.AssemblyInfo.cs
 C:\projects\dev\v3\src\runtime\worker-pool\obj\Debug\net10.0\Whycespace.WorkerPoolRuntime.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\runtime\worker-pool\obj\Debug\net10.0\Whycespace.WorkerPoolRuntime.sourcelink.json
 C:\projects\dev\v3\src\runtime\worker-pool\obj\Debug\net10.0\Whycespa.2244F7CA.Up2Date
 C:\projects\dev\v3\src\runtime\worker-pool\obj\Debug\net10.0\Whycespace.WorkerPoolRuntime.dll
 C:\projects\dev\v3\src\runtime\worker-pool\obj\Debug\net10.0\refint\Whycespace.WorkerPoolRuntime.dll

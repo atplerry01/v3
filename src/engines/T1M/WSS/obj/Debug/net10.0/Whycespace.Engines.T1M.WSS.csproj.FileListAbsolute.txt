@@ -26,6 +26,7 @@ C:\projects\dev\v3\src\engines\T1M\WSS\obj\Debug\net10.0\Whycespace.Engines.T1M.
 C:\projects\dev\v3\src\engines\T1M\WSS\obj\Debug\net10.0\Whycespace.Engines.T1M.WSS.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\engines\T1M\WSS\obj\Debug\net10.0\Whycespace.Engines.T1M.WSS.AssemblyInfo.cs
 C:\projects\dev\v3\src\engines\T1M\WSS\obj\Debug\net10.0\Whycespace.Engines.T1M.WSS.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\engines\T1M\WSS\obj\Debug\net10.0\Whycespace.Engines.T1M.WSS.sourcelink.json
 C:\projects\dev\v3\src\engines\T1M\WSS\obj\Debug\net10.0\Whycespa.1D86C3BE.Up2Date
 C:\projects\dev\v3\src\engines\T1M\WSS\obj\Debug\net10.0\Whycespace.Engines.T1M.WSS.dll
 C:\projects\dev\v3\src\engines\T1M\WSS\obj\Debug\net10.0\refint\Whycespace.Engines.T1M.WSS.dll

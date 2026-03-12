@@ -8,6 +8,7 @@ C:\projects\dev\v3\src\runtime\command\obj\Debug\net10.0\Whycespace.CommandSyste
 C:\projects\dev\v3\src\runtime\command\obj\Debug\net10.0\Whycespace.CommandSystem.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\runtime\command\obj\Debug\net10.0\Whycespace.CommandSystem.AssemblyInfo.cs
 C:\projects\dev\v3\src\runtime\command\obj\Debug\net10.0\Whycespace.CommandSystem.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\runtime\command\obj\Debug\net10.0\Whycespace.CommandSystem.sourcelink.json
 C:\projects\dev\v3\src\runtime\command\obj\Debug\net10.0\Whycespa.185E30F0.Up2Date
 C:\projects\dev\v3\src\runtime\command\obj\Debug\net10.0\Whycespace.CommandSystem.dll
 C:\projects\dev\v3\src\runtime\command\obj\Debug\net10.0\refint\Whycespace.CommandSystem.dll

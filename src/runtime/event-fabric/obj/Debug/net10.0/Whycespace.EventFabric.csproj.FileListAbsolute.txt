@@ -8,6 +8,7 @@ C:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFa
 C:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.AssemblyInfo.cs
 C:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.sourcelink.json
 C:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespa.C159BCF1.Up2Date
 C:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.dll
 C:\projects\dev\v3\src\runtime\event-fabric\obj\Debug\net10.0\refint\Whycespace.EventFabric.dll

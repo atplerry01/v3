@@ -20,6 +20,7 @@ C:\projects\dev\v3\src\runtime\guardrails\obj\Debug\net10.0\Whycespace.Architect
 C:\projects\dev\v3\src\runtime\guardrails\obj\Debug\net10.0\Whycespace.ArchitectureGuardrails.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\runtime\guardrails\obj\Debug\net10.0\Whycespace.ArchitectureGuardrails.AssemblyInfo.cs
 C:\projects\dev\v3\src\runtime\guardrails\obj\Debug\net10.0\Whycespace.ArchitectureGuardrails.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\runtime\guardrails\obj\Debug\net10.0\Whycespace.ArchitectureGuardrails.sourcelink.json
 C:\projects\dev\v3\src\runtime\guardrails\obj\Debug\net10.0\Whycespa.24209BAE.Up2Date
 C:\projects\dev\v3\src\runtime\guardrails\obj\Debug\net10.0\Whycespace.ArchitectureGuardrails.dll
 C:\projects\dev\v3\src\runtime\guardrails\obj\Debug\net10.0\refint\Whycespace.ArchitectureGuardrails.dll
