@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.RuntimeValidation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b78d5e9ba1bc0b1c9816ba35ba16e515eb25e994")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fd5f4902afbdc7bcd66612458e58e3c681a02aed")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.RuntimeValidation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.RuntimeValidation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
