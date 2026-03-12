@@ -1,7 +1,7 @@
 using Whycespace.Contracts.Workflows;
-using Whycespace.Engines.T1M.WSS;
+using Whycespace.Engines.T1M.WSS.Definition;
 using Whycespace.System.Midstream.WSS.Models;
-using Whycespace.System.Midstream.WSS.Stores;
+using Whycespace.Engines.T1M.WSS.Stores;
 
 namespace Whycespace.WSS.WorkflowDefinition.Tests;
 
@@ -18,12 +18,12 @@ public class WorkflowRegistryEngineTests
         _engine = new WorkflowRegistryEngine(_registryStore, _definitionStore);
 
         var defEngine = new WorkflowDefinitionEngine(_definitionStore);
-        defEngine.RegisterWorkflow("wf-ride", "Taxi Ride", "Ride flow", 1, new List<WorkflowStep>
+        defEngine.RegisterWorkflowDefinition("wf-ride", "Taxi Ride", "Ride flow", "1.0.0", new List<WorkflowStep>
         {
             new("step-1", "Request", "RideEngine", new List<string> { "step-2" }),
             new("step-2", "Complete", "PaymentEngine", new List<string>())
         });
-        defEngine.RegisterWorkflow("wf-letting", "Property Letting", "Letting flow", 1, new List<WorkflowStep>
+        defEngine.RegisterWorkflowDefinition("wf-letting", "Property Letting", "Letting flow", "1.0.0", new List<WorkflowStep>
         {
             new("step-1", "Onboard", "OnboardEngine", new List<string>())
         });
@@ -36,7 +36,7 @@ public class WorkflowRegistryEngineTests
 
         Assert.Equal("wf-ride", result.WorkflowId);
         Assert.Equal("Taxi Ride", result.Name);
-        Assert.Equal(1, result.Version);
+        Assert.Equal("1.0.0", result.Version);
         Assert.Equal(WorkflowRegistryStatus.Active, result.Status);
         Assert.True(result.RegisteredAt <= DateTimeOffset.UtcNow);
     }

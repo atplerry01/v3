@@ -193,16 +193,26 @@ builder.Services.AddSingleton(new Whycespace.System.Upstream.Governance.Stores.G
 builder.Services.AddSingleton(new Whycespace.System.Upstream.Governance.Stores.GovernanceRoleStore());
 
 // WSS Workflow Definitions (Phase 2.1.1)
-builder.Services.AddSingleton(new Whycespace.System.Midstream.WSS.Stores.WorkflowDefinitionStore());
+builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowDefinitionStore());
 
 // WSS Workflow Templates (Phase 2.1.3)
-builder.Services.AddSingleton(new Whycespace.System.Midstream.WSS.Stores.WorkflowTemplateStore());
+builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowTemplateStore());
 
 // WSS Workflow Registry (Phase 2.1.4)
-builder.Services.AddSingleton(new Whycespace.System.Midstream.WSS.Stores.WorkflowRegistryStore());
+builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowRegistryStore());
+builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Registry.WorkflowRegistry());
 
 // WSS Workflow Versioning (Phase 2.1.5)
-builder.Services.AddSingleton(new Whycespace.System.Midstream.WSS.Stores.WorkflowVersionStore());
+builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowVersionStore());
+
+// WSS Workflow Step Engine Mapping (Phase 2.1.8)
+builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowEngineMappingStore());
+
+// WSS Workflow Instance Registry (Phase 2.1.9)
+builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WorkflowInstanceRegistryStore());
+
+// WSS Workflow State Store (Phase 2.1.10)
+builder.Services.AddSingleton(new Whycespace.Engines.T1M.WSS.Stores.WssWorkflowStateStore());
 
 // Runtime Validation (Phase 1.17)
 var validationRunner = new ValidationRunner();

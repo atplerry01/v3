@@ -37,8 +37,15 @@ using Whycespace.System.Upstream.WhycePolicy.Stores;
 using Whycespace.System.Upstream.WhyceChain.Stores;
 using Whycespace.System.Upstream.Governance.Stores;
 using Whycespace.Engines.T0U.Governance;
-using Whycespace.System.Midstream.WSS.Stores;
+using Whycespace.Engines.T1M.WSS.Stores;
 using Whycespace.Engines.T1M.WSS.Definition;
+using Whycespace.Engines.T1M.WSS.Graph;
+using Whycespace.Engines.T1M.WSS.Registry;
+using Whycespace.Engines.T1M.WSS.Validation;
+using Whycespace.Engines.T1M.WSS.Dependency;
+using Whycespace.Engines.T1M.WSS.Mapping;
+using Whycespace.Engines.T1M.WSS.Instance;
+using Whycespace.System.Midstream.WSS.Models;
 using WorkflowStateStore = Whycespace.Runtime.Workflow.WorkflowStateStore;
 
 [ApiController]
@@ -100,6 +107,10 @@ public sealed class DebugController : ControllerBase
     private readonly WorkflowTemplateStore _workflowTemplateStore;
     private readonly WorkflowRegistryStore _workflowRegistryStore;
     private readonly WorkflowVersionStore _workflowVersionStore;
+    private readonly WorkflowRegistry _workflowRegistry;
+    private readonly WorkflowEngineMappingStore _engineMappingStore;
+    private readonly WorkflowInstanceRegistryStore _instanceRegistryStore;
+    private readonly WssWorkflowStateStore _wssWorkflowStateStore;
 
     public DebugController(
         WorkflowStateStore stateStore,
@@ -156,7 +167,11 @@ public sealed class DebugController : ControllerBase
         WorkflowDefinitionStore workflowDefinitionStore,
         WorkflowTemplateStore workflowTemplateStore,
         WorkflowRegistryStore workflowRegistryStore,
-        WorkflowVersionStore workflowVersionStore)
+        WorkflowVersionStore workflowVersionStore,
+        WorkflowRegistry workflowRegistry,
+        WorkflowEngineMappingStore engineMappingStore,
+        WorkflowInstanceRegistryStore instanceRegistryStore,
+        WssWorkflowStateStore wssWorkflowStateStore)
     {
         _stateStore = stateStore;
         _engineRegistry = engineRegistry;
@@ -213,6 +228,10 @@ public sealed class DebugController : ControllerBase
         _workflowTemplateStore = workflowTemplateStore;
         _workflowRegistryStore = workflowRegistryStore;
         _workflowVersionStore = workflowVersionStore;
+        _workflowRegistry = workflowRegistry;
+        _engineMappingStore = engineMappingStore;
+        _instanceRegistryStore = instanceRegistryStore;
+        _wssWorkflowStateStore = wssWorkflowStateStore;
     }
 
     [HttpGet("workflows")]
@@ -2086,11 +2105,11 @@ public sealed class DebugController : ControllerBase
         });
     }
 
-    [HttpGet("wss/workflows")]
-    public IActionResult GetWssWorkflows()
+    [HttpGet("workflows/definitions")]
+    public IActionResult GetWorkflowDefinitions()
     {
         var engine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
-        var workflows = engine.ListWorkflows();
+        var workflows = engine.ListWorkflowDefinitions();
         return Ok(new
         {
             workflows = workflows.Select(w => new
@@ -2105,13 +2124,13 @@ public sealed class DebugController : ControllerBase
         });
     }
 
-    [HttpGet("wss/workflows/{id}")]
-    public IActionResult GetWssWorkflow(string id)
+    [HttpGet("workflows/definitions/{id}")]
+    public IActionResult GetWorkflowDefinition(string id)
     {
         try
         {
             var engine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
-            var workflow = engine.GetWorkflow(id);
+            var workflow = engine.GetWorkflowDefinition(id);
             return Ok(new
             {
                 workflowId = workflow.WorkflowId,
@@ -2128,15 +2147,15 @@ public sealed class DebugController : ControllerBase
         }
     }
 
-    [HttpPost("wss/workflows/register")]
-    public IActionResult RegisterWssWorkflow([FromBody] DebugRegisterWorkflowDefinitionDto dto)
+    [HttpPost("workflows/definitions/register")]
+    public IActionResult RegisterWorkflowDefinition([FromBody] DebugRegisterWorkflowDefinitionDto dto)
     {
         try
         {
             var engine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
             var steps = dto.Steps.Select(s => new Whycespace.Contracts.Workflows.WorkflowStep(
                 s.StepId, s.Name, s.EngineName, s.NextSteps)).ToList();
-            var workflow = engine.RegisterWorkflow(dto.WorkflowId, dto.Name, dto.Description, dto.Version, steps);
+            var workflow = engine.RegisterWorkflowDefinition(dto.WorkflowId, dto.Name, dto.Description, dto.Version, steps);
             return Ok(new
             {
                 workflowId = workflow.WorkflowId,
@@ -2153,19 +2172,62 @@ public sealed class DebugController : ControllerBase
         }
     }
 
+    [HttpGet("workflows/graph/{workflowId}")]
+    public IActionResult GetWorkflowGraph(string workflowId)
+    {
+        try
+        {
+            var defEngine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
+            var workflow = defEngine.GetWorkflowDefinition(workflowId);
+            var graphEngine = new Whycespace.Engines.T1M.WSS.Graph.WorkflowGraphEngine();
+            var stepDefs = workflow.Steps.Select(s => new Whycespace.System.Midstream.WSS.Models.WorkflowStepDefinition(
+                s.StepId, s.Name, s.EngineName, "", s.NextSteps, null)).ToList();
+            var graph = graphEngine.BuildGraph(stepDefs);
+            return Ok(new
+            {
+                workflowId = workflowId,
+                transitions = graph.Transitions,
+                startSteps = graphEngine.GetStartSteps(graph)
+            });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = $"Workflow definition not found: '{workflowId}'" });
+        }
+    }
+
+    [HttpPost("workflows/graph/validate")]
+    public IActionResult ValidateWorkflowGraph([FromBody] DebugValidateGraphDto dto)
+    {
+        var graphEngine = new Whycespace.Engines.T1M.WSS.Graph.WorkflowGraphEngine();
+        var transitions = dto.Transitions.ToDictionary(
+            kv => kv.Key,
+            kv => (IReadOnlyList<string>)kv.Value);
+        var graph = new Whycespace.System.Midstream.WSS.Models.WorkflowGraph(dto.WorkflowId, transitions);
+        var violations = graphEngine.ValidateGraph(graph);
+        return Ok(new
+        {
+            workflowId = dto.WorkflowId,
+            isValid = violations.Count == 0,
+            violations = violations
+        });
+    }
+
     [HttpGet("wss/templates")]
     public IActionResult GetWssTemplates()
     {
-        var engine = new WorkflowTemplateEngine(_workflowTemplateStore, _workflowDefinitionStore);
+        var graphEngine = new WorkflowGraphEngine();
+        var engine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
         var templates = engine.ListTemplates();
         return Ok(new
         {
             templates = templates.Select(t => new
             {
                 templateId = t.TemplateId,
-                workflowDefinitionId = t.WorkflowDefinitionId,
-                parameters = t.Parameters,
-                createdAt = t.CreatedAt
+                name = t.Name,
+                version = t.Version,
+                description = t.Description,
+                stepCount = t.Steps.Count
             })
         });
     }
@@ -2175,14 +2237,23 @@ public sealed class DebugController : ControllerBase
     {
         try
         {
-            var engine = new WorkflowTemplateEngine(_workflowTemplateStore, _workflowDefinitionStore);
+            var graphEngine = new WorkflowGraphEngine();
+            var engine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
             var template = engine.GetTemplate(id);
             return Ok(new
             {
                 templateId = template.TemplateId,
-                workflowDefinitionId = template.WorkflowDefinitionId,
-                parameters = template.Parameters,
-                createdAt = template.CreatedAt
+                name = template.Name,
+                version = template.Version,
+                description = template.Description,
+                steps = template.Steps.Select(s => new
+                {
+                    stepId = s.StepId,
+                    description = s.Description,
+                    engine = s.Engine,
+                    command = s.Command
+                }),
+                graph = template.Graph.Transitions
             });
         }
         catch (KeyNotFoundException)
@@ -2191,26 +2262,79 @@ public sealed class DebugController : ControllerBase
         }
     }
 
-    [HttpPost("wss/templates/create")]
-    public IActionResult CreateWssTemplate([FromBody] DebugCreateWorkflowTemplateDto dto)
+    [HttpPost("wss/templates/register")]
+    public IActionResult RegisterWssTemplate([FromBody] DebugRegisterWorkflowTemplateDto dto)
     {
         try
         {
-            var engine = new WorkflowTemplateEngine(_workflowTemplateStore, _workflowDefinitionStore);
-            var template = engine.CreateTemplate(dto.TemplateId, dto.WorkflowDefinitionId, dto.Parameters);
+            var graphEngine = new WorkflowGraphEngine();
+            var engine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
+
+            var steps = dto.Steps.Select(s => new Whycespace.System.Midstream.WSS.Models.WorkflowTemplateStep(
+                s.StepId, s.Description, s.Engine, s.Command,
+                s.Parameters ?? new Dictionary<string, string>(),
+                null)).ToList();
+
+            var transitions = dto.Transitions.ToDictionary(
+                kvp => kvp.Key,
+                kvp => (IReadOnlyList<string>)kvp.Value.AsReadOnly());
+
+            var graph = new Whycespace.System.Midstream.WSS.Models.WorkflowGraph(
+                dto.TemplateId, transitions);
+
+            var template = new Whycespace.System.Midstream.WSS.Models.WorkflowTemplate(
+                dto.TemplateId, dto.Name, dto.Version, dto.Description, steps, graph);
+
+            engine.RegisterTemplate(template);
+
             return Ok(new
             {
                 templateId = template.TemplateId,
-                workflowDefinitionId = template.WorkflowDefinitionId,
-                parameters = template.Parameters,
-                createdAt = template.CreatedAt
+                name = template.Name,
+                version = template.Version,
+                stepCount = template.Steps.Count
+            });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("wss/templates/generate")]
+    public IActionResult GenerateWssWorkflowFromTemplate([FromBody] DebugGenerateWorkflowFromTemplateDto dto)
+    {
+        try
+        {
+            var graphEngine = new WorkflowGraphEngine();
+            var engine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
+            var definition = engine.GenerateWorkflowDefinition(dto.TemplateId, dto.Parameters);
+
+            return Ok(new
+            {
+                workflowId = definition.WorkflowId,
+                name = definition.Name,
+                description = definition.Description,
+                version = definition.Version,
+                steps = definition.Steps.Select(s => new
+                {
+                    stepId = s.StepId,
+                    name = s.Name,
+                    engineName = s.EngineName,
+                    nextSteps = s.NextSteps
+                }),
+                createdAt = definition.CreatedAt
             });
         }
         catch (KeyNotFoundException ex)
         {
             return NotFound(new { message = ex.Message });
         }
-        catch (InvalidOperationException ex)
+        catch (ArgumentException ex)
         {
             return BadRequest(new { message = ex.Message });
         }
@@ -2219,17 +2343,17 @@ public sealed class DebugController : ControllerBase
     [HttpGet("wss/registry")]
     public IActionResult GetWssRegistry()
     {
-        var engine = new WorkflowRegistryEngine(_workflowRegistryStore, _workflowDefinitionStore);
-        var entries = engine.ListWorkflows();
+        var workflows = _workflowRegistry.ListWorkflows();
         return Ok(new
         {
-            workflows = entries.Select(e => new
+            workflows = workflows.Select(w => new
             {
-                workflowId = e.WorkflowId,
-                name = e.Name,
-                version = e.Version,
-                status = e.Status.ToString(),
-                registeredAt = e.RegisteredAt
+                workflowId = w.WorkflowId,
+                name = w.Name,
+                version = w.Version,
+                description = w.Description,
+                stepCount = w.Steps.Count,
+                createdAt = w.CreatedAt
             })
         });
     }
@@ -2239,15 +2363,21 @@ public sealed class DebugController : ControllerBase
     {
         try
         {
-            var engine = new WorkflowRegistryEngine(_workflowRegistryStore, _workflowDefinitionStore);
-            var entry = engine.GetWorkflow(id);
+            var workflow = _workflowRegistry.GetWorkflow(id);
             return Ok(new
             {
-                workflowId = entry.WorkflowId,
-                name = entry.Name,
-                version = entry.Version,
-                status = entry.Status.ToString(),
-                registeredAt = entry.RegisteredAt
+                workflowId = workflow.WorkflowId,
+                name = workflow.Name,
+                version = workflow.Version,
+                description = workflow.Description,
+                steps = workflow.Steps.Select(s => new
+                {
+                    stepId = s.StepId,
+                    name = s.Name,
+                    engineName = s.EngineName,
+                    nextSteps = s.NextSteps
+                }),
+                createdAt = workflow.CreatedAt
             });
         }
         catch (KeyNotFoundException)
@@ -2257,28 +2387,50 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpPost("wss/registry/register")]
-    public IActionResult RegisterWssWorkflow([FromBody] DebugRegisterWssWorkflowDto dto)
+    public IActionResult RegisterWssWorkflow([FromBody] DebugRegisterWorkflowDefinitionDto dto)
     {
         try
         {
-            var engine = new WorkflowRegistryEngine(_workflowRegistryStore, _workflowDefinitionStore);
-            var entry = engine.RegisterWorkflow(dto.WorkflowId);
+            var steps = dto.Steps.Select(s =>
+                new Whycespace.Contracts.Workflows.WorkflowStep(
+                    s.StepId, s.Name, s.EngineName, s.NextSteps)).ToList();
+
+            var definition = new Whycespace.System.Midstream.WSS.Models.WorkflowDefinition(
+                dto.WorkflowId, dto.Name, dto.Description, dto.Version,
+                steps, DateTimeOffset.UtcNow);
+
+            _workflowRegistry.RegisterWorkflow(definition);
+
             return Ok(new
             {
-                workflowId = entry.WorkflowId,
-                name = entry.Name,
-                version = entry.Version,
-                status = entry.Status.ToString(),
-                registeredAt = entry.RegisteredAt
+                workflowId = definition.WorkflowId,
+                name = definition.Name,
+                version = definition.Version,
+                stepCount = definition.Steps.Count,
+                createdAt = definition.CreatedAt
             });
         }
-        catch (KeyNotFoundException ex)
+        catch (ArgumentException ex)
         {
-            return NotFound(new { message = ex.Message });
+            return BadRequest(new { message = ex.Message });
         }
         catch (InvalidOperationException ex)
         {
             return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpDelete("wss/registry/{id}")]
+    public IActionResult RemoveWssWorkflow(string id)
+    {
+        try
+        {
+            _workflowRegistry.RemoveWorkflow(id);
+            return Ok(new { message = $"Workflow removed: {id}" });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = $"Workflow not found: '{id}'" });
         }
     }
 
@@ -2286,58 +2438,89 @@ public sealed class DebugController : ControllerBase
     public IActionResult GetWssVersions(string workflowId)
     {
         var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
-        var versions = engine.GetVersions(workflowId);
+        var versions = engine.ListWorkflowVersions(workflowId);
         return Ok(new
         {
             workflowId,
             versions = versions.Select(v => new
             {
                 version = v.Version,
-                status = v.Status.ToString(),
+                name = v.Name,
+                description = v.Description,
                 createdAt = v.CreatedAt
             })
         });
     }
 
-    [HttpGet("wss/versions/{workflowId}/active")]
-    public IActionResult GetWssActiveVersion(string workflowId)
+    [HttpGet("wss/versions/{workflowId}/{version}")]
+    public IActionResult GetWssVersion(string workflowId, string version)
     {
         try
         {
             var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
-            var version = engine.GetActiveVersion(workflowId);
+            var workflow = engine.GetWorkflowVersion(workflowId, version);
             return Ok(new
             {
-                workflowId = version.WorkflowId,
-                version = version.Version,
-                status = version.Status.ToString(),
-                createdAt = version.CreatedAt
+                workflowId = workflow.WorkflowId,
+                name = workflow.Name,
+                version = workflow.Version,
+                description = workflow.Description,
+                steps = workflow.Steps.Select(s => new { s.StepId, s.Name, s.EngineName, s.NextSteps }),
+                createdAt = workflow.CreatedAt
             });
         }
         catch (KeyNotFoundException)
         {
-            return NotFound(new { message = $"No active version for workflow: '{workflowId}'" });
+            return NotFound(new { message = $"Version '{version}' not found for workflow: '{workflowId}'" });
         }
     }
 
-    [HttpPost("wss/versions/create")]
-    public IActionResult CreateWssVersion([FromBody] DebugCreateWorkflowVersionDto dto)
+    [HttpGet("wss/versions/{workflowId}/latest")]
+    public IActionResult GetWssLatestVersion(string workflowId)
     {
         try
         {
             var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
-            var version = engine.CreateVersion(dto.WorkflowId, dto.Version);
+            var workflow = engine.GetLatestWorkflow(workflowId);
             return Ok(new
             {
-                workflowId = version.WorkflowId,
-                version = version.Version,
-                status = version.Status.ToString(),
-                createdAt = version.CreatedAt
+                workflowId = workflow.WorkflowId,
+                name = workflow.Name,
+                version = workflow.Version,
+                description = workflow.Description,
+                createdAt = workflow.CreatedAt
             });
         }
-        catch (KeyNotFoundException ex)
+        catch (KeyNotFoundException)
         {
-            return NotFound(new { message = ex.Message });
+            return NotFound(new { message = $"No versions found for workflow: '{workflowId}'" });
+        }
+    }
+
+    [HttpPost("wss/versions/register")]
+    public IActionResult RegisterWssVersion([FromBody] DebugRegisterWorkflowVersionDto dto)
+    {
+        try
+        {
+            var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
+            var steps = dto.Steps.Select(s =>
+                new Whycespace.Contracts.Workflows.WorkflowStep(s.StepId, s.Name, s.EngineName, s.NextSteps)).ToList();
+
+            var workflow = new Whycespace.System.Midstream.WSS.Models.WorkflowDefinition(
+                dto.WorkflowId, dto.Name, dto.Description, dto.Version, steps, DateTimeOffset.UtcNow);
+
+            var result = engine.RegisterWorkflowVersion(workflow);
+            return Ok(new
+            {
+                workflowId = result.WorkflowId,
+                name = result.Name,
+                version = result.Version,
+                createdAt = result.CreatedAt
+            });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
         }
         catch (InvalidOperationException ex)
         {
@@ -2345,24 +2528,275 @@ public sealed class DebugController : ControllerBase
         }
     }
 
-    [HttpPost("wss/versions/activate")]
-    public IActionResult ActivateWssVersion([FromBody] DebugActivateWorkflowVersionDto dto)
+    private WorkflowValidationOrchestrator CreateValidationOrchestrator()
+    {
+        var graphEngine = new WorkflowGraphEngine();
+        var definitionEngine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
+        var templateEngine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
+        var versioningEngine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
+        return new WorkflowValidationOrchestrator(definitionEngine, graphEngine, templateEngine, versioningEngine);
+    }
+
+    private static object FormatValidationResult(WorkflowValidationResult result) => new
+    {
+        isValid = result.IsValid,
+        errors = result.Errors.Select(e => new { code = e.Code, message = e.Message, component = e.Component, stepId = e.StepId }),
+        warnings = result.Warnings.Select(w => new { code = w.Code, message = w.Message, component = w.Component, stepId = w.StepId })
+    };
+
+    [HttpPost("wss/validation/workflow")]
+    public IActionResult ValidateWssWorkflow([FromBody] DebugRegisterWorkflowDefinitionDto dto)
+    {
+        var steps = dto.Steps.Select(s =>
+            new Whycespace.Contracts.Workflows.WorkflowStep(s.StepId, s.Name, s.EngineName, s.NextSteps)).ToList();
+
+        var workflow = new Whycespace.System.Midstream.WSS.Models.WorkflowDefinition(
+            dto.WorkflowId, dto.Name, dto.Description, dto.Version, steps, DateTimeOffset.UtcNow);
+
+        var orchestrator = CreateValidationOrchestrator();
+        var result = orchestrator.ValidateCompleteWorkflow(workflow);
+        return Ok(FormatValidationResult(result));
+    }
+
+    [HttpPost("wss/validation/template")]
+    public IActionResult ValidateWssTemplate([FromBody] DebugValidateWorkflowTemplateDto dto)
+    {
+        var orchestrator = CreateValidationOrchestrator();
+        var result = orchestrator.ValidateWorkflowTemplate(dto.TemplateId, dto.Parameters);
+        return Ok(FormatValidationResult(result));
+    }
+
+    [HttpPost("wss/validation/version")]
+    public IActionResult ValidateWssVersion([FromBody] DebugValidateWorkflowVersionDto dto)
+    {
+        var orchestrator = CreateValidationOrchestrator();
+        var result = orchestrator.ValidateWorkflowVersion(dto.WorkflowId, dto.Version);
+        return Ok(FormatValidationResult(result));
+    }
+
+    private WorkflowDependencyAnalyzer CreateDependencyAnalyzer()
+    {
+        return new WorkflowDependencyAnalyzer(_workflowDefinitionStore);
+    }
+
+    private static object FormatDependencyResult(WorkflowDependencyResult result) => new
+    {
+        workflowId = result.WorkflowId,
+        hasIssues = result.HasIssues,
+        dependencies = result.Dependencies,
+        executionOrder = result.ExecutionOrder,
+        missingDependencies = result.MissingDependencies,
+        circularDependencies = result.CircularDependencies,
+        externalWorkflowDependencies = result.ExternalWorkflowDependencies
+    };
+
+    [HttpPost("wss/dependency/analyze")]
+    public IActionResult AnalyzeWssDependencies([FromBody] DebugRegisterWorkflowDefinitionDto dto)
+    {
+        var steps = dto.Steps.Select(s =>
+            new Whycespace.Contracts.Workflows.WorkflowStep(s.StepId, s.Name, s.EngineName, s.NextSteps)).ToList();
+
+        var workflow = new Whycespace.System.Midstream.WSS.Models.WorkflowDefinition(
+            dto.WorkflowId, dto.Name, dto.Description, dto.Version, steps, DateTimeOffset.UtcNow);
+
+        var analyzer = CreateDependencyAnalyzer();
+        var result = analyzer.AnalyzeWorkflowDependencies(workflow);
+        return Ok(FormatDependencyResult(result));
+    }
+
+    [HttpGet("wss/dependency/{workflowId}")]
+    public IActionResult GetWssDependencies(string workflowId)
     {
         try
         {
-            var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
-            var version = engine.ActivateVersion(dto.WorkflowId, dto.Version);
-            return Ok(new
-            {
-                workflowId = version.WorkflowId,
-                version = version.Version,
-                status = version.Status.ToString(),
-                createdAt = version.CreatedAt
-            });
+            var workflow = _workflowDefinitionStore.Get(workflowId);
+            var analyzer = CreateDependencyAnalyzer();
+            var result = analyzer.AnalyzeWorkflowDependencies(workflow);
+            return Ok(FormatDependencyResult(result));
         }
-        catch (KeyNotFoundException ex)
+        catch (KeyNotFoundException)
         {
-            return NotFound(new { message = ex.Message });
+            return NotFound(new { message = $"Workflow not found: '{workflowId}'" });
+        }
+    }
+
+    [HttpPost("wss/dependency/resolve")]
+    public IActionResult ResolveWssDependencies([FromBody] DebugRegisterWorkflowDefinitionDto dto)
+    {
+        var steps = dto.Steps.Select(s =>
+            new Whycespace.Contracts.Workflows.WorkflowStep(s.StepId, s.Name, s.EngineName, s.NextSteps)).ToList();
+
+        var workflow = new Whycespace.System.Midstream.WSS.Models.WorkflowDefinition(
+            dto.WorkflowId, dto.Name, dto.Description, dto.Version, steps, DateTimeOffset.UtcNow);
+
+        var analyzer = CreateDependencyAnalyzer();
+        var order = analyzer.ResolveExecutionOrder(workflow);
+        return Ok(new
+        {
+            workflowId = dto.WorkflowId,
+            executionOrder = order
+        });
+    }
+
+    // --- WSS Engine Mapping (Phase 2.1.8) ---
+
+    [HttpGet("wss/engines")]
+    public IActionResult GetWssEngines()
+    {
+        var mapper = new WorkflowStepEngineMapper(_engineMappingStore);
+        var engines = mapper.ListEngines();
+        return Ok(new { engines });
+    }
+
+    [HttpPost("wss/engines/register")]
+    public IActionResult RegisterWssEngine([FromBody] DebugRegisterEngineMappingDto dto)
+    {
+        var mapper = new WorkflowStepEngineMapper(_engineMappingStore);
+        mapper.RegisterEngine(dto.EngineName, dto.RuntimeIdentifier);
+        return Ok(new { message = $"Engine '{dto.EngineName}' mapped to '{dto.RuntimeIdentifier}'" });
+    }
+
+    [HttpGet("wss/engines/{engineName}")]
+    public IActionResult ResolveWssEngine(string engineName)
+    {
+        var mapper = new WorkflowStepEngineMapper(_engineMappingStore);
+        if (!mapper.EngineExists(engineName))
+            return NotFound(new { message = $"Engine mapping not found: '{engineName}'" });
+
+        var runtimeIdentifier = mapper.ResolveEngine(engineName);
+        return Ok(new { engineName, runtimeIdentifier });
+    }
+
+    // --- WSS Instance Registry (Phase 2.1.9) ---
+
+    [HttpGet("wss/instances")]
+    public IActionResult GetWssInstances()
+    {
+        var registry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(_instanceRegistryStore);
+        var instances = registry.ListInstances();
+        return Ok(new { count = instances.Count, instances });
+    }
+
+    [HttpGet("wss/instances/{instanceId}")]
+    public IActionResult GetWssInstance(string instanceId)
+    {
+        var registry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(_instanceRegistryStore);
+        try
+        {
+            var instance = registry.GetInstance(instanceId);
+            return Ok(instance);
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = $"Instance not found: '{instanceId}'" });
+        }
+    }
+
+    [HttpPost("wss/instances/create")]
+    public IActionResult CreateWssInstance([FromBody] DebugCreateWssInstanceDto dto)
+    {
+        var registry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(_instanceRegistryStore);
+        var instance = registry.CreateInstance(dto.WorkflowId, dto.Version, dto.Context);
+        return Ok(instance);
+    }
+
+    [HttpPost("wss/instances/update")]
+    public IActionResult UpdateWssInstance([FromBody] DebugUpdateWssInstanceDto dto)
+    {
+        var registry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(_instanceRegistryStore);
+        try
+        {
+            var updated = registry.UpdateInstanceState(dto.InstanceId, dto.CurrentStep, dto.Status);
+            return Ok(updated);
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = $"Instance not found: '{dto.InstanceId}'" });
+        }
+    }
+
+    [HttpDelete("wss/instances/{instanceId}")]
+    public IActionResult RemoveWssInstance(string instanceId)
+    {
+        var registry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(_instanceRegistryStore);
+        try
+        {
+            registry.RemoveInstance(instanceId);
+            return Ok(new { message = $"Instance '{instanceId}' removed" });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = $"Instance not found: '{instanceId}'" });
+        }
+    }
+
+    // --- WSS Workflow State Store (Phase 2.1.10) ---
+
+    [HttpGet("wss/state")]
+    public IActionResult GetWssActiveStates()
+    {
+        var states = _wssWorkflowStateStore.ListActiveStates();
+        return Ok(new { count = states.Count, states });
+    }
+
+    [HttpGet("wss/state/{instanceId}")]
+    public IActionResult GetWssState(string instanceId)
+    {
+        try
+        {
+            var state = _wssWorkflowStateStore.GetState(instanceId);
+            return Ok(state);
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = $"Workflow state not found: '{instanceId}'" });
+        }
+    }
+
+    [HttpPost("wss/state/save")]
+    public IActionResult SaveWssState([FromBody] DebugSaveWssStateDto dto)
+    {
+        var state = new WorkflowState(
+            dto.InstanceId,
+            dto.WorkflowId,
+            dto.WorkflowVersion,
+            string.Empty,
+            new List<string>(),
+            WorkflowInstanceStatus.Created,
+            DateTimeOffset.UtcNow,
+            DateTimeOffset.UtcNow,
+            dto.ExecutionContext ?? new Dictionary<string, object>()
+        );
+
+        _wssWorkflowStateStore.SaveState(state);
+        return Ok(state);
+    }
+
+    [HttpPost("wss/state/update")]
+    public IActionResult UpdateWssState([FromBody] DebugUpdateWssStateDto dto)
+    {
+        try
+        {
+            var updated = _wssWorkflowStateStore.UpdateState(dto.InstanceId, dto.CurrentStep, dto.Status);
+            return Ok(updated);
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = $"Workflow state not found: '{dto.InstanceId}'" });
+        }
+    }
+
+    [HttpDelete("wss/state/{instanceId}")]
+    public IActionResult DeleteWssState(string instanceId)
+    {
+        try
+        {
+            _wssWorkflowStateStore.DeleteState(instanceId);
+            return Ok(new { message = $"Workflow state '{instanceId}' deleted" });
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = $"Workflow state not found: '{instanceId}'" });
         }
     }
 }
@@ -2405,9 +2839,18 @@ public sealed record DebugAuditPolicyDto(string? PolicyId, string? ActorId, stri
 public sealed record DebugRegisterGuardianDto(string GuardianId, Guid IdentityId, string Name, List<string> Roles);
 public sealed record DebugCreateGovernanceRoleDto(string RoleId, string Name, string Description, List<string> Permissions);
 public sealed record DebugAssignGovernanceRoleDto(string RoleId);
-public sealed record DebugRegisterWorkflowDefinitionDto(string WorkflowId, string Name, string Description, int Version, List<DebugWorkflowStepDto> Steps);
+public sealed record DebugRegisterWorkflowDefinitionDto(string WorkflowId, string Name, string Description, string Version, List<DebugWorkflowStepDto> Steps);
 public sealed record DebugWorkflowStepDto(string StepId, string Name, string EngineName, List<string> NextSteps);
-public sealed record DebugCreateWorkflowTemplateDto(string TemplateId, string WorkflowDefinitionId, Dictionary<string, string> Parameters);
+public sealed record DebugRegisterWorkflowTemplateDto(string TemplateId, string Name, int Version, string Description, List<DebugWorkflowTemplateStepDto> Steps, Dictionary<string, List<string>> Transitions);
+public sealed record DebugWorkflowTemplateStepDto(string StepId, string Description, string Engine, string Command, Dictionary<string, string>? Parameters);
+public sealed record DebugGenerateWorkflowFromTemplateDto(string TemplateId, Dictionary<string, string> Parameters);
 public sealed record DebugRegisterWssWorkflowDto(string WorkflowId);
-public sealed record DebugCreateWorkflowVersionDto(string WorkflowId, int Version);
-public sealed record DebugActivateWorkflowVersionDto(string WorkflowId, int Version);
+public sealed record DebugRegisterWorkflowVersionDto(string WorkflowId, string Name, string Description, string Version, List<DebugWorkflowStepDto> Steps);
+public sealed record DebugValidateGraphDto(string WorkflowId, Dictionary<string, List<string>> Transitions);
+public sealed record DebugValidateWorkflowTemplateDto(string TemplateId, Dictionary<string, string> Parameters);
+public sealed record DebugValidateWorkflowVersionDto(string WorkflowId, string Version);
+public sealed record DebugRegisterEngineMappingDto(string EngineName, string RuntimeIdentifier);
+public sealed record DebugCreateWssInstanceDto(string WorkflowId, string Version, Dictionary<string, object>? Context);
+public sealed record DebugUpdateWssInstanceDto(string InstanceId, string CurrentStep, WorkflowInstanceStatus Status);
+public sealed record DebugSaveWssStateDto(string InstanceId, string WorkflowId, string WorkflowVersion, Dictionary<string, object>? ExecutionContext);
+public sealed record DebugUpdateWssStateDto(string InstanceId, string CurrentStep, WorkflowInstanceStatus Status);

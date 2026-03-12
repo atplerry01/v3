@@ -1,7 +1,7 @@
 namespace Whycespace.Engines.T1M.WSS.Definition;
 
 using Whycespace.System.Midstream.WSS.Models;
-using Whycespace.System.Midstream.WSS.Stores;
+using Whycespace.Engines.T1M.WSS.Stores;
 
 public sealed class WorkflowRegistryEngine
 {

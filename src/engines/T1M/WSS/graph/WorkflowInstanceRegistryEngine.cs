@@ -2,7 +2,7 @@ namespace Whycespace.Engines.T1M.WSS.Graph;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Workflows;
-using Whycespace.System.Midstream.WSS.Stores;
+using Whycespace.Engines.T1M.WSS.Stores;
 using Whycespace.EngineManifest.Manifest;
 using Whycespace.EngineManifest.Models;
 

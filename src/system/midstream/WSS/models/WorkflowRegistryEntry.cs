@@ -3,7 +3,7 @@ namespace Whycespace.System.Midstream.WSS.Models;
 public sealed record WorkflowRegistryEntry(
     string WorkflowId,
     string Name,
-    int Version,
+    string Version,
     WorkflowRegistryStatus Status,
     DateTimeOffset RegisteredAt
 );
