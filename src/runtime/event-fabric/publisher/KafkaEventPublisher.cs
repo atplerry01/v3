@@ -7,6 +7,7 @@ namespace Whycespace.EventFabric.Publisher;
 public sealed class KafkaEventPublisher : IEventPublisher, IDisposable
 {
     private readonly IProducer<string, string> _producer;
+    private readonly PartitionKeyResolver _partitionKeyResolver = new();
 
     public KafkaEventPublisher(string bootstrapServers)
     {
@@ -31,11 +32,12 @@ public sealed class KafkaEventPublisher : IEventPublisher, IDisposable
         EventEnvelope envelope,
         CancellationToken cancellationToken)
     {
+        var key = _partitionKeyResolver.Resolve(envelope);
         var json = JsonSerializer.Serialize(envelope);
 
         var message = new Message<string, string>
         {
-            Key = envelope.PartitionKey.Value,
+            Key = key,
             Value = json
         };
 

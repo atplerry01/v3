@@ -89,6 +89,10 @@
     <Content Remove="reliability-runtime/**" />
     <None Remove="reliability-runtime/**" />
     <EmbeddedResource Remove="reliability-runtime/**" />
+    <Compile Remove="event-observability/**" />
+    <Content Remove="event-observability/**" />
+    <None Remove="event-observability/**" />
+    <EmbeddedResource Remove="event-observability/**" />
   </ItemGroup>
 
   <ItemGroup>

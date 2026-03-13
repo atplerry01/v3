@@ -21,7 +21,6 @@ COPY src/runtime/event-fabric/Whycespace.EventFabric.csproj src/runtime/event-fa
 COPY src/runtime/event-schema/Whycespace.EventSchema.csproj src/runtime/event-schema/
 COPY src/runtime/event-idempotency/Whycespace.EventIdempotency.csproj src/runtime/event-idempotency/
 COPY src/system/Whycespace.System.csproj src/system/
-COPY src/system/engine-manifest/Whycespace.System.EngineManifest.csproj src/system/engine-manifest/
 COPY src/system/upstream/WhyceID/Whycespace.System.WhyceID.csproj src/system/upstream/WhyceID/
 COPY src/domain/Whycespace.Domain.csproj src/domain/
 COPY src/domain/clusters/Whycespace.ClusterDomain.csproj src/domain/clusters/
