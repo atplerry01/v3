@@ -3,16 +3,16 @@ namespace Whycespace.System.Midstream.WSS.Kafka;
 using global::System.Text.Json;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
-using Whycespace.Runtime.Events;
+using Whycespace.Contracts.Runtime;
 using Whycespace.Contracts.Events;
 
 public sealed class KafkaEventPublisher : IDisposable
 {
-    private readonly EventBus _eventBus;
+    private readonly IEventBus _eventBus;
     private readonly IProducer<string, string>? _producer;
     private readonly ILogger<KafkaEventPublisher>? _logger;
 
-    public KafkaEventPublisher(EventBus eventBus, string bootstrapServers = "localhost:9092", ILogger<KafkaEventPublisher>? logger = null)
+    public KafkaEventPublisher(IEventBus eventBus, string bootstrapServers = "localhost:9092", ILogger<KafkaEventPublisher>? logger = null)
     {
         _eventBus = eventBus;
         _logger = logger;

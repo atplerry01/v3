@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\shared\Whycespace.Shared.csproj" />
-    <ProjectReference Include="..\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />
+    <ProjectReference Include="..\system\engine-manifest\Whycespace.System.EngineManifest.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

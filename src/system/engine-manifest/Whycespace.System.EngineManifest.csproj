@@ -9,8 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
-    <ProjectReference Include="..\engine\Whycespace.EngineRuntime.csproj" />
-    <ProjectReference Include="..\..\system\engine-manifest\Whycespace.System.EngineManifest.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@ using Whycespace.Contracts.Runtime;
 using Whycespace.WorkflowRuntime.Executor;
 using Whycespace.WorkflowRuntime.Registry;
 
-public sealed class WorkflowRuntime
+public sealed class WorkflowRuntime : IWorkflowRuntime
 {
     private readonly IWorkflowRegistry _registry;
     private readonly IWorkflowExecutor _executor;
