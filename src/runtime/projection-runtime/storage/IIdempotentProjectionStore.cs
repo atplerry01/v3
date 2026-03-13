@@ -1,4 +1,4 @@
-namespace Whycespace.Projections.Contracts;
+namespace Whycespace.ProjectionRuntime.Storage;
 
 public interface IIdempotentProjectionStore
 {

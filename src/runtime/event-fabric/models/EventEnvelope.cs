@@ -8,5 +8,8 @@ public sealed record EventEnvelope(
     string Topic,
     object Payload,
     PartitionKey PartitionKey,
-    Timestamp Timestamp
+    Timestamp Timestamp,
+    string? AggregateId = null,
+    long SequenceNumber = 0,
+    IReadOnlyDictionary<string, string>? Metadata = null
 );

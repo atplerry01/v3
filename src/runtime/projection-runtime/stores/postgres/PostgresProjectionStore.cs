@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
-using Whycespace.Projections.Contracts;
+using Whycespace.ProjectionRuntime.Storage;
 
-namespace Whycespace.Projections.Stores.Postgres;
+namespace Whycespace.ProjectionRuntime.Stores.Postgres;
 
 /// <summary>
 /// Postgres-backed projection store with idempotency tracking.

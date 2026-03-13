@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
-using Whycespace.Projections.Contracts;
+using Whycespace.ProjectionRuntime.Storage;
 
-namespace Whycespace.Projections.Stores.Redis;
+namespace Whycespace.ProjectionRuntime.Stores.Redis;
 
 public sealed class RedisIdempotentProjectionStore : IIdempotentProjectionStore
 {
