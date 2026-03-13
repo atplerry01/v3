@@ -1,6 +1,8 @@
 using Whycespace.Contracts.Runtime;
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Definition;
+using WorkflowGraph = Whycespace.System.Midstream.WSS.Models.WorkflowGraph;
+using WorkflowState = Whycespace.System.Midstream.WSS.Models.WorkflowState;
 using Whycespace.Engines.T1M.WSS.Dependency;
 using Whycespace.Engines.T1M.WSS.Graph;
 using Whycespace.Engines.T1M.WSS.Instance;
@@ -621,10 +623,10 @@ public sealed class WssCommandHandler
             {
                 ["instanceId"] = i.InstanceId,
                 ["workflowId"] = i.WorkflowId,
-                ["version"] = i.Version,
+                ["version"] = i.WorkflowVersion,
                 ["currentStep"] = i.CurrentStep,
                 ["status"] = i.Status.ToString(),
-                ["createdAt"] = i.CreatedAt,
+                ["createdAt"] = i.StartedAt,
                 ["completedAt"] = (object?)i.CompletedAt ?? "",
                 ["context"] = i.Context
             }).ToList()
@@ -641,10 +643,10 @@ public sealed class WssCommandHandler
         {
             ["instanceId"] = instance.InstanceId,
             ["workflowId"] = instance.WorkflowId,
-            ["version"] = instance.Version,
+            ["version"] = instance.WorkflowVersion,
             ["currentStep"] = instance.CurrentStep,
             ["status"] = instance.Status.ToString(),
-            ["createdAt"] = instance.CreatedAt,
+            ["createdAt"] = instance.StartedAt,
             ["completedAt"] = (object?)instance.CompletedAt ?? "",
             ["context"] = instance.Context
         });
@@ -663,10 +665,10 @@ public sealed class WssCommandHandler
         {
             ["instanceId"] = instance.InstanceId,
             ["workflowId"] = instance.WorkflowId,
-            ["version"] = instance.Version,
+            ["version"] = instance.WorkflowVersion,
             ["currentStep"] = instance.CurrentStep,
             ["status"] = instance.Status.ToString(),
-            ["createdAt"] = instance.CreatedAt
+            ["createdAt"] = instance.StartedAt
         });
     }
 
@@ -683,10 +685,10 @@ public sealed class WssCommandHandler
         {
             ["instanceId"] = instance.InstanceId,
             ["workflowId"] = instance.WorkflowId,
-            ["version"] = instance.Version,
+            ["version"] = instance.WorkflowVersion,
             ["currentStep"] = instance.CurrentStep,
             ["status"] = instance.Status.ToString(),
-            ["createdAt"] = instance.CreatedAt,
+            ["createdAt"] = instance.StartedAt,
             ["completedAt"] = (object?)instance.CompletedAt ?? ""
         });
     }

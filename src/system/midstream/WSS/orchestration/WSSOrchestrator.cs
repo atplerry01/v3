@@ -1,25 +1,22 @@
 namespace Whycespace.System.Midstream.WSS.Orchestration;
 
-using Whycespace.Runtime.Workflow;
 using Whycespace.Contracts.Runtime;
 using Whycespace.Contracts.Workflows;
 using Whycespace.System.Midstream.WSS.Mapping;
-using Whycespace.WorkflowRuntime.Registry;
-using WfRuntime = Whycespace.WorkflowRuntime.Runtime.WorkflowRuntime;
 
 public sealed class WSSOrchestrator
 {
     private readonly WorkflowMapper _mapper;
-    private readonly WorkflowOrchestrator _orchestrator;
-    private readonly WfRuntime? _workflowRuntime;
+    private readonly IWorkflowOrchestrator _orchestrator;
+    private readonly IWorkflowRuntime? _workflowRuntime;
 
-    public WSSOrchestrator(WorkflowMapper mapper, WorkflowOrchestrator orchestrator)
+    public WSSOrchestrator(WorkflowMapper mapper, IWorkflowOrchestrator orchestrator)
     {
         _mapper = mapper;
         _orchestrator = orchestrator;
     }
 
-    public WSSOrchestrator(WorkflowMapper mapper, WorkflowOrchestrator orchestrator, WfRuntime workflowRuntime)
+    public WSSOrchestrator(WorkflowMapper mapper, IWorkflowOrchestrator orchestrator, IWorkflowRuntime workflowRuntime)
         : this(mapper, orchestrator)
     {
         _workflowRuntime = workflowRuntime;

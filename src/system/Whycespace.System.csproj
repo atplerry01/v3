@@ -9,14 +9,15 @@
     <Compile Remove="upstream\WhyceID\stores\**" />
     <Compile Remove="upstream\WhyceID\bin\**" />
     <Compile Remove="upstream\WhyceID\obj\**" />
+    <Compile Remove="engine-manifest\**" />
+    <Content Remove="engine-manifest\**" />
+    <None Remove="engine-manifest\**" />
+    <EmbeddedResource Remove="engine-manifest\**" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\shared\Whycespace.Shared.csproj" />
-    <ProjectReference Include="..\engines\Whycespace.Engines.csproj" />
-    <ProjectReference Include="..\runtime\Whycespace.Runtime.csproj" />
     <ProjectReference Include="..\domain\Whycespace.Domain.csproj" />
-    <ProjectReference Include="..\runtime\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
   </ItemGroup>
 
   <ItemGroup>

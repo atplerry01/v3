@@ -87,6 +87,9 @@
   <Folder Name="/src/system/">
     <Project Path="src/system/Whycespace.System.csproj" />
   </Folder>
+  <Folder Name="/src/system/engine-manifest/">
+    <Project Path="src/system/engine-manifest/Whycespace.System.EngineManifest.csproj" />
+  </Folder>
   <Folder Name="/src/system/upstream/whyceid/">
     <Project Path="src/system/upstream/WhyceID/Whycespace.System.WhyceID.csproj" />
   </Folder>

@@ -1,6 +1,6 @@
 namespace Whycespace.Runtime.Persistence;
 
-using System.Text.Json;
+using global::System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Npgsql;
 
