@@ -217,3 +217,7 @@ C:\projects\dev\v3\tests\obj\Debug\net10.0\Whycespace.Tests.genruntimeconfig.cac
 C:\projects\dev\v3\tests\obj\Debug\net10.0\ref\Whycespace.Tests.dll
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
+C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.PartitionRuntime.dll
+C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.RuntimeDispatcher.dll
+C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.PartitionRuntime.pdb
+C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.RuntimeDispatcher.pdb

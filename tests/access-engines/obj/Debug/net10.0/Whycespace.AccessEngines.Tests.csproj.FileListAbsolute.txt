@@ -105,3 +105,7 @@ C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\ref\Whycespace.AccessE
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
 C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\Whycespace.AccessEngines.Tests.sourcelink.json
+C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.ClusterDomain.dll
+C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.Domain.dll
+C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.ClusterDomain.pdb
+C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.Domain.pdb

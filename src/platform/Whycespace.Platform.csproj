@@ -38,6 +38,7 @@
     <ProjectReference Include="..\runtime\projection-runtime\Whycespace.ProjectionRuntime.csproj" />
     <ProjectReference Include="..\runtime\reliability-runtime\Whycespace.ReliabilityRuntime.csproj" />
     <ProjectReference Include="..\system\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
+    <ProjectReference Include="..\runtime\dispatcher\Whycespace.RuntimeDispatcher.csproj" />
   </ItemGroup>
 
   <ItemGroup>

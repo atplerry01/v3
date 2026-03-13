@@ -426,6 +426,7 @@
       },
       "Whycespace.Engines/1.0.0": {
         "dependencies": {
+          "Whycespace.Domain": "1.0.0",
           "Whycespace.Shared": "1.0.0",
           "Whycespace.System.EngineManifest": "1.0.0"
         },

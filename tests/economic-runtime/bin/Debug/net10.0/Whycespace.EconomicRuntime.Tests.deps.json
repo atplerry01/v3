@@ -352,6 +352,18 @@
           }
         }
       },
+      "Whycespace.Domain/1.0.0": {
+        "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.EconomicDomain/1.0.0": {
         "dependencies": {
           "Whycespace.ClusterDomain": "1.0.0",
@@ -366,6 +378,7 @@
       },
       "Whycespace.Engines/1.0.0": {
         "dependencies": {
+          "Whycespace.Domain": "1.0.0",
           "Whycespace.Shared": "1.0.0",
           "Whycespace.System.EngineManifest": "1.0.0"
         },
@@ -489,6 +502,11 @@
       "sha512": ""
     },
     "Whycespace.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

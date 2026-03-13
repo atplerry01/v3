@@ -109,3 +109,5 @@ C:\projects\dev\v3\tests\economic-runtime\obj\Debug\net10.0\ref\Whycespace.Econo
 C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
 C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
 C:\projects\dev\v3\tests\economic-runtime\obj\Debug\net10.0\Whycespace.EconomicRuntime.Tests.sourcelink.json
+C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.Domain.dll
+C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.Domain.pdb

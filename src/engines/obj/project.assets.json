@@ -2,6 +2,20 @@
   "version": 3,
   "targets": {
     "net10.0": {
+      "Whycespace.ClusterDomain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        }
+      },
       "Whycespace.Contracts/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -10,6 +24,20 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.Contracts.dll": {}
+        }
+      },
+      "Whycespace.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Domain.dll": {}
         }
       },
       "Whycespace.Shared/1.0.0": {
@@ -41,10 +69,20 @@
     }
   },
   "libraries": {
+    "Whycespace.ClusterDomain/1.0.0": {
+      "type": "project",
+      "path": "../domain/clusters/Whycespace.ClusterDomain.csproj",
+      "msbuildProject": "../domain/clusters/Whycespace.ClusterDomain.csproj"
+    },
     "Whycespace.Contracts/1.0.0": {
       "type": "project",
       "path": "../shared/contracts/Whycespace.Contracts.csproj",
       "msbuildProject": "../shared/contracts/Whycespace.Contracts.csproj"
+    },
+    "Whycespace.Domain/1.0.0": {
+      "type": "project",
+      "path": "../domain/Whycespace.Domain.csproj",
+      "msbuildProject": "../domain/Whycespace.Domain.csproj"
     },
     "Whycespace.Shared/1.0.0": {
       "type": "project",
@@ -59,6 +97,7 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "Whycespace.Domain >= 1.0.0",
       "Whycespace.Shared >= 1.0.0",
       "Whycespace.System.EngineManifest >= 1.0.0"
     ]
@@ -96,6 +135,9 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
+            "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
+            },
             "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
             },

@@ -394,6 +394,20 @@
           "build/net8.0/xunit.runner.visualstudio.props": {}
         }
       },
+      "Whycespace.ClusterDomain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ClusterDomain.dll": {}
+        }
+      },
       "Whycespace.Contracts/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -404,10 +418,25 @@
           "bin/placeholder/Whycespace.Contracts.dll": {}
         }
       },
+      "Whycespace.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Domain.dll": {}
+        }
+      },
       "Whycespace.Engines/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "Whycespace.Domain": "1.0.0",
           "Whycespace.Shared": "1.0.0",
           "Whycespace.System.EngineManifest": "1.0.0"
         },
@@ -954,10 +983,20 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
+    "Whycespace.ClusterDomain/1.0.0": {
+      "type": "project",
+      "path": "../../src/domain/clusters/Whycespace.ClusterDomain.csproj",
+      "msbuildProject": "../../src/domain/clusters/Whycespace.ClusterDomain.csproj"
+    },
     "Whycespace.Contracts/1.0.0": {
       "type": "project",
       "path": "../../src/shared/contracts/Whycespace.Contracts.csproj",
       "msbuildProject": "../../src/shared/contracts/Whycespace.Contracts.csproj"
+    },
+    "Whycespace.Domain/1.0.0": {
+      "type": "project",
+      "path": "../../src/domain/Whycespace.Domain.csproj",
+      "msbuildProject": "../../src/domain/Whycespace.Domain.csproj"
     },
     "Whycespace.Engines/1.0.0": {
       "type": "project",

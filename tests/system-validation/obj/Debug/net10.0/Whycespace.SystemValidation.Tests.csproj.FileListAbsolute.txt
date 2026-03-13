@@ -146,3 +146,5 @@ C:\projects\dev\v3\tests\system-validation\bin\Debug\net10.0\Whycespace.Economic
 C:\projects\dev\v3\tests\system-validation\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
 C:\projects\dev\v3\tests\system-validation\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
 C:\projects\dev\v3\tests\system-validation\obj\Debug\net10.0\Whycespace.SystemValidation.Tests.sourcelink.json
+C:\projects\dev\v3\tests\system-validation\bin\Debug\net10.0\Whycespace.Domain.dll
+C:\projects\dev\v3\tests\system-validation\bin\Debug\net10.0\Whycespace.Domain.pdb

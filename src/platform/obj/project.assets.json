@@ -611,6 +611,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "Whycespace.Domain": "1.0.0",
           "Whycespace.Shared": "1.0.0",
           "Whycespace.System.EngineManifest": "1.0.0"
         },
@@ -761,6 +762,21 @@
           "bin/placeholder/Whycespace.Observability.dll": {}
         }
       },
+      "Whycespace.PartitionRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.CommandSystem": "1.0.0",
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.PartitionRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.PartitionRuntime.dll": {}
+        }
+      },
       "Whycespace.ProjectionRuntime/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -840,6 +856,22 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.Runtime.dll": {}
+        }
+      },
+      "Whycespace.RuntimeDispatcher/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.CommandSystem": "1.0.0",
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.PartitionRuntime": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.RuntimeDispatcher.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.RuntimeDispatcher.dll": {}
         }
       },
       "Whycespace.RuntimeValidation/1.0.0": {
@@ -1651,6 +1683,11 @@
       "path": "../runtime/observability/Whycespace.Observability.csproj",
       "msbuildProject": "../runtime/observability/Whycespace.Observability.csproj"
     },
+    "Whycespace.PartitionRuntime/1.0.0": {
+      "type": "project",
+      "path": "../runtime/partition/Whycespace.PartitionRuntime.csproj",
+      "msbuildProject": "../runtime/partition/Whycespace.PartitionRuntime.csproj"
+    },
     "Whycespace.ProjectionRuntime/1.0.0": {
       "type": "project",
       "path": "../runtime/projection-runtime/Whycespace.ProjectionRuntime.csproj",
@@ -1675,6 +1712,11 @@
       "type": "project",
       "path": "../runtime/Whycespace.Runtime.csproj",
       "msbuildProject": "../runtime/Whycespace.Runtime.csproj"
+    },
+    "Whycespace.RuntimeDispatcher/1.0.0": {
+      "type": "project",
+      "path": "../runtime/dispatcher/Whycespace.RuntimeDispatcher.csproj",
+      "msbuildProject": "../runtime/dispatcher/Whycespace.RuntimeDispatcher.csproj"
     },
     "Whycespace.RuntimeValidation/1.0.0": {
       "type": "project",
@@ -1740,6 +1782,7 @@
       "Whycespace.Reliability >= 1.0.0",
       "Whycespace.ReliabilityRuntime >= 1.0.0",
       "Whycespace.Runtime >= 1.0.0",
+      "Whycespace.RuntimeDispatcher >= 1.0.0",
       "Whycespace.RuntimeValidation >= 1.0.0",
       "Whycespace.Shared >= 1.0.0",
       "Whycespace.SimulationRuntime >= 1.0.0",
@@ -1795,6 +1838,9 @@
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\command\\Whycespace.CommandSystem.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\dispatcher\\Whycespace.RuntimeDispatcher.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"

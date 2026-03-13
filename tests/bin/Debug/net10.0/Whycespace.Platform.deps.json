@@ -29,6 +29,7 @@
           "Whycespace.Reliability": "1.0.0",
           "Whycespace.ReliabilityRuntime": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
+          "Whycespace.RuntimeDispatcher": "1.0.0",
           "Whycespace.RuntimeValidation": "1.0.0",
           "Whycespace.Shared": "1.0.0",
           "Whycespace.SimulationRuntime": "1.0.0",
@@ -523,6 +524,7 @@
       },
       "Whycespace.Engines/1.0.0": {
         "dependencies": {
+          "Whycespace.Domain": "1.0.0",
           "Whycespace.Shared": "1.0.0",
           "Whycespace.System.EngineManifest": "1.0.0"
         },
@@ -653,6 +655,19 @@
           }
         }
       },
+      "Whycespace.PartitionRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.CommandSystem": "1.0.0",
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.PartitionRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.ProjectionRuntime/1.0.0": {
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
@@ -719,6 +734,20 @@
         },
         "runtime": {
           "Whycespace.Runtime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.RuntimeDispatcher/1.0.0": {
+        "dependencies": {
+          "Whycespace.CommandSystem": "1.0.0",
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.PartitionRuntime": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.RuntimeDispatcher.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1097,6 +1126,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Whycespace.PartitionRuntime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Whycespace.ProjectionRuntime/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -1118,6 +1152,11 @@
       "sha512": ""
     },
     "Whycespace.Runtime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.RuntimeDispatcher/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
