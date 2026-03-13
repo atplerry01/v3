@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T4A.API;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("API", EngineTier.T4A, EngineKind.Mutation, "APIRequest", typeof(EngineEvent))]
 public sealed class APIEngine : IEngine

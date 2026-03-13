@@ -1,10 +1,10 @@
-namespace Whycespace.EngineManifest.Loader;
+namespace Whycespace.Runtime.EngineManifest.Loader;
 
 using System.Reflection;
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
-using Whycespace.EngineManifest.Validation;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Validation;
 using Whycespace.EngineRuntime.Registry;
 
 public sealed class EngineManifestLoader

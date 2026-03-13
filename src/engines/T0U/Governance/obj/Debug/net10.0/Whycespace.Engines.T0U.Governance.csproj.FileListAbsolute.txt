@@ -26,5 +26,9 @@ C:\projects\dev\v3\src\engines\T0U\Governance\obj\Debug\net10.0\Whycespace.Engin
 C:\projects\dev\v3\src\engines\T0U\Governance\obj\Debug\net10.0\refint\Whycespace.Engines.T0U.Governance.dll
 C:\projects\dev\v3\src\engines\T0U\Governance\obj\Debug\net10.0\Whycespace.Engines.T0U.Governance.pdb
 C:\projects\dev\v3\src\engines\T0U\Governance\obj\Debug\net10.0\ref\Whycespace.Engines.T0U.Governance.dll
-C:\projects\dev\v3\src\engines\T0U\Governance\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
-C:\projects\dev\v3\src\engines\T0U\Governance\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
+C:\projects\dev\v3\src\engines\T0U\Governance\bin\Debug\net10.0\Whycespace.EngineManifest.dll
+C:\projects\dev\v3\src\engines\T0U\Governance\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
+C:\projects\dev\v3\src\engines\T0U\Governance\bin\Debug\net10.0\Whycespace.WorkflowRuntime.dll
+C:\projects\dev\v3\src\engines\T0U\Governance\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
+C:\projects\dev\v3\src\engines\T0U\Governance\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb
+C:\projects\dev\v3\src\engines\T0U\Governance\bin\Debug\net10.0\Whycespace.WorkflowRuntime.pdb

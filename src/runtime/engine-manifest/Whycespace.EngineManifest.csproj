@@ -4,13 +4,12 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Whycespace.EngineManifest</RootNamespace>
+    <RootNamespace>Whycespace.Runtime.EngineManifest</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
     <ProjectReference Include="..\engine\Whycespace.EngineRuntime.csproj" />
-    <ProjectReference Include="..\..\system\engine-manifest\Whycespace.System.EngineManifest.csproj" />
   </ItemGroup>
 
 </Project>

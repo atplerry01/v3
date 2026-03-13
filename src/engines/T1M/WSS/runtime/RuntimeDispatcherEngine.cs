@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T1M.WSS.Runtime;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("RuntimeDispatcher", EngineTier.T1M, EngineKind.Decision, "RuntimeDispatcherRequest", typeof(EngineEvent))]
 public sealed class RuntimeDispatcherEngine : IEngine

@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T3I.Core.Observability;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("Observability", EngineTier.T3I, EngineKind.Projection, "ObservabilityRequest", typeof(EngineEvent))]
 public sealed class ObservabilityEngine : IEngine

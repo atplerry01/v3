@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T1M.WSS.Runtime;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 using Whycespace.Engines.T1M.WSS.Stores;
 using Whycespace.System.Midstream.WSS.Models;
 

@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T3I.Core.Analytics;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("Analytics", EngineTier.T3I, EngineKind.Projection, "AnalyticsRequest", typeof(EngineEvent))]
 public sealed class AnalyticsEngine : IEngine

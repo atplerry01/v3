@@ -102,10 +102,14 @@ C:\projects\dev\v3\tests\decision-engines\obj\Debug\net10.0\refint\Whycespace.De
 C:\projects\dev\v3\tests\decision-engines\obj\Debug\net10.0\Whycespace.DecisionEngines.Tests.pdb
 C:\projects\dev\v3\tests\decision-engines\obj\Debug\net10.0\Whycespace.DecisionEngines.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\decision-engines\obj\Debug\net10.0\ref\Whycespace.DecisionEngines.Tests.dll
-C:\projects\dev\v3\tests\decision-engines\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
-C:\projects\dev\v3\tests\decision-engines\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
 C:\projects\dev\v3\tests\decision-engines\obj\Debug\net10.0\Whycespace.DecisionEngines.Tests.sourcelink.json
 C:\projects\dev\v3\tests\decision-engines\bin\Debug\net10.0\Whycespace.ClusterDomain.dll
 C:\projects\dev\v3\tests\decision-engines\bin\Debug\net10.0\Whycespace.Domain.dll
 C:\projects\dev\v3\tests\decision-engines\bin\Debug\net10.0\Whycespace.ClusterDomain.pdb
 C:\projects\dev\v3\tests\decision-engines\bin\Debug\net10.0\Whycespace.Domain.pdb
+C:\projects\dev\v3\tests\decision-engines\bin\Debug\net10.0\Whycespace.EngineManifest.dll
+C:\projects\dev\v3\tests\decision-engines\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
+C:\projects\dev\v3\tests\decision-engines\bin\Debug\net10.0\Whycespace.WorkflowRuntime.dll
+C:\projects\dev\v3\tests\decision-engines\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
+C:\projects\dev\v3\tests\decision-engines\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb
+C:\projects\dev\v3\tests\decision-engines\bin\Debug\net10.0\Whycespace.WorkflowRuntime.pdb

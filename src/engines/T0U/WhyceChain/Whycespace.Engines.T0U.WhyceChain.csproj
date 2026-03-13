@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\system\Whycespace.System.csproj" />
-    <ProjectReference Include="..\..\..\system\engine-manifest\Whycespace.System.EngineManifest.csproj" />
+    <ProjectReference Include="..\..\..\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />
   </ItemGroup>
 
 </Project>

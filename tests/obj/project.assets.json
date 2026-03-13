@@ -1306,8 +1306,7 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EngineRuntime": "1.0.0",
-          "Whycespace.System.EngineManifest": "1.0.0"
+          "Whycespace.EngineRuntime": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.EngineManifest.dll": {}
@@ -1335,8 +1334,8 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Whycespace.Domain": "1.0.0",
-          "Whycespace.Shared": "1.0.0",
-          "Whycespace.System.EngineManifest": "1.0.0"
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.dll": {}
@@ -1364,8 +1363,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.System": "1.0.0",
-          "Whycespace.System.EngineManifest": "1.0.0"
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.System": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.T0U.WhyceChain.dll": {}
@@ -1392,8 +1391,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.System": "1.0.0",
-          "Whycespace.System.EngineManifest": "1.0.0"
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.System": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.T0U.WhycePolicy.dll": {}
@@ -1406,8 +1405,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.System": "1.0.0",
-          "Whycespace.System.EngineManifest": "1.0.0"
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.System": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.T1M.WSS.dll": {}
@@ -1700,19 +1699,6 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.System.dll": {}
-        }
-      },
-      "Whycespace.System.EngineManifest/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Whycespace.System.EngineManifest.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Whycespace.System.EngineManifest.dll": {}
         }
       },
       "Whycespace.System.WhyceID/1.0.0": {
@@ -3539,11 +3525,6 @@
       "path": "../src/system/Whycespace.System.csproj",
       "msbuildProject": "../src/system/Whycespace.System.csproj"
     },
-    "Whycespace.System.EngineManifest/1.0.0": {
-      "type": "project",
-      "path": "../src/system/engine-manifest/Whycespace.System.EngineManifest.csproj",
-      "msbuildProject": "../src/system/engine-manifest/Whycespace.System.EngineManifest.csproj"
-    },
     "Whycespace.System.WhyceID/1.0.0": {
       "type": "project",
       "path": "../src/system/upstream/WhyceID/Whycespace.System.WhyceID.csproj",
@@ -3586,11 +3567,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\projects\\dev\\v3\\tests\\Whycespace.Tests.csproj",
+      "projectUniqueName": "C:\\projects\\dev\\v3\\tests\\Whycespace.Tests.csproj",
       "projectName": "Whycespace.Tests",
-      "projectPath": "c:\\projects\\dev\\v3\\tests\\Whycespace.Tests.csproj",
+      "projectPath": "C:\\projects\\dev\\v3\\tests\\Whycespace.Tests.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "c:\\projects\\dev\\v3\\tests\\obj\\",
+      "outputPath": "C:\\projects\\dev\\v3\\tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

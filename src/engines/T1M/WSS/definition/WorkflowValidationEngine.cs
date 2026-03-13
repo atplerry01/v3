@@ -2,8 +2,8 @@ namespace Whycespace.Engines.T1M.WSS.Definition;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Workflows;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("WorkflowValidation", EngineTier.T1M, EngineKind.Validation, "WorkflowValidationRequest", typeof(EngineEvent))]
 public sealed class WorkflowValidationEngine : IEngine

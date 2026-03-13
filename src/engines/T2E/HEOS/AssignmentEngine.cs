@@ -3,8 +3,8 @@ namespace Whycespace.Engines.T2E.HEOS;
 using Whycespace.Contracts.Engines;
 using Whycespace.Domain.Core.Operators;
 using Whycespace.Domain.Core.Workforce;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("HEOSAssignment", EngineTier.T2E, EngineKind.Mutation, "AssignmentCommand", typeof(EngineEvent))]
 public sealed class AssignmentEngine : IEngine

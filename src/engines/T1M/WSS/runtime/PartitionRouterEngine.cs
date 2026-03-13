@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T1M.WSS.Runtime;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("PartitionRouter", EngineTier.T1M, EngineKind.Decision, "PartitionRouterRequest", typeof(EngineEvent))]
 public sealed class PartitionRouterEngine : IEngine

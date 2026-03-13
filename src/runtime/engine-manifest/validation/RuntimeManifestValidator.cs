@@ -1,6 +1,6 @@
-namespace Whycespace.EngineManifest.Validation;
+namespace Whycespace.Runtime.EngineManifest.Validation;
 
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Models;
 
 public sealed class RuntimeManifestValidator
 {

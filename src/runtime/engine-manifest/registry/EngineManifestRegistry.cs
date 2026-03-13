@@ -1,6 +1,6 @@
-namespace Whycespace.EngineManifest.Registry;
+namespace Whycespace.Runtime.EngineManifest.Registry;
 
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Models;
 
 public sealed class EngineManifestRegistry
 {

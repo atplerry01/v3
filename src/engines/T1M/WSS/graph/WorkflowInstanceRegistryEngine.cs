@@ -3,8 +3,8 @@ namespace Whycespace.Engines.T1M.WSS.Graph;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Stores;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("WorkflowInstanceRegistry", EngineTier.T1M, EngineKind.Mutation, "WorkflowInstanceRegistryRequest", typeof(EngineEvent))]
 public sealed class WorkflowInstanceRegistryEngine : IEngine

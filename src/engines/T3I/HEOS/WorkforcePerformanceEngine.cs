@@ -2,8 +2,8 @@ namespace Whycespace.Engines.T3I.HEOS;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Domain.Core.Workforce;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("WorkforcePerformance", EngineTier.T3I, EngineKind.Projection, "WorkforcePerformanceCommand", typeof(EngineEvent))]
 public sealed class WorkforcePerformanceEngine : IEngine

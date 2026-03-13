@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T0U.WhycePolicy;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("PolicyValidation", EngineTier.T0U, EngineKind.Validation, "PolicyValidationRequest", typeof(EngineEvent))]
 public sealed class PolicyValidationEngine : IEngine

@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T2E;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("EconomicExecution", EngineTier.T2E, EngineKind.Mutation, "EconomicExecutionRequest", typeof(EngineEvent))]
 public sealed class EconomicExecutionEngine : IEngine

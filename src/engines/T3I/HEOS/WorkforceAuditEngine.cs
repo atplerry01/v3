@@ -4,8 +4,8 @@ using System.Security.Cryptography;
 using System.Text;
 using Whycespace.Contracts.Engines;
 using Whycespace.Domain.Core.Workforce;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("WorkforceAudit", EngineTier.T3I, EngineKind.Projection, "WorkforceAuditCommand", typeof(EngineEvent))]
 public sealed class WorkforceAuditEngine : IEngine

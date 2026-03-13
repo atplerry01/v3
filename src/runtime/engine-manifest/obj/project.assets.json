@@ -26,19 +26,6 @@
           "bin/placeholder/Whycespace.EngineRuntime.dll": {}
         }
       },
-      "Whycespace.System.EngineManifest/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Whycespace.System.EngineManifest.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Whycespace.System.EngineManifest.dll": {}
-        }
-      },
       "Whycespace.WorkflowRuntime/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -65,11 +52,6 @@
       "path": "../engine/Whycespace.EngineRuntime.csproj",
       "msbuildProject": "../engine/Whycespace.EngineRuntime.csproj"
     },
-    "Whycespace.System.EngineManifest/1.0.0": {
-      "type": "project",
-      "path": "../../system/engine-manifest/Whycespace.System.EngineManifest.csproj",
-      "msbuildProject": "../../system/engine-manifest/Whycespace.System.EngineManifest.csproj"
-    },
     "Whycespace.WorkflowRuntime/1.0.0": {
       "type": "project",
       "path": "../workflow-runtime/Whycespace.WorkflowRuntime.csproj",
@@ -79,8 +61,7 @@
   "projectFileDependencyGroups": {
     "net10.0": [
       "Whycespace.Contracts >= 1.0.0",
-      "Whycespace.EngineRuntime >= 1.0.0",
-      "Whycespace.System.EngineManifest >= 1.0.0"
+      "Whycespace.EngineRuntime >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -121,9 +102,6 @@
             },
             "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
-            },
-            "C:\\projects\\dev\\v3\\src\\system\\engine-manifest\\Whycespace.System.EngineManifest.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\system\\engine-manifest\\Whycespace.System.EngineManifest.csproj"
             }
           }
         }

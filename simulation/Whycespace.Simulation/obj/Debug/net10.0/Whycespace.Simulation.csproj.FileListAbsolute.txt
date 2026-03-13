@@ -69,12 +69,14 @@ C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.dll
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceID.dll
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T1M.WSS.dll
-C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.System.WhyceID.dll
-C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.System.WhyceID.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.Governance.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceID.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T1M.WSS.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\obj\Debug\net10.0\Whycespace.Simulation.sourcelink.json
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineManifest.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb

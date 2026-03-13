@@ -432,13 +432,41 @@
           "bin/placeholder/Whycespace.Domain.dll": {}
         }
       },
+      "Whycespace.EngineManifest/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EngineManifest.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EngineManifest.dll": {}
+        }
+      },
+      "Whycespace.EngineRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EngineRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EngineRuntime.dll": {}
+        }
+      },
       "Whycespace.Engines/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Whycespace.Domain": "1.0.0",
-          "Whycespace.Shared": "1.0.0",
-          "Whycespace.System.EngineManifest": "1.0.0"
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.dll": {}
@@ -460,17 +488,17 @@
           "bin/placeholder/Whycespace.Shared.dll": {}
         }
       },
-      "Whycespace.System.EngineManifest/1.0.0": {
+      "Whycespace.WorkflowRuntime/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Whycespace.Contracts": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Whycespace.System.EngineManifest.dll": {}
+          "bin/placeholder/Whycespace.WorkflowRuntime.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Whycespace.System.EngineManifest.dll": {}
+          "bin/placeholder/Whycespace.WorkflowRuntime.dll": {}
         }
       }
     }
@@ -998,6 +1026,16 @@
       "path": "../../src/domain/Whycespace.Domain.csproj",
       "msbuildProject": "../../src/domain/Whycespace.Domain.csproj"
     },
+    "Whycespace.EngineManifest/1.0.0": {
+      "type": "project",
+      "path": "../../src/runtime/engine-manifest/Whycespace.EngineManifest.csproj",
+      "msbuildProject": "../../src/runtime/engine-manifest/Whycespace.EngineManifest.csproj"
+    },
+    "Whycespace.EngineRuntime/1.0.0": {
+      "type": "project",
+      "path": "../../src/runtime/engine/Whycespace.EngineRuntime.csproj",
+      "msbuildProject": "../../src/runtime/engine/Whycespace.EngineRuntime.csproj"
+    },
     "Whycespace.Engines/1.0.0": {
       "type": "project",
       "path": "../../src/engines/Whycespace.Engines.csproj",
@@ -1008,10 +1046,10 @@
       "path": "../../src/shared/Whycespace.Shared.csproj",
       "msbuildProject": "../../src/shared/Whycespace.Shared.csproj"
     },
-    "Whycespace.System.EngineManifest/1.0.0": {
+    "Whycespace.WorkflowRuntime/1.0.0": {
       "type": "project",
-      "path": "../../src/system/engine-manifest/Whycespace.System.EngineManifest.csproj",
-      "msbuildProject": "../../src/system/engine-manifest/Whycespace.System.EngineManifest.csproj"
+      "path": "../../src/runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj",
+      "msbuildProject": "../../src/runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1031,11 +1069,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\projects\\dev\\v3\\tests\\access-engines\\Whycespace.AccessEngines.Tests.csproj",
+      "projectUniqueName": "C:\\projects\\dev\\v3\\tests\\access-engines\\Whycespace.AccessEngines.Tests.csproj",
       "projectName": "Whycespace.AccessEngines.Tests",
-      "projectPath": "c:\\projects\\dev\\v3\\tests\\access-engines\\Whycespace.AccessEngines.Tests.csproj",
+      "projectPath": "C:\\projects\\dev\\v3\\tests\\access-engines\\Whycespace.AccessEngines.Tests.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "c:\\projects\\dev\\v3\\tests\\access-engines\\obj\\",
+      "outputPath": "C:\\projects\\dev\\v3\\tests\\access-engines\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

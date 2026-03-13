@@ -583,8 +583,7 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EngineRuntime": "1.0.0",
-          "Whycespace.System.EngineManifest": "1.0.0"
+          "Whycespace.EngineRuntime": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.EngineManifest.dll": {}
@@ -612,8 +611,8 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Whycespace.Domain": "1.0.0",
-          "Whycespace.Shared": "1.0.0",
-          "Whycespace.System.EngineManifest": "1.0.0"
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.dll": {}
@@ -641,8 +640,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.System": "1.0.0",
-          "Whycespace.System.EngineManifest": "1.0.0"
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.System": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.T0U.WhyceChain.dll": {}
@@ -669,8 +668,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.System": "1.0.0",
-          "Whycespace.System.EngineManifest": "1.0.0"
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.System": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.T0U.WhycePolicy.dll": {}
@@ -683,8 +682,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.System": "1.0.0",
-          "Whycespace.System.EngineManifest": "1.0.0"
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.System": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.T1M.WSS.dll": {}
@@ -932,19 +931,6 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.System.dll": {}
-        }
-      },
-      "Whycespace.System.EngineManifest/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Whycespace.System.EngineManifest.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Whycespace.System.EngineManifest.dll": {}
         }
       },
       "Whycespace.System.WhyceID/1.0.0": {
@@ -1737,11 +1723,6 @@
       "type": "project",
       "path": "../system/Whycespace.System.csproj",
       "msbuildProject": "../system/Whycespace.System.csproj"
-    },
-    "Whycespace.System.EngineManifest/1.0.0": {
-      "type": "project",
-      "path": "../system/engine-manifest/Whycespace.System.EngineManifest.csproj",
-      "msbuildProject": "../system/engine-manifest/Whycespace.System.EngineManifest.csproj"
     },
     "Whycespace.System.WhyceID/1.0.0": {
       "type": "project",

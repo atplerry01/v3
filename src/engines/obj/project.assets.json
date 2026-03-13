@@ -40,6 +40,34 @@
           "bin/placeholder/Whycespace.Domain.dll": {}
         }
       },
+      "Whycespace.EngineManifest/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EngineManifest.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EngineManifest.dll": {}
+        }
+      },
+      "Whycespace.EngineRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EngineRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EngineRuntime.dll": {}
+        }
+      },
       "Whycespace.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -53,17 +81,17 @@
           "bin/placeholder/Whycespace.Shared.dll": {}
         }
       },
-      "Whycespace.System.EngineManifest/1.0.0": {
+      "Whycespace.WorkflowRuntime/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Whycespace.Contracts": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Whycespace.System.EngineManifest.dll": {}
+          "bin/placeholder/Whycespace.WorkflowRuntime.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Whycespace.System.EngineManifest.dll": {}
+          "bin/placeholder/Whycespace.WorkflowRuntime.dll": {}
         }
       }
     }
@@ -84,22 +112,32 @@
       "path": "../domain/Whycespace.Domain.csproj",
       "msbuildProject": "../domain/Whycespace.Domain.csproj"
     },
+    "Whycespace.EngineManifest/1.0.0": {
+      "type": "project",
+      "path": "../runtime/engine-manifest/Whycespace.EngineManifest.csproj",
+      "msbuildProject": "../runtime/engine-manifest/Whycespace.EngineManifest.csproj"
+    },
+    "Whycespace.EngineRuntime/1.0.0": {
+      "type": "project",
+      "path": "../runtime/engine/Whycespace.EngineRuntime.csproj",
+      "msbuildProject": "../runtime/engine/Whycespace.EngineRuntime.csproj"
+    },
     "Whycespace.Shared/1.0.0": {
       "type": "project",
       "path": "../shared/Whycespace.Shared.csproj",
       "msbuildProject": "../shared/Whycespace.Shared.csproj"
     },
-    "Whycespace.System.EngineManifest/1.0.0": {
+    "Whycespace.WorkflowRuntime/1.0.0": {
       "type": "project",
-      "path": "../system/engine-manifest/Whycespace.System.EngineManifest.csproj",
-      "msbuildProject": "../system/engine-manifest/Whycespace.System.EngineManifest.csproj"
+      "path": "../runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj",
+      "msbuildProject": "../runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "Whycespace.Domain >= 1.0.0",
-      "Whycespace.Shared >= 1.0.0",
-      "Whycespace.System.EngineManifest >= 1.0.0"
+      "Whycespace.EngineManifest >= 1.0.0",
+      "Whycespace.Shared >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -138,11 +176,11 @@
             "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
             },
+            "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine-manifest\\Whycespace.EngineManifest.csproj"
+            },
             "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"
-            },
-            "C:\\projects\\dev\\v3\\src\\system\\engine-manifest\\Whycespace.System.EngineManifest.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\system\\engine-manifest\\Whycespace.System.EngineManifest.csproj"
             }
           }
         }

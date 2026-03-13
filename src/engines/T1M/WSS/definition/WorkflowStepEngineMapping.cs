@@ -3,8 +3,8 @@ namespace Whycespace.Engines.T1M.WSS.Definition;
 using global::System.Collections.Concurrent;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Workflows;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("WorkflowStepEngineMapping", EngineTier.T1M, EngineKind.Decision, "WorkflowStepEngineMappingRequest", typeof(EngineEvent))]
 public sealed class WorkflowStepEngineMapping : IEngine

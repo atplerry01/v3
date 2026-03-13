@@ -102,10 +102,14 @@ C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\refint\Whycespace.Acce
 C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\Whycespace.AccessEngines.Tests.pdb
 C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\Whycespace.AccessEngines.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\ref\Whycespace.AccessEngines.Tests.dll
-C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
-C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
 C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\Whycespace.AccessEngines.Tests.sourcelink.json
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.ClusterDomain.dll
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.Domain.dll
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.ClusterDomain.pdb
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.Domain.pdb
+C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.EngineManifest.dll
+C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
+C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.WorkflowRuntime.dll
+C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
+C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb
+C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.WorkflowRuntime.pdb

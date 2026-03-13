@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T1M.WSS.Graph;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("WorkflowGraph", EngineTier.T1M, EngineKind.Decision, "WorkflowGraphRequest", typeof(EngineEvent))]
 public sealed class WorkflowGraphRuntimeEngine : IEngine

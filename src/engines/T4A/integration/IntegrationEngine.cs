@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T4A.Integration;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("Integration", EngineTier.T4A, EngineKind.Mutation, "IntegrationRequest", typeof(EngineEvent))]
 public sealed class IntegrationEngine : IEngine

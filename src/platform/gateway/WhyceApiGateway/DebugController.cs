@@ -19,7 +19,7 @@ using Whycespace.ClusterTemplatePlatform;
 using Whycespace.Domain.Core.Economic;
 using Whycespace.RuntimeValidation.Runners;
 using Whycespace.RuntimeValidation.Pipelines;
-using Whycespace.EngineManifest.Registry;
+using Whycespace.Runtime.EngineManifest.Registry;
 using Whycespace.WorkerPoolRuntime.Pool;
 using Whycespace.WorkerPoolRuntime.Queue;
 using Whycespace.EventFabricRuntime.Routing;

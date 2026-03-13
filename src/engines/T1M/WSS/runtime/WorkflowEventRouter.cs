@@ -3,8 +3,8 @@ namespace Whycespace.Engines.T1M.WSS.Runtime;
 using global::System.Collections.Concurrent;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Events;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 using Whycespace.System.Midstream.WSS.Events;
 using Whycespace.System.Midstream.WSS.Kafka;
 

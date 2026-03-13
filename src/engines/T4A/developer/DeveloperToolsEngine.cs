@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T4A.Developer;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("DeveloperTools", EngineTier.T4A, EngineKind.Mutation, "DeveloperToolsRequest", typeof(EngineEvent))]
 public sealed class DeveloperToolsEngine : IEngine

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WhycePortal")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+16170cc2bc46fbad81163e99158fb423130f80a1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d3d7663727d832c1a9a03d48c8b266e378147c25")]
 [assembly: System.Reflection.AssemblyProductAttribute("WhycePortal")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WhycePortal")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

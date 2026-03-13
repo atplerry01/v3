@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T4A.Operator;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("OperatorControlPlane", EngineTier.T4A, EngineKind.Mutation, "OperatorControlPlaneRequest", typeof(EngineEvent))]
 public sealed class OperatorControlPlaneEngine : IEngine

@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T2E.Core.Vault;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("VaultCreation", EngineTier.T2E, EngineKind.Mutation, "VaultCreationRequest", typeof(EngineEvent))]
 public sealed class VaultCreationEngine : IEngine

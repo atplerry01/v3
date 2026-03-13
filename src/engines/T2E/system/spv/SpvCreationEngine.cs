@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T2E.System.Spv;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("SpvCreation", EngineTier.T2E, EngineKind.Mutation, "SpvCreationRequest", typeof(EngineEvent))]
 public sealed class SpvCreationEngine : IEngine

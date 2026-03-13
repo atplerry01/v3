@@ -106,8 +106,12 @@ C:\projects\dev\v3\tests\economic-runtime\obj\Debug\net10.0\refint\Whycespace.Ec
 C:\projects\dev\v3\tests\economic-runtime\obj\Debug\net10.0\Whycespace.EconomicRuntime.Tests.pdb
 C:\projects\dev\v3\tests\economic-runtime\obj\Debug\net10.0\Whycespace.EconomicRuntime.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\economic-runtime\obj\Debug\net10.0\ref\Whycespace.EconomicRuntime.Tests.dll
-C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
-C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
 C:\projects\dev\v3\tests\economic-runtime\obj\Debug\net10.0\Whycespace.EconomicRuntime.Tests.sourcelink.json
 C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.Domain.dll
 C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.Domain.pdb
+C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.EngineManifest.dll
+C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
+C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.WorkflowRuntime.dll
+C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
+C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb
+C:\projects\dev\v3\tests\economic-runtime\bin\Debug\net10.0\Whycespace.WorkflowRuntime.pdb

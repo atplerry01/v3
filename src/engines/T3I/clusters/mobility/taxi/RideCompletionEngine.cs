@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("RideCompletion", EngineTier.T3I, EngineKind.Decision, "RideCompletionRequest", typeof(EngineEvent))]
 public sealed class RideCompletionEngine : IEngine
