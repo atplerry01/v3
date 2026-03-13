@@ -1,30 +1,66 @@
-namespace Whycespace.Runtime.Projections;
+using System.Text.Json;
+using Whycespace.EventFabric.Models;
+using Whycespace.Projections.Engine;
+using Whycespace.Projections.Storage;
 
-using Whycespace.Shared.Events;
-using Whycespace.Shared.Projections;
+namespace Whycespace.Projections.Projections;
 
 public sealed class VaultBalanceProjection : IProjection
 {
-    private readonly Dictionary<string, decimal> _balances = new();
+    private readonly IProjectionStore _store;
 
-    public string Name => "VaultBalance";
-
-    public Task HandleAsync(SystemEvent @event)
+    public VaultBalanceProjection(IProjectionStore store)
     {
-        var vaultId = @event.AggregateId.ToString();
-        switch (@event.EventType)
-        {
-            case "CapitalAllocated":
-                if (@event.Payload.GetValueOrDefault("amount") is decimal allocated)
-                    _balances[vaultId] = _balances.GetValueOrDefault(vaultId) - allocated;
-                break;
-            case "ProfitDistributed":
-                if (@event.Payload.GetValueOrDefault("amount") is decimal distributed)
-                    _balances[vaultId] = _balances.GetValueOrDefault(vaultId) + distributed;
-                break;
-        }
-        return Task.CompletedTask;
+        _store = store;
     }
 
-    public IReadOnlyDictionary<string, decimal> GetBalances() => _balances;
+    public string Name => "VaultBalanceProjection";
+
+    public IReadOnlyCollection<string> EventTypes =>
+    [
+        "CapitalContributionRecordedEvent",
+        "ProfitDistributedEvent"
+    ];
+
+    public async Task HandleAsync(EventEnvelope envelope)
+    {
+        var payload = ExtractPayload(envelope.Payload);
+        if (payload is null)
+            return;
+
+        var vaultId = payload.GetValueOrDefault("vaultId")?.ToString();
+        if (vaultId is null)
+            return;
+
+        var amount = Convert.ToDecimal(payload.GetValueOrDefault("amount") ?? 0);
+
+        var existing = await _store.GetAsync($"vault:{vaultId}");
+        var currentBalance = existing is not null
+            ? JsonSerializer.Deserialize<VaultState>(existing)?.Balance ?? 0m
+            : 0m;
+
+        var newBalance = envelope.EventType switch
+        {
+            "CapitalContributionRecordedEvent" => currentBalance + amount,
+            "ProfitDistributedEvent" => currentBalance + amount,
+            _ => currentBalance
+        };
+
+        var model = new VaultState(vaultId, newBalance);
+
+        await _store.SetAsync($"vault:{vaultId}", JsonSerializer.Serialize(model));
+    }
+
+    private static Dictionary<string, object>? ExtractPayload(object payload)
+    {
+        if (payload is Dictionary<string, object> dict)
+            return dict;
+
+        if (payload is JsonElement element)
+            return JsonSerializer.Deserialize<Dictionary<string, object>>(element.GetRawText());
+
+        return null;
+    }
+
+    private sealed record VaultState(string VaultId, decimal Balance);
 }

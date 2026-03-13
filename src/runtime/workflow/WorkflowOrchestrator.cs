@@ -1,10 +1,11 @@
 namespace Whycespace.Runtime.Workflow;
 
 using Whycespace.Runtime.Dispatcher;
-using Whycespace.Shared.Contracts;
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Runtime;
+using Whycespace.Contracts.Workflows;
 
-public sealed class WorkflowOrchestrator
+public sealed class WorkflowOrchestrator : IWorkflowOrchestrator
 {
     private readonly RuntimeDispatcher _dispatcher;
     private readonly WorkflowStateStore _stateStore;

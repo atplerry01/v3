@@ -1,10 +1,13 @@
 namespace Whycespace.Domain.Application.Commands;
 
-using Whycespace.Shared.Commands;
+using Whycespace.Contracts.Commands;
 
 public sealed record CreateSpvCommand(
     Guid CommandId,
     string Name,
     Guid CapitalId,
     decimal AllocatedCapital
-) : ICommand;
+) : ICommand
+{
+    public DateTimeOffset Timestamp { get; init; } = DateTimeOffset.UtcNow;
+}

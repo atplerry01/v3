@@ -1,12 +1,19 @@
 namespace Whycespace.Tests.Integration;
 
-using Whycespace.Engines.T0U_Constitutional;
-using Whycespace.Engines.T2E_Execution;
-using Whycespace.Engines.T3I_Intelligence;
-using Whycespace.Engines.T4A_Access;
+using Whycespace.Engines.T0U.WhyceChain;
+using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Engines.T2E;
+using Whycespace.Engines.T2E.Clusters.Mobility.Taxi;
+using Whycespace.Engines.T2E.Clusters.Property.Letting;
+using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
+using Whycespace.Engines.T3I.Clusters.Property.Letting;
+using Whycespace.Engines.T4A.API;
+using Whycespace.Engines.T4A.Auth;
+using Whycespace.Engines.T4A.Developer;
+using Whycespace.Engines.T4A.Integration;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Registry;
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 using Xunit;
 
 /// <summary>
@@ -23,7 +30,6 @@ public sealed class EngineInvocationTests
         var registry = new EngineRegistry();
 
         // T0U Constitutional
-        registry.Register(new IdentityVerificationEngine());
         registry.Register(new PolicyValidationEngine());
         registry.Register(new ChainVerificationEngine());
 
@@ -37,8 +43,8 @@ public sealed class EngineInvocationTests
         registry.Register(new TenantMatchingEngine());
 
         // T4A Access
-        registry.Register(new AuthenticationEngine());
-        registry.Register(new AuthorizationEngine());
+        registry.Register(new Whycespace.Engines.T4A.Auth.AuthenticationEngine());
+        registry.Register(new Whycespace.Engines.T4A.Auth.AuthorizationEngine());
         registry.Register(new APIEngine());
         registry.Register(new IntegrationEngine());
         registry.Register(new DeveloperToolsEngine());
@@ -55,31 +61,6 @@ public sealed class EngineInvocationTests
     // ---------------------------------------------------------------
     // T0U Constitutional tier
     // ---------------------------------------------------------------
-
-    [Fact]
-    public async Task IdentityVerification_ValidUserId_ProducesIdentityVerifiedEvent()
-    {
-        var envelope = Envelope("IdentityVerification", "verify",
-            new Dictionary<string, object> { ["userId"] = Guid.NewGuid().ToString() });
-
-        var result = await _dispatcher.DispatchAsync(envelope);
-
-        Assert.True(result.Success);
-        Assert.Single(result.Events);
-        Assert.Equal("IdentityVerified", result.Events[0].EventType);
-    }
-
-    [Fact]
-    public async Task IdentityVerification_MissingUserId_Fails()
-    {
-        var envelope = Envelope("IdentityVerification", "verify",
-            new Dictionary<string, object>());
-
-        var result = await _dispatcher.DispatchAsync(envelope);
-
-        Assert.False(result.Success);
-        Assert.Contains("userId", result.Output["error"] as string);
-    }
 
     [Fact]
     public async Task PolicyValidation_DefaultPolicy_Succeeds()

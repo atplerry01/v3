@@ -1,7 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Compile Remove="T0U\**" />
+    <Content Remove="T0U\**" />
+    <None Remove="T0U\**" />
+    <EmbeddedResource Remove="T0U\**" />
+    <Compile Remove="T1M\**" />
+    <Content Remove="T1M\**" />
+    <None Remove="T1M\**" />
+    <EmbeddedResource Remove="T1M\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\shared\Whycespace.Shared.csproj" />
+    <ProjectReference Include="..\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

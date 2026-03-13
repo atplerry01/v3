@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Whycespace.Projections</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="..\event-fabric\Whycespace.EventFabric.csproj" />
+    <ProjectReference Include="..\event-schema\Whycespace.EventSchema.csproj" />
+    <ProjectReference Include="..\event-idempotency\Whycespace.EventIdempotency.csproj" />
+  </ItemGroup>
+
+</Project>

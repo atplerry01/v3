@@ -1,7 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Compile Remove="clusters/**" />
+    <Content Remove="clusters/**" />
+    <None Remove="clusters/**" />
+    <EmbeddedResource Remove="clusters/**" />
+    <Compile Remove="core/economic/**" />
+    <Content Remove="core/economic/**" />
+    <None Remove="core/economic/**" />
+    <EmbeddedResource Remove="core/economic/**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\shared\Whycespace.Shared.csproj" />
+    <ProjectReference Include="clusters\Whycespace.ClusterDomain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

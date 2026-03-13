@@ -1,29 +1,36 @@
-namespace Whycespace.Tests.Projections;
+using Whycespace.Contracts.Primitives;
+using Whycespace.EventFabric.Models;
+using Whycespace.Projections.Projections;
+using Whycespace.Projections.Storage;
 
-using Whycespace.Runtime.Projections;
-using Whycespace.Shared.Events;
-using Xunit;
+namespace Whycespace.Projections.Tests;
 
 public sealed class DriverLocationProjectionTests
 {
     [Fact]
-    public async Task HandleAsync_DriverLocationUpdated_StoresLocation()
+    public async Task HandleAsync_DriverLocationUpdatedEvent_StoresLocation()
     {
-        var projection = new DriverLocationProjection();
-        var @event = new SystemEvent(
-            Guid.NewGuid(), "DriverLocationUpdated", Guid.NewGuid(),
-            DateTimeOffset.UtcNow, new Dictionary<string, object>
+        var store = new RedisProjectionStore();
+        var projection = new DriverLocationProjection(store);
+
+        var envelope = new EventEnvelope(
+            Guid.NewGuid(),
+            "DriverLocationUpdatedEvent",
+            "whyce.workflow.events",
+            new Dictionary<string, object>
             {
                 ["driverId"] = "driver-1",
                 ["latitude"] = 51.5074,
                 ["longitude"] = -0.1278
-            });
+            },
+            new PartitionKey("driver-1"),
+            Timestamp.Now());
 
-        await projection.HandleAsync(@event);
-        var locations = projection.GetLocations();
+        await projection.HandleAsync(envelope);
 
-        Assert.Single(locations);
-        Assert.Equal(51.5074, locations["driver-1"].Lat);
-        Assert.Equal(-0.1278, locations["driver-1"].Lon);
+        var result = await store.GetAsync("driver:driver-1");
+        Assert.NotNull(result);
+        Assert.Contains("51.5074", result);
+        Assert.Contains("-0.1278", result);
     }
 }

@@ -51,7 +51,7 @@ public sealed class GuardrailEnforcementEngine
         Assembly engineAssembly,
         Assembly sharedAssembly,
         EngineRegistry registry,
-        IEnumerable<Whycespace.Shared.Workflow.WorkflowGraph> workflows)
+        IEnumerable<Whycespace.Contracts.Workflows.WorkflowGraph> workflows)
     {
         var baseReport = Validate(engineAssembly, sharedAssembly);
 

@@ -3,6 +3,9 @@
   <Folder Name="/src/domain/">
     <Project Path="src/domain/Whycespace.Domain.csproj" />
   </Folder>
+  <Folder Name="/src/domain/clusters/">
+    <Project Path="src/domain/clusters/Whycespace.ClusterDomain.csproj" />
+  </Folder>
   <Folder Name="/src/engines/">
     <Project Path="src/engines/Whycespace.Engines.csproj" />
   </Folder>
@@ -18,16 +21,186 @@
   <Folder Name="/src/runtime/guardrails/">
     <Project Path="src/runtime/guardrails/Whycespace.ArchitectureGuardrails.csproj" />
   </Folder>
+  <Folder Name="/src/runtime/command/">
+    <Project Path="src/runtime/command/Whycespace.CommandSystem.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/workflow-runtime/">
+    <Project Path="src/runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/dispatcher/">
+    <Project Path="src/runtime/dispatcher/Whycespace.RuntimeDispatcher.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/engine/">
+    <Project Path="src/runtime/engine/Whycespace.EngineRuntime.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/partition/">
+    <Project Path="src/runtime/partition/Whycespace.PartitionRuntime.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/engine-manifest/">
+    <Project Path="src/runtime/engine-manifest/Whycespace.EngineManifest.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/engine-workers/">
+    <Project Path="src/runtime/engine-workers/Whycespace.EngineWorkerRuntime.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/worker-pool/">
+    <Project Path="src/runtime/worker-pool/Whycespace.WorkerPoolRuntime.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/event-fabric/">
+    <Project Path="src/runtime/event-fabric/Whycespace.EventFabric.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/event-fabric-runtime/">
+    <Project Path="src/runtime/event-fabric-runtime/Whycespace.EventFabricRuntime.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/projection-runtime/">
+    <Project Path="src/runtime/projection-runtime/Whycespace.ProjectionRuntime.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/reliability-runtime/">
+    <Project Path="src/runtime/reliability-runtime/Whycespace.ReliabilityRuntime.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/event-schema/">
+    <Project Path="src/runtime/event-schema/Whycespace.EventSchema.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/event-idempotency/">
+    <Project Path="src/runtime/event-idempotency/Whycespace.EventIdempotency.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/reliability/">
+    <Project Path="src/runtime/reliability/Whycespace.Reliability.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/event-replay/">
+    <Project Path="src/runtime/event-replay/Whycespace.EventReplay.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/observability/">
+    <Project Path="src/runtime/observability/Whycespace.Observability.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/projections/">
+    <Project Path="src/runtime/projections/Whycespace.Projections.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/projection-rebuild/">
+    <Project Path="src/runtime/projection-rebuild/Whycespace.ProjectionRebuild.csproj" />
+  </Folder>
   <Folder Name="/src/shared/">
     <Project Path="src/shared/Whycespace.Shared.csproj" />
+  </Folder>
+  <Folder Name="/src/shared/contracts/">
+    <Project Path="src/shared/contracts/Whycespace.Contracts.csproj" />
   </Folder>
   <Folder Name="/src/system/">
     <Project Path="src/system/Whycespace.System.csproj" />
   </Folder>
+  <Folder Name="/src/system/upstream/whyceid/">
+    <Project Path="src/system/upstream/WhyceID/Whycespace.System.WhyceID.csproj" />
+  </Folder>
+  <Folder Name="/src/engines/t0u-whyce-identity/">
+  </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Whycespace.Tests.csproj" />
   </Folder>
+  <Folder Name="/tests/contracts/">
+    <Project Path="tests/contracts/Whycespace.Contracts.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/command/">
+    <Project Path="tests/command/Whycespace.CommandSystem.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/workflow-runtime/">
+    <Project Path="tests/workflow-runtime/Whycespace.WorkflowRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/runtime-dispatcher/">
+    <Project Path="tests/runtime-dispatcher/Whycespace.RuntimeDispatcher.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/engine-runtime/">
+    <Project Path="tests/engine-runtime/Whycespace.EngineRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/partition-runtime/">
+    <Project Path="tests/partition-runtime/Whycespace.PartitionRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/engine-manifest/">
+    <Project Path="tests/engine-manifest/Whycespace.EngineManifest.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/engine-worker-runtime/">
+    <Project Path="tests/engine-worker-runtime/Whycespace.EngineWorkerRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/worker-pool/">
+    <Project Path="tests/worker-pool/Whycespace.WorkerPoolRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/event-fabric/">
+    <Project Path="tests/event-fabric/Whycespace.EventFabric.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/event-fabric-runtime/">
+    <Project Path="tests/event-fabric-runtime/Whycespace.EventFabricRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/projection-runtime/">
+    <Project Path="tests/projection-runtime/Whycespace.ProjectionRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/reliability-runtime/">
+    <Project Path="tests/reliability-runtime/Whycespace.ReliabilityRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/event-schema/">
+    <Project Path="tests/event-schema/Whycespace.EventSchema.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/event-idempotency/">
+    <Project Path="tests/event-idempotency/Whycespace.EventIdempotency.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/reliability/">
+    <Project Path="tests/reliability/Whycespace.Reliability.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/event-replay/">
+    <Project Path="tests/event-replay/Whycespace.EventReplay.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/observability/">
+    <Project Path="tests/observability/Whycespace.Observability.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/projections/">
+    <Project Path="tests/projections/Whycespace.Projections.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/projection-rebuild/">
+    <Project Path="tests/projection-rebuild/Whycespace.ProjectionRebuild.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/execution-engines/">
+    <Project Path="tests/execution-engines/Whycespace.ExecutionEngines.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/cluster-domain/">
+    <Project Path="tests/cluster-domain/Whycespace.ClusterDomain.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/decision-engines/">
+    <Project Path="tests/decision-engines/Whycespace.DecisionEngines.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/simulation-runtime/">
+    <Project Path="tests/simulation-runtime/Whycespace.SimulationRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/provider-domain/">
+    <Project Path="tests/provider-domain/Whycespace.ProviderDomain.Tests.csproj" />
+  </Folder>
+  <Folder Name="/src/domain/core/economic/">
+    <Project Path="src/domain/core/economic/Whycespace.EconomicDomain.csproj" />
+  </Folder>
+  <Folder Name="/tests/economic-runtime/">
+    <Project Path="tests/economic-runtime/Whycespace.EconomicRuntime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/access-engines/">
+    <Project Path="tests/access-engines/Whycespace.AccessEngines.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/whyceid-identity/">
+    <Project Path="tests/whyceid-identity/Whycespace.WhyceID.Identity.Tests.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/validation/">
+    <Project Path="src/runtime/validation/Whycespace.RuntimeValidation.csproj" />
+  </Folder>
+  <Folder Name="/tests/system-validation/">
+    <Project Path="tests/system-validation/Whycespace.SystemValidation.Tests.csproj" />
+  </Folder>
+  <Folder Name="/src/platform/cluster-templates/">
+    <Project Path="src/platform/cluster-templates/Whycespace.ClusterTemplatePlatform.csproj" />
+  </Folder>
+  <Folder Name="/tests/cluster-template/">
+    <Project Path="tests/cluster-template/Whycespace.ClusterTemplatePlatform.Tests.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/simulation/">
+    <Project Path="src/runtime/simulation/Whycespace.SimulationRuntime.csproj" />
+  </Folder>
   <Folder Name="/simulation/">
     <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />
+  </Folder>
+  <Folder Name="/infrastructure/host/">
+    <Project Path="infrastructure/host/Whycespace.FoundationHost/Whycespace.FoundationHost.csproj" />
   </Folder>
 </Solution>

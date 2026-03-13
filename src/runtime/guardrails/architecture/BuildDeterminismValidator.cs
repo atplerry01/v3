@@ -32,7 +32,7 @@ public sealed class BuildDeterminismValidator
         }
 
         // Validate no ambient static mutable state in engine types
-        var engineInterface = typeof(Whycespace.Shared.Contracts.IEngine);
+        var engineInterface = typeof(Whycespace.Contracts.Engines.IEngine);
         var engineTypes = assembly.GetTypes()
             .Where(t => engineInterface.IsAssignableFrom(t) && t is { IsAbstract: false, IsInterface: false })
             .ToList();

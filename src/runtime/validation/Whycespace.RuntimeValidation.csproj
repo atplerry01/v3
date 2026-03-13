@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\Whycespace.Shared.csproj" />
+    <ProjectReference Include="..\..\engines\Whycespace.Engines.csproj" />
+    <ProjectReference Include="..\command\Whycespace.CommandSystem.csproj" />
+    <ProjectReference Include="..\event-fabric\Whycespace.EventFabric.csproj" />
+    <ProjectReference Include="..\projections\Whycespace.Projections.csproj" />
+    <ProjectReference Include="..\..\domain\core\economic\Whycespace.EconomicDomain.csproj" />
+  </ItemGroup>
+
+</Project>

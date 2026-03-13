@@ -1,9 +1,9 @@
 namespace Whycespace.Tests.Domain;
 
-using Whycespace.Domain.Economic;
-using Whycespace.Domain.Cluster.Mobility;
-using Whycespace.Domain.Cluster.Property;
-using Whycespace.Domain.Spv;
+using Whycespace.Domain.Core.Economic;
+using Whycespace.Domain.Clusters.Mobility.Taxi;
+using Whycespace.Domain.Clusters.Property.Letting;
+using Whycespace.Domain.Core.Spv;
 using Whycespace.Shared.Location;
 using Xunit;
 

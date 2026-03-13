@@ -1,24 +1,58 @@
-namespace Whycespace.Runtime.Projections;
+using System.Text.Json;
+using Whycespace.EventFabric.Models;
+using Whycespace.Projections.Engine;
+using Whycespace.Projections.Storage;
 
-using Whycespace.Shared.Events;
-using Whycespace.Shared.Projections;
+namespace Whycespace.Projections.Projections;
 
 public sealed class RevenueProjection : IProjection
 {
-    private readonly Dictionary<string, decimal> _revenues = new();
+    private readonly IProjectionStore _store;
 
-    public string Name => "Revenue";
-
-    public Task HandleAsync(SystemEvent @event)
+    public RevenueProjection(IProjectionStore store)
     {
-        if (@event.EventType == "RevenueRecorded")
-        {
-            var spvId = @event.AggregateId.ToString();
-            if (@event.Payload.GetValueOrDefault("amount") is decimal amount)
-                _revenues[spvId] = _revenues.GetValueOrDefault(spvId) + amount;
-        }
-        return Task.CompletedTask;
+        _store = store;
     }
 
-    public IReadOnlyDictionary<string, decimal> GetRevenues() => _revenues;
+    public string Name => "RevenueProjection";
+
+    public IReadOnlyCollection<string> EventTypes => ["RevenueRecordedEvent"];
+
+    public async Task HandleAsync(EventEnvelope envelope)
+    {
+        if (envelope.EventType != "RevenueRecordedEvent")
+            return;
+
+        var payload = ExtractPayload(envelope.Payload);
+        if (payload is null)
+            return;
+
+        var aggregateId = payload.GetValueOrDefault("aggregateId")?.ToString();
+        if (aggregateId is null)
+            return;
+
+        var amount = Convert.ToDecimal(payload.GetValueOrDefault("amount") ?? 0);
+
+        var existing = await _store.GetAsync($"revenue:{aggregateId}");
+        var current = existing is not null
+            ? JsonSerializer.Deserialize<RevenueState>(existing)?.Revenue ?? 0m
+            : 0m;
+
+        var model = new RevenueState(aggregateId, current + amount);
+
+        await _store.SetAsync($"revenue:{aggregateId}", JsonSerializer.Serialize(model));
+    }
+
+    private static Dictionary<string, object>? ExtractPayload(object payload)
+    {
+        if (payload is Dictionary<string, object> dict)
+            return dict;
+
+        if (payload is JsonElement element)
+            return JsonSerializer.Deserialize<Dictionary<string, object>>(element.GetRawText());
+
+        return null;
+    }
+
+    private sealed record RevenueState(string AggregateId, decimal Revenue);
 }

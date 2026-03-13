@@ -4,7 +4,7 @@ using global::System.Text.Json;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 using Whycespace.Runtime.Events;
-using Whycespace.Shared.Events;
+using Whycespace.Contracts.Events;
 
 public sealed class KafkaEventPublisher : IDisposable
 {
@@ -66,7 +66,7 @@ public sealed class KafkaEventPublisher : IDisposable
         }
     }
 
-    public async Task PublishEngineEventAsync(string topic, Shared.Contracts.EngineEvent engineEvent)
+    public async Task PublishEngineEventAsync(string topic, Whycespace.Contracts.Engines.EngineEvent engineEvent)
     {
         var systemEvent = SystemEvent.Create(engineEvent.EventType, engineEvent.AggregateId, engineEvent.Payload);
         await PublishToTopicAsync(topic, systemEvent);

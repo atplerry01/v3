@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Whycespace.EventReplay</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="..\event-fabric\Whycespace.EventFabric.csproj" />
+    <ProjectReference Include="..\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
+    <ProjectReference Include="..\reliability\Whycespace.Reliability.csproj" />
+  </ItemGroup>
+
+</Project>

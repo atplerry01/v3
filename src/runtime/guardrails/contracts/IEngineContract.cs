@@ -1,6 +1,6 @@
 namespace Whycespace.ArchitectureGuardrails.Contracts;
 
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 
 /// <summary>
 /// Defines the architectural contract that all engines must satisfy.

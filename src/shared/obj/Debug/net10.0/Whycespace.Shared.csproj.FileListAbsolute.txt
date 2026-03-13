@@ -1,10 +1,15 @@
 C:\projects\dev\v3\src\shared\bin\Debug\net10.0\Whycespace.Shared.deps.json
 C:\projects\dev\v3\src\shared\bin\Debug\net10.0\Whycespace.Shared.dll
 C:\projects\dev\v3\src\shared\bin\Debug\net10.0\Whycespace.Shared.pdb
+C:\projects\dev\v3\src\shared\bin\Debug\net10.0\Whycespace.Contracts.dll
+C:\projects\dev\v3\src\shared\bin\Debug\net10.0\Whycespace.Contracts.pdb
+C:\projects\dev\v3\src\shared\obj\Debug\net10.0\Whycespace.Shared.csproj.AssemblyReference.cache
 C:\projects\dev\v3\src\shared\obj\Debug\net10.0\Whycespace.Shared.GeneratedMSBuildEditorConfig.editorconfig
 C:\projects\dev\v3\src\shared\obj\Debug\net10.0\Whycespace.Shared.AssemblyInfoInputs.cache
 C:\projects\dev\v3\src\shared\obj\Debug\net10.0\Whycespace.Shared.AssemblyInfo.cs
 C:\projects\dev\v3\src\shared\obj\Debug\net10.0\Whycespace.Shared.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\shared\obj\Debug\net10.0\Whycespace.Shared.sourcelink.json
+C:\projects\dev\v3\src\shared\obj\Debug\net10.0\Whycespa.E5E61AE0.Up2Date
 C:\projects\dev\v3\src\shared\obj\Debug\net10.0\Whycespace.Shared.dll
 C:\projects\dev\v3\src\shared\obj\Debug\net10.0\refint\Whycespace.Shared.dll
 C:\projects\dev\v3\src\shared\obj\Debug\net10.0\Whycespace.Shared.pdb

@@ -1,6 +1,6 @@
 namespace Whycespace.System.Midstream.WSS.Workflows;
 
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Workflows;
 using Whycespace.System.Midstream.WSS.Contracts;
 
 public sealed class RideRequestWorkflow : IWorkflowDefinition
@@ -11,7 +11,6 @@ public sealed class RideRequestWorkflow : IWorkflowDefinition
     {
         var steps = new List<WorkflowStep>
         {
-            new("validate-identity", "Verify Identity", "IdentityVerification", new[] { "validate-policy" }),
             new("validate-policy", "Validate Policy", "PolicyValidation", new[] { "match-driver" }),
             new("match-driver", "Match Driver", "DriverMatching", new[] { "ValidateRequest" }),
             new("ValidateRequest", "Validate Request", "RideExecution", new[] { "AssignDriver" }),

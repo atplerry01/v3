@@ -3,7 +3,7 @@ namespace Whycespace.Runtime.Persistence;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Npgsql;
-using Whycespace.Shared.Events;
+using Whycespace.Contracts.Events;
 
 public sealed class PostgresEventStore
 {

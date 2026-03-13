@@ -1,11 +1,15 @@
 namespace Whycespace.Tests.Guardrails;
 
 using Whycespace.ArchitectureGuardrails.Validation;
-using Whycespace.Engines.T0U_Constitutional;
-using Whycespace.Engines.T2E_Execution;
-using Whycespace.Engines.T3I_Intelligence;
+using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Engines.T2E;
+using Whycespace.Engines.T2E.Clusters.Mobility.Taxi;
+using Whycespace.Engines.T2E.Clusters.Property.Letting;
+using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
+using Whycespace.Engines.T3I.Clusters.Property.Letting;
+using Whycespace.Engines.T3I.Core.Workforce;
 using Whycespace.Runtime.Registry;
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Workflows;
 using Whycespace.System.Midstream.WSS.Workflows;
 
 public sealed class WorkflowValidatorTests
@@ -13,7 +17,6 @@ public sealed class WorkflowValidatorTests
     private static EngineRegistry CreateRegistry()
     {
         var registry = new EngineRegistry();
-        registry.Register(new IdentityVerificationEngine());
         registry.Register(new PolicyValidationEngine());
         registry.Register(new DriverMatchingEngine());
         registry.Register(new TenantMatchingEngine());

@@ -91,6 +91,30 @@ services:
     depends_on:
       - prometheus
 
+  foundation-host:
+    build:
+      context: ../../
+      dockerfile: infrastructure/host/Whycespace.FoundationHost/Dockerfile
+    container_name: whyce-foundation-host
+    depends_on:
+      kafka:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      ConnectionStrings__Postgres: "Host=postgres;Database=whycespace;Username=whyce;Password=whyce_dev"
+      ConnectionStrings__Redis: "redis:6379"
+      Kafka__BootstrapServers: "kafka:9092"
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/dev/system/runtime"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 volumes:
   postgres_data:
   prometheus_data:

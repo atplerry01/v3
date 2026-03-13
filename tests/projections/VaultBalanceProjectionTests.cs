@@ -1,44 +1,61 @@
-namespace Whycespace.Tests.Projections;
+using Whycespace.Contracts.Primitives;
+using Whycespace.EventFabric.Models;
+using Whycespace.Projections.Projections;
+using Whycespace.Projections.Storage;
 
-using Whycespace.Runtime.Projections;
-using Whycespace.Shared.Events;
-using Xunit;
+namespace Whycespace.Projections.Tests;
 
 public sealed class VaultBalanceProjectionTests
 {
     [Fact]
-    public async Task HandleAsync_CapitalAllocated_DeductsBalance()
+    public async Task HandleAsync_CapitalContribution_IncreasesBalance()
     {
-        var projection = new VaultBalanceProjection();
-        var vaultId = Guid.NewGuid();
-        var @event = new SystemEvent(
-            Guid.NewGuid(), "CapitalAllocated", vaultId,
-            DateTimeOffset.UtcNow, new Dictionary<string, object>
+        var store = new RedisProjectionStore();
+        var projection = new VaultBalanceProjection(store);
+
+        var vaultId = Guid.NewGuid().ToString();
+        var envelope = new EventEnvelope(
+            Guid.NewGuid(),
+            "CapitalContributionRecordedEvent",
+            "whyce.economic.events",
+            new Dictionary<string, object>
             {
+                ["vaultId"] = vaultId,
                 ["amount"] = 5000m
-            });
+            },
+            new PartitionKey(vaultId),
+            Timestamp.Now());
 
-        await projection.HandleAsync(@event);
-        var balances = projection.GetBalances();
+        await projection.HandleAsync(envelope);
 
-        Assert.Equal(-5000m, balances[vaultId.ToString()]);
+        var result = await store.GetAsync($"vault:{vaultId}");
+        Assert.NotNull(result);
+        Assert.Contains("5000", result);
     }
 
     [Fact]
-    public async Task HandleAsync_ProfitDistributed_AddsBalance()
+    public async Task HandleAsync_ProfitDistributed_IncreasesBalance()
     {
-        var projection = new VaultBalanceProjection();
-        var vaultId = Guid.NewGuid();
-        var @event = new SystemEvent(
-            Guid.NewGuid(), "ProfitDistributed", vaultId,
-            DateTimeOffset.UtcNow, new Dictionary<string, object>
+        var store = new RedisProjectionStore();
+        var projection = new VaultBalanceProjection(store);
+
+        var vaultId = Guid.NewGuid().ToString();
+        var envelope = new EventEnvelope(
+            Guid.NewGuid(),
+            "ProfitDistributedEvent",
+            "whyce.economic.events",
+            new Dictionary<string, object>
             {
+                ["vaultId"] = vaultId,
                 ["amount"] = 3000m
-            });
+            },
+            new PartitionKey(vaultId),
+            Timestamp.Now());
 
-        await projection.HandleAsync(@event);
-        var balances = projection.GetBalances();
+        await projection.HandleAsync(envelope);
 
-        Assert.Equal(3000m, balances[vaultId.ToString()]);
+        var result = await store.GetAsync($"vault:{vaultId}");
+        Assert.NotNull(result);
+        Assert.Contains("3000", result);
     }
 }

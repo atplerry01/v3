@@ -1,0 +1,16 @@
+C:\projects\dev\v3\src\system\upstream\WhyceID\bin\Debug\net10.0\Whycespace.System.WhyceID.deps.json
+C:\projects\dev\v3\src\system\upstream\WhyceID\bin\Debug\net10.0\Whycespace.System.WhyceID.dll
+C:\projects\dev\v3\src\system\upstream\WhyceID\bin\Debug\net10.0\Whycespace.System.WhyceID.pdb
+C:\projects\dev\v3\src\system\upstream\WhyceID\bin\Debug\net10.0\Whycespace.Contracts.dll
+C:\projects\dev\v3\src\system\upstream\WhyceID\bin\Debug\net10.0\Whycespace.Contracts.pdb
+C:\projects\dev\v3\src\system\upstream\WhyceID\obj\Debug\net10.0\Whycespace.System.WhyceID.csproj.AssemblyReference.cache
+C:\projects\dev\v3\src\system\upstream\WhyceID\obj\Debug\net10.0\Whycespace.System.WhyceID.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\dev\v3\src\system\upstream\WhyceID\obj\Debug\net10.0\Whycespace.System.WhyceID.AssemblyInfoInputs.cache
+C:\projects\dev\v3\src\system\upstream\WhyceID\obj\Debug\net10.0\Whycespace.System.WhyceID.AssemblyInfo.cs
+C:\projects\dev\v3\src\system\upstream\WhyceID\obj\Debug\net10.0\Whycespace.System.WhyceID.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\system\upstream\WhyceID\obj\Debug\net10.0\Whycespace.System.WhyceID.sourcelink.json
+C:\projects\dev\v3\src\system\upstream\WhyceID\obj\Debug\net10.0\Whycespa.04A37ABB.Up2Date
+C:\projects\dev\v3\src\system\upstream\WhyceID\obj\Debug\net10.0\Whycespace.System.WhyceID.dll
+C:\projects\dev\v3\src\system\upstream\WhyceID\obj\Debug\net10.0\refint\Whycespace.System.WhyceID.dll
+C:\projects\dev\v3\src\system\upstream\WhyceID\obj\Debug\net10.0\Whycespace.System.WhyceID.pdb
+C:\projects\dev\v3\src\system\upstream\WhyceID\obj\Debug\net10.0\ref\Whycespace.System.WhyceID.dll

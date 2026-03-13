@@ -10,6 +10,8 @@
         "dependencies": {
           "Whycespace.Domain": "1.0.0",
           "Whycespace.Engines": "1.0.0",
+          "Whycespace.Engines.T0U.WhycePolicy": "1.0.0",
+          "Whycespace.Reliability": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
           "Whycespace.Shared": "1.0.0",
           "Whycespace.System": "1.0.0"
@@ -188,8 +190,29 @@
           }
         }
       },
+      "Whycespace.ClusterDomain/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.Shared": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.ClusterDomain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Contracts/1.0.0": {
+        "runtime": {
+          "Whycespace.Contracts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.Domain/1.0.0": {
         "dependencies": {
+          "Whycespace.ClusterDomain": "1.0.0",
           "Whycespace.Shared": "1.0.0"
         },
         "runtime": {
@@ -199,12 +222,74 @@
           }
         }
       },
+      "Whycespace.EngineManifest/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EngineManifest.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.EngineRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EngineRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.Engines/1.0.0": {
         "dependencies": {
+          "Whycespace.EngineManifest": "1.0.0",
           "Whycespace.Shared": "1.0.0"
         },
         "runtime": {
           "Whycespace.Engines.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Engines.T0U.WhycePolicy/1.0.0": {
+        "dependencies": {
+          "Whycespace.EngineManifest": "1.0.0",
+          "Whycespace.System": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Engines.T0U.WhycePolicy.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.EventFabric/1.0.0": {
+        "dependencies": {
+          "Confluent.Kafka": "2.13.2",
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EventFabric.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Reliability/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Reliability.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -225,6 +310,9 @@
         }
       },
       "Whycespace.Shared/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
         "runtime": {
           "Whycespace.Shared.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -239,10 +327,22 @@
           "Whycespace.Domain": "1.0.0",
           "Whycespace.Engines": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
-          "Whycespace.Shared": "1.0.0"
+          "Whycespace.Shared": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
         },
         "runtime": {
           "Whycespace.System.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.WorkflowRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.WorkflowRuntime.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -291,12 +391,47 @@
       "path": "npgsql/10.0.1",
       "hashPath": "npgsql.10.0.1.nupkg.sha512"
     },
+    "Whycespace.ClusterDomain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Whycespace.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
+    "Whycespace.EngineManifest/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.EngineRuntime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Whycespace.Engines/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Engines.T0U.WhycePolicy/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.EventFabric/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Reliability/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -312,6 +447,11 @@
       "sha512": ""
     },
     "Whycespace.System/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.WorkflowRuntime/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

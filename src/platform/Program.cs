@@ -1,19 +1,18 @@
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
-using Whycespace.Engines.T0U_Constitutional;
-using Whycespace.Engines.T1M_Orchestration;
-using Whycespace.Engines.T2E_Execution;
-using Whycespace.Engines.T3I_Intelligence;
-using Whycespace.Engines.T4A_Access;
+using Whycespace.Platform.RuntimeClient;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Events;
 using Whycespace.Runtime.Observability;
-using Whycespace.Runtime.Persistence;
-using Whycespace.Runtime.Projections;
+using Whycespace.Projections.Projections;
+using Whycespace.Projections.Queries;
+using Whycespace.Projections.Storage;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Reliability;
 using Whycespace.Runtime.Workflow;
+using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Runtime;
 using Whycespace.System.Downstream.Clusters;
 using Whycespace.System.Midstream.WSS.Dispatcher;
 using Whycespace.System.Midstream.WSS.Kafka;
@@ -22,6 +21,17 @@ using Whycespace.System.Midstream.WSS.Orchestration;
 using Whycespace.System.Midstream.WSS.Routing;
 using Whycespace.System.Midstream.WSS.Workflows;
 using Whycespace.System.Upstream.WhycePolicy;
+using Whycespace.Domain.Clusters;
+using Whycespace.Domain.Core.Cluster;
+using Whycespace.Domain.Core.Providers;
+using Whycespace.Domain.Core.Registry;
+using Whycespace.SimulationRuntime.Loader;
+using Whycespace.SimulationRuntime.Runtime;
+using Whycespace.SimulationRuntime.Services;
+using Whycespace.ClusterTemplatePlatform;
+using Whycespace.Domain.Core.Economic;
+using Whycespace.RuntimeValidation.Runners;
+using Whycespace.Runtime.PlatformDispatch;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,83 +62,39 @@ builder.Services.AddHealthChecks()
     .AddRedis(redisConn, name: "redis")
     .AddKafka(cfg => cfg.BootstrapServers = kafkaBrokers, name: "kafka");
 
-// Engine Registry — all 31 engines across 5 tiers
+// Runtime client adapters — in-process adapter for now
+// FoundationHost owns the runtime; Platform connects via interfaces
 var engineRegistry = new EngineRegistry();
-
-// T0U Constitutional
-engineRegistry.Register(new PolicyValidationEngine());
-engineRegistry.Register(new PolicyEvaluationEngine());
-engineRegistry.Register(new GovernanceAuthorityEngine());
-engineRegistry.Register(new ConstitutionalSafeguardEngine());
-engineRegistry.Register(new ChainVerificationEngine());
-engineRegistry.Register(new IdentityVerificationEngine());
-
-// T1M Orchestration
-engineRegistry.Register(new WorkflowSchedulerEngine());
-engineRegistry.Register(new PartitionRouterEngine());
-engineRegistry.Register(new WorkflowGraphEngine());
-engineRegistry.Register(new RuntimeDispatcherEngine());
-engineRegistry.Register(new WorkflowStateProjectionEngine());
-
-// T2E Execution
-engineRegistry.Register(new RideExecutionEngine());
-engineRegistry.Register(new PropertyExecutionEngine());
-engineRegistry.Register(new EconomicExecutionEngine());
-engineRegistry.Register(new VaultCreationEngine());
-engineRegistry.Register(new CapitalContributionEngine());
-engineRegistry.Register(new AssetRegistrationEngine());
-engineRegistry.Register(new RevenueRecordingEngine());
-engineRegistry.Register(new ProfitDistributionEngine());
-
-// T3I Intelligence
-engineRegistry.Register(new DriverMatchingEngine());
-engineRegistry.Register(new TenantMatchingEngine());
-engineRegistry.Register(new WorkforceAssignmentEngine());
-engineRegistry.Register(new ObservabilityEngine());
-engineRegistry.Register(new AnalyticsEngine());
-engineRegistry.Register(new ForecastEngine());
-
-// T4A Access
-engineRegistry.Register(new AuthenticationEngine());
-engineRegistry.Register(new AuthorizationEngine());
-engineRegistry.Register(new APIEngine());
-engineRegistry.Register(new DeveloperToolsEngine());
-engineRegistry.Register(new OperatorControlPlaneEngine());
-engineRegistry.Register(new IntegrationEngine());
-
 builder.Services.AddSingleton(engineRegistry);
 
-// Runtime
+var eventBus = new EventBus();
+builder.Services.AddSingleton(eventBus);
+builder.Services.AddSingleton<IEventBus>(sp => new EventClient(sp.GetRequiredService<EventBus>()));
+
 var dispatcher = new RuntimeDispatcher(engineRegistry);
-builder.Services.AddSingleton(dispatcher);
+builder.Services.AddSingleton<IEngineRuntimeDispatcher>(sp => new RuntimeClient(dispatcher));
 
 var workflowStateStore = new WorkflowStateStore();
 builder.Services.AddSingleton(workflowStateStore);
 
 var orchestrator = new WorkflowOrchestrator(dispatcher, workflowStateStore);
-builder.Services.AddSingleton(orchestrator);
+builder.Services.AddSingleton<IWorkflowOrchestrator>(sp => new WorkflowClient(orchestrator));
 
-var eventBus = new EventBus();
-builder.Services.AddSingleton(eventBus);
-
-// Projections
-var driverLocationProjection = new DriverLocationProjection();
-var propertyListingProjection = new PropertyListingProjection();
-var vaultBalanceProjection = new VaultBalanceProjection();
-var revenueProjection = new RevenueProjection();
-builder.Services.AddSingleton(driverLocationProjection);
-builder.Services.AddSingleton(propertyListingProjection);
-builder.Services.AddSingleton(vaultBalanceProjection);
-builder.Services.AddSingleton(revenueProjection);
-
-// Reliability
-builder.Services.AddSingleton(new IdempotencyRegistry());
-builder.Services.AddSingleton(new RetryPolicyEngine());
-builder.Services.AddSingleton(new TimeoutManager());
-builder.Services.AddSingleton(new DeadLetterQueue());
+// Projections (CQRS read side)
+var projectionStore = new RedisProjectionStore();
+builder.Services.AddSingleton<IProjectionStore>(projectionStore);
+builder.Services.AddSingleton(new DriverLocationProjection(projectionStore));
+builder.Services.AddSingleton(new RideStatusProjection(projectionStore));
+builder.Services.AddSingleton(new PropertyListingProjection(projectionStore));
+builder.Services.AddSingleton(new VaultBalanceProjection(projectionStore));
+builder.Services.AddSingleton(new RevenueProjection(projectionStore));
+builder.Services.AddSingleton(new ProjectionQueryService(projectionStore));
 
 // Observability
 builder.Services.AddSingleton(new RuntimeObserver());
+
+// Reliability (read-only access for operator console)
+builder.Services.AddSingleton(new DeadLetterQueue());
 
 // Workflow Mapper
 var workflowMapper = new WorkflowMapper();
@@ -158,16 +124,149 @@ clusterRegistry.RegisterCluster(WhyceProperty.CreateCluster());
 clusterRegistry.RegisterSubCluster(WhyceProperty.PropertyLettingSubCluster());
 builder.Services.AddSingleton(clusterRegistry);
 
+// Cluster Domain (Phase 1.13 + 1.14)
+var clusterAdmin = new ClusterAdministrationService();
+var clusterProviderRegistry = new ClusterProviderRegistry();
+var spvRegistry = new SpvRegistry();
+var providerAssignmentService = new ProviderAssignmentService();
+var clusterBootstrapper = new ClusterBootstrapper(clusterAdmin, clusterProviderRegistry, spvRegistry, providerAssignmentService);
+clusterBootstrapper.Bootstrap();
+builder.Services.AddSingleton(clusterBootstrapper);
+
+// Cluster Template Platform (Phase 1.14.5)
+var clusterTemplateService = new ClusterTemplateService(clusterAdmin, clusterProviderRegistry, providerAssignmentService);
+builder.Services.AddSingleton(clusterTemplateService);
+
+// Economic Domain (Phase 1.15)
+var spvEconomicRegistry = new SpvEconomicRegistry();
+spvEconomicRegistry.RegisterSpv("WhyceMobility", "Taxi");
+spvEconomicRegistry.RegisterSpv("WhyceProperty", "LettingAgent");
+builder.Services.AddSingleton(spvEconomicRegistry);
+
+// Simulation Runtime (Phase 1.13.5)
+var simulationLoader = new SimulationScenarioLoader();
+var simulationEngine = new SimulationRuntimeEngine();
+var simulationService = new SimulationService(simulationLoader, simulationEngine);
+builder.Services.AddSingleton(simulationService);
+
+// WhyceID Identity (Phase 2.0)
+var identityRegistry = new Whycespace.System.WhyceID.Registry.IdentityRegistry();
+var identityAttributeStore = new Whycespace.System.WhyceID.Stores.IdentityAttributeStore();
+var identityRoleStore = new Whycespace.System.WhyceID.Stores.IdentityRoleStore();
+var identityPermissionStore = new Whycespace.System.WhyceID.Stores.IdentityPermissionStore();
+var identityAccessScopeStore = new Whycespace.System.WhyceID.Stores.IdentityAccessScopeStore();
+var identityTrustStore = new Whycespace.System.WhyceID.Stores.IdentityTrustStore();
+var identityDeviceStore = new Whycespace.System.WhyceID.Stores.IdentityDeviceStore();
+var identitySessionStore = new Whycespace.System.WhyceID.Stores.IdentitySessionStore();
+var identityConsentStore = new Whycespace.System.WhyceID.Stores.IdentityConsentStore();
+var identityGraphStore = new Whycespace.System.WhyceID.Stores.IdentityGraphStore();
+var identityServiceStore = new Whycespace.System.WhyceID.Stores.IdentityServiceStore();
+var identityFederationStore = new Whycespace.System.WhyceID.Stores.IdentityFederationStore();
+var identityRecoveryStore = new Whycespace.System.WhyceID.Stores.IdentityRecoveryStore();
+var identityRevocationStore = new Whycespace.System.WhyceID.Stores.IdentityRevocationStore();
+var identityAuditStore = new Whycespace.System.WhyceID.Stores.IdentityAuditStore();
+builder.Services.AddSingleton(identityRegistry);
+builder.Services.AddSingleton(identityAttributeStore);
+builder.Services.AddSingleton(identityRoleStore);
+builder.Services.AddSingleton(identityPermissionStore);
+builder.Services.AddSingleton(identityAccessScopeStore);
+builder.Services.AddSingleton(identityTrustStore);
+builder.Services.AddSingleton(identityDeviceStore);
+builder.Services.AddSingleton(identitySessionStore);
+builder.Services.AddSingleton(identityConsentStore);
+builder.Services.AddSingleton(identityGraphStore);
+builder.Services.AddSingleton(identityServiceStore);
+builder.Services.AddSingleton(identityFederationStore);
+builder.Services.AddSingleton(identityRecoveryStore);
+builder.Services.AddSingleton(identityRevocationStore);
+builder.Services.AddSingleton(identityAuditStore);
+
 // Upstream
 builder.Services.AddSingleton(new PolicyGovernor());
 
-// Persistence
-builder.Services.AddSingleton(new PostgresEventStore(postgresConn));
-builder.Services.AddSingleton(new ProjectionStore(postgresConn));
-builder.Services.AddSingleton(new WorkflowStateRepository(postgresConn));
+// WhycePolicy (Phase 2.0.21+)
+var policyRegistryStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyRegistryStore();
+var policyVersionStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyVersionStore();
+var policyDependencyStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyDependencyStore();
+var policyContextStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyContextStore();
+var policyDecisionCacheStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyDecisionCacheStore();
+var policyLifecycleStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyLifecycleStore();
+var policyRolloutStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyRolloutStore();
+var governanceAuthorityStore = new Whycespace.System.Upstream.WhycePolicy.Stores.GovernanceAuthorityStore();
+var constitutionalPolicyStore = new Whycespace.System.Upstream.WhycePolicy.Stores.ConstitutionalPolicyStore();
+var policyDomainBindingStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyDomainBindingStore();
+var policyMonitoringStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyMonitoringStore();
+var policyEvidenceStore = new Whycespace.System.Upstream.WhycePolicy.Stores.PolicyEvidenceStore();
+builder.Services.AddSingleton(policyRegistryStore);
+builder.Services.AddSingleton(policyVersionStore);
+builder.Services.AddSingleton(policyDependencyStore);
+builder.Services.AddSingleton(policyContextStore);
+builder.Services.AddSingleton(policyDecisionCacheStore);
+builder.Services.AddSingleton(policyLifecycleStore);
+builder.Services.AddSingleton(policyRolloutStore);
+builder.Services.AddSingleton(governanceAuthorityStore);
+builder.Services.AddSingleton(constitutionalPolicyStore);
+builder.Services.AddSingleton(policyDomainBindingStore);
+builder.Services.AddSingleton(policyMonitoringStore);
+builder.Services.AddSingleton(policyEvidenceStore);
+
+// WhyceChain (Phase 2.0.40+)
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainLedgerStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainBlockStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainEventStore());
+builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainIndexStore());
+
+// Governance (Phase 2.0.54+)
+var guardianRegistryStore = new Whycespace.System.Upstream.Governance.Stores.GuardianRegistryStore();
+var governanceRoleStore = new Whycespace.System.Upstream.Governance.Stores.GovernanceRoleStore();
+builder.Services.AddSingleton(guardianRegistryStore);
+builder.Services.AddSingleton(governanceRoleStore);
+
+// WSS Runtime (Phase 2.1.x) — engines bootstrapped in runtime layer
+var wssBootstrapper = new WssRuntimeBootstrapper(eventBus, kafkaBrokers);
+builder.Services.AddSingleton(wssBootstrapper);
+
+// Platform Runtime Dispatcher — single entry point for all engine operations
+var platformDispatcher = PlatformDispatcherFactory.Create(
+    identityRegistry,
+    identityAttributeStore,
+    identityRoleStore,
+    identityPermissionStore,
+    identityAccessScopeStore,
+    identityTrustStore,
+    identityDeviceStore,
+    identitySessionStore,
+    identityConsentStore,
+    identityGraphStore,
+    identityServiceStore,
+    identityFederationStore,
+    identityRecoveryStore,
+    identityRevocationStore,
+    identityAuditStore,
+    policyRegistryStore,
+    policyVersionStore,
+    policyDependencyStore,
+    policyContextStore,
+    policyDecisionCacheStore,
+    policyLifecycleStore,
+    policyRolloutStore,
+    governanceAuthorityStore,
+    constitutionalPolicyStore,
+    policyDomainBindingStore,
+    policyMonitoringStore,
+    policyEvidenceStore,
+    guardianRegistryStore,
+    governanceRoleStore,
+    wssBootstrapper);
+builder.Services.AddSingleton<IPlatformDispatcher>(platformDispatcher);
 
 // Kafka Publisher
-builder.Services.AddSingleton(new KafkaEventPublisher(eventBus, kafkaBrokers));
+var kafkaPublisher = new KafkaEventPublisher(eventBus, kafkaBrokers);
+builder.Services.AddSingleton(kafkaPublisher);
+
+// Runtime Validation (Phase 1.17)
+var validationRunner = new ValidationRunner();
+builder.Services.AddSingleton(validationRunner);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

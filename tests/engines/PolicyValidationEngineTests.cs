@@ -1,7 +1,7 @@
 namespace Whycespace.Tests.Engines;
 
-using Whycespace.Engines.T0U_Constitutional;
-using Whycespace.Shared.Contracts;
+using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Contracts.Engines;
 using Xunit;
 
 public sealed class PolicyValidationEngineTests

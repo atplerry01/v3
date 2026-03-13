@@ -1,3 +1,10 @@
+C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.staticwebassets.runtime.json
+C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.staticwebassets.endpoints.json
+C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.exe
+C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.deps.json
+C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.runtimeconfig.json
+C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.dll
+C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.pdb
 C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\rpswa.dswa.cache.json
 C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\WhycePortal.GeneratedMSBuildEditorConfig.editorconfig
 C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\WhycePortal.AssemblyInfoInputs.cache
@@ -6,13 +13,6 @@ C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\WhycePortal.csp
 C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\WhycePortal.MvcApplicationPartsAssemblyInfo.cache
 C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\WhycePortal.RazorAssemblyInfo.cache
 C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\WhycePortal.RazorAssemblyInfo.cs
-C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.staticwebassets.runtime.json
-C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.staticwebassets.endpoints.json
-C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.exe
-C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.deps.json
-C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.runtimeconfig.json
-C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.dll
-C:\projects\dev\v3\src\platform\ui\WhycePortal\bin\Debug\net10.0\WhycePortal.pdb
 C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json

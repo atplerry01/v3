@@ -2,7 +2,7 @@ namespace Whycespace.ArchitectureGuardrails.Validation;
 
 using Whycespace.ArchitectureGuardrails.Rules;
 using Whycespace.Runtime.Registry;
-using Whycespace.Shared.Workflow;
+using Whycespace.Contracts.Workflows;
 
 public sealed record WorkflowValidationResult(
     string WorkflowName,

@@ -1,7 +1,7 @@
 namespace Whycespace.Tests.Engines;
 
-using Whycespace.Engines.T2E_Execution;
-using Whycespace.Shared.Contracts;
+using Whycespace.Engines.T2E.Core.Vault;
+using Whycespace.Contracts.Engines;
 using Xunit;
 
 public sealed class VaultCreationEngineTests

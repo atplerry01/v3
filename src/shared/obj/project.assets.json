@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net10.0": {}
+    "net10.0": {
+      "Whycespace.Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/Whycespace.Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.Contracts.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Whycespace.Contracts/1.0.0": {
+      "type": "project",
+      "path": "contracts/Whycespace.Contracts.csproj",
+      "msbuildProject": "contracts/Whycespace.Contracts.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net10.0": []
+    "net10.0": [
+      "Whycespace.Contracts >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\HP\\.nuget\\packages\\": {},
@@ -39,7 +58,11 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

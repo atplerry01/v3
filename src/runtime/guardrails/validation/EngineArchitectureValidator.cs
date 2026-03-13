@@ -2,7 +2,7 @@ namespace Whycespace.ArchitectureGuardrails.Validation;
 
 using global::System.Reflection;
 using Whycespace.ArchitectureGuardrails.Rules;
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 
 public sealed record EngineValidationResult(
     string EngineName,

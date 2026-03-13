@@ -1,6 +1,6 @@
 namespace Whycespace.Shared.Projections;
 
-using Whycespace.Shared.Events;
+using Whycespace.Contracts.Events;
 
 public interface IProjection
 {
