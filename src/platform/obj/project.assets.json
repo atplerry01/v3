@@ -720,34 +720,6 @@
           "bin/placeholder/Whycespace.EventFabricRuntime.dll": {}
         }
       },
-      "Whycespace.EventIdempotency/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EventFabric": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Whycespace.EventIdempotency.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Whycespace.EventIdempotency.dll": {}
-        }
-      },
-      "Whycespace.EventSchema/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EventFabric": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Whycespace.EventSchema.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Whycespace.EventSchema.dll": {}
-        }
-      },
       "Whycespace.Observability/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -796,8 +768,7 @@
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
           "Whycespace.EventFabric": "1.0.0",
-          "Whycespace.EventIdempotency": "1.0.0",
-          "Whycespace.EventSchema": "1.0.0"
+          "Whycespace.ProjectionRuntime": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Projections.dll": {}
@@ -1653,16 +1624,6 @@
       "type": "project",
       "path": "../runtime/event-fabric-runtime/Whycespace.EventFabricRuntime.csproj",
       "msbuildProject": "../runtime/event-fabric-runtime/Whycespace.EventFabricRuntime.csproj"
-    },
-    "Whycespace.EventIdempotency/1.0.0": {
-      "type": "project",
-      "path": "../runtime/event-idempotency/Whycespace.EventIdempotency.csproj",
-      "msbuildProject": "../runtime/event-idempotency/Whycespace.EventIdempotency.csproj"
-    },
-    "Whycespace.EventSchema/1.0.0": {
-      "type": "project",
-      "path": "../runtime/event-schema/Whycespace.EventSchema.csproj",
-      "msbuildProject": "../runtime/event-schema/Whycespace.EventSchema.csproj"
     },
     "Whycespace.Observability/1.0.0": {
       "type": "project",

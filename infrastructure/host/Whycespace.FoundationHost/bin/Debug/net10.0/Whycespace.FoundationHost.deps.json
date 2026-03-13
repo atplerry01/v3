@@ -18,9 +18,11 @@
           "Whycespace.EngineRuntime": "1.0.0",
           "Whycespace.EngineWorkerRuntime": "1.0.0",
           "Whycespace.Engines": "1.0.0",
+          "Whycespace.EventIdempotency": "1.0.0",
           "Whycespace.Observability": "1.0.0",
           "Whycespace.PartitionRuntime": "1.0.0",
           "Whycespace.ProjectionRebuild": "1.0.0",
+          "Whycespace.ProjectionRuntime": "1.0.0",
           "Whycespace.Projections": "1.0.0",
           "Whycespace.Reliability": "1.0.0",
           "Whycespace.Runtime": "1.0.0",
@@ -523,6 +525,18 @@
           }
         }
       },
+      "Whycespace.EventFabricRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EventFabricRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.EventIdempotency/1.0.0": {
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
@@ -544,18 +558,6 @@
         },
         "runtime": {
           "Whycespace.EventReplay.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Whycespace.EventSchema/1.0.0": {
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EventFabric": "1.0.0"
-        },
-        "runtime": {
-          "Whycespace.EventSchema.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -599,12 +601,23 @@
           }
         }
       },
+      "Whycespace.ProjectionRuntime/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabricRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.ProjectionRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.Projections/1.0.0": {
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
           "Whycespace.EventFabric": "1.0.0",
-          "Whycespace.EventIdempotency": "1.0.0",
-          "Whycespace.EventSchema": "1.0.0"
+          "Whycespace.ProjectionRuntime": "1.0.0"
         },
         "runtime": {
           "Whycespace.Projections.dll": {
@@ -917,17 +930,17 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Whycespace.EventFabricRuntime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Whycespace.EventIdempotency/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
     "Whycespace.EventReplay/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Whycespace.EventSchema/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -943,6 +956,11 @@
       "sha512": ""
     },
     "Whycespace.ProjectionRebuild/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.ProjectionRuntime/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

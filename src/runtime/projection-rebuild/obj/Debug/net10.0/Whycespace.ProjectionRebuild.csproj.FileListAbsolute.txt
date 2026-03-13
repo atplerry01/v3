@@ -3,9 +3,7 @@ C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.P
 C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.ProjectionRebuild.pdb
 C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.Contracts.dll
 C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.EventFabric.dll
-C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.EventIdempotency.dll
 C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.EventReplay.dll
-C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.EventSchema.dll
 C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.Projections.dll
 C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.Reliability.dll
 C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.WorkflowRuntime.dll
@@ -13,8 +11,6 @@ C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.C
 C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.EventFabric.pdb
 C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.Projections.pdb
 C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.EventReplay.pdb
-C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.EventIdempotency.pdb
-C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.EventSchema.pdb
 C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.Reliability.pdb
 C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.WorkflowRuntime.pdb
 C:\projects\dev\v3\src\runtime\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.csproj.AssemblyReference.cache
@@ -28,3 +24,9 @@ C:\projects\dev\v3\src\runtime\projection-rebuild\obj\Debug\net10.0\refint\Whyce
 C:\projects\dev\v3\src\runtime\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.pdb
 C:\projects\dev\v3\src\runtime\projection-rebuild\obj\Debug\net10.0\ref\Whycespace.ProjectionRebuild.dll
 C:\projects\dev\v3\src\runtime\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.sourcelink.json
+C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
+C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.EventFabricRuntime.dll
+C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.ProjectionRuntime.dll
+C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb
+C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.EventFabricRuntime.pdb
+C:\projects\dev\v3\src\runtime\projection-rebuild\bin\Debug\net10.0\Whycespace.ProjectionRuntime.pdb

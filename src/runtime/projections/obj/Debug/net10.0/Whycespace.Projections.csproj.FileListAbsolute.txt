@@ -3,12 +3,8 @@ C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.Projecti
 C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.Projections.pdb
 C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.Contracts.dll
 C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.EventFabric.dll
-C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.EventIdempotency.dll
-C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.EventSchema.dll
 C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.Contracts.pdb
 C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.EventFabric.pdb
-C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.EventSchema.pdb
-C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.EventIdempotency.pdb
 C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\Whycespace.Projections.csproj.AssemblyReference.cache
 C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\Whycespace.Projections.GeneratedMSBuildEditorConfig.editorconfig
 C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\Whycespace.Projections.AssemblyInfoInputs.cache
@@ -20,3 +16,11 @@ C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\Whycespace.Projecti
 C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\refint\Whycespace.Projections.dll
 C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\Whycespace.Projections.pdb
 C:\projects\dev\v3\src\runtime\projections\obj\Debug\net10.0\ref\Whycespace.Projections.dll
+C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
+C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.EventFabricRuntime.dll
+C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.ProjectionRuntime.dll
+C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.WorkflowRuntime.dll
+C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.ProjectionRuntime.pdb
+C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb
+C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.EventFabricRuntime.pdb
+C:\projects\dev\v3\src\runtime\projections\bin\Debug\net10.0\Whycespace.WorkflowRuntime.pdb

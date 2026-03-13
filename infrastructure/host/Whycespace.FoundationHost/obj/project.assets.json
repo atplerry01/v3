@@ -601,6 +601,20 @@
           "bin/placeholder/Whycespace.EventFabric.dll": {}
         }
       },
+      "Whycespace.EventFabricRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EngineRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EventFabricRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EventFabricRuntime.dll": {}
+        }
+      },
       "Whycespace.EventIdempotency/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -629,20 +643,6 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.EventReplay.dll": {}
-        }
-      },
-      "Whycespace.EventSchema/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EventFabric": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Whycespace.EventSchema.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Whycespace.EventSchema.dll": {}
         }
       },
       "Whycespace.Observability/1.0.0": {
@@ -689,14 +689,27 @@
           "bin/placeholder/Whycespace.ProjectionRebuild.dll": {}
         }
       },
+      "Whycespace.ProjectionRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabricRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.ProjectionRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.ProjectionRuntime.dll": {}
+        }
+      },
       "Whycespace.Projections/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
           "Whycespace.EventFabric": "1.0.0",
-          "Whycespace.EventIdempotency": "1.0.0",
-          "Whycespace.EventSchema": "1.0.0"
+          "Whycespace.ProjectionRuntime": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Projections.dll": {}
@@ -1385,6 +1398,11 @@
       "path": "../../../src/runtime/event-fabric/Whycespace.EventFabric.csproj",
       "msbuildProject": "../../../src/runtime/event-fabric/Whycespace.EventFabric.csproj"
     },
+    "Whycespace.EventFabricRuntime/1.0.0": {
+      "type": "project",
+      "path": "../../../src/runtime/event-fabric-runtime/Whycespace.EventFabricRuntime.csproj",
+      "msbuildProject": "../../../src/runtime/event-fabric-runtime/Whycespace.EventFabricRuntime.csproj"
+    },
     "Whycespace.EventIdempotency/1.0.0": {
       "type": "project",
       "path": "../../../src/runtime/event-idempotency/Whycespace.EventIdempotency.csproj",
@@ -1394,11 +1412,6 @@
       "type": "project",
       "path": "../../../src/runtime/event-replay/Whycespace.EventReplay.csproj",
       "msbuildProject": "../../../src/runtime/event-replay/Whycespace.EventReplay.csproj"
-    },
-    "Whycespace.EventSchema/1.0.0": {
-      "type": "project",
-      "path": "../../../src/runtime/event-schema/Whycespace.EventSchema.csproj",
-      "msbuildProject": "../../../src/runtime/event-schema/Whycespace.EventSchema.csproj"
     },
     "Whycespace.Observability/1.0.0": {
       "type": "project",
@@ -1414,6 +1427,11 @@
       "type": "project",
       "path": "../../../src/runtime/projection-rebuild/Whycespace.ProjectionRebuild.csproj",
       "msbuildProject": "../../../src/runtime/projection-rebuild/Whycespace.ProjectionRebuild.csproj"
+    },
+    "Whycespace.ProjectionRuntime/1.0.0": {
+      "type": "project",
+      "path": "../../../src/runtime/projection-runtime/Whycespace.ProjectionRuntime.csproj",
+      "msbuildProject": "../../../src/runtime/projection-runtime/Whycespace.ProjectionRuntime.csproj"
     },
     "Whycespace.Projections/1.0.0": {
       "type": "project",
@@ -1468,9 +1486,11 @@
       "Whycespace.EngineRuntime >= 1.0.0",
       "Whycespace.EngineWorkerRuntime >= 1.0.0",
       "Whycespace.Engines >= 1.0.0",
+      "Whycespace.EventIdempotency >= 1.0.0",
       "Whycespace.Observability >= 1.0.0",
       "Whycespace.PartitionRuntime >= 1.0.0",
       "Whycespace.ProjectionRebuild >= 1.0.0",
+      "Whycespace.ProjectionRuntime >= 1.0.0",
       "Whycespace.Projections >= 1.0.0",
       "Whycespace.Reliability >= 1.0.0",
       "Whycespace.Runtime >= 1.0.0",
@@ -1534,6 +1554,9 @@
             "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\engine\\Whycespace.EngineRuntime.csproj"
             },
+            "C:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\Whycespace.EventIdempotency.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\Whycespace.EventIdempotency.csproj"
+            },
             "C:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\observability\\Whycespace.Observability.csproj"
             },
@@ -1542,6 +1565,9 @@
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\projection-rebuild\\Whycespace.ProjectionRebuild.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projection-rebuild\\Whycespace.ProjectionRebuild.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\runtime\\projection-runtime\\Whycespace.ProjectionRuntime.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projection-runtime\\Whycespace.ProjectionRuntime.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projections\\Whycespace.Projections.csproj"

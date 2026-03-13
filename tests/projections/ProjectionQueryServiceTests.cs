@@ -1,5 +1,5 @@
 using Whycespace.Projections.Queries;
-using Whycespace.Projections.Storage;
+using Whycespace.ProjectionRuntime.Storage;
 
 namespace Whycespace.Projections.Tests;
 

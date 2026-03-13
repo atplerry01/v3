@@ -22,6 +22,8 @@
     <ProjectReference Include="..\..\..\src\runtime\engine-workers\Whycespace.EngineWorkerRuntime.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\reliability\Whycespace.Reliability.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\observability\Whycespace.Observability.csproj" />
+    <ProjectReference Include="..\..\..\src\runtime\event-idempotency\Whycespace.EventIdempotency.csproj" />
+    <ProjectReference Include="..\..\..\src\runtime\projection-runtime\Whycespace.ProjectionRuntime.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\projections\Whycespace.Projections.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\projection-rebuild\Whycespace.ProjectionRebuild.csproj" />
   </ItemGroup>

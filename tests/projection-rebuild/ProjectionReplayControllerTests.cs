@@ -1,8 +1,8 @@
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
-using Whycespace.Projections.Engine;
+using Whycespace.Projections.Contracts;
 using Whycespace.Projections.Registry;
-using Whycespace.Projections.Storage;
+using Whycespace.ProjectionRuntime.Storage;
 using Whycespace.ProjectionRebuild.Checkpoints;
 using Whycespace.ProjectionRebuild.Controller;
 using Whycespace.ProjectionRebuild.Reader;
@@ -48,10 +48,9 @@ public class ProjectionReplayControllerTests
         registry.Register(stub);
 
         var store = new RedisProjectionStore();
-        var projectionEngine = new ProjectionEngine(registry);
         var resetService = new ProjectionResetService(store, registry);
         var checkpointStore = new ProjectionCheckpointStore();
-        var rebuildEngine = new ProjectionRebuildEngine(reader, projectionEngine, resetService, checkpointStore);
+        var rebuildEngine = new ProjectionRebuildEngine(reader, registry, resetService, checkpointStore);
 
         var controller = new ProjectionReplayController(rebuildEngine, resetService, registry);
         await controller.RebuildAllAsync();
@@ -73,10 +72,9 @@ public class ProjectionReplayControllerTests
         registry.Register(stub);
 
         var store = new RedisProjectionStore();
-        var projectionEngine = new ProjectionEngine(registry);
         var resetService = new ProjectionResetService(store, registry);
         var checkpointStore = new ProjectionCheckpointStore();
-        var rebuildEngine = new ProjectionRebuildEngine(reader, projectionEngine, resetService, checkpointStore);
+        var rebuildEngine = new ProjectionRebuildEngine(reader, registry, resetService, checkpointStore);
 
         var controller = new ProjectionReplayController(rebuildEngine, resetService, registry);
         await controller.RebuildProjectionAsync("stub");

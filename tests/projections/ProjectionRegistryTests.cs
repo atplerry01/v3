@@ -1,6 +1,6 @@
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
-using Whycespace.Projections.Engine;
+using Whycespace.Projections.Contracts;
 using Whycespace.Projections.Registry;
 
 namespace Whycespace.Projections.Tests;

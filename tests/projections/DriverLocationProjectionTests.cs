@@ -1,7 +1,7 @@
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
-using Whycespace.Projections.Projections;
-using Whycespace.Projections.Storage;
+using Whycespace.Projections.Clusters.Mobility;
+using Whycespace.ProjectionRuntime.Storage;
 
 namespace Whycespace.Projections.Tests;
 

@@ -1,6 +1,6 @@
-using Whycespace.Projections.Engine;
+using Whycespace.Projections.Contracts;
 using Whycespace.Projections.Registry;
-using Whycespace.Projections.Storage;
+using Whycespace.ProjectionRuntime.Storage;
 using Whycespace.EventFabric.Models;
 using Whycespace.ProjectionRebuild.Reset;
 

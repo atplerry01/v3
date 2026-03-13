@@ -132,6 +132,20 @@
           "bin/placeholder/Whycespace.Contracts.dll": {}
         }
       },
+      "Whycespace.EngineRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EngineRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EngineRuntime.dll": {}
+        }
+      },
       "Whycespace.EventFabric/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -146,32 +160,45 @@
           "bin/placeholder/Whycespace.EventFabric.dll": {}
         }
       },
-      "Whycespace.EventIdempotency/1.0.0": {
+      "Whycespace.EventFabricRuntime/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EventFabric": "1.0.0"
+          "Whycespace.EngineRuntime": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Whycespace.EventIdempotency.dll": {}
+          "bin/placeholder/Whycespace.EventFabricRuntime.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Whycespace.EventIdempotency.dll": {}
+          "bin/placeholder/Whycespace.EventFabricRuntime.dll": {}
         }
       },
-      "Whycespace.EventSchema/1.0.0": {
+      "Whycespace.ProjectionRuntime/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EventFabric": "1.0.0"
+          "Whycespace.EventFabricRuntime": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Whycespace.EventSchema.dll": {}
+          "bin/placeholder/Whycespace.ProjectionRuntime.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Whycespace.EventSchema.dll": {}
+          "bin/placeholder/Whycespace.ProjectionRuntime.dll": {}
+        }
+      },
+      "Whycespace.WorkflowRuntime/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.WorkflowRuntime.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.WorkflowRuntime.dll": {}
         }
       }
     }
@@ -250,28 +277,37 @@
       "path": "../../shared/contracts/Whycespace.Contracts.csproj",
       "msbuildProject": "../../shared/contracts/Whycespace.Contracts.csproj"
     },
+    "Whycespace.EngineRuntime/1.0.0": {
+      "type": "project",
+      "path": "../engine/Whycespace.EngineRuntime.csproj",
+      "msbuildProject": "../engine/Whycespace.EngineRuntime.csproj"
+    },
     "Whycespace.EventFabric/1.0.0": {
       "type": "project",
       "path": "../event-fabric/Whycespace.EventFabric.csproj",
       "msbuildProject": "../event-fabric/Whycespace.EventFabric.csproj"
     },
-    "Whycespace.EventIdempotency/1.0.0": {
+    "Whycespace.EventFabricRuntime/1.0.0": {
       "type": "project",
-      "path": "../event-idempotency/Whycespace.EventIdempotency.csproj",
-      "msbuildProject": "../event-idempotency/Whycespace.EventIdempotency.csproj"
+      "path": "../event-fabric-runtime/Whycespace.EventFabricRuntime.csproj",
+      "msbuildProject": "../event-fabric-runtime/Whycespace.EventFabricRuntime.csproj"
     },
-    "Whycespace.EventSchema/1.0.0": {
+    "Whycespace.ProjectionRuntime/1.0.0": {
       "type": "project",
-      "path": "../event-schema/Whycespace.EventSchema.csproj",
-      "msbuildProject": "../event-schema/Whycespace.EventSchema.csproj"
+      "path": "../projection-runtime/Whycespace.ProjectionRuntime.csproj",
+      "msbuildProject": "../projection-runtime/Whycespace.ProjectionRuntime.csproj"
+    },
+    "Whycespace.WorkflowRuntime/1.0.0": {
+      "type": "project",
+      "path": "../workflow-runtime/Whycespace.WorkflowRuntime.csproj",
+      "msbuildProject": "../workflow-runtime/Whycespace.WorkflowRuntime.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "Whycespace.Contracts >= 1.0.0",
       "Whycespace.EventFabric >= 1.0.0",
-      "Whycespace.EventIdempotency >= 1.0.0",
-      "Whycespace.EventSchema >= 1.0.0"
+      "Whycespace.ProjectionRuntime >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -310,11 +346,8 @@
             "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric\\Whycespace.EventFabric.csproj"
             },
-            "C:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\Whycespace.EventIdempotency.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-idempotency\\Whycespace.EventIdempotency.csproj"
-            },
-            "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-schema\\Whycespace.EventSchema.csproj"
+            "C:\\projects\\dev\\v3\\src\\runtime\\projection-runtime\\Whycespace.ProjectionRuntime.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\projection-runtime\\Whycespace.ProjectionRuntime.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\contracts\\Whycespace.Contracts.csproj"

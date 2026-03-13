@@ -161,7 +161,6 @@ C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.Engines.T1M.WSS.dll
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.EventFabric.dll
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.EventFabricRuntime.dll
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.EventIdempotency.dll
-C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.EventSchema.dll
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.Observability.dll
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.Platform.dll
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.ProjectionRuntime.dll
@@ -200,7 +199,6 @@ C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceID.pdb
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.Engines.T0U.WhycePolicy.pdb
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.Engines.T1M.WSS.pdb
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.EventFabricRuntime.pdb
-C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.EventSchema.pdb
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.Observability.pdb
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.ProjectionRuntime.pdb
 C:\projects\dev\v3\tests\bin\Debug\net10.0\Whycespace.ReliabilityRuntime.pdb

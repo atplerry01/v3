@@ -1,4 +1,4 @@
-using Whycespace.Projections.Engine;
+using Whycespace.Projections.Contracts;
 
 namespace Whycespace.Projections.Registry;
 

@@ -1,8 +1,8 @@
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
-using Whycespace.Projections.Engine;
+using Whycespace.Projections.Contracts;
 using Whycespace.Projections.Registry;
-using Whycespace.Projections.Storage;
+using Whycespace.ProjectionRuntime.Storage;
 using Whycespace.ProjectionRebuild.Checkpoints;
 using Whycespace.ProjectionRebuild.Reader;
 using Whycespace.ProjectionRebuild.Rebuild;
@@ -47,12 +47,11 @@ public class ProjectionRebuildEngineTests
         var registry = new ProjectionRegistry();
         registry.Register(counting);
 
-        var projectionEngine = new ProjectionEngine(registry);
         var store = new RedisProjectionStore();
         var resetService = new ProjectionResetService(store, registry);
         var checkpointStore = new ProjectionCheckpointStore();
 
-        var rebuildEngine = new ProjectionRebuildEngine(reader, projectionEngine, resetService, checkpointStore);
+        var rebuildEngine = new ProjectionRebuildEngine(reader, registry, resetService, checkpointStore);
         await rebuildEngine.RebuildAsync();
 
         Assert.Equal(3, counting.HandleCount);
@@ -72,12 +71,11 @@ public class ProjectionRebuildEngineTests
         var registry = new ProjectionRegistry();
         registry.Register(counting);
 
-        var projectionEngine = new ProjectionEngine(registry);
         var store = new RedisProjectionStore();
         var resetService = new ProjectionResetService(store, registry);
         var checkpointStore = new ProjectionCheckpointStore();
 
-        var rebuildEngine = new ProjectionRebuildEngine(reader, projectionEngine, resetService, checkpointStore);
+        var rebuildEngine = new ProjectionRebuildEngine(reader, registry, resetService, checkpointStore);
         await rebuildEngine.RebuildProjectionAsync("counter");
 
         var checkpoint = await checkpointStore.LoadCheckpointAsync("counter");

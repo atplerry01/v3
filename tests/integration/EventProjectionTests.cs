@@ -13,17 +13,18 @@ using Whycespace.Contracts.Events;
 using Whycespace.Contracts.Primitives;
 using Whycespace.Contracts.Workflows;
 using Whycespace.EventFabric.Models;
-using Whycespace.Projections.Consumers;
-using Whycespace.Projections.Engine;
-using Whycespace.Projections.Projections;
+using Whycespace.Projections.Contracts;
+using Whycespace.Projections.Core.Economics;
+using Whycespace.Projections.Clusters.Mobility;
+using Whycespace.Projections.Clusters.Property;
 using Whycespace.Projections.Registry;
-using Whycespace.Projections.Storage;
+using Whycespace.ProjectionRuntime.Storage;
 using Whycespace.EventIdempotency.Guard;
 using Whycespace.EventIdempotency.Registry;
 using Xunit;
 
 /// <summary>
-/// Integration tests verifying the full event → projection pipeline using the CQRS projection system.
+/// Integration tests verifying the full event -> projection pipeline using the CQRS projection system.
 /// </summary>
 public sealed class EventProjectionTests
 {
@@ -52,9 +53,23 @@ public sealed class EventProjectionTests
             new PartitionKey(@event.AggregateId.ToString()),
             new Timestamp(@event.Timestamp));
 
+    private static async Task ProcessWithGuardAsync(
+        EventEnvelope envelope,
+        IProjectionRegistry projectionRegistry,
+        EventProcessingGuard guard)
+    {
+        if (!guard.ShouldProcess(envelope))
+            return;
+
+        var projections = projectionRegistry.Resolve(envelope.EventType);
+        foreach (var p in projections)
+            await p.HandleAsync(envelope);
+    }
+
     private static async Task PublishEngineEventsAsync(
         EngineResult result,
-        ProjectionEventConsumer consumer)
+        IProjectionRegistry projectionRegistry,
+        EventProcessingGuard guard)
     {
         foreach (var engineEvent in result.Events)
         {
@@ -62,11 +77,11 @@ public sealed class EventProjectionTests
                 engineEvent.EventType,
                 engineEvent.AggregateId,
                 new Dictionary<string, object>(engineEvent.Payload));
-            await consumer.ConsumeAsync(ToEnvelope(systemEvent));
+            await ProcessWithGuardAsync(ToEnvelope(systemEvent), projectionRegistry, guard);
         }
     }
 
-    private static (RedisProjectionStore store, ProjectionEventConsumer consumer) SetupProjectionSystem(
+    private static (RedisProjectionStore store, ProjectionRegistry registry, EventProcessingGuard guard) SetupProjectionSystem(
         params IProjection[] projections)
     {
         var store = new RedisProjectionStore();
@@ -74,10 +89,8 @@ public sealed class EventProjectionTests
         foreach (var p in projections)
             registry.Register(p);
 
-        var engine = new ProjectionEngine(registry);
         var guard = new EventProcessingGuard(new EventDeduplicationRegistry());
-        var consumer = new ProjectionEventConsumer(engine, guard);
-        return (store, consumer);
+        return (store, registry, guard);
     }
 
     // ---------------------------------------------------------------
@@ -89,7 +102,7 @@ public sealed class EventProjectionTests
     {
         var store = new RedisProjectionStore();
         var projection = new DriverLocationProjection(store);
-        var (_, consumer) = SetupProjectionSystem(projection);
+        var (_, registry, guard) = SetupProjectionSystem(projection);
 
         var driverId = Guid.NewGuid().ToString();
         var evt = SystemEvent.Create("DriverLocationUpdatedEvent", Guid.NewGuid(),
@@ -100,7 +113,7 @@ public sealed class EventProjectionTests
                 ["longitude"] = -0.1278
             });
 
-        await consumer.ConsumeAsync(ToEnvelope(evt));
+        await ProcessWithGuardAsync(ToEnvelope(evt), registry, guard);
 
         var result = await store.GetAsync($"driver:{driverId}");
         Assert.NotNull(result);
@@ -112,7 +125,7 @@ public sealed class EventProjectionTests
     {
         var store = new RedisProjectionStore();
         var projection = new DriverLocationProjection(store);
-        var (_, consumer) = SetupProjectionSystem(projection);
+        var (_, registry, guard) = SetupProjectionSystem(projection);
 
         for (var i = 0; i < 5; i++)
         {
@@ -123,7 +136,7 @@ public sealed class EventProjectionTests
                     ["latitude"] = 51.5 + i * 0.01,
                     ["longitude"] = -0.1 + i * 0.01
                 });
-            await consumer.ConsumeAsync(ToEnvelope(evt));
+            await ProcessWithGuardAsync(ToEnvelope(evt), registry, guard);
         }
 
         for (var i = 0; i < 5; i++)
@@ -138,15 +151,15 @@ public sealed class EventProjectionTests
     {
         var store = new RedisProjectionStore();
         var projection = new DriverLocationProjection(store);
-        var (_, consumer) = SetupProjectionSystem(projection);
+        var (_, registry, guard) = SetupProjectionSystem(projection);
 
         var driverId = "driver-1";
 
-        await consumer.ConsumeAsync(ToEnvelope(SystemEvent.Create("DriverLocationUpdatedEvent", Guid.NewGuid(),
-            new Dictionary<string, object> { ["driverId"] = driverId, ["latitude"] = 51.0, ["longitude"] = -0.1 })));
+        await ProcessWithGuardAsync(ToEnvelope(SystemEvent.Create("DriverLocationUpdatedEvent", Guid.NewGuid(),
+            new Dictionary<string, object> { ["driverId"] = driverId, ["latitude"] = 51.0, ["longitude"] = -0.1 })), registry, guard);
 
-        await consumer.ConsumeAsync(ToEnvelope(SystemEvent.Create("DriverLocationUpdatedEvent", Guid.NewGuid(),
-            new Dictionary<string, object> { ["driverId"] = driverId, ["latitude"] = 52.0, ["longitude"] = -0.2 })));
+        await ProcessWithGuardAsync(ToEnvelope(SystemEvent.Create("DriverLocationUpdatedEvent", Guid.NewGuid(),
+            new Dictionary<string, object> { ["driverId"] = driverId, ["latitude"] = 52.0, ["longitude"] = -0.2 })), registry, guard);
 
         var result = await store.GetAsync($"driver:{driverId}");
         Assert.NotNull(result);
@@ -162,7 +175,7 @@ public sealed class EventProjectionTests
     {
         var store = new RedisProjectionStore();
         var projection = new PropertyListingProjection(store);
-        var (_, consumer) = SetupProjectionSystem(projection);
+        var (_, registry, guard) = SetupProjectionSystem(projection);
 
         var propertyId = Guid.NewGuid().ToString();
         var evt = SystemEvent.Create("PropertyListingCreatedEvent", Guid.NewGuid(),
@@ -172,7 +185,7 @@ public sealed class EventProjectionTests
                 ["address"] = "123 Main St"
             });
 
-        await consumer.ConsumeAsync(ToEnvelope(evt));
+        await ProcessWithGuardAsync(ToEnvelope(evt), registry, guard);
 
         var result = await store.GetAsync($"property:{propertyId}");
         Assert.NotNull(result);
@@ -188,13 +201,13 @@ public sealed class EventProjectionTests
     {
         var store = new RedisProjectionStore();
         var projection = new VaultBalanceProjection(store);
-        var (_, consumer) = SetupProjectionSystem(projection);
+        var (_, registry, guard) = SetupProjectionSystem(projection);
 
         var vaultId = Guid.NewGuid().ToString();
         var evt = SystemEvent.Create("CapitalContributionRecordedEvent", Guid.NewGuid(),
             new Dictionary<string, object> { ["vaultId"] = vaultId, ["amount"] = 10000m });
 
-        await consumer.ConsumeAsync(ToEnvelope(evt));
+        await ProcessWithGuardAsync(ToEnvelope(evt), registry, guard);
 
         var result = await store.GetAsync($"vault:{vaultId}");
         Assert.NotNull(result);
@@ -206,13 +219,13 @@ public sealed class EventProjectionTests
     {
         var store = new RedisProjectionStore();
         var projection = new VaultBalanceProjection(store);
-        var (_, consumer) = SetupProjectionSystem(projection);
+        var (_, registry, guard) = SetupProjectionSystem(projection);
 
         var vaultId = Guid.NewGuid().ToString();
         var evt = SystemEvent.Create("ProfitDistributedEvent", Guid.NewGuid(),
             new Dictionary<string, object> { ["vaultId"] = vaultId, ["amount"] = 5000m });
 
-        await consumer.ConsumeAsync(ToEnvelope(evt));
+        await ProcessWithGuardAsync(ToEnvelope(evt), registry, guard);
 
         var result = await store.GetAsync($"vault:{vaultId}");
         Assert.NotNull(result);
@@ -228,13 +241,13 @@ public sealed class EventProjectionTests
     {
         var store = new RedisProjectionStore();
         var projection = new RevenueProjection(store);
-        var (_, consumer) = SetupProjectionSystem(projection);
+        var (_, registry, guard) = SetupProjectionSystem(projection);
 
         var aggregateId = Guid.NewGuid().ToString();
         var evt = SystemEvent.Create("RevenueRecordedEvent", Guid.NewGuid(),
             new Dictionary<string, object> { ["aggregateId"] = aggregateId, ["amount"] = 5000m });
 
-        await consumer.ConsumeAsync(ToEnvelope(evt));
+        await ProcessWithGuardAsync(ToEnvelope(evt), registry, guard);
 
         var result = await store.GetAsync($"revenue:{aggregateId}");
         Assert.NotNull(result);
@@ -250,7 +263,7 @@ public sealed class EventProjectionTests
     {
         var store = new RedisProjectionStore();
         var projection = new VaultBalanceProjection(store);
-        var (_, consumer) = SetupProjectionSystem(projection);
+        var (_, registry, guard) = SetupProjectionSystem(projection);
 
         var vaultId = Guid.NewGuid().ToString();
         var eventId = Guid.NewGuid();
@@ -262,8 +275,8 @@ public sealed class EventProjectionTests
             new PartitionKey(vaultId),
             Timestamp.Now());
 
-        await consumer.ConsumeAsync(envelope);
-        await consumer.ConsumeAsync(envelope);
+        await ProcessWithGuardAsync(envelope, registry, guard);
+        await ProcessWithGuardAsync(envelope, registry, guard);
 
         var result = await store.GetAsync($"vault:{vaultId}");
         Assert.NotNull(result);

@@ -20,6 +20,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\runtime\projections\Whycespace.Projections.csproj" />
+    <ProjectReference Include="..\..\src\runtime\event-idempotency\Whycespace.EventIdempotency.csproj" />
+    <ProjectReference Include="..\..\src\runtime\event-fabric\Whycespace.EventFabric.csproj" />
+    <ProjectReference Include="..\..\src\shared\contracts\Whycespace.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
