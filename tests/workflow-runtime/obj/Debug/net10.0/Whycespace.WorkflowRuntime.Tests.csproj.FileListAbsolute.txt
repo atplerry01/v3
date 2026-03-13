@@ -100,3 +100,4 @@ C:\projects\dev\v3\tests\workflow-runtime\obj\Debug\net10.0\refint\Whycespace.Wo
 C:\projects\dev\v3\tests\workflow-runtime\obj\Debug\net10.0\Whycespace.WorkflowRuntime.Tests.pdb
 C:\projects\dev\v3\tests\workflow-runtime\obj\Debug\net10.0\Whycespace.WorkflowRuntime.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\workflow-runtime\obj\Debug\net10.0\ref\Whycespace.WorkflowRuntime.Tests.dll
+C:\projects\dev\v3\tests\workflow-runtime\obj\Debug\net10.0\Whycespace.WorkflowRuntime.Tests.sourcelink.json

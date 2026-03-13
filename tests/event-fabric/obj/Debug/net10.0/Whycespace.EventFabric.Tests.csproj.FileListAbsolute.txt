@@ -125,3 +125,4 @@ C:\projects\dev\v3\tests\event-fabric\obj\Debug\net10.0\refint\Whycespace.EventF
 C:\projects\dev\v3\tests\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.Tests.pdb
 C:\projects\dev\v3\tests\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\event-fabric\obj\Debug\net10.0\ref\Whycespace.EventFabric.Tests.dll
+C:\projects\dev\v3\tests\event-fabric\obj\Debug\net10.0\Whycespace.EventFabric.Tests.sourcelink.json

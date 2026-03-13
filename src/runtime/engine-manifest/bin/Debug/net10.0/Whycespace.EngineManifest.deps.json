@@ -9,7 +9,8 @@
       "Whycespace.EngineManifest/1.0.0": {
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EngineRuntime": "1.0.0"
+          "Whycespace.EngineRuntime": "1.0.0",
+          "Whycespace.System.EngineManifest": "1.0.0"
         },
         "runtime": {
           "Whycespace.EngineManifest.dll": {}
@@ -30,6 +31,17 @@
         },
         "runtime": {
           "Whycespace.EngineRuntime.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.System.EngineManifest/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.System.EngineManifest.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -60,6 +72,11 @@
       "sha512": ""
     },
     "Whycespace.EngineRuntime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.System.EngineManifest/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

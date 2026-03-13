@@ -104,3 +104,4 @@ C:\projects\dev\v3\tests\worker-pool\obj\Debug\net10.0\refint\Whycespace.WorkerP
 C:\projects\dev\v3\tests\worker-pool\obj\Debug\net10.0\Whycespace.WorkerPoolRuntime.Tests.pdb
 C:\projects\dev\v3\tests\worker-pool\obj\Debug\net10.0\Whycespace.WorkerPoolRuntime.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\worker-pool\obj\Debug\net10.0\ref\Whycespace.WorkerPoolRuntime.Tests.dll
+C:\projects\dev\v3\tests\worker-pool\obj\Debug\net10.0\Whycespace.WorkerPoolRuntime.Tests.sourcelink.json

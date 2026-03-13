@@ -131,3 +131,4 @@ C:\projects\dev\v3\tests\event-replay\obj\Debug\net10.0\refint\Whycespace.EventR
 C:\projects\dev\v3\tests\event-replay\obj\Debug\net10.0\Whycespace.EventReplay.Tests.pdb
 C:\projects\dev\v3\tests\event-replay\obj\Debug\net10.0\Whycespace.EventReplay.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\event-replay\obj\Debug\net10.0\ref\Whycespace.EventReplay.Tests.dll
+C:\projects\dev\v3\tests\event-replay\obj\Debug\net10.0\Whycespace.EventReplay.Tests.sourcelink.json

@@ -17,3 +17,4 @@ C:\projects\dev\v3\src\runtime\partition\obj\Debug\net10.0\Whycespace.PartitionR
 C:\projects\dev\v3\src\runtime\partition\obj\Debug\net10.0\refint\Whycespace.PartitionRuntime.dll
 C:\projects\dev\v3\src\runtime\partition\obj\Debug\net10.0\Whycespace.PartitionRuntime.pdb
 C:\projects\dev\v3\src\runtime\partition\obj\Debug\net10.0\ref\Whycespace.PartitionRuntime.dll
+C:\projects\dev\v3\src\runtime\partition\obj\Debug\net10.0\Whycespace.PartitionRuntime.sourcelink.json

@@ -102,3 +102,4 @@ C:\projects\dev\v3\tests\engine-runtime\obj\Debug\net10.0\refint\Whycespace.Engi
 C:\projects\dev\v3\tests\engine-runtime\obj\Debug\net10.0\Whycespace.EngineRuntime.Tests.pdb
 C:\projects\dev\v3\tests\engine-runtime\obj\Debug\net10.0\Whycespace.EngineRuntime.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\engine-runtime\obj\Debug\net10.0\ref\Whycespace.EngineRuntime.Tests.dll
+C:\projects\dev\v3\tests\engine-runtime\obj\Debug\net10.0\Whycespace.EngineRuntime.Tests.sourcelink.json

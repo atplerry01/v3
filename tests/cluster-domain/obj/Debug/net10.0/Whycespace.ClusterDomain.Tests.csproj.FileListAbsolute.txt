@@ -104,3 +104,4 @@ C:\projects\dev\v3\tests\cluster-domain\obj\Debug\net10.0\refint\Whycespace.Clus
 C:\projects\dev\v3\tests\cluster-domain\obj\Debug\net10.0\Whycespace.ClusterDomain.Tests.pdb
 C:\projects\dev\v3\tests\cluster-domain\obj\Debug\net10.0\Whycespace.ClusterDomain.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\cluster-domain\obj\Debug\net10.0\ref\Whycespace.ClusterDomain.Tests.dll
+C:\projects\dev\v3\tests\cluster-domain\obj\Debug\net10.0\Whycespace.ClusterDomain.Tests.sourcelink.json

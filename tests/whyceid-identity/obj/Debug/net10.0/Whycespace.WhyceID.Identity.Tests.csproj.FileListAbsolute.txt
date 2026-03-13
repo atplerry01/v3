@@ -102,3 +102,4 @@ C:\projects\dev\v3\tests\whyceid-identity\obj\Debug\net10.0\refint\Whycespace.Wh
 C:\projects\dev\v3\tests\whyceid-identity\obj\Debug\net10.0\Whycespace.WhyceID.Identity.Tests.pdb
 C:\projects\dev\v3\tests\whyceid-identity\obj\Debug\net10.0\Whycespace.WhyceID.Identity.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\whyceid-identity\obj\Debug\net10.0\ref\Whycespace.WhyceID.Identity.Tests.dll
+C:\projects\dev\v3\tests\whyceid-identity\obj\Debug\net10.0\Whycespace.WhyceID.Identity.Tests.sourcelink.json

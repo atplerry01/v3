@@ -106,3 +106,4 @@ C:\projects\dev\v3\tests\simulation-runtime\obj\Debug\net10.0\refint\Whycespace.
 C:\projects\dev\v3\tests\simulation-runtime\obj\Debug\net10.0\Whycespace.SimulationRuntime.Tests.pdb
 C:\projects\dev\v3\tests\simulation-runtime\obj\Debug\net10.0\Whycespace.SimulationRuntime.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\simulation-runtime\obj\Debug\net10.0\ref\Whycespace.SimulationRuntime.Tests.dll
+C:\projects\dev\v3\tests\simulation-runtime\obj\Debug\net10.0\Whycespace.SimulationRuntime.Tests.sourcelink.json

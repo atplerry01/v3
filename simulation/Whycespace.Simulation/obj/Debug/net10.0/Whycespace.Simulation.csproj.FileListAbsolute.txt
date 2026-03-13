@@ -35,8 +35,6 @@ C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\runtimes\w
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.ClusterDomain.dll
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Contracts.dll
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Domain.dll
-C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineManifest.dll
-C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.dll
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.WhycePolicy.dll
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EventFabric.dll
@@ -53,8 +51,6 @@ C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Reliability.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.ClusterDomain.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Contracts.pdb
-C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
-C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.EventFabric.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.WorkflowRuntime.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.WhycePolicy.pdb
@@ -69,3 +65,16 @@ C:\projects\dev\v3\simulation\Whycespace.Simulation\obj\Debug\net10.0\refint\Why
 C:\projects\dev\v3\simulation\Whycespace.Simulation\obj\Debug\net10.0\Whycespace.Simulation.pdb
 C:\projects\dev\v3\simulation\Whycespace.Simulation\obj\Debug\net10.0\Whycespace.Simulation.genruntimeconfig.cache
 C:\projects\dev\v3\simulation\Whycespace.Simulation\obj\Debug\net10.0\ref\Whycespace.Simulation.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.Governance.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceID.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T1M.WSS.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.System.WhyceID.dll
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.System.WhyceID.pdb
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.Governance.pdb
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceChain.pdb
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T0U.WhyceID.pdb
+C:\projects\dev\v3\simulation\Whycespace.Simulation\bin\Debug\net10.0\Whycespace.Engines.T1M.WSS.pdb
+C:\projects\dev\v3\simulation\Whycespace.Simulation\obj\Debug\net10.0\Whycespace.Simulation.sourcelink.json

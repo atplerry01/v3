@@ -27,3 +27,4 @@ C:\projects\dev\v3\src\runtime\projection-rebuild\obj\Debug\net10.0\Whycespace.P
 C:\projects\dev\v3\src\runtime\projection-rebuild\obj\Debug\net10.0\refint\Whycespace.ProjectionRebuild.dll
 C:\projects\dev\v3\src\runtime\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.pdb
 C:\projects\dev\v3\src\runtime\projection-rebuild\obj\Debug\net10.0\ref\Whycespace.ProjectionRebuild.dll
+C:\projects\dev\v3\src\runtime\projection-rebuild\obj\Debug\net10.0\Whycespace.ProjectionRebuild.sourcelink.json

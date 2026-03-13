@@ -28,3 +28,4 @@ C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\refint\WhycePor
 C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\WhycePortal.pdb
 C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\WhycePortal.genruntimeconfig.cache
 C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\ref\WhycePortal.dll
+C:\projects\dev\v3\src\platform\ui\WhycePortal\obj\Debug\net10.0\WhycePortal.sourcelink.json

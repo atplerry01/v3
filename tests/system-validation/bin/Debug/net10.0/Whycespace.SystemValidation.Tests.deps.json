@@ -511,34 +511,10 @@
           }
         }
       },
-      "Whycespace.EngineManifest/1.0.0": {
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EngineRuntime": "1.0.0"
-        },
-        "runtime": {
-          "Whycespace.EngineManifest.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Whycespace.EngineRuntime/1.0.0": {
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0",
-          "Whycespace.WorkflowRuntime": "1.0.0"
-        },
-        "runtime": {
-          "Whycespace.EngineRuntime.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
       "Whycespace.Engines/1.0.0": {
         "dependencies": {
-          "Whycespace.EngineManifest": "1.0.0",
-          "Whycespace.Shared": "1.0.0"
+          "Whycespace.Shared": "1.0.0",
+          "Whycespace.System.EngineManifest": "1.0.0"
         },
         "runtime": {
           "Whycespace.Engines.dll": {
@@ -624,12 +600,12 @@
           }
         }
       },
-      "Whycespace.WorkflowRuntime/1.0.0": {
+      "Whycespace.System.EngineManifest/1.0.0": {
         "dependencies": {
           "Whycespace.Contracts": "1.0.0"
         },
         "runtime": {
-          "Whycespace.WorkflowRuntime.dll": {
+          "Whycespace.System.EngineManifest.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -754,16 +730,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Whycespace.EngineManifest/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Whycespace.EngineRuntime/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Whycespace.Engines/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -799,7 +765,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Whycespace.WorkflowRuntime/1.0.0": {
+    "Whycespace.System.EngineManifest/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -129,3 +129,4 @@ C:\projects\dev\v3\tests\reliability\obj\Debug\net10.0\refint\Whycespace.Reliabi
 C:\projects\dev\v3\tests\reliability\obj\Debug\net10.0\Whycespace.Reliability.Tests.pdb
 C:\projects\dev\v3\tests\reliability\obj\Debug\net10.0\Whycespace.Reliability.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\reliability\obj\Debug\net10.0\ref\Whycespace.Reliability.Tests.dll
+C:\projects\dev\v3\tests\reliability\obj\Debug\net10.0\Whycespace.Reliability.Tests.sourcelink.json

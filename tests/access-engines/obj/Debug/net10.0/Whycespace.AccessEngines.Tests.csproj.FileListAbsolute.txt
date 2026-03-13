@@ -86,17 +86,11 @@ C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\zh-Hant\Microsoft.Test
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.Contracts.dll
-C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.EngineManifest.dll
-C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.EngineRuntime.dll
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.Engines.dll
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.Shared.dll
-C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.WorkflowRuntime.dll
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.Shared.pdb
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.Engines.pdb
 C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.Contracts.pdb
-C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.EngineManifest.pdb
-C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.EngineRuntime.pdb
-C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.WorkflowRuntime.pdb
 C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\Whycespace.AccessEngines.Tests.csproj.AssemblyReference.cache
 C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\Whycespace.AccessEngines.Tests.GeneratedMSBuildEditorConfig.editorconfig
 C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\Whycespace.AccessEngines.Tests.AssemblyInfoInputs.cache
@@ -108,3 +102,6 @@ C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\refint\Whycespace.Acce
 C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\Whycespace.AccessEngines.Tests.pdb
 C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\Whycespace.AccessEngines.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\ref\Whycespace.AccessEngines.Tests.dll
+C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
+C:\projects\dev\v3\tests\access-engines\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
+C:\projects\dev\v3\tests\access-engines\obj\Debug\net10.0\Whycespace.AccessEngines.Tests.sourcelink.json

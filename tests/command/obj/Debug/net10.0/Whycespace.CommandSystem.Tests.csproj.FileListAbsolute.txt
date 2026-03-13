@@ -100,3 +100,4 @@ C:\projects\dev\v3\tests\command\obj\Debug\net10.0\refint\Whycespace.CommandSyst
 C:\projects\dev\v3\tests\command\obj\Debug\net10.0\Whycespace.CommandSystem.Tests.pdb
 C:\projects\dev\v3\tests\command\obj\Debug\net10.0\Whycespace.CommandSystem.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\command\obj\Debug\net10.0\ref\Whycespace.CommandSystem.Tests.dll
+C:\projects\dev\v3\tests\command\obj\Debug\net10.0\Whycespace.CommandSystem.Tests.sourcelink.json

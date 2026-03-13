@@ -23,3 +23,4 @@ C:\projects\dev\v3\src\runtime\engine-workers\obj\Debug\net10.0\Whycespace.Engin
 C:\projects\dev\v3\src\runtime\engine-workers\obj\Debug\net10.0\refint\Whycespace.EngineWorkerRuntime.dll
 C:\projects\dev\v3\src\runtime\engine-workers\obj\Debug\net10.0\Whycespace.EngineWorkerRuntime.pdb
 C:\projects\dev\v3\src\runtime\engine-workers\obj\Debug\net10.0\ref\Whycespace.EngineWorkerRuntime.dll
+C:\projects\dev\v3\src\runtime\engine-workers\obj\Debug\net10.0\Whycespace.EngineWorkerRuntime.sourcelink.json

@@ -1,0 +1,16 @@
+C:\projects\dev\v3\src\system\engine-manifest\bin\Debug\net10.0\Whycespace.System.EngineManifest.deps.json
+C:\projects\dev\v3\src\system\engine-manifest\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
+C:\projects\dev\v3\src\system\engine-manifest\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
+C:\projects\dev\v3\src\system\engine-manifest\bin\Debug\net10.0\Whycespace.Contracts.dll
+C:\projects\dev\v3\src\system\engine-manifest\bin\Debug\net10.0\Whycespace.Contracts.pdb
+C:\projects\dev\v3\src\system\engine-manifest\obj\Debug\net10.0\Whycespace.System.EngineManifest.csproj.AssemblyReference.cache
+C:\projects\dev\v3\src\system\engine-manifest\obj\Debug\net10.0\Whycespace.System.EngineManifest.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\dev\v3\src\system\engine-manifest\obj\Debug\net10.0\Whycespace.System.EngineManifest.AssemblyInfoInputs.cache
+C:\projects\dev\v3\src\system\engine-manifest\obj\Debug\net10.0\Whycespace.System.EngineManifest.AssemblyInfo.cs
+C:\projects\dev\v3\src\system\engine-manifest\obj\Debug\net10.0\Whycespace.System.EngineManifest.csproj.CoreCompileInputs.cache
+C:\projects\dev\v3\src\system\engine-manifest\obj\Debug\net10.0\Whycespace.System.EngineManifest.sourcelink.json
+C:\projects\dev\v3\src\system\engine-manifest\obj\Debug\net10.0\Whycespa.98C06878.Up2Date
+C:\projects\dev\v3\src\system\engine-manifest\obj\Debug\net10.0\Whycespace.System.EngineManifest.dll
+C:\projects\dev\v3\src\system\engine-manifest\obj\Debug\net10.0\refint\Whycespace.System.EngineManifest.dll
+C:\projects\dev\v3\src\system\engine-manifest\obj\Debug\net10.0\Whycespace.System.EngineManifest.pdb
+C:\projects\dev\v3\src\system\engine-manifest\obj\Debug\net10.0\ref\Whycespace.System.EngineManifest.dll

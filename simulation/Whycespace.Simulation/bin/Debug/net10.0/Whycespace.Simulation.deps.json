@@ -222,34 +222,10 @@
           }
         }
       },
-      "Whycespace.EngineManifest/1.0.0": {
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EngineRuntime": "1.0.0"
-        },
-        "runtime": {
-          "Whycespace.EngineManifest.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Whycespace.EngineRuntime/1.0.0": {
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0",
-          "Whycespace.WorkflowRuntime": "1.0.0"
-        },
-        "runtime": {
-          "Whycespace.EngineRuntime.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
       "Whycespace.Engines/1.0.0": {
         "dependencies": {
-          "Whycespace.EngineManifest": "1.0.0",
-          "Whycespace.Shared": "1.0.0"
+          "Whycespace.Shared": "1.0.0",
+          "Whycespace.System.EngineManifest": "1.0.0"
         },
         "runtime": {
           "Whycespace.Engines.dll": {
@@ -258,13 +234,62 @@
           }
         }
       },
+      "Whycespace.Engines.T0U.Governance/1.0.0": {
+        "dependencies": {
+          "Whycespace.Engines.T0U.WhyceChain": "1.0.0",
+          "Whycespace.System": "1.0.0",
+          "Whycespace.System.WhyceID": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Engines.T0U.Governance.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Engines.T0U.WhyceChain/1.0.0": {
+        "dependencies": {
+          "Whycespace.System": "1.0.0",
+          "Whycespace.System.EngineManifest": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Engines.T0U.WhyceChain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Engines.T0U.WhyceID/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.System.WhyceID": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Engines.T0U.WhyceID.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.Engines.T0U.WhycePolicy/1.0.0": {
         "dependencies": {
-          "Whycespace.EngineManifest": "1.0.0",
-          "Whycespace.System": "1.0.0"
+          "Whycespace.System": "1.0.0",
+          "Whycespace.System.EngineManifest": "1.0.0"
         },
         "runtime": {
           "Whycespace.Engines.T0U.WhycePolicy.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.Engines.T1M.WSS/1.0.0": {
+        "dependencies": {
+          "Whycespace.System": "1.0.0",
+          "Whycespace.System.EngineManifest": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.Engines.T1M.WSS.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -300,7 +325,14 @@
           "Microsoft.Extensions.Logging.Abstractions": "10.0.3",
           "Npgsql": "10.0.1",
           "Whycespace.Engines": "1.0.0",
-          "Whycespace.Shared": "1.0.0"
+          "Whycespace.Engines.T0U.Governance": "1.0.0",
+          "Whycespace.Engines.T0U.WhyceChain": "1.0.0",
+          "Whycespace.Engines.T0U.WhyceID": "1.0.0",
+          "Whycespace.Engines.T0U.WhycePolicy": "1.0.0",
+          "Whycespace.Engines.T1M.WSS": "1.0.0",
+          "Whycespace.Shared": "1.0.0",
+          "Whycespace.System": "1.0.0",
+          "Whycespace.System.WhyceID": "1.0.0"
         },
         "runtime": {
           "Whycespace.Runtime.dll": {
@@ -325,13 +357,32 @@
           "Confluent.Kafka": "2.13.2",
           "Microsoft.Extensions.Logging.Abstractions": "10.0.3",
           "Whycespace.Domain": "1.0.0",
-          "Whycespace.Engines": "1.0.0",
-          "Whycespace.Runtime": "1.0.0",
-          "Whycespace.Shared": "1.0.0",
-          "Whycespace.WorkflowRuntime": "1.0.0"
+          "Whycespace.Shared": "1.0.0"
         },
         "runtime": {
           "Whycespace.System.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.System.EngineManifest/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.System.EngineManifest.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.System.WhyceID/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.System.WhyceID.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -406,22 +457,32 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Whycespace.EngineManifest/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Whycespace.EngineRuntime/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Whycespace.Engines/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
+    "Whycespace.Engines.T0U.Governance/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Engines.T0U.WhyceChain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Engines.T0U.WhyceID/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Whycespace.Engines.T0U.WhycePolicy/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.Engines.T1M.WSS/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -447,6 +508,16 @@
       "sha512": ""
     },
     "Whycespace.System/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.System.EngineManifest/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.System.WhyceID/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

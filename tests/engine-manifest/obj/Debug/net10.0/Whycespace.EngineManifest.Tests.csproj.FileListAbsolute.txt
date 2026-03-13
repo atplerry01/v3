@@ -108,3 +108,6 @@ C:\projects\dev\v3\tests\engine-manifest\obj\Debug\net10.0\refint\Whycespace.Eng
 C:\projects\dev\v3\tests\engine-manifest\obj\Debug\net10.0\Whycespace.EngineManifest.Tests.pdb
 C:\projects\dev\v3\tests\engine-manifest\obj\Debug\net10.0\Whycespace.EngineManifest.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\engine-manifest\obj\Debug\net10.0\ref\Whycespace.EngineManifest.Tests.dll
+C:\projects\dev\v3\tests\engine-manifest\bin\Debug\net10.0\Whycespace.System.EngineManifest.dll
+C:\projects\dev\v3\tests\engine-manifest\bin\Debug\net10.0\Whycespace.System.EngineManifest.pdb
+C:\projects\dev\v3\tests\engine-manifest\obj\Debug\net10.0\Whycespace.EngineManifest.Tests.sourcelink.json

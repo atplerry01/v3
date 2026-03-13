@@ -19,3 +19,4 @@ C:\projects\dev\v3\src\runtime\event-replay\obj\Debug\net10.0\Whycespace.EventRe
 C:\projects\dev\v3\src\runtime\event-replay\obj\Debug\net10.0\refint\Whycespace.EventReplay.dll
 C:\projects\dev\v3\src\runtime\event-replay\obj\Debug\net10.0\Whycespace.EventReplay.pdb
 C:\projects\dev\v3\src\runtime\event-replay\obj\Debug\net10.0\ref\Whycespace.EventReplay.dll
+C:\projects\dev\v3\src\runtime\event-replay\obj\Debug\net10.0\Whycespace.EventReplay.sourcelink.json

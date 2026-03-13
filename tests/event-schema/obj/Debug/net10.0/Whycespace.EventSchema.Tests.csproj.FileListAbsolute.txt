@@ -127,3 +127,4 @@ C:\projects\dev\v3\tests\event-schema\obj\Debug\net10.0\refint\Whycespace.EventS
 C:\projects\dev\v3\tests\event-schema\obj\Debug\net10.0\Whycespace.EventSchema.Tests.pdb
 C:\projects\dev\v3\tests\event-schema\obj\Debug\net10.0\Whycespace.EventSchema.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\event-schema\obj\Debug\net10.0\ref\Whycespace.EventSchema.Tests.dll
+C:\projects\dev\v3\tests\event-schema\obj\Debug\net10.0\Whycespace.EventSchema.Tests.sourcelink.json

@@ -135,3 +135,4 @@ C:\projects\dev\v3\tests\engine-worker-runtime\obj\Debug\net10.0\refint\Whycespa
 C:\projects\dev\v3\tests\engine-worker-runtime\obj\Debug\net10.0\Whycespace.EngineWorkerRuntime.Tests.pdb
 C:\projects\dev\v3\tests\engine-worker-runtime\obj\Debug\net10.0\Whycespace.EngineWorkerRuntime.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\engine-worker-runtime\obj\Debug\net10.0\ref\Whycespace.EngineWorkerRuntime.Tests.dll
+C:\projects\dev\v3\tests\engine-worker-runtime\obj\Debug\net10.0\Whycespace.EngineWorkerRuntime.Tests.sourcelink.json

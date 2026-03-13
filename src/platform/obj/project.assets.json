@@ -583,7 +583,8 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EngineRuntime": "1.0.0"
+          "Whycespace.EngineRuntime": "1.0.0",
+          "Whycespace.System.EngineManifest": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.EngineManifest.dll": {}
@@ -610,8 +611,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.EngineManifest": "1.0.0",
-          "Whycespace.Shared": "1.0.0"
+          "Whycespace.Shared": "1.0.0",
+          "Whycespace.System.EngineManifest": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.dll": {}
@@ -639,8 +640,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.EngineManifest": "1.0.0",
-          "Whycespace.System": "1.0.0"
+          "Whycespace.System": "1.0.0",
+          "Whycespace.System.EngineManifest": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.T0U.WhyceChain.dll": {}
@@ -667,8 +668,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.EngineManifest": "1.0.0",
-          "Whycespace.System": "1.0.0"
+          "Whycespace.System": "1.0.0",
+          "Whycespace.System.EngineManifest": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.T0U.WhycePolicy.dll": {}
@@ -681,8 +682,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "Whycespace.EngineManifest": "1.0.0",
-          "Whycespace.System": "1.0.0"
+          "Whycespace.System": "1.0.0",
+          "Whycespace.System.EngineManifest": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Engines.T1M.WSS.dll": {}
@@ -825,7 +826,14 @@
         "dependencies": {
           "Npgsql": "10.0.1",
           "Whycespace.Engines": "1.0.0",
-          "Whycespace.Shared": "1.0.0"
+          "Whycespace.Engines.T0U.Governance": "1.0.0",
+          "Whycespace.Engines.T0U.WhyceChain": "1.0.0",
+          "Whycespace.Engines.T0U.WhyceID": "1.0.0",
+          "Whycespace.Engines.T0U.WhycePolicy": "1.0.0",
+          "Whycespace.Engines.T1M.WSS": "1.0.0",
+          "Whycespace.Shared": "1.0.0",
+          "Whycespace.System": "1.0.0",
+          "Whycespace.System.WhyceID": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.Runtime.dll": {}
@@ -885,16 +893,26 @@
         "dependencies": {
           "Confluent.Kafka": "2.13.2",
           "Whycespace.Domain": "1.0.0",
-          "Whycespace.Engines": "1.0.0",
-          "Whycespace.Runtime": "1.0.0",
-          "Whycespace.Shared": "1.0.0",
-          "Whycespace.WorkflowRuntime": "1.0.0"
+          "Whycespace.Shared": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Whycespace.System.dll": {}
         },
         "runtime": {
           "bin/placeholder/Whycespace.System.dll": {}
+        }
+      },
+      "Whycespace.System.EngineManifest/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.System.EngineManifest.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.System.EngineManifest.dll": {}
         }
       },
       "Whycespace.System.WhyceID/1.0.0": {
@@ -1678,6 +1696,11 @@
       "path": "../system/Whycespace.System.csproj",
       "msbuildProject": "../system/Whycespace.System.csproj"
     },
+    "Whycespace.System.EngineManifest/1.0.0": {
+      "type": "project",
+      "path": "../system/engine-manifest/Whycespace.System.EngineManifest.csproj",
+      "msbuildProject": "../system/engine-manifest/Whycespace.System.EngineManifest.csproj"
+    },
     "Whycespace.System.WhyceID/1.0.0": {
       "type": "project",
       "path": "../system/upstream/WhyceID/Whycespace.System.WhyceID.csproj",
@@ -1710,12 +1733,6 @@
       "Whycespace.Domain >= 1.0.0",
       "Whycespace.EconomicDomain >= 1.0.0",
       "Whycespace.EngineManifest >= 1.0.0",
-      "Whycespace.Engines >= 1.0.0",
-      "Whycespace.Engines.T0U.Governance >= 1.0.0",
-      "Whycespace.Engines.T0U.WhyceChain >= 1.0.0",
-      "Whycespace.Engines.T0U.WhyceID >= 1.0.0",
-      "Whycespace.Engines.T0U.WhycePolicy >= 1.0.0",
-      "Whycespace.Engines.T1M.WSS >= 1.0.0",
       "Whycespace.EventFabricRuntime >= 1.0.0",
       "Whycespace.Observability >= 1.0.0",
       "Whycespace.ProjectionRuntime >= 1.0.0",
@@ -1772,24 +1789,6 @@
             },
             "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
-            },
-            "C:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\Whycespace.Engines.T0U.Governance.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\Governance\\Whycespace.Engines.T0U.Governance.csproj"
-            },
-            "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceChain\\Whycespace.Engines.T0U.WhyceChain.csproj"
-            },
-            "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhyceID\\Whycespace.Engines.T0U.WhyceID.csproj"
-            },
-            "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhycePolicy\\Whycespace.Engines.T0U.WhycePolicy.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T0U\\WhycePolicy\\Whycespace.Engines.T0U.WhycePolicy.csproj"
-            },
-            "C:\\projects\\dev\\v3\\src\\engines\\T1M\\WSS\\Whycespace.Engines.T1M.WSS.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\T1M\\WSS\\Whycespace.Engines.T1M.WSS.csproj"
-            },
-            "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\platform\\cluster-templates\\Whycespace.ClusterTemplatePlatform.csproj"

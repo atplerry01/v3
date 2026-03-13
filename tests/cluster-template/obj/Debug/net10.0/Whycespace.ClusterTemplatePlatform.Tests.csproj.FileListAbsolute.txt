@@ -106,3 +106,4 @@ C:\projects\dev\v3\tests\cluster-template\obj\Debug\net10.0\refint\Whycespace.Cl
 C:\projects\dev\v3\tests\cluster-template\obj\Debug\net10.0\Whycespace.ClusterTemplatePlatform.Tests.pdb
 C:\projects\dev\v3\tests\cluster-template\obj\Debug\net10.0\Whycespace.ClusterTemplatePlatform.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\cluster-template\obj\Debug\net10.0\ref\Whycespace.ClusterTemplatePlatform.Tests.dll
+C:\projects\dev\v3\tests\cluster-template\obj\Debug\net10.0\Whycespace.ClusterTemplatePlatform.Tests.sourcelink.json

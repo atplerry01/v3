@@ -127,3 +127,4 @@ C:\projects\dev\v3\tests\event-idempotency\obj\Debug\net10.0\refint\Whycespace.E
 C:\projects\dev\v3\tests\event-idempotency\obj\Debug\net10.0\Whycespace.EventIdempotency.Tests.pdb
 C:\projects\dev\v3\tests\event-idempotency\obj\Debug\net10.0\Whycespace.EventIdempotency.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\event-idempotency\obj\Debug\net10.0\ref\Whycespace.EventIdempotency.Tests.dll
+C:\projects\dev\v3\tests\event-idempotency\obj\Debug\net10.0\Whycespace.EventIdempotency.Tests.sourcelink.json

@@ -131,3 +131,4 @@ C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\refint\Whycespace.Project
 C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.pdb
 C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\ref\Whycespace.Projections.Tests.dll
+C:\projects\dev\v3\tests\projections\obj\Debug\net10.0\Whycespace.Projections.Tests.sourcelink.json

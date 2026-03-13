@@ -19,3 +19,4 @@ C:\projects\dev\v3\src\runtime\dispatcher\obj\Debug\net10.0\Whycespace.RuntimeDi
 C:\projects\dev\v3\src\runtime\dispatcher\obj\Debug\net10.0\refint\Whycespace.RuntimeDispatcher.dll
 C:\projects\dev\v3\src\runtime\dispatcher\obj\Debug\net10.0\Whycespace.RuntimeDispatcher.pdb
 C:\projects\dev\v3\src\runtime\dispatcher\obj\Debug\net10.0\ref\Whycespace.RuntimeDispatcher.dll
+C:\projects\dev\v3\src\runtime\dispatcher\obj\Debug\net10.0\Whycespace.RuntimeDispatcher.sourcelink.json

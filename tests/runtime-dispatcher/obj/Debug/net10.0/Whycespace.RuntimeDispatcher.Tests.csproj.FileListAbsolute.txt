@@ -106,3 +106,4 @@ C:\projects\dev\v3\tests\runtime-dispatcher\obj\Debug\net10.0\refint\Whycespace.
 C:\projects\dev\v3\tests\runtime-dispatcher\obj\Debug\net10.0\Whycespace.RuntimeDispatcher.Tests.pdb
 C:\projects\dev\v3\tests\runtime-dispatcher\obj\Debug\net10.0\Whycespace.RuntimeDispatcher.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\runtime-dispatcher\obj\Debug\net10.0\ref\Whycespace.RuntimeDispatcher.Tests.dll
+C:\projects\dev\v3\tests\runtime-dispatcher\obj\Debug\net10.0\Whycespace.RuntimeDispatcher.Tests.sourcelink.json

@@ -104,3 +104,4 @@ C:\projects\dev\v3\tests\partition-runtime\obj\Debug\net10.0\refint\Whycespace.P
 C:\projects\dev\v3\tests\partition-runtime\obj\Debug\net10.0\Whycespace.PartitionRuntime.Tests.pdb
 C:\projects\dev\v3\tests\partition-runtime\obj\Debug\net10.0\Whycespace.PartitionRuntime.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\partition-runtime\obj\Debug\net10.0\ref\Whycespace.PartitionRuntime.Tests.dll
+C:\projects\dev\v3\tests\partition-runtime\obj\Debug\net10.0\Whycespace.PartitionRuntime.Tests.sourcelink.json

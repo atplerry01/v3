@@ -100,3 +100,4 @@ C:\projects\dev\v3\tests\observability\obj\Debug\net10.0\refint\Whycespace.Obser
 C:\projects\dev\v3\tests\observability\obj\Debug\net10.0\Whycespace.Observability.Tests.pdb
 C:\projects\dev\v3\tests\observability\obj\Debug\net10.0\Whycespace.Observability.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\observability\obj\Debug\net10.0\ref\Whycespace.Observability.Tests.dll
+C:\projects\dev\v3\tests\observability\obj\Debug\net10.0\Whycespace.Observability.Tests.sourcelink.json

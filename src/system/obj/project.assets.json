@@ -161,22 +161,6 @@
           "buildTransitive/net8.0/Microsoft.Extensions.Logging.Abstractions.targets": {}
         }
       },
-      "Npgsql/10.0.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.0"
-        },
-        "compile": {
-          "lib/net10.0/Npgsql.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net10.0/Npgsql.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Whycespace.ClusterDomain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -215,64 +199,6 @@
           "bin/placeholder/Whycespace.Domain.dll": {}
         }
       },
-      "Whycespace.EngineManifest/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0",
-          "Whycespace.EngineRuntime": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Whycespace.EngineManifest.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Whycespace.EngineManifest.dll": {}
-        }
-      },
-      "Whycespace.EngineRuntime/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0",
-          "Whycespace.WorkflowRuntime": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Whycespace.EngineRuntime.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Whycespace.EngineRuntime.dll": {}
-        }
-      },
-      "Whycespace.Engines/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Whycespace.EngineManifest": "1.0.0",
-          "Whycespace.Shared": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Whycespace.Engines.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Whycespace.Engines.dll": {}
-        }
-      },
-      "Whycespace.Runtime/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.3",
-          "Npgsql": "10.0.1",
-          "Whycespace.Engines": "1.0.0",
-          "Whycespace.Shared": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Whycespace.Runtime.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Whycespace.Runtime.dll": {}
-        }
-      },
       "Whycespace.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -284,19 +210,6 @@
         },
         "runtime": {
           "bin/placeholder/Whycespace.Shared.dll": {}
-        }
-      },
-      "Whycespace.WorkflowRuntime/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Whycespace.Contracts": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Whycespace.WorkflowRuntime.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Whycespace.WorkflowRuntime.dll": {}
         }
       }
     }
@@ -474,25 +387,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Npgsql/10.0.1": {
-      "sha512": "XyUcxEfqlFomhNTG/ZdGlec+uSOQArKz0Mzz8jYKP/Jj9GM2YabU5CVZtp0yiC4f9hRp+tRZTnHMatJeJ3rwgw==",
-      "type": "package",
-      "path": "npgsql/10.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "lib/net10.0/Npgsql.dll",
-        "lib/net10.0/Npgsql.xml",
-        "lib/net8.0/Npgsql.dll",
-        "lib/net8.0/Npgsql.xml",
-        "lib/net9.0/Npgsql.dll",
-        "lib/net9.0/Npgsql.xml",
-        "npgsql.10.0.1.nupkg.sha512",
-        "npgsql.nuspec",
-        "postgresql.png"
-      ]
-    },
     "Whycespace.ClusterDomain/1.0.0": {
       "type": "project",
       "path": "../domain/clusters/Whycespace.ClusterDomain.csproj",
@@ -508,35 +402,10 @@
       "path": "../domain/Whycespace.Domain.csproj",
       "msbuildProject": "../domain/Whycespace.Domain.csproj"
     },
-    "Whycespace.EngineManifest/1.0.0": {
-      "type": "project",
-      "path": "../runtime/engine-manifest/Whycespace.EngineManifest.csproj",
-      "msbuildProject": "../runtime/engine-manifest/Whycespace.EngineManifest.csproj"
-    },
-    "Whycespace.EngineRuntime/1.0.0": {
-      "type": "project",
-      "path": "../runtime/engine/Whycespace.EngineRuntime.csproj",
-      "msbuildProject": "../runtime/engine/Whycespace.EngineRuntime.csproj"
-    },
-    "Whycespace.Engines/1.0.0": {
-      "type": "project",
-      "path": "../engines/Whycespace.Engines.csproj",
-      "msbuildProject": "../engines/Whycespace.Engines.csproj"
-    },
-    "Whycespace.Runtime/1.0.0": {
-      "type": "project",
-      "path": "../runtime/Whycespace.Runtime.csproj",
-      "msbuildProject": "../runtime/Whycespace.Runtime.csproj"
-    },
     "Whycespace.Shared/1.0.0": {
       "type": "project",
       "path": "../shared/Whycespace.Shared.csproj",
       "msbuildProject": "../shared/Whycespace.Shared.csproj"
-    },
-    "Whycespace.WorkflowRuntime/1.0.0": {
-      "type": "project",
-      "path": "../runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj",
-      "msbuildProject": "../runtime/workflow-runtime/Whycespace.WorkflowRuntime.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -544,10 +413,7 @@
       "Confluent.Kafka >= 2.13.2",
       "Microsoft.Extensions.Logging.Abstractions >= 10.0.3",
       "Whycespace.Domain >= 1.0.0",
-      "Whycespace.Engines >= 1.0.0",
-      "Whycespace.Runtime >= 1.0.0",
-      "Whycespace.Shared >= 1.0.0",
-      "Whycespace.WorkflowRuntime >= 1.0.0"
+      "Whycespace.Shared >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -585,15 +451,6 @@
           "projectReferences": {
             "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\domain\\Whycespace.Domain.csproj"
-            },
-            "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\engines\\Whycespace.Engines.csproj"
-            },
-            "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\Whycespace.Runtime.csproj"
-            },
-            "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj": {
-              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\workflow-runtime\\Whycespace.WorkflowRuntime.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\shared\\Whycespace.Shared.csproj"

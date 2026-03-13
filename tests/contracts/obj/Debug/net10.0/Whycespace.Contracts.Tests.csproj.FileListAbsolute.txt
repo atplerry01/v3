@@ -98,3 +98,4 @@ C:\projects\dev\v3\tests\contracts\obj\Debug\net10.0\refint\Whycespace.Contracts
 C:\projects\dev\v3\tests\contracts\obj\Debug\net10.0\Whycespace.Contracts.Tests.pdb
 C:\projects\dev\v3\tests\contracts\obj\Debug\net10.0\Whycespace.Contracts.Tests.genruntimeconfig.cache
 C:\projects\dev\v3\tests\contracts\obj\Debug\net10.0\ref\Whycespace.Contracts.Tests.dll
+C:\projects\dev\v3\tests\contracts\obj\Debug\net10.0\Whycespace.Contracts.Tests.sourcelink.json
