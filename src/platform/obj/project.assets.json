@@ -720,6 +720,36 @@
           "bin/placeholder/Whycespace.EventFabricRuntime.dll": {}
         }
       },
+      "Whycespace.EventObservability/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EventObservability.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EventObservability.dll": {}
+        }
+      },
+      "Whycespace.EventReplay/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0",
+          "Whycespace.Reliability": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Whycespace.EventReplay.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Whycespace.EventReplay.dll": {}
+        }
+      },
       "Whycespace.Observability/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -1625,6 +1655,16 @@
       "path": "../runtime/event-fabric-runtime/Whycespace.EventFabricRuntime.csproj",
       "msbuildProject": "../runtime/event-fabric-runtime/Whycespace.EventFabricRuntime.csproj"
     },
+    "Whycespace.EventObservability/1.0.0": {
+      "type": "project",
+      "path": "../runtime/event-observability/Whycespace.EventObservability.csproj",
+      "msbuildProject": "../runtime/event-observability/Whycespace.EventObservability.csproj"
+    },
+    "Whycespace.EventReplay/1.0.0": {
+      "type": "project",
+      "path": "../runtime/event-replay/Whycespace.EventReplay.csproj",
+      "msbuildProject": "../runtime/event-replay/Whycespace.EventReplay.csproj"
+    },
     "Whycespace.Observability/1.0.0": {
       "type": "project",
       "path": "../runtime/observability/Whycespace.Observability.csproj",
@@ -1718,6 +1758,8 @@
       "Whycespace.EconomicDomain >= 1.0.0",
       "Whycespace.EngineManifest >= 1.0.0",
       "Whycespace.EventFabricRuntime >= 1.0.0",
+      "Whycespace.EventObservability >= 1.0.0",
+      "Whycespace.EventReplay >= 1.0.0",
       "Whycespace.Observability >= 1.0.0",
       "Whycespace.ProjectionRuntime >= 1.0.0",
       "Whycespace.Projections >= 1.0.0",
@@ -1789,6 +1831,12 @@
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-fabric-runtime\\Whycespace.EventFabricRuntime.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\runtime\\event-observability\\Whycespace.EventObservability.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-observability\\Whycespace.EventObservability.csproj"
+            },
+            "C:\\projects\\dev\\v3\\src\\runtime\\event-replay\\Whycespace.EventReplay.csproj": {
+              "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\event-replay\\Whycespace.EventReplay.csproj"
             },
             "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj": {
               "projectPath": "C:\\projects\\dev\\v3\\src\\runtime\\guardrails\\Whycespace.ArchitectureGuardrails.csproj"

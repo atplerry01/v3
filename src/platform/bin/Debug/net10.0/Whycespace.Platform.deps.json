@@ -23,6 +23,8 @@
           "Whycespace.EconomicDomain": "1.0.0",
           "Whycespace.EngineManifest": "1.0.0",
           "Whycespace.EventFabricRuntime": "1.0.0",
+          "Whycespace.EventObservability": "1.0.0",
+          "Whycespace.EventReplay": "1.0.0",
           "Whycespace.Observability": "1.0.0",
           "Whycespace.ProjectionRuntime": "1.0.0",
           "Whycespace.Projections": "1.0.0",
@@ -619,6 +621,32 @@
           }
         }
       },
+      "Whycespace.EventObservability/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EventObservability.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Whycespace.EventReplay/1.0.0": {
+        "dependencies": {
+          "Whycespace.Contracts": "1.0.0",
+          "Whycespace.EventFabric": "1.0.0",
+          "Whycespace.Reliability": "1.0.0",
+          "Whycespace.WorkflowRuntime": "1.0.0"
+        },
+        "runtime": {
+          "Whycespace.EventReplay.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Whycespace.Observability/1.0.0": {
         "dependencies": {
           "Whycespace.Contracts": "1.0.0"
@@ -1070,6 +1098,16 @@
       "sha512": ""
     },
     "Whycespace.EventFabricRuntime/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.EventObservability/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Whycespace.EventReplay/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -139,3 +139,7 @@ C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.PartitionRuntime.dl
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.RuntimeDispatcher.dll
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.RuntimeDispatcher.pdb
 C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.PartitionRuntime.pdb
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.EventObservability.dll
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.EventReplay.dll
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.EventObservability.pdb
+C:\projects\dev\v3\src\platform\bin\Debug\net10.0\Whycespace.EventReplay.pdb

@@ -36,6 +36,12 @@ using Whycespace.System.WhyceID.Models;
 using Whycespace.System.Upstream.WhycePolicy.Stores;
 using Whycespace.System.Upstream.WhyceChain.Stores;
 using Whycespace.System.Upstream.Governance.Stores;
+using Whycespace.EventReplay.Governance.Engine;
+using Whycespace.EventReplay.Governance.Models;
+using Whycespace.EventObservability.Metrics.Engine;
+using Whycespace.Reliability.Isolation.Monitor;
+using Whycespace.Reliability.Isolation.Registry;
+using Whycespace.Reliability.Isolation.Engine;
 
 [ApiController]
 [Route("dev")]
@@ -80,6 +86,11 @@ public sealed class DebugController : ControllerBase
     private readonly ChainEventStore _chainEventStore;
     private readonly GuardianRegistryStore _guardianRegistryStore;
     private readonly GovernanceRoleStore _governanceRoleStore;
+    private readonly EventReplayGovernanceEngine _replayGovernanceEngine;
+    private readonly EventObservabilityEngine _eventObservabilityEngine;
+    private readonly WorkerHealthMonitor _workerHealthMonitor;
+    private readonly PartitionHealthRegistry _partitionHealthRegistry;
+    private readonly PartitionCircuitBreakerEngine _partitionCircuitBreakerEngine;
 
     public DebugController(
         IPlatformDispatcher dispatcher,
@@ -120,7 +131,12 @@ public sealed class DebugController : ControllerBase
         ChainBlockStore chainBlockStore,
         ChainEventStore chainEventStore,
         GuardianRegistryStore guardianRegistryStore,
-        GovernanceRoleStore governanceRoleStore)
+        GovernanceRoleStore governanceRoleStore,
+        EventReplayGovernanceEngine replayGovernanceEngine,
+        EventObservabilityEngine eventObservabilityEngine,
+        WorkerHealthMonitor workerHealthMonitor,
+        PartitionHealthRegistry partitionHealthRegistry,
+        PartitionCircuitBreakerEngine partitionCircuitBreakerEngine)
     {
         _dispatcher = dispatcher;
         _stateStore = stateStore;
@@ -161,6 +177,11 @@ public sealed class DebugController : ControllerBase
         _chainEventStore = chainEventStore;
         _guardianRegistryStore = guardianRegistryStore;
         _governanceRoleStore = governanceRoleStore;
+        _replayGovernanceEngine = replayGovernanceEngine;
+        _eventObservabilityEngine = eventObservabilityEngine;
+        _workerHealthMonitor = workerHealthMonitor;
+        _partitionHealthRegistry = partitionHealthRegistry;
+        _partitionCircuitBreakerEngine = partitionCircuitBreakerEngine;
     }
 
     [HttpGet("workflows")]
@@ -189,6 +210,14 @@ public sealed class DebugController : ControllerBase
         var @event = SystemEvent.Create(dto.EventType, dto.AggregateId, dto.Payload);
         await _eventBus.PublishAsync(@event);
         return Ok(new { message = "Event replayed", eventId = @event.EventId });
+    }
+
+    [HttpPost("events/replay")]
+    public IActionResult ReplayEventGoverned([FromBody] DebugReplayGovernedDto dto)
+    {
+        var request = new ReplayRequest(dto.EventId, dto.SourceTopic ?? "", dto.Payload ?? "", dto.ReplayCount);
+        var decision = _replayGovernanceEngine.EvaluateReplay(request);
+        return Ok(decision);
     }
 
     [HttpGet("guardrails/rules")]
@@ -453,6 +482,55 @@ public sealed class DebugController : ControllerBase
             retryAttempts = 0,
             deadLetterRecords = _deadLetterQueueManager.GetAll().Count,
             trackedWorkflows = _workflowTimeoutManager.TrackedCount
+        });
+    }
+
+    [HttpGet("events/metrics")]
+    public IActionResult GetEventMetrics()
+    {
+        var snapshot = _eventObservabilityEngine.GetSnapshot();
+        return Ok(new
+        {
+            eventsProcessed = snapshot.EventMetrics.EventsProcessed,
+            eventsSucceeded = snapshot.EventMetrics.EventsSucceeded,
+            eventsFailed = snapshot.EventMetrics.EventsFailed
+        });
+    }
+
+    [HttpGet("events/metrics/failures")]
+    public IActionResult GetEventFailureMetrics()
+    {
+        var snapshot = _eventObservabilityEngine.GetSnapshot();
+        return Ok(new
+        {
+            retryAttempts = snapshot.FailureMetrics.RetryAttempts,
+            deadLetterEvents = snapshot.FailureMetrics.DeadLetterEvents,
+            engineFailures = snapshot.FailureMetrics.EngineFailures,
+            infrastructureFailures = snapshot.FailureMetrics.InfrastructureFailures
+        });
+    }
+
+    [HttpGet("events/metrics/replay")]
+    public IActionResult GetEventReplayMetrics()
+    {
+        var snapshot = _eventObservabilityEngine.GetSnapshot();
+        return Ok(new
+        {
+            replayAttempts = snapshot.ReplayMetrics.ReplayAttempts,
+            replaySucceeded = snapshot.ReplayMetrics.ReplaySucceeded,
+            replayRejected = snapshot.ReplayMetrics.ReplayRejected
+        });
+    }
+
+    [HttpGet("events/metrics/partitions")]
+    public IActionResult GetEventPartitionMetrics()
+    {
+        var snapshot = _eventObservabilityEngine.GetSnapshot();
+        return Ok(new
+        {
+            partitionsHealthy = snapshot.PartitionMetrics.PartitionsHealthy,
+            partitionsDegraded = snapshot.PartitionMetrics.PartitionsDegraded,
+            partitionsCircuitOpen = snapshot.PartitionMetrics.PartitionsCircuitOpen
         });
     }
 
@@ -2513,10 +2591,48 @@ public sealed class DebugController : ControllerBase
 
         return Ok(result.Data);
     }
+
+    [HttpGet("runtime/workers/health")]
+    public IActionResult GetWorkerHealth()
+    {
+        var workers = _workerHealthMonitor.GetAllWorkerHealth();
+        return Ok(workers.Select(w => new
+        {
+            workerId = w.Key,
+            status = w.Value.ToString()
+        }));
+    }
+
+    [HttpGet("runtime/partitions/health")]
+    public IActionResult GetPartitionHealth()
+    {
+        var partitions = _partitionHealthRegistry.GetAllPartitionHealth();
+        var failures = _partitionHealthRegistry.GetAllFailureCounts();
+        return Ok(partitions.Select(p => new
+        {
+            partition = p.Key,
+            status = p.Value.ToString(),
+            failures = failures.GetValueOrDefault(p.Key, 0)
+        }));
+    }
+
+    [HttpGet("runtime/circuit-breakers")]
+    public IActionResult GetCircuitBreakers()
+    {
+        var states = _partitionHealthRegistry.GetAllCircuitStates();
+        var failures = _partitionHealthRegistry.GetAllFailureCounts();
+        return Ok(states.Select(s => new
+        {
+            partition = s.Key,
+            state = s.Value.ToString(),
+            failures = failures.GetValueOrDefault(s.Key, 0)
+        }));
+    }
 }
 
 public sealed record DebugRunWorkflowDto(string WorkflowName, Dictionary<string, object>? Context);
 public sealed record DebugReplayEventDto(string EventType, Guid AggregateId, Dictionary<string, object>? Payload);
+public sealed record DebugReplayGovernedDto(Guid EventId, string? SourceTopic, string? Payload, int ReplayCount);
 public sealed record DebugRunSimulationDto(Guid ScenarioId);
 public sealed record DebugGenerateClusterDto(string TemplateName);
 public sealed record DebugAuthenticateDto(Guid IdentityId, Guid DeviceId);

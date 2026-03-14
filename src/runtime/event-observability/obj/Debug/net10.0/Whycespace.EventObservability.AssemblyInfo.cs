@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.EventObservability")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+554e937065763c18851c22b4cfa966aebe594f21")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36515b96e117b0e0aef600baa498940aa7ce3b76")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.EventObservability")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.EventObservability")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
