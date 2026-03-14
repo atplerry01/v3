@@ -1,4 +1,4 @@
-namespace Whycespace.ProjectionRuntime.Engine;
+namespace Whycespace.ProjectionRuntime.Runtime;
 
 using Whycespace.ProjectionRuntime.Models;
 using Whycespace.ProjectionRuntime.Registry;

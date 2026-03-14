@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whycespace.ProjectionRuntime")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36515b96e117b0e0aef600baa498940aa7ce3b76")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+70e58a9e5cdd7553c83e00334acb13cc8e86bdb5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whycespace.ProjectionRuntime")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whycespace.ProjectionRuntime")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
