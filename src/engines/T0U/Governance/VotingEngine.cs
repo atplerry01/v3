@@ -1,10 +1,16 @@
 namespace Whycespace.Engines.T0U.Governance;
 
+using Whycespace.Domain.Events.Governance;
+using Whycespace.Engines.T0U.Governance.Commands;
+using Whycespace.Engines.T0U.Governance.Results;
 using Whycespace.System.Upstream.Governance.Models;
 using Whycespace.System.Upstream.Governance.Stores;
 
 public sealed class VotingEngine
 {
+    private const int MinVoteWeight = 1;
+    private const int MaxVoteWeight = 100;
+
     private readonly GovernanceVoteStore _voteStore;
     private readonly GovernanceProposalStore _proposalStore;
     private readonly GuardianRegistryStore _guardianStore;
@@ -19,54 +25,84 @@ public sealed class VotingEngine
         _guardianStore = guardianStore;
     }
 
-    public GovernanceVote CastVote(string voteId, string proposalId, string guardianId, VoteType vote)
+    public (VotingResult Result, GovernanceVoteCastEvent? Event) Execute(CastVoteCommand command)
     {
-        var proposal = _proposalStore.Get(proposalId)
-            ?? throw new KeyNotFoundException($"Proposal not found: {proposalId}");
+        var proposal = _proposalStore.Get(command.ProposalId);
+        if (proposal is null)
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Cast, $"Proposal not found: {command.ProposalId}"), null);
 
         if (proposal.Status != ProposalStatus.Voting)
-            throw new InvalidOperationException($"Proposal is not in Voting status. Current status: {proposal.Status}");
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Cast, $"Proposal is not in Voting status. Current status: {proposal.Status}"), null);
 
-        var guardian = _guardianStore.GetGuardian(guardianId)
-            ?? throw new KeyNotFoundException($"Guardian not found: {guardianId}");
+        var guardian = _guardianStore.GetGuardian(command.GuardianId);
+        if (guardian is null)
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Cast, $"Guardian not found: {command.GuardianId}"), null);
 
         if (guardian.Status != GuardianStatus.Active)
-            throw new InvalidOperationException($"Inactive guardians cannot vote. Guardian status: {guardian.Status}");
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Cast, $"Inactive guardians cannot vote. Guardian status: {guardian.Status}"), null);
 
-        var governanceVote = new GovernanceVote(
-            voteId,
-            proposalId,
-            guardianId,
-            vote,
-            DateTime.UtcNow);
+        if (command.VoteWeight < MinVoteWeight || command.VoteWeight > MaxVoteWeight)
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Cast, $"Vote weight must be between {MinVoteWeight} and {MaxVoteWeight}. Provided: {command.VoteWeight}"), null);
 
-        _voteStore.Add(governanceVote);
-        return governanceVote;
+        if (_voteStore.HasVoted(command.GuardianId, command.ProposalId))
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Cast, $"Guardian '{command.GuardianId}' has already voted on proposal '{command.ProposalId}'."), null);
+
+        var voteId = command.CommandId;
+
+        var result = VotingResult.Ok(voteId, command.ProposalId, command.GuardianId, command.VoteDecision, VoteAction.Cast, "Vote cast successfully.");
+
+        var domainEvent = GovernanceVoteCastEvent.Create(
+            voteId, command.ProposalId, command.GuardianId,
+            command.VoteDecision.ToString(), command.VoteWeight);
+
+        return (result, domainEvent);
     }
 
-    public IReadOnlyList<GovernanceVote> GetVotes(string proposalId)
+    public (VotingResult Result, GovernanceVoteWithdrawnEvent? Event) Execute(WithdrawVoteCommand command)
     {
-        if (_proposalStore.Get(proposalId) is null)
-            throw new KeyNotFoundException($"Proposal not found: {proposalId}");
+        var proposal = _proposalStore.Get(command.ProposalId);
+        if (proposal is null)
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Withdrawn, $"Proposal not found: {command.ProposalId}"), null);
 
-        return _voteStore.GetByProposal(proposalId);
+        if (proposal.Status != ProposalStatus.Voting)
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Withdrawn, $"Proposal is not in Voting status. Current status: {proposal.Status}"), null);
+
+        var existingVote = _voteStore.GetByGuardianAndProposal(command.GuardianId, command.ProposalId);
+        if (existingVote is null)
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Withdrawn, $"No vote found for guardian '{command.GuardianId}' on proposal '{command.ProposalId}'."), null);
+
+        var result = VotingResult.Ok(existingVote.VoteId, command.ProposalId, command.GuardianId, existingVote.Vote, VoteAction.Withdrawn, $"Vote withdrawn. Reason: {command.Reason}");
+
+        var domainEvent = GovernanceVoteWithdrawnEvent.Create(
+            existingVote.VoteId, command.ProposalId, command.GuardianId, command.Reason);
+
+        return (result, domainEvent);
     }
 
-    public VoteTally CountVotes(string proposalId)
+    public (VotingResult Result, GovernanceVoteValidatedEvent? Event) Execute(ValidateVoteCommand command)
     {
-        if (_proposalStore.Get(proposalId) is null)
-            throw new KeyNotFoundException($"Proposal not found: {proposalId}");
+        var proposal = _proposalStore.Get(command.ProposalId);
+        if (proposal is null)
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Validated, $"Proposal not found: {command.ProposalId}"), null);
 
-        var votes = _voteStore.GetByProposal(proposalId);
+        if (proposal.Status != ProposalStatus.Voting)
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Validated, $"Proposal is not in Voting status. Current status: {proposal.Status}"), null);
 
-        return new VoteTally(
-            votes.Count(v => v.Vote == VoteType.Approve),
-            votes.Count(v => v.Vote == VoteType.Reject),
-            votes.Count(v => v.Vote == VoteType.Abstain));
+        var guardian = _guardianStore.GetGuardian(command.GuardianId);
+        if (guardian is null)
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Validated, $"Guardian not found: {command.GuardianId}"), null);
+
+        if (guardian.Status != GuardianStatus.Active)
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Validated, $"Inactive guardians cannot vote. Guardian status: {guardian.Status}"), null);
+
+        if (_voteStore.HasVoted(command.GuardianId, command.ProposalId))
+            return (VotingResult.Fail(command.ProposalId, command.GuardianId, VoteAction.Validated, $"Guardian '{command.GuardianId}' has already voted on proposal '{command.ProposalId}'."), null);
+
+        var result = VotingResult.Ok(string.Empty, command.ProposalId, command.GuardianId, command.VoteDecision, VoteAction.Validated, "Vote validated. Guardian is eligible to vote.");
+
+        var domainEvent = GovernanceVoteValidatedEvent.Create(
+            command.ProposalId, command.GuardianId, command.VoteDecision.ToString());
+
+        return (result, domainEvent);
     }
-}
-
-public sealed record VoteTally(int Approve, int Reject, int Abstain)
-{
-    public int Total => Approve + Reject + Abstain;
 }

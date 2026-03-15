@@ -1,6 +1,8 @@
 namespace Whycespace.Engines.T1M.WSS.Graph;
 
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Domain.Core.Workflows;
+using WorkflowGraph = Whycespace.System.Midstream.WSS.Models.WorkflowGraph;
+using WorkflowStepDefinition = Whycespace.System.Midstream.WSS.Models.WorkflowStepDefinition;
 
 public sealed class WorkflowGraphEngine : IWorkflowGraphEngine
 {
@@ -109,6 +111,184 @@ public sealed class WorkflowGraphEngine : IWorkflowGraphEngine
         return graph.Transitions.Keys
             .Where(k => !allTargets.Contains(k))
             .ToList();
+    }
+
+    public IReadOnlyList<string> ComputeExecutionOrder(WorkflowGraph graph)
+    {
+        var inDegree = new Dictionary<string, int>();
+        foreach (var node in graph.Transitions.Keys)
+            inDegree[node] = 0;
+
+        foreach (var (_, nextSteps) in graph.Transitions)
+        {
+            foreach (var next in nextSteps)
+            {
+                if (inDegree.ContainsKey(next))
+                    inDegree[next]++;
+            }
+        }
+
+        var queue = new Queue<string>();
+        foreach (var (node, degree) in inDegree.OrderBy(kv => kv.Key))
+        {
+            if (degree == 0)
+                queue.Enqueue(node);
+        }
+
+        var order = new List<string>();
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+            order.Add(current);
+
+            if (!graph.Transitions.TryGetValue(current, out var nextSteps))
+                continue;
+
+            foreach (var next in nextSteps.OrderBy(n => n))
+            {
+                if (!inDegree.ContainsKey(next))
+                    continue;
+
+                inDegree[next]--;
+                if (inDegree[next] == 0)
+                    queue.Enqueue(next);
+            }
+        }
+
+        return order;
+    }
+
+    public IReadOnlyList<IReadOnlyList<string>> ComputeParallelGroups(WorkflowGraph graph)
+    {
+        var inDegree = new Dictionary<string, int>();
+        foreach (var node in graph.Transitions.Keys)
+            inDegree[node] = 0;
+
+        foreach (var (_, nextSteps) in graph.Transitions)
+        {
+            foreach (var next in nextSteps)
+            {
+                if (inDegree.ContainsKey(next))
+                    inDegree[next]++;
+            }
+        }
+
+        var depth = new Dictionary<string, int>();
+        var queue = new Queue<string>();
+
+        foreach (var (node, degree) in inDegree)
+        {
+            if (degree == 0)
+            {
+                depth[node] = 0;
+                queue.Enqueue(node);
+            }
+        }
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+
+            if (!graph.Transitions.TryGetValue(current, out var nextSteps))
+                continue;
+
+            foreach (var next in nextSteps)
+            {
+                if (!inDegree.ContainsKey(next))
+                    continue;
+
+                var newDepth = depth[current] + 1;
+                if (!depth.ContainsKey(next) || newDepth > depth[next])
+                    depth[next] = newDepth;
+
+                inDegree[next]--;
+                if (inDegree[next] == 0)
+                    queue.Enqueue(next);
+            }
+        }
+
+        if (depth.Count == 0)
+            return Array.Empty<IReadOnlyList<string>>();
+
+        var maxDepth = depth.Values.Max();
+        var groups = new List<IReadOnlyList<string>>();
+
+        for (var d = 0; d <= maxDepth; d++)
+        {
+            var group = depth
+                .Where(kv => kv.Value == d)
+                .Select(kv => kv.Key)
+                .OrderBy(n => n)
+                .ToList();
+
+            if (group.Count > 0)
+                groups.Add(group);
+        }
+
+        return groups;
+    }
+
+    public WorkflowGraphResult BuildExecutionGraph(WorkflowGraphCommand command)
+    {
+        if (command.WorkflowSteps.Count == 0)
+            return WorkflowGraphResult.Fail("Workflow must contain at least one step.");
+
+        var nodes = new List<WorkflowNode>();
+        var stepIds = new HashSet<string>();
+
+        foreach (var step in command.WorkflowSteps)
+        {
+            if (!stepIds.Add(step.StepId))
+                return WorkflowGraphResult.Fail($"Duplicate step ID: '{step.StepId}'.");
+
+            nodes.Add(new WorkflowNode(step.StepId, step.StepId, step.StepName, step.EngineName));
+        }
+
+        var edges = new List<WorkflowEdge>();
+        foreach (var step in command.WorkflowSteps)
+        {
+            foreach (var dep in step.Dependencies)
+            {
+                if (!stepIds.Contains(dep))
+                    return WorkflowGraphResult.Fail($"Step '{step.StepId}' references undefined dependency '{dep}'.");
+
+                edges.Add(new WorkflowEdge(dep, step.StepId));
+            }
+        }
+
+        var transitions = new Dictionary<string, IReadOnlyList<string>>();
+        foreach (var step in command.WorkflowSteps)
+            transitions[step.StepId] = new List<string>();
+
+        foreach (var edge in edges)
+        {
+            var list = (List<string>)transitions[edge.FromNode];
+            list.Add(edge.ToNode);
+        }
+
+        var graph = new WorkflowGraph(command.WorkflowId, transitions);
+
+        var visited = new HashSet<string>();
+        var recStack = new HashSet<string>();
+        foreach (var node in graph.Transitions.Keys)
+        {
+            if (DetectCycleDfs(node, graph, visited, recStack))
+                return WorkflowGraphResult.Fail("Circular dependency detected in workflow graph.");
+        }
+
+        var executionOrder = ComputeExecutionOrder(graph);
+        var parallelGroups = ComputeParallelGroups(graph);
+
+        var executionGraph = new WorkflowExecutionGraph(
+            command.WorkflowId,
+            nodes,
+            edges,
+            executionOrder,
+            parallelGroups,
+            DateTimeOffset.UtcNow);
+
+        return WorkflowGraphResult.Ok(executionGraph);
     }
 
     private static bool DetectCycleDfs(

@@ -39,6 +39,10 @@
     <ProjectReference Include="..\runtime\reliability-runtime\Whycespace.ReliabilityRuntime.csproj" />
     <ProjectReference Include="..\system\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
     <ProjectReference Include="..\runtime\dispatcher\Whycespace.RuntimeDispatcher.csproj" />
+    <ProjectReference Include="..\runtime\event-observability\Whycespace.EventObservability.csproj" />
+    <ProjectReference Include="..\runtime\event-replay\Whycespace.EventReplay.csproj" />
+    <ProjectReference Include="..\engines\T0U\WhyceChain\Whycespace.Engines.T0U.WhyceChain.csproj" />
+    <ProjectReference Include="..\engines\T0U\Governance\Whycespace.Engines.T0U.Governance.csproj" />
   </ItemGroup>
 
   <ItemGroup>

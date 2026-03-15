@@ -54,7 +54,16 @@ public sealed class ChainAuditEngine
         {
             var block = _blockStore.GetBlock(blockNumber);
 
-            if (!_integrityEngine.VerifyBlock(blockNumber))
+            var verifyCommand = new IntegrityVerificationCommand(
+                Array.Empty<ChainLedgerEntry>(),
+                [block],
+                MerkleProof: null,
+                TraceId: $"audit-block-{blockNumber}",
+                CorrelationId: $"audit-{blockNumber}",
+                Timestamp: DateTimeOffset.UtcNow);
+            var verifyResult = _integrityEngine.Execute(verifyCommand);
+
+            if (!verifyResult.MerkleRootValid)
                 issues.Add($"Block {blockNumber}: Merkle root mismatch");
 
             if (blockNumber == 0 && block.PreviousBlockHash != "genesis")
@@ -69,8 +78,8 @@ public sealed class ChainAuditEngine
 
             foreach (var entryId in block.EntryIds)
             {
-                if (!_integrityEngine.VerifyEntry(entryId))
-                    issues.Add($"Block {blockNumber}: missing entry {entryId}");
+                try { _ledgerStore.GetEntry(entryId); }
+                catch (KeyNotFoundException) { issues.Add($"Block {blockNumber}: missing entry {entryId}"); }
             }
 
             return new ChainAuditResult(
@@ -91,13 +100,16 @@ public sealed class ChainAuditEngine
     {
         var issues = new List<string>();
 
-        if (!_integrityEngine.VerifyEntry(entryId))
+        ChainLedgerEntry entry;
+        try
+        {
+            entry = _ledgerStore.GetEntry(entryId);
+        }
+        catch (KeyNotFoundException)
         {
             issues.Add($"Entry {entryId}: not found in ledger");
             return new ChainAuditResult(false, 0, 0, issues, DateTimeOffset.UtcNow);
         }
-
-        var entry = _ledgerStore.GetEntry(entryId);
 
         if (entry.BlockId is null)
             issues.Add($"Entry {entryId}: not yet anchored to a block");

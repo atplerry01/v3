@@ -3,7 +3,7 @@ namespace Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.System.Upstream.WhyceChain.Models;
 using Whycespace.System.Upstream.WhyceChain.Stores;
 
-public sealed class EvidenceAnchoringEngine
+public sealed partial class EvidenceAnchoringEngine
 {
     private readonly ChainLedgerEngine _ledgerEngine;
     private readonly EvidenceHashEngine _hashEngine;
@@ -19,7 +19,7 @@ public sealed class EvidenceAnchoringEngine
         _eventLedgerEngine = eventLedgerEngine;
     }
 
-    public ChainLedgerEntry AnchorEvidence(string evidenceId, string domain, string eventType, object payload)
+    public Whycespace.System.Upstream.WhyceChain.Models.ChainLedgerEntry AnchorEvidence(string evidenceId, string domain, string eventType, object payload)
     {
         var hash = _hashEngine.HashObject(payload);
         _eventLedgerEngine.RecordEvent(evidenceId, domain, eventType, hash.Hash);

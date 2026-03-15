@@ -528,8 +528,8 @@ public sealed class IdentityCommandHandler
             {
                 ["roles"] = context.Roles,
                 ["trustScore"] = context.TrustScore,
-                ["verified"] = context.Verified,
-                ["revoked"] = context.Revoked
+                ["verified"] = context.IdentityStatus == IdentityStatus.Verified,
+                ["revoked"] = context.IdentityStatus == IdentityStatus.Revoked
             }
         }));
     }

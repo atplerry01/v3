@@ -1,6 +1,6 @@
 namespace Whycespace.ProjectionRuntime.Workers;
 
-using Whycespace.ProjectionRuntime.Engine;
+using Whycespace.ProjectionRuntime.Runtime;
 
 public sealed class ProjectionWorker
 {

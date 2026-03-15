@@ -1,5 +1,7 @@
 namespace Whycespace.Engines.T0U.Governance;
 
+using Whycespace.Engines.T0U.Governance.Commands;
+using Whycespace.Engines.T0U.Governance.Results;
 using Whycespace.System.Upstream.Governance.Models;
 using Whycespace.System.Upstream.Governance.Stores;
 
@@ -16,45 +18,132 @@ public sealed class GovernanceEmergencyEngine
         _guardianStore = guardianStore;
     }
 
-    public GovernanceEmergency TriggerEmergency(string emergencyId, EmergencyType type, string triggeredBy, string reason)
+    public GovernanceEmergencyResult Execute(TriggerEmergencyActionCommand command)
     {
-        if (!_guardianStore.Exists(triggeredBy))
-            throw new KeyNotFoundException($"Guardian not found: {triggeredBy}");
+        if (string.IsNullOrWhiteSpace(command.Reason))
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, command.EmergencyType, command.TargetDomain,
+                "Emergency reason is required.");
 
-        var guardian = _guardianStore.GetGuardian(triggeredBy)!;
+        if (string.IsNullOrWhiteSpace(command.TargetDomain))
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, command.EmergencyType, string.Empty,
+                "Target domain is required.");
+
+        var guardian = _guardianStore.GetGuardian(command.TriggeredByGuardianId);
+        if (guardian is null)
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, command.EmergencyType, command.TargetDomain,
+                $"Guardian not found: {command.TriggeredByGuardianId}");
+
         if (guardian.Status != GuardianStatus.Active)
-            throw new InvalidOperationException("Only active guardians can trigger emergencies.");
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, command.EmergencyType, command.TargetDomain,
+                $"Only active guardians can trigger emergencies. Guardian status: {guardian.Status}");
 
-        if (string.IsNullOrWhiteSpace(reason))
-            throw new InvalidOperationException("Emergency reason is required.");
+        if (_emergencyStore.Exists(command.EmergencyActionId))
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, command.EmergencyType, command.TargetDomain,
+                $"Emergency action already exists: {command.EmergencyActionId}");
 
         var emergency = new GovernanceEmergency(
-            emergencyId,
-            type,
-            triggeredBy,
-            reason,
+            command.EmergencyActionId,
+            command.EmergencyType,
+            command.TargetDomain,
+            command.TriggeredByGuardianId,
+            command.Reason,
             EmergencyStatus.Active,
-            DateTime.UtcNow,
+            command.Timestamp,
             ResolvedAt: null);
 
         _emergencyStore.Add(emergency);
-        return emergency;
+
+        return GovernanceEmergencyResult.Ok(
+            command.EmergencyActionId,
+            command.EmergencyType,
+            EmergencyStatus.Active,
+            command.TargetDomain,
+            "Emergency action triggered successfully.");
     }
 
-    public GovernanceEmergency ResolveEmergency(string emergencyId)
+    public GovernanceEmergencyResult Execute(RevokeEmergencyActionCommand command)
     {
-        var emergency = _emergencyStore.Get(emergencyId)
-            ?? throw new KeyNotFoundException($"Emergency not found: {emergencyId}");
+        if (string.IsNullOrWhiteSpace(command.Reason))
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, EmergencyType.SystemPause, string.Empty,
+                "Revocation reason is required.");
 
-        if (emergency.Status == EmergencyStatus.Resolved)
-            throw new InvalidOperationException("Emergency is already resolved.");
+        var emergency = _emergencyStore.Get(command.EmergencyActionId);
+        if (emergency is null)
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, EmergencyType.SystemPause, string.Empty,
+                $"Emergency not found: {command.EmergencyActionId}");
+
+        if (emergency.Status == EmergencyStatus.Resolved || emergency.Status == EmergencyStatus.Revoked)
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, emergency.Type, emergency.TargetDomain,
+                $"Emergency cannot be revoked. Current status: {emergency.Status}");
+
+        var guardian = _guardianStore.GetGuardian(command.RevokedByGuardianId);
+        if (guardian is null)
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, emergency.Type, emergency.TargetDomain,
+                $"Guardian not found: {command.RevokedByGuardianId}");
+
+        if (guardian.Status != GuardianStatus.Active)
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, emergency.Type, emergency.TargetDomain,
+                $"Only active guardians can revoke emergencies. Guardian status: {guardian.Status}");
 
         var updated = emergency with
         {
-            Status = EmergencyStatus.Resolved,
-            ResolvedAt = DateTime.UtcNow
+            Status = EmergencyStatus.Revoked,
+            ResolvedAt = command.Timestamp
         };
         _emergencyStore.Update(updated);
-        return updated;
+
+        return GovernanceEmergencyResult.Ok(
+            command.EmergencyActionId,
+            emergency.Type,
+            EmergencyStatus.Revoked,
+            emergency.TargetDomain,
+            "Emergency action revoked successfully.");
+    }
+
+    public GovernanceEmergencyResult Execute(ValidateEmergencyActionCommand command)
+    {
+        var emergency = _emergencyStore.Get(command.EmergencyActionId);
+        if (emergency is null)
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, EmergencyType.SystemPause, string.Empty,
+                $"Emergency not found: {command.EmergencyActionId}");
+
+        var guardian = _guardianStore.GetGuardian(command.GuardianId);
+        if (guardian is null)
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, emergency.Type, emergency.TargetDomain,
+                $"Guardian not found: {command.GuardianId}");
+
+        if (guardian.Status != GuardianStatus.Active)
+            return GovernanceEmergencyResult.Fail(
+                command.EmergencyActionId, emergency.Type, emergency.TargetDomain,
+                $"Only active guardians can validate emergencies. Guardian status: {guardian.Status}");
+
+        return GovernanceEmergencyResult.Ok(
+            command.EmergencyActionId,
+            emergency.Type,
+            emergency.Status,
+            emergency.TargetDomain,
+            "Emergency action validated successfully.");
+    }
+
+    public GovernanceEmergency? GetEmergency(string emergencyId)
+    {
+        return _emergencyStore.Get(emergencyId);
+    }
+
+    public IReadOnlyList<GovernanceEmergency> ListEmergencies()
+    {
+        return _emergencyStore.ListAll();
     }
 }

@@ -1,6 +1,6 @@
 namespace Whycespace.EngineRuntime.Registry;
 
-using System.Collections.Concurrent;
+using global::System.Collections.Concurrent;
 using Whycespace.Contracts.Engines;
 
 public sealed class EngineRegistry : IEngineRegistry

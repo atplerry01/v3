@@ -91,6 +91,17 @@ services:
     depends_on:
       - prometheus
 
+  opa:
+    build: ../docker/opa
+    container_name: whyce-opa
+    ports:
+      - "8181:8181"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:8181/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   foundation-host:
     build:
       context: ../../

@@ -1,74 +1,137 @@
 namespace Whycespace.Engines.T0U.WhyceChain;
 
-using Whycespace.System.Upstream.WhyceChain.Stores;
+using global::System.Security.Cryptography;
+using global::System.Text;
+using Whycespace.System.Upstream.WhyceChain.Models;
 
 public sealed class IntegrityVerificationEngine
 {
-    private readonly ChainBlockStore _blockStore;
-    private readonly ChainLedgerStore _ledgerStore;
     private readonly MerkleProofEngine _merkleEngine;
 
-    public IntegrityVerificationEngine(
-        ChainBlockStore blockStore,
-        ChainLedgerStore ledgerStore,
-        MerkleProofEngine merkleEngine)
+    public IntegrityVerificationEngine(MerkleProofEngine merkleEngine)
     {
-        _blockStore = blockStore;
-        _ledgerStore = ledgerStore;
         _merkleEngine = merkleEngine;
     }
 
-    public bool VerifyBlock(long blockNumber)
+    public IntegrityVerificationResult Execute(IntegrityVerificationCommand command)
     {
-        try
-        {
-            var block = _blockStore.GetBlock(blockNumber);
-            var recomputedRoot = _merkleEngine.BuildTree(block.EntryIds);
-            return recomputedRoot == block.MerkleRoot;
-        }
-        catch (KeyNotFoundException)
-        {
-            return false;
-        }
+        var (ledgerValid, tamperedEntries) = VerifyLedgerIntegrity(command.LedgerEntries);
+        var blockChainValid = VerifyBlockChainIntegrity(command.Blocks);
+        var merkleRootValid = VerifyMerkleRoots(command.Blocks);
+        var merkleProofValid = command.MerkleProof is not null
+            ? _merkleEngine.VerifyProof(command.MerkleProof)
+            : true;
+
+        return new IntegrityVerificationResult(
+            LedgerValid: ledgerValid,
+            BlockChainValid: blockChainValid,
+            MerkleRootValid: merkleRootValid,
+            MerkleProofValid: merkleProofValid,
+            TamperedEntries: tamperedEntries,
+            VerificationTimestamp: DateTimeOffset.UtcNow,
+            TraceId: command.TraceId);
     }
 
-    public bool VerifyChain()
+    private static (bool Valid, IReadOnlyList<long> TamperedIndices) VerifyLedgerIntegrity(
+        IReadOnlyList<ChainLedgerEntry> entries)
     {
-        var latest = _blockStore.GetLatestBlock();
-        if (latest is null)
+        if (entries.Count == 0)
+            return (true, Array.Empty<long>());
+
+        var tampered = new List<long>();
+
+        for (var i = 0; i < entries.Count; i++)
+        {
+            var entry = entries[i];
+
+            // Sequence continuity: first entry must reference "genesis"
+            if (i == 0)
+            {
+                if (entry.PreviousHash != "genesis")
+                    tampered.Add(i);
+            }
+            else
+            {
+                // Previous entry hash linkage
+                var previous = entries[i - 1];
+                if (entry.PreviousHash != previous.PayloadHash)
+                    tampered.Add(i);
+            }
+
+            // Entry hash validity: PayloadHash must not be empty
+            if (string.IsNullOrEmpty(entry.PayloadHash))
+                tampered.Add(i);
+        }
+
+        return (tampered.Count == 0, tampered);
+    }
+
+    private static bool VerifyBlockChainIntegrity(IReadOnlyList<ChainBlock> blocks)
+    {
+        if (blocks.Count == 0)
             return true;
 
-        for (long i = 0; i <= latest.BlockNumber; i++)
-        {
-            var block = _blockStore.GetBlock(i);
+        var sorted = blocks.OrderBy(b => b.BlockNumber).ToList();
 
-            if (i == 0 && block.PreviousBlockHash != "genesis")
+        for (var i = 0; i < sorted.Count; i++)
+        {
+            var block = sorted[i];
+
+            // Block height continuity
+            if (block.BlockNumber != i)
                 return false;
 
-            if (i > 0)
+            // Genesis block must reference "genesis"
+            if (i == 0)
             {
-                var previous = _blockStore.GetBlock(i - 1);
+                if (block.PreviousBlockHash != "genesis")
+                    return false;
+            }
+            else
+            {
+                // Previous block hash linkage
+                var previous = sorted[i - 1];
                 if (block.PreviousBlockHash != previous.BlockHash)
                     return false;
             }
 
-            if (!VerifyBlock(i))
+            // Block hash determinism: recompute and compare
+            var recomputed = ComputeBlockHash(
+                block.BlockNumber,
+                block.PreviousBlockHash,
+                block.MerkleRoot,
+                block.Timestamp);
+
+            if (recomputed != block.BlockHash)
                 return false;
         }
 
         return true;
     }
 
-    public bool VerifyEntry(string entryId)
+    private bool VerifyMerkleRoots(IReadOnlyList<ChainBlock> blocks)
     {
-        try
-        {
-            _ledgerStore.GetEntry(entryId);
+        if (blocks.Count == 0)
             return true;
-        }
-        catch (KeyNotFoundException)
+
+        foreach (var block in blocks)
         {
-            return false;
+            var recomputed = _merkleEngine.BuildTree(block.EntryIds);
+            if (recomputed != block.MerkleRoot)
+                return false;
         }
+
+        return true;
+    }
+
+    private static string ComputeBlockHash(
+        long blockNumber,
+        string previousBlockHash,
+        string merkleRoot,
+        DateTimeOffset timestamp)
+    {
+        var input = $"{blockNumber}:{previousBlockHash}:{merkleRoot}:{timestamp:O}";
+        return Convert.ToBase64String(
+            SHA256.HashData(Encoding.UTF8.GetBytes(input)));
     }
 }

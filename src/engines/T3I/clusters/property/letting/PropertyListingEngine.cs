@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T3I.Clusters.Property.Letting;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("PropertyListing", EngineTier.T3I, EngineKind.Decision, "PropertyListingRequest", typeof(EngineEvent))]
 public sealed class PropertyListingEngine : IEngine

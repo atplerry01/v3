@@ -72,6 +72,79 @@ public sealed class MerkleProofEngine
         return current == proof.RootHash;
     }
 
+    public MerkleProofResult GenerateProof(MerkleProofCommand command)
+    {
+        var entries = command.BlockEntries.ToList();
+        var entryIndex = entries.IndexOf(command.EntryHash);
+        if (entryIndex < 0)
+        {
+            return new MerkleProofResult(
+                ProofPath: Array.Empty<string>(),
+                ComputedRoot: string.Empty,
+                ProofValid: false,
+                ProofDepth: 0,
+                GeneratedAt: DateTime.UtcNow,
+                TraceId: command.TraceId);
+        }
+
+        var proof = GenerateProof(command.BlockEntries, entryIndex);
+        var isValid = proof.RootHash == command.MerkleRoot;
+
+        return new MerkleProofResult(
+            ProofPath: proof.ProofPath,
+            ComputedRoot: proof.RootHash,
+            ProofValid: isValid,
+            ProofDepth: proof.ProofPath.Count,
+            GeneratedAt: DateTime.UtcNow,
+            TraceId: command.TraceId);
+    }
+
+    public MerkleProofResult VerifyProof(MerkleProofCommand command, IReadOnlyList<string> proofPath)
+    {
+        var leafHash = ComputeHash(command.EntryHash);
+        var current = leafHash;
+
+        foreach (var sibling in proofPath)
+        {
+            current = CombineHashes(current, sibling);
+        }
+
+        var isValid = current == command.MerkleRoot;
+
+        return new MerkleProofResult(
+            ProofPath: proofPath,
+            ComputedRoot: current,
+            ProofValid: isValid,
+            ProofDepth: proofPath.Count,
+            GeneratedAt: DateTime.UtcNow,
+            TraceId: command.TraceId);
+    }
+
+    public IReadOnlyList<IReadOnlyList<string>> InspectTree(IReadOnlyList<string> leafHashes)
+    {
+        if (leafHashes.Count == 0)
+            return Array.Empty<IReadOnlyList<string>>();
+
+        var levels = new List<IReadOnlyList<string>>();
+        var level = leafHashes.Select(ComputeHash).ToList();
+        levels.Add(level.AsReadOnly());
+
+        while (level.Count > 1)
+        {
+            var next = new List<string>();
+            for (var i = 0; i < level.Count; i += 2)
+            {
+                var left = level[i];
+                var right = i + 1 < level.Count ? level[i + 1] : left;
+                next.Add(CombineHashes(left, right));
+            }
+            level = next;
+            levels.Add(level.AsReadOnly());
+        }
+
+        return levels.AsReadOnly();
+    }
+
     private static string CombineHashes(string a, string b)
     {
         var combined = string.CompareOrdinal(a, b) <= 0 ? a + b : b + a;

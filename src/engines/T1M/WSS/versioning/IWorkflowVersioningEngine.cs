@@ -13,4 +13,6 @@ public interface IWorkflowVersioningEngine
     IReadOnlyList<WorkflowDefinition> ListWorkflowVersions(string workflowId);
 
     bool WorkflowVersionExists(string workflowId, string version);
+
+    WorkflowVersionResult CreateVersion(WorkflowVersionCommand command, IReadOnlyList<WorkflowDefinition> existingVersions);
 }

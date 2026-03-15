@@ -1,8 +1,8 @@
-namespace Whycespace.EngineManifest.Validation;
+namespace Whycespace.Runtime.EngineManifest.Validation;
 
-using System.Reflection;
+using global::System.Reflection;
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
+using Whycespace.Runtime.EngineManifest.Attributes;
 
 public static class EngineManifestValidator
 {

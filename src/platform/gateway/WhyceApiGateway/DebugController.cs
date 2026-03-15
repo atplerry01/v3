@@ -19,7 +19,7 @@ using Whycespace.ClusterTemplatePlatform;
 using Whycespace.Domain.Core.Economic;
 using Whycespace.RuntimeValidation.Runners;
 using Whycespace.RuntimeValidation.Pipelines;
-using Whycespace.EngineManifest.Registry;
+using Whycespace.Runtime.EngineManifest.Registry;
 using Whycespace.WorkerPoolRuntime.Pool;
 using Whycespace.WorkerPoolRuntime.Queue;
 using Whycespace.EventFabricRuntime.Routing;
@@ -36,6 +36,22 @@ using Whycespace.System.WhyceID.Models;
 using Whycespace.System.Upstream.WhycePolicy.Stores;
 using Whycespace.System.Upstream.WhyceChain.Stores;
 using Whycespace.System.Upstream.Governance.Stores;
+using Whycespace.System.Upstream.Governance.Registry;
+using Whycespace.System.Upstream.Governance.Models;
+using Whycespace.System.Upstream.Governance.Proposals.Models;
+using Whycespace.System.Upstream.Governance.Proposals.Registry;
+using Whycespace.EventReplay.Governance.Engine;
+using Whycespace.EventReplay.Governance.Models;
+using Whycespace.EventObservability.Metrics.Engine;
+using Whycespace.Reliability.Isolation.Monitor;
+using Whycespace.Reliability.Isolation.Registry;
+using Whycespace.Reliability.Isolation.Engine;
+using Whycespace.Engines.T0U.Governance;
+using Whycespace.Engines.T0U.Governance.Commands;
+using Whycespace.Engines.T0U.Governance.Results;
+using Whycespace.Engines.T0U.WhyceChain;
+using Whycespace.System.Upstream.Governance.Evidence.Models;
+using Whycespace.System.Upstream.WhyceChain.Ledger;
 
 [ApiController]
 [Route("dev")]
@@ -79,7 +95,24 @@ public sealed class DebugController : ControllerBase
     private readonly ChainBlockStore _chainBlockStore;
     private readonly ChainEventStore _chainEventStore;
     private readonly GuardianRegistryStore _guardianRegistryStore;
+    private readonly IGuardianRegistry _guardianRegistry;
     private readonly GovernanceRoleStore _governanceRoleStore;
+    private readonly EventReplayGovernanceEngine _replayGovernanceEngine;
+    private readonly EventObservabilityEngine _eventObservabilityEngine;
+    private readonly WorkerHealthMonitor _workerHealthMonitor;
+    private readonly PartitionHealthRegistry _partitionHealthRegistry;
+    private readonly PartitionCircuitBreakerEngine _partitionCircuitBreakerEngine;
+    private readonly BlockBuilderEngine _blockBuilderEngine;
+    private readonly IntegrityVerificationEngine _integrityVerificationEngine;
+    private readonly IGovernanceProposalRegistry _governanceProposalRegistry;
+    private readonly GovernanceProposalTypeEngine _proposalTypeEngine;
+    private readonly GovernanceProposalEngine _governanceProposalEngine;
+    private readonly VotingEngine _votingEngine;
+    private readonly GovernanceVoteStore _governanceVoteStore;
+    private readonly GovernanceDomainScopeEngine _domainScopeEngine;
+    private readonly GovernanceEvidenceRecorder _evidenceRecorder;
+    private readonly GovernanceEmergencyEngine _emergencyEngine;
+    private readonly GovernanceEmergencyStore _emergencyStore;
 
     public DebugController(
         IPlatformDispatcher dispatcher,
@@ -120,7 +153,24 @@ public sealed class DebugController : ControllerBase
         ChainBlockStore chainBlockStore,
         ChainEventStore chainEventStore,
         GuardianRegistryStore guardianRegistryStore,
-        GovernanceRoleStore governanceRoleStore)
+        IGuardianRegistry guardianRegistry,
+        GovernanceRoleStore governanceRoleStore,
+        EventReplayGovernanceEngine replayGovernanceEngine,
+        EventObservabilityEngine eventObservabilityEngine,
+        WorkerHealthMonitor workerHealthMonitor,
+        PartitionHealthRegistry partitionHealthRegistry,
+        PartitionCircuitBreakerEngine partitionCircuitBreakerEngine,
+        BlockBuilderEngine blockBuilderEngine,
+        IntegrityVerificationEngine integrityVerificationEngine,
+        IGovernanceProposalRegistry governanceProposalRegistry,
+        GovernanceProposalTypeEngine proposalTypeEngine,
+        GovernanceProposalEngine governanceProposalEngine,
+        VotingEngine votingEngine,
+        GovernanceVoteStore governanceVoteStore,
+        GovernanceDomainScopeEngine domainScopeEngine,
+        GovernanceEvidenceRecorder evidenceRecorder,
+        GovernanceEmergencyEngine emergencyEngine,
+        GovernanceEmergencyStore emergencyStore)
     {
         _dispatcher = dispatcher;
         _stateStore = stateStore;
@@ -160,7 +210,24 @@ public sealed class DebugController : ControllerBase
         _chainBlockStore = chainBlockStore;
         _chainEventStore = chainEventStore;
         _guardianRegistryStore = guardianRegistryStore;
+        _guardianRegistry = guardianRegistry;
         _governanceRoleStore = governanceRoleStore;
+        _replayGovernanceEngine = replayGovernanceEngine;
+        _eventObservabilityEngine = eventObservabilityEngine;
+        _workerHealthMonitor = workerHealthMonitor;
+        _partitionHealthRegistry = partitionHealthRegistry;
+        _partitionCircuitBreakerEngine = partitionCircuitBreakerEngine;
+        _blockBuilderEngine = blockBuilderEngine;
+        _integrityVerificationEngine = integrityVerificationEngine;
+        _governanceProposalRegistry = governanceProposalRegistry;
+        _proposalTypeEngine = proposalTypeEngine;
+        _governanceProposalEngine = governanceProposalEngine;
+        _votingEngine = votingEngine;
+        _governanceVoteStore = governanceVoteStore;
+        _domainScopeEngine = domainScopeEngine;
+        _evidenceRecorder = evidenceRecorder;
+        _emergencyEngine = emergencyEngine;
+        _emergencyStore = emergencyStore;
     }
 
     [HttpGet("workflows")]
@@ -189,6 +256,14 @@ public sealed class DebugController : ControllerBase
         var @event = SystemEvent.Create(dto.EventType, dto.AggregateId, dto.Payload);
         await _eventBus.PublishAsync(@event);
         return Ok(new { message = "Event replayed", eventId = @event.EventId });
+    }
+
+    [HttpPost("events/replay")]
+    public IActionResult ReplayEventGoverned([FromBody] DebugReplayGovernedDto dto)
+    {
+        var request = new ReplayRequest(dto.EventId, dto.SourceTopic ?? "", dto.Payload ?? "", dto.ReplayCount);
+        var decision = _replayGovernanceEngine.EvaluateReplay(request);
+        return Ok(decision);
     }
 
     [HttpGet("guardrails/rules")]
@@ -453,6 +528,55 @@ public sealed class DebugController : ControllerBase
             retryAttempts = 0,
             deadLetterRecords = _deadLetterQueueManager.GetAll().Count,
             trackedWorkflows = _workflowTimeoutManager.TrackedCount
+        });
+    }
+
+    [HttpGet("events/metrics")]
+    public IActionResult GetEventMetrics()
+    {
+        var snapshot = _eventObservabilityEngine.GetSnapshot();
+        return Ok(new
+        {
+            eventsProcessed = snapshot.EventMetrics.EventsProcessed,
+            eventsSucceeded = snapshot.EventMetrics.EventsSucceeded,
+            eventsFailed = snapshot.EventMetrics.EventsFailed
+        });
+    }
+
+    [HttpGet("events/metrics/failures")]
+    public IActionResult GetEventFailureMetrics()
+    {
+        var snapshot = _eventObservabilityEngine.GetSnapshot();
+        return Ok(new
+        {
+            retryAttempts = snapshot.FailureMetrics.RetryAttempts,
+            deadLetterEvents = snapshot.FailureMetrics.DeadLetterEvents,
+            engineFailures = snapshot.FailureMetrics.EngineFailures,
+            infrastructureFailures = snapshot.FailureMetrics.InfrastructureFailures
+        });
+    }
+
+    [HttpGet("events/metrics/replay")]
+    public IActionResult GetEventReplayMetrics()
+    {
+        var snapshot = _eventObservabilityEngine.GetSnapshot();
+        return Ok(new
+        {
+            replayAttempts = snapshot.ReplayMetrics.ReplayAttempts,
+            replaySucceeded = snapshot.ReplayMetrics.ReplaySucceeded,
+            replayRejected = snapshot.ReplayMetrics.ReplayRejected
+        });
+    }
+
+    [HttpGet("events/metrics/partitions")]
+    public IActionResult GetEventPartitionMetrics()
+    {
+        var snapshot = _eventObservabilityEngine.GetSnapshot();
+        return Ok(new
+        {
+            partitionsHealthy = snapshot.PartitionMetrics.PartitionsHealthy,
+            partitionsDegraded = snapshot.PartitionMetrics.PartitionsDegraded,
+            partitionsCircuitOpen = snapshot.PartitionMetrics.PartitionsCircuitOpen
         });
     }
 
@@ -1604,6 +1728,72 @@ public sealed class DebugController : ControllerBase
         })});
     }
 
+    // WhyceChain — Integrity Verification (Phase 2.0.45)
+
+    [HttpGet("chain/integrity")]
+    public IActionResult VerifyChainIntegrity()
+    {
+        var entries = _chainLedgerStore.GetAllEntries().ToList();
+        var latestBlock = _chainBlockStore.GetLatestBlock();
+        var blocks = new List<Whycespace.System.Upstream.WhyceChain.Models.ChainBlock>();
+
+        if (latestBlock is not null)
+        {
+            for (long i = 0; i <= latestBlock.BlockNumber; i++)
+            {
+                try { blocks.Add(_chainBlockStore.GetBlock(i)); }
+                catch (KeyNotFoundException) { break; }
+            }
+        }
+
+        var command = new Whycespace.System.Upstream.WhyceChain.Models.IntegrityVerificationCommand(
+            entries,
+            blocks,
+            MerkleProof: null,
+            TraceId: Guid.NewGuid().ToString(),
+            CorrelationId: Guid.NewGuid().ToString(),
+            Timestamp: DateTimeOffset.UtcNow);
+
+        var result = _integrityVerificationEngine.Execute(command);
+
+        return Ok(new
+        {
+            result.LedgerValid,
+            result.BlockChainValid,
+            result.MerkleRootValid,
+            result.MerkleProofValid,
+            result.TamperedEntries,
+            result.VerificationTimestamp,
+            result.TraceId,
+            entriesVerified = entries.Count,
+            blocksVerified = blocks.Count
+        });
+    }
+
+    [HttpPost("chain/integrity/proof")]
+    public IActionResult VerifyMerkleProof([FromBody] DebugVerifyMerkleProofDto dto)
+    {
+        var proof = new Whycespace.System.Upstream.WhyceChain.Models.MerkleProof(
+            dto.RootHash, dto.LeafHash, dto.ProofPath);
+
+        var command = new Whycespace.System.Upstream.WhyceChain.Models.IntegrityVerificationCommand(
+            Array.Empty<Whycespace.System.Upstream.WhyceChain.Models.ChainLedgerEntry>(),
+            Array.Empty<Whycespace.System.Upstream.WhyceChain.Models.ChainBlock>(),
+            proof,
+            TraceId: Guid.NewGuid().ToString(),
+            CorrelationId: Guid.NewGuid().ToString(),
+            Timestamp: DateTimeOffset.UtcNow);
+
+        var result = _integrityVerificationEngine.Execute(command);
+
+        return Ok(new
+        {
+            result.MerkleProofValid,
+            result.TraceId,
+            result.VerificationTimestamp
+        });
+    }
+
     // Governance — Guardian Registry (Phase 2.0.54)
 
     [HttpGet("governance/guardians")]
@@ -1689,6 +1879,22 @@ public sealed class DebugController : ControllerBase
         return Ok(result.Data);
     }
 
+    // Governance — Guardian Registry v2 (Phase 2.0.54 — GuardianRecord queries)
+
+    [HttpGet("governance/guardians/role/{role}")]
+    public IActionResult GetGuardiansByRole(GuardianRole role)
+    {
+        var guardians = _guardianRegistry.GetGuardiansByRole(role);
+        return Ok(new { guardians });
+    }
+
+    [HttpGet("governance/guardians/domain/{domain}")]
+    public IActionResult GetGuardiansByDomain(string domain)
+    {
+        var guardians = _guardianRegistry.GetGuardiansByDomain(domain);
+        return Ok(new { guardians });
+    }
+
     // Governance — Role Engine (Phase 2.0.55)
 
     [HttpPost("governance/roles")]
@@ -1760,6 +1966,240 @@ public sealed class DebugController : ControllerBase
             return BadRequest(new { message = result.Error });
 
         return Ok(result.Data);
+    }
+
+    // Governance — Proposal Type Engine (Phase 2.0.59)
+
+    [HttpPost("governance/proposal-type/register")]
+    public IActionResult RegisterProposalType([FromBody] DebugRegisterProposalTypeDto dto)
+    {
+        var command = new RegisterProposalTypeCommand(
+            Guid.NewGuid(),
+            dto.ProposalType,
+            dto.Description,
+            dto.GuardianId,
+            DateTime.UtcNow);
+
+        var (result, _) = _proposalTypeEngine.Execute(command);
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Message });
+
+        return Ok(result);
+    }
+
+    [HttpPost("governance/proposal-type/deactivate")]
+    public IActionResult DeactivateProposalType([FromBody] DebugDeactivateProposalTypeDto dto)
+    {
+        var command = new DeactivateProposalTypeCommand(
+            Guid.NewGuid(),
+            dto.ProposalType,
+            dto.Reason,
+            dto.GuardianId,
+            DateTime.UtcNow);
+
+        var (result, _) = _proposalTypeEngine.Execute(command);
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Message });
+
+        return Ok(result);
+    }
+
+    [HttpPost("governance/proposal-type/validate")]
+    public IActionResult ValidateProposalType([FromBody] DebugValidateProposalTypeDto dto)
+    {
+        var command = new ValidateProposalTypeCommand(
+            Guid.NewGuid(),
+            dto.ProposalType,
+            dto.AuthorityDomain,
+            dto.GuardianId,
+            DateTime.UtcNow);
+
+        var (result, _) = _proposalTypeEngine.Execute(command);
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Message });
+
+        return Ok(result);
+    }
+
+    [HttpGet("governance/proposal-types")]
+    public IActionResult GetProposalTypes()
+    {
+        return Ok(_proposalTypeEngine.ListTypes());
+    }
+
+    // Governance — Domain Scope Engine (Phase 2.0.60)
+
+    [HttpPost("governance/domain/register")]
+    public IActionResult RegisterDomainScope([FromBody] DebugRegisterDomainScopeDto dto)
+    {
+        var command = new RegisterDomainScopeCommand(
+            Guid.NewGuid(),
+            dto.AuthorityDomain,
+            dto.Description,
+            dto.GuardianId,
+            DateTime.UtcNow);
+
+        var (result, domainEvent) = _domainScopeEngine.Execute(command);
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Message });
+
+        return Ok(new { result, domainEvent });
+    }
+
+    [HttpPost("governance/domain/deactivate")]
+    public IActionResult DeactivateDomainScope([FromBody] DebugDeactivateDomainScopeDto dto)
+    {
+        var command = new DeactivateDomainScopeCommand(
+            Guid.NewGuid(),
+            dto.AuthorityDomain,
+            dto.Reason,
+            dto.GuardianId,
+            DateTime.UtcNow);
+
+        var (result, domainEvent) = _domainScopeEngine.Execute(command);
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Message });
+
+        return Ok(new { result, domainEvent });
+    }
+
+    [HttpPost("governance/domain/validate")]
+    public IActionResult ValidateDomainScope([FromBody] DebugValidateDomainScopeDto dto)
+    {
+        var command = new ValidateDomainScopeCommand(
+            Guid.NewGuid(),
+            dto.ProposalId,
+            dto.AuthorityDomain,
+            dto.ProposalType,
+            dto.GuardianId,
+            DateTime.UtcNow);
+
+        var (result, domainEvent) = _domainScopeEngine.Execute(command);
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Message });
+
+        return Ok(new { result, domainEvent });
+    }
+
+    [HttpGet("governance/domains")]
+    public IActionResult GetDomainScopes()
+    {
+        return Ok(_domainScopeEngine.ListDomains());
+    }
+
+    // Governance — Delegation Engine (Phase 2.0.56)
+
+    [HttpPost("governance/delegation/create")]
+    public async Task<IActionResult> CreateGovernanceDelegation([FromBody] DebugCreateDelegationDto dto)
+    {
+        var result = await _dispatcher.DispatchAsync("governance.delegation.create", new Dictionary<string, object>
+        {
+            ["delegationId"] = dto.DelegationId,
+            ["fromGuardian"] = dto.FromGuardian,
+            ["toGuardian"] = dto.ToGuardian,
+            ["roleScope"] = dto.RoleScope,
+            ["startTime"] = dto.StartTime,
+            ["endTime"] = dto.EndTime
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
+    }
+
+    [HttpPost("governance/delegation/revoke")]
+    public async Task<IActionResult> RevokeGovernanceDelegation([FromBody] DebugRevokeDelegationDto dto)
+    {
+        var result = await _dispatcher.DispatchAsync("governance.delegation.revoke", new Dictionary<string, object>
+        {
+            ["delegationId"] = dto.DelegationId
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
+    }
+
+    [HttpGet("governance/delegation/{delegationId}")]
+    public async Task<IActionResult> GetGovernanceDelegation(string delegationId)
+    {
+        var result = await _dispatcher.DispatchAsync("governance.delegation.get", new Dictionary<string, object>
+        {
+            ["delegationId"] = delegationId
+        });
+
+        if (!result.Success)
+            return NotFound(new { message = result.Error });
+
+        return Ok(result.Data);
+    }
+
+    [HttpGet("governance/delegations/guardian/{guardianId}")]
+    public async Task<IActionResult> GetGuardianDelegations(string guardianId)
+    {
+        var result = await _dispatcher.DispatchAsync("governance.delegation.listByGuardian", new Dictionary<string, object>
+        {
+            ["guardianId"] = guardianId
+        });
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Error });
+
+        return Ok(result.Data);
+    }
+
+    // Governance — Quorum Engine (Phase 2.0.62)
+
+    [HttpPost("governance/quorum/evaluate")]
+    public IActionResult EvaluateQuorum([FromBody] DebugEvaluateQuorumDto dto)
+    {
+        var command = new Engines.T0U.Governance.Commands.EvaluateQuorumCommand(
+            CommandId: Guid.NewGuid(),
+            ProposalId: dto.ProposalId,
+            TotalEligibleGuardians: dto.TotalEligibleGuardians,
+            VotesCast: dto.VotesCast,
+            VotesApprove: dto.VotesApprove,
+            VotesReject: dto.VotesReject,
+            VotesAbstain: dto.VotesAbstain,
+            RequiredParticipationPercentage: dto.RequiredParticipationPercentage,
+            RequiredApprovalPercentage: dto.RequiredApprovalPercentage,
+            Timestamp: DateTime.UtcNow);
+
+        var quorumEngine = new Engines.T0U.Governance.QuorumEngine();
+
+        var (result, evaluatedEvent, outcomeEvent) = quorumEngine.Execute(command);
+
+        return Ok(new
+        {
+            result.Success,
+            result.ProposalId,
+            result.ParticipationPercentage,
+            result.ApprovalPercentage,
+            result.QuorumMet,
+            result.Message,
+            result.ExecutedAt,
+            evaluatedEvent,
+            outcomeEvent
+        });
+    }
+
+    [HttpGet("governance/quorum/{proposalId}")]
+    public IActionResult GetQuorumStatus(Guid proposalId)
+    {
+        return Ok(new
+        {
+            proposalId,
+            message = "Quorum status lookup — requires projection integration",
+            timestamp = DateTime.UtcNow
+        });
     }
 
     [HttpGet("workflows/definitions")]
@@ -2513,10 +2953,454 @@ public sealed class DebugController : ControllerBase
 
         return Ok(result.Data);
     }
+
+    [HttpGet("runtime/workers/health")]
+    public IActionResult GetWorkerHealth()
+    {
+        var workers = _workerHealthMonitor.GetAllWorkerHealth();
+        return Ok(workers.Select(w => new
+        {
+            workerId = w.Key,
+            status = w.Value.ToString()
+        }));
+    }
+
+    [HttpGet("runtime/partitions/health")]
+    public IActionResult GetPartitionHealth()
+    {
+        var partitions = _partitionHealthRegistry.GetAllPartitionHealth();
+        var failures = _partitionHealthRegistry.GetAllFailureCounts();
+        return Ok(partitions.Select(p => new
+        {
+            partition = p.Key,
+            status = p.Value.ToString(),
+            failures = failures.GetValueOrDefault(p.Key, 0)
+        }));
+    }
+
+    [HttpGet("runtime/circuit-breakers")]
+    public IActionResult GetCircuitBreakers()
+    {
+        var states = _partitionHealthRegistry.GetAllCircuitStates();
+        var failures = _partitionHealthRegistry.GetAllFailureCounts();
+        return Ok(states.Select(s => new
+        {
+            partition = s.Key,
+            state = s.Value.ToString(),
+            failures = failures.GetValueOrDefault(s.Key, 0)
+        }));
+    }
+
+    // WhyceChain — Block Builder (Phase 2.0.46)
+
+    [HttpPost("chain/block/build")]
+    public IActionResult BuildChainBlock([FromBody] DebugBuildBlockDto dto)
+    {
+        var entries = dto.EntryHashes.Select((hash, i) =>
+            new ChainLedgerEntry(
+                EntryId: Guid.NewGuid(),
+                EntryType: "DebugEntry",
+                AggregateId: "debug",
+                SequenceNumber: i,
+                PayloadHash: hash,
+                MetadataHash: hash,
+                PreviousEntryHash: i == 0 ? "genesis" : dto.EntryHashes[i - 1],
+                EntryHash: hash,
+                Timestamp: DateTimeOffset.UtcNow,
+                TraceId: dto.TraceId ?? Guid.NewGuid().ToString(),
+                CorrelationId: dto.CorrelationId ?? Guid.NewGuid().ToString(),
+                EventVersion: 1)).ToList();
+
+        var command = new BlockBuilderCommand(
+            BlockHeight: dto.BlockHeight,
+            PreviousBlockHash: dto.PreviousBlockHash ?? "genesis",
+            LedgerEntries: entries,
+            TraceId: dto.TraceId ?? Guid.NewGuid().ToString(),
+            CorrelationId: dto.CorrelationId ?? Guid.NewGuid().ToString(),
+            Timestamp: DateTime.UtcNow);
+
+        var result = _blockBuilderEngine.Execute(command);
+
+        return Ok(new
+        {
+            result.Block.BlockId,
+            result.Block.BlockHeight,
+            result.Block.PreviousBlockHash,
+            result.BlockHash,
+            result.MerkleRoot,
+            result.EntryCount,
+            result.GeneratedAt,
+            result.TraceId,
+            Entries = result.Block.Entries.Select(e => new
+            {
+                e.EntryId,
+                e.EntryHash,
+                e.SequenceNumber
+            })
+        });
+    }
+
+    [HttpGet("governance/proposals")]
+    public IActionResult GetGovernanceProposals()
+    {
+        return Ok(_governanceProposalRegistry.GetProposals());
+    }
+
+    [HttpGet("governance/proposals/{id:guid}")]
+    public IActionResult GetGovernanceProposal(Guid id)
+    {
+        var proposal = _governanceProposalRegistry.GetProposal(id);
+        if (proposal is null)
+            return NotFound($"Proposal not found: {id}");
+        return Ok(proposal);
+    }
+
+    [HttpGet("governance/proposals/status/{status}")]
+    public IActionResult GetGovernanceProposalsByStatus(GovernanceProposalStatus status)
+    {
+        return Ok(_governanceProposalRegistry.GetProposalsByStatus(status));
+    }
+
+    [HttpGet("governance/proposals/type/{type}")]
+    public IActionResult GetGovernanceProposalsByType(Whycespace.System.Upstream.Governance.Proposals.Models.GovernanceProposalType type)
+    {
+        return Ok(_governanceProposalRegistry.GetProposalsByType(type));
+    }
+
+    [HttpPost("governance/proposals/register")]
+    public IActionResult RegisterGovernanceProposal([FromBody] DebugRegisterGovernanceProposalDto dto)
+    {
+        var record = new GovernanceProposalRecord(
+            Guid.NewGuid(),
+            dto.Title,
+            dto.Description,
+            dto.Type,
+            GovernanceProposalStatus.Draft,
+            dto.AuthorityDomain,
+            dto.ProposedByGuardianId,
+            DateTime.UtcNow,
+            null,
+            null,
+            null,
+            dto.Metadata ?? new Dictionary<string, string>());
+
+        _governanceProposalRegistry.RegisterProposal(record);
+        return Ok(record);
+    }
+
+    [HttpPost("governance/vote/cast")]
+    public IActionResult CastGovernanceVote([FromBody] DebugCastVoteDto dto)
+    {
+        var command = new CastVoteCommand(
+            Guid.NewGuid().ToString(),
+            dto.ProposalId,
+            dto.GuardianId,
+            dto.VoteDecision,
+            dto.VoteWeight,
+            DateTime.UtcNow);
+
+        var (result, _) = _votingEngine.Execute(command);
+        return result.Success ? Ok(result) : BadRequest(result);
+    }
+
+    [HttpPost("governance/vote/withdraw")]
+    public IActionResult WithdrawGovernanceVote([FromBody] DebugWithdrawVoteDto dto)
+    {
+        var command = new WithdrawVoteCommand(
+            Guid.NewGuid().ToString(),
+            dto.ProposalId,
+            dto.GuardianId,
+            dto.Reason,
+            DateTime.UtcNow);
+
+        var (result, _) = _votingEngine.Execute(command);
+        return result.Success ? Ok(result) : BadRequest(result);
+    }
+
+    [HttpPost("governance/vote/validate")]
+    public IActionResult ValidateGovernanceVote([FromBody] DebugValidateVoteDto dto)
+    {
+        var command = new ValidateVoteCommand(
+            Guid.NewGuid().ToString(),
+            dto.ProposalId,
+            dto.GuardianId,
+            dto.VoteDecision,
+            DateTime.UtcNow);
+
+        var (result, _) = _votingEngine.Execute(command);
+        return result.Success ? Ok(result) : BadRequest(result);
+    }
+
+    [HttpGet("governance/votes/{proposalId}")]
+    public IActionResult GetGovernanceVotes(string proposalId)
+    {
+        var votes = _governanceVoteStore.GetByProposal(proposalId);
+        return Ok(votes);
+    }
+
+    // Governance — Proposal Engine (Phase 2.0.58)
+
+    [HttpPost("governance/proposal/create")]
+    public IActionResult CreateGovernanceProposal([FromBody] DebugCreateGovernanceProposalCommandDto dto)
+    {
+        var command = new CreateGovernanceProposalCommand(
+            CommandId: Guid.NewGuid(),
+            ProposalId: dto.ProposalId ?? Guid.NewGuid(),
+            ProposalTitle: dto.ProposalTitle,
+            ProposalDescription: dto.ProposalDescription,
+            ProposalType: dto.ProposalType,
+            AuthorityDomain: dto.AuthorityDomain,
+            ProposedByGuardianId: dto.ProposedByGuardianId,
+            Metadata: dto.Metadata ?? new Dictionary<string, string>(),
+            Timestamp: DateTime.UtcNow);
+
+        var (result, domainEvent) = _governanceProposalEngine.Execute(command);
+
+        return result.Success
+            ? Ok(new { result, domainEvent })
+            : BadRequest(new { result.Message });
+    }
+
+    [HttpPost("governance/proposal/submit")]
+    public IActionResult SubmitGovernanceProposal([FromBody] DebugSubmitGovernanceProposalDto dto)
+    {
+        var command = new SubmitGovernanceProposalCommand(
+            CommandId: Guid.NewGuid(),
+            ProposalId: dto.ProposalId,
+            SubmittedByGuardianId: dto.SubmittedByGuardianId,
+            Timestamp: DateTime.UtcNow);
+
+        var (result, domainEvent) = _governanceProposalEngine.Execute(command);
+
+        return result.Success
+            ? Ok(new { result, domainEvent })
+            : BadRequest(new { result.Message });
+    }
+
+    [HttpPost("governance/proposal/cancel")]
+    public IActionResult CancelGovernanceProposal([FromBody] DebugCancelGovernanceProposalDto dto)
+    {
+        var command = new CancelGovernanceProposalCommand(
+            CommandId: Guid.NewGuid(),
+            ProposalId: dto.ProposalId,
+            CancelledByGuardianId: dto.CancelledByGuardianId,
+            Reason: dto.Reason,
+            Timestamp: DateTime.UtcNow);
+
+        var (result, domainEvent) = _governanceProposalEngine.Execute(command);
+
+        return result.Success
+            ? Ok(new { result, domainEvent })
+            : BadRequest(new { result.Message });
+    }
+
+    [HttpGet("governance/proposal/{proposalId}")]
+    public IActionResult GetGovernanceProposalById(Guid proposalId)
+    {
+        var proposal = _governanceProposalRegistry.GetProposal(proposalId);
+        if (proposal is null)
+            return NotFound(new { error = $"Proposal not found: {proposalId}" });
+        return Ok(proposal);
+    }
+
+    // Governance — Governance Workflow Engine (Phase 2.0.64)
+
+    [HttpPost("governance/workflow/start")]
+    public async Task<IActionResult> StartGovernanceWorkflow([FromBody] DebugStartGovernanceWorkflowDto dto)
+    {
+        var result = await _dispatcher.DispatchAsync("governance.workflow.start", new Dictionary<string, object>
+        {
+            ["proposalId"] = dto.ProposalId.ToString(),
+            ["startedByGuardianId"] = dto.StartedByGuardianId.ToString()
+        });
+
+        return result.Success ? Ok(result.Data) : BadRequest(new { message = result.Error });
+    }
+
+    [HttpPost("governance/workflow/advance")]
+    public async Task<IActionResult> AdvanceGovernanceWorkflow([FromBody] DebugAdvanceGovernanceWorkflowDto dto)
+    {
+        var result = await _dispatcher.DispatchAsync("governance.workflow.advance", new Dictionary<string, object>
+        {
+            ["proposalId"] = dto.ProposalId.ToString(),
+            ["currentStep"] = dto.CurrentStep,
+            ["nextStep"] = dto.NextStep,
+            ["triggeredBy"] = dto.TriggeredBy.ToString()
+        });
+
+        return result.Success ? Ok(result.Data) : BadRequest(new { message = result.Error });
+    }
+
+    [HttpPost("governance/workflow/complete")]
+    public async Task<IActionResult> CompleteGovernanceWorkflow([FromBody] DebugCompleteGovernanceWorkflowDto dto)
+    {
+        var result = await _dispatcher.DispatchAsync("governance.workflow.complete", new Dictionary<string, object>
+        {
+            ["proposalId"] = dto.ProposalId.ToString(),
+            ["completedBy"] = dto.CompletedBy.ToString()
+        });
+
+        return result.Success ? Ok(result.Data) : BadRequest(new { message = result.Error });
+    }
+
+    [HttpGet("governance/workflow/{proposalId}")]
+    public async Task<IActionResult> GetGovernanceWorkflow(Guid proposalId)
+    {
+        var result = await _dispatcher.DispatchAsync("governance.workflow.get", new Dictionary<string, object>
+        {
+            ["proposalId"] = proposalId.ToString()
+        });
+
+        return result.Success ? Ok(result.Data) : NotFound(new { message = result.Error });
+    }
+
+    // Governance — Evidence Recorder (Phase 2.0.67)
+
+    [HttpPost("governance/evidence/record")]
+    public IActionResult RecordGovernanceEvidence([FromBody] DebugRecordGovernanceEvidenceDto dto)
+    {
+        var command = new RecordGovernanceEvidenceCommand(
+            Guid.NewGuid(),
+            dto.ProposalId,
+            dto.EventReferenceId,
+            dto.EvidenceType,
+            dto.RecordedByGuardianId,
+            dto.EvidencePayload,
+            DateTime.UtcNow);
+
+        var result = _evidenceRecorder.Execute(command);
+
+        return result.Success
+            ? Ok(result)
+            : BadRequest(new { message = result.Message });
+    }
+
+    [HttpGet("governance/evidence/{evidenceId:guid}")]
+    public IActionResult GetGovernanceEvidence(Guid evidenceId)
+    {
+        return Ok(new { evidenceId, message = "Evidence lookup requires projection — not yet implemented." });
+    }
+
+    [HttpGet("governance/evidence/proposal/{proposalId:guid}")]
+    public IActionResult GetGovernanceEvidenceByProposal(Guid proposalId)
+    {
+        return Ok(new { proposalId, message = "Evidence-by-proposal lookup requires projection — not yet implemented." });
+    }
+
+    // Governance — Emergency Engine (Phase 2.0.66)
+
+    [HttpPost("governance/emergency/trigger")]
+    public IActionResult TriggerEmergencyAction([FromBody] DebugTriggerEmergencyDto dto)
+    {
+        var command = new TriggerEmergencyActionCommand(
+            CommandId: Guid.NewGuid(),
+            EmergencyActionId: dto.EmergencyActionId,
+            EmergencyType: dto.EmergencyType,
+            TargetDomain: dto.TargetDomain,
+            TriggeredByGuardianId: dto.TriggeredByGuardianId,
+            Reason: dto.Reason,
+            Timestamp: DateTime.UtcNow);
+
+        var result = _emergencyEngine.Execute(command);
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Message });
+
+        return Ok(new
+        {
+            result.EmergencyActionId,
+            emergencyType = result.EmergencyType.ToString(),
+            emergencyStatus = result.EmergencyStatus.ToString(),
+            result.TargetDomain,
+            result.Message,
+            result.ExecutedAt
+        });
+    }
+
+    [HttpPost("governance/emergency/revoke")]
+    public IActionResult RevokeEmergencyAction([FromBody] DebugRevokeEmergencyDto dto)
+    {
+        var command = new RevokeEmergencyActionCommand(
+            CommandId: Guid.NewGuid(),
+            EmergencyActionId: dto.EmergencyActionId,
+            RevokedByGuardianId: dto.RevokedByGuardianId,
+            Reason: dto.Reason,
+            Timestamp: DateTime.UtcNow);
+
+        var result = _emergencyEngine.Execute(command);
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Message });
+
+        return Ok(new
+        {
+            result.EmergencyActionId,
+            emergencyType = result.EmergencyType.ToString(),
+            emergencyStatus = result.EmergencyStatus.ToString(),
+            result.TargetDomain,
+            result.Message,
+            result.ExecutedAt
+        });
+    }
+
+    [HttpPost("governance/emergency/validate")]
+    public IActionResult ValidateEmergencyAction([FromBody] DebugValidateEmergencyDto dto)
+    {
+        var command = new ValidateEmergencyActionCommand(
+            CommandId: Guid.NewGuid(),
+            EmergencyActionId: dto.EmergencyActionId,
+            GuardianId: dto.GuardianId,
+            Timestamp: DateTime.UtcNow);
+
+        var result = _emergencyEngine.Execute(command);
+
+        if (!result.Success)
+            return BadRequest(new { message = result.Message });
+
+        return Ok(new
+        {
+            result.EmergencyActionId,
+            emergencyType = result.EmergencyType.ToString(),
+            emergencyStatus = result.EmergencyStatus.ToString(),
+            result.TargetDomain,
+            result.Message,
+            result.ExecutedAt
+        });
+    }
+
+    [HttpGet("governance/emergency/{emergencyId}")]
+    public IActionResult GetEmergency(string emergencyId)
+    {
+        var emergency = _emergencyStore.Get(emergencyId);
+        if (emergency is null)
+            return NotFound(new { error = $"Emergency not found: {emergencyId}" });
+
+        return Ok(new
+        {
+            emergency.EmergencyId,
+            type = emergency.Type.ToString(),
+            status = emergency.Status.ToString(),
+            emergency.TargetDomain,
+            emergency.TriggeredBy,
+            emergency.Reason,
+            emergency.TriggeredAt,
+            emergency.ResolvedAt
+        });
+    }
 }
+
+public sealed record DebugRecordGovernanceEvidenceDto(Guid ProposalId, Guid EventReferenceId, EvidenceType EvidenceType, Guid RecordedByGuardianId, string EvidencePayload);
+
+public sealed record DebugBuildBlockDto(
+    long BlockHeight,
+    List<string> EntryHashes,
+    string? PreviousBlockHash,
+    string? TraceId,
+    string? CorrelationId);
 
 public sealed record DebugRunWorkflowDto(string WorkflowName, Dictionary<string, object>? Context);
 public sealed record DebugReplayEventDto(string EventType, Guid AggregateId, Dictionary<string, object>? Payload);
+public sealed record DebugReplayGovernedDto(Guid EventId, string? SourceTopic, string? Payload, int ReplayCount);
 public sealed record DebugRunSimulationDto(Guid ScenarioId);
 public sealed record DebugGenerateClusterDto(string TemplateName);
 public sealed record DebugAuthenticateDto(Guid IdentityId, Guid DeviceId);
@@ -2553,6 +3437,8 @@ public sealed record DebugAuditPolicyDto(string? PolicyId, string? ActorId, stri
 public sealed record DebugRegisterGuardianDto(string GuardianId, Guid IdentityId, string Name, List<string> Roles);
 public sealed record DebugCreateGovernanceRoleDto(string RoleId, string Name, string Description, List<string> Permissions);
 public sealed record DebugAssignGovernanceRoleDto(string RoleId);
+public sealed record DebugCreateDelegationDto(string DelegationId, string FromGuardian, string ToGuardian, string RoleScope, DateTime StartTime, DateTime EndTime);
+public sealed record DebugRevokeDelegationDto(string DelegationId);
 public sealed record DebugRegisterWorkflowDefinitionDto(string WorkflowId, string Name, string Description, string Version, List<DebugWorkflowStepDto> Steps);
 public sealed record DebugWorkflowStepDto(string StepId, string Name, string EngineName, List<string> NextSteps);
 public sealed record DebugRegisterWorkflowTemplateDto(string TemplateId, string Name, int Version, string Description, List<DebugWorkflowTemplateStepDto> Steps, Dictionary<string, List<string>> Transitions);
@@ -2578,3 +3464,24 @@ public sealed record DebugLifecycleStartDto(string WorkflowId, string Version, D
 public sealed record DebugLifecycleInstanceDto(string InstanceId);
 public sealed record DebugLifecycleStepDto(string InstanceId, string? StepId);
 public sealed record DebugLifecycleFailDto(string InstanceId, string StepId, string Reason);
+public sealed record DebugVerifyMerkleProofDto(string RootHash, string LeafHash, List<string> ProofPath);
+public sealed record DebugRegisterGovernanceProposalDto(string Title, string Description, Whycespace.System.Upstream.Governance.Proposals.Models.GovernanceProposalType Type, string AuthorityDomain, Guid ProposedByGuardianId, Dictionary<string, string>? Metadata);
+public sealed record DebugEvaluateQuorumDto(Guid ProposalId, int TotalEligibleGuardians, int VotesCast, int VotesApprove, int VotesReject, int VotesAbstain, decimal RequiredParticipationPercentage, decimal RequiredApprovalPercentage);
+public sealed record DebugRegisterProposalTypeDto(string ProposalType, string Description, Guid GuardianId);
+public sealed record DebugDeactivateProposalTypeDto(string ProposalType, string Reason, Guid GuardianId);
+public sealed record DebugValidateProposalTypeDto(string ProposalType, string AuthorityDomain, Guid GuardianId);
+public sealed record DebugRegisterDomainScopeDto(string AuthorityDomain, string Description, Guid GuardianId);
+public sealed record DebugDeactivateDomainScopeDto(string AuthorityDomain, string Reason, Guid GuardianId);
+public sealed record DebugValidateDomainScopeDto(Guid ProposalId, string AuthorityDomain, ProposalType ProposalType, Guid GuardianId);
+public sealed record DebugCastVoteDto(string ProposalId, string GuardianId, VoteType VoteDecision, int VoteWeight);
+public sealed record DebugWithdrawVoteDto(string ProposalId, string GuardianId, string Reason);
+public sealed record DebugValidateVoteDto(string ProposalId, string GuardianId, VoteType VoteDecision);
+public sealed record DebugCreateGovernanceProposalCommandDto(string ProposalTitle, string ProposalDescription, ProposalType ProposalType, string AuthorityDomain, Guid ProposedByGuardianId, Guid? ProposalId = null, Dictionary<string, string>? Metadata = null);
+public sealed record DebugSubmitGovernanceProposalDto(Guid ProposalId, Guid SubmittedByGuardianId);
+public sealed record DebugCancelGovernanceProposalDto(Guid ProposalId, Guid CancelledByGuardianId, string Reason);
+public sealed record DebugStartGovernanceWorkflowDto(Guid ProposalId, Guid StartedByGuardianId);
+public sealed record DebugAdvanceGovernanceWorkflowDto(Guid ProposalId, string CurrentStep, string NextStep, Guid TriggeredBy);
+public sealed record DebugCompleteGovernanceWorkflowDto(Guid ProposalId, Guid CompletedBy);
+public sealed record DebugTriggerEmergencyDto(string EmergencyActionId, EmergencyType EmergencyType, string TargetDomain, string TriggeredByGuardianId, string Reason);
+public sealed record DebugRevokeEmergencyDto(string EmergencyActionId, string RevokedByGuardianId, string Reason);
+public sealed record DebugValidateEmergencyDto(string EmergencyActionId, string GuardianId);

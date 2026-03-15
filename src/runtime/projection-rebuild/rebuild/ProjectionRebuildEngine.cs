@@ -1,4 +1,6 @@
-using Whycespace.Projections.Engine;
+using Whycespace.EventFabric.Models;
+using Whycespace.Projections.Contracts;
+using Whycespace.Projections.Registry;
 using Whycespace.ProjectionRebuild.Checkpoints;
 using Whycespace.ProjectionRebuild.Models;
 using Whycespace.ProjectionRebuild.Reader;
@@ -9,19 +11,19 @@ namespace Whycespace.ProjectionRebuild.Rebuild;
 public sealed class ProjectionRebuildEngine
 {
     private readonly EventLogReader _reader;
-    private readonly ProjectionEngine _projectionEngine;
+    private readonly IProjectionRegistry _registry;
     private readonly ProjectionResetService _resetService;
     private readonly ProjectionCheckpointStore _checkpointStore;
     private readonly RebuildStatus _status = new();
 
     public ProjectionRebuildEngine(
         EventLogReader reader,
-        ProjectionEngine projectionEngine,
+        IProjectionRegistry registry,
         ProjectionResetService resetService,
         ProjectionCheckpointStore checkpointStore)
     {
         _reader = reader;
-        _projectionEngine = projectionEngine;
+        _registry = registry;
         _resetService = resetService;
         _checkpointStore = checkpointStore;
     }
@@ -37,7 +39,7 @@ public sealed class ProjectionRebuildEngine
 
         await foreach (var envelope in _reader.ReadAllAsync(cancellationToken))
         {
-            await _projectionEngine.ProcessAsync(envelope);
+            await ProcessAsync(envelope);
             _status.ProcessedEvents++;
         }
 
@@ -59,7 +61,7 @@ public sealed class ProjectionRebuildEngine
 
         var checkpoint = await _checkpointStore.LoadCheckpointAsync(projectionName);
 
-        IAsyncEnumerable<EventFabric.Models.EventEnvelope> events = checkpoint is not null
+        IAsyncEnumerable<EventEnvelope> events = checkpoint is not null
             ? _reader.ReadFromAsync(checkpoint.LastProcessedEventId, cancellationToken)
             : _reader.ReadAllAsync(cancellationToken);
 
@@ -67,7 +69,7 @@ public sealed class ProjectionRebuildEngine
 
         await foreach (var envelope in events)
         {
-            await _projectionEngine.ProcessAsync(envelope);
+            await ProcessAsync(envelope);
             lastEventId = envelope.EventId;
             _status.ProcessedEvents++;
         }
@@ -83,5 +85,15 @@ public sealed class ProjectionRebuildEngine
         _status.CurrentProjection = null;
         _status.Rebuilding = false;
         _status.CompletedAt = DateTime.UtcNow;
+    }
+
+    private async Task ProcessAsync(EventEnvelope envelope)
+    {
+        var projections = _registry.Resolve(envelope.EventType);
+
+        foreach (var projection in projections)
+        {
+            await projection.HandleAsync(envelope);
+        }
     }
 }

@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\shared\contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="..\..\Whycespace.System.csproj" />
   </ItemGroup>
 
 </Project>

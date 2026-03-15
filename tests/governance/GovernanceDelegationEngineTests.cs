@@ -30,8 +30,8 @@ public class GovernanceDelegationEngineTests
         _guardianEngine.RegisterGuardian("g-alice", identityId, "Alice", new List<string>());
         _guardianEngine.RegisterGuardian("g-bob", identityId, "Bob", new List<string>());
 
-        _roleEngine.CreateRole("council", "Council", "Council role", new List<string> { "vote", "propose" });
-        _roleEngine.AssignRole("g-alice", "council");
+        _roleStore.AddRole(new GovernanceRole("council", "Council", "Council role", new List<string> { "vote", "propose" }));
+        _roleStore.AssignRole("g-alice", "council");
     }
 
     [Fact]
@@ -62,7 +62,7 @@ public class GovernanceDelegationEngineTests
     [Fact]
     public void CreateDelegation_CannotExceedRoleAuthority()
     {
-        _roleEngine.CreateRole("admin", "Admin", "Admin role", new List<string> { "all" });
+        _roleStore.AddRole(new GovernanceRole("admin", "Admin", "Admin role", new List<string> { "all" }));
 
         var ex = Assert.Throws<InvalidOperationException>(() =>
             _engine.CreateDelegation("d-bad", "g-alice", "g-bob", "admin", DateTime.UtcNow, DateTime.UtcNow.AddDays(1)));

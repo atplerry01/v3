@@ -1,7 +1,8 @@
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Definition;
-using Whycespace.System.Midstream.WSS.Models;
 using Whycespace.Engines.T1M.WSS.Stores;
+using Whycespace.System.Midstream.WSS.Models;
+using WfDefinition = Whycespace.System.Midstream.WSS.Models.WorkflowDefinition;
 
 namespace Whycespace.WSS.WorkflowDefinition.Tests;
 
@@ -17,16 +18,22 @@ public class WorkflowRegistryEngineTests
         _registryStore = new WorkflowRegistryStore();
         _engine = new WorkflowRegistryEngine(_registryStore, _definitionStore);
 
-        var defEngine = new WorkflowDefinitionEngine(_definitionStore);
-        defEngine.RegisterWorkflowDefinition("wf-ride", "Taxi Ride", "Ride flow", "1.0.0", new List<WorkflowStep>
-        {
-            new("step-1", "Request", "RideEngine", new List<string> { "step-2" }),
-            new("step-2", "Complete", "PaymentEngine", new List<string>())
-        });
-        defEngine.RegisterWorkflowDefinition("wf-letting", "Property Letting", "Letting flow", "1.0.0", new List<WorkflowStep>
-        {
-            new("step-1", "Onboard", "OnboardEngine", new List<string>())
-        });
+        _definitionStore.Register(new WfDefinition(
+            "wf-ride", "Taxi Ride", "Ride flow", "1.0.0",
+            new List<WorkflowStep>
+            {
+                new("step-1", "Request", "RideEngine", new List<string> { "step-2" }),
+                new("step-2", "Complete", "PaymentEngine", new List<string>())
+            },
+            DateTimeOffset.UtcNow));
+
+        _definitionStore.Register(new WfDefinition(
+            "wf-letting", "Property Letting", "Letting flow", "1.0.0",
+            new List<WorkflowStep>
+            {
+                new("step-1", "Onboard", "OnboardEngine", new List<string>())
+            },
+            DateTimeOffset.UtcNow));
     }
 
     [Fact]

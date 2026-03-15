@@ -1,0 +1,11 @@
+namespace Whycespace.Engines.T0U.Governance.Commands;
+
+using Whycespace.System.Upstream.Governance.Models;
+
+public sealed record RaiseGovernanceDisputeCommand(
+    Guid CommandId,
+    Guid ProposalId,
+    DisputeType DisputeType,
+    Guid RaisedByGuardianId,
+    string DisputeReason,
+    DateTime Timestamp);

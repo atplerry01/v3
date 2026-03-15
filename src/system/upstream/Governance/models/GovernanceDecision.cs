@@ -12,5 +12,14 @@ public enum DecisionOutcome
 {
     Approved,
     Rejected,
-    NoQuorum
+    NoQuorum,
+    Escalated
+}
+
+public enum DecisionRule
+{
+    SimpleMajority,
+    SuperMajority,
+    ConstitutionalMajority,
+    EmergencyOverride
 }

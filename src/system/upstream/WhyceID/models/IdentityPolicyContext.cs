@@ -2,8 +2,13 @@ namespace Whycespace.System.WhyceID.Models;
 
 public sealed record IdentityPolicyContext(
     Guid IdentityId,
-    IReadOnlyCollection<string> Roles,
+    IdentityStatus IdentityStatus,
     int TrustScore,
-    bool Verified,
-    bool Revoked
+    IReadOnlyCollection<string> Roles,
+    IReadOnlyDictionary<string, string> Attributes,
+    int DeviceTrustLevel,
+    int SessionTrustLevel,
+    string RequestedOperation,
+    string RequestSource,
+    DateTime RequestTimestamp
 );

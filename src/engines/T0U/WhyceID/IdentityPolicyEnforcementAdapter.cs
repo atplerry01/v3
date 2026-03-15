@@ -32,15 +32,19 @@ public sealed class IdentityPolicyEnforcementAdapter
 
         var roles = _roleStore.GetRoles(identityId);
         var trustScore = _trustStore.Get(identityId);
-        var revoked = _revocationStore.IsRevoked(identityId);
         var identity = _registry.Get(identityId);
 
         return new IdentityPolicyContext(
             identityId,
-            roles,
+            identity.Status,
             trustScore?.Score ?? 0,
-            identity.Status == IdentityStatus.Verified,
-            revoked
+            roles,
+            new Dictionary<string, string>(),
+            0,
+            0,
+            string.Empty,
+            string.Empty,
+            DateTime.UtcNow
         );
     }
 
@@ -52,10 +56,10 @@ public sealed class IdentityPolicyEnforcementAdapter
 
     private static bool Evaluate(IdentityPolicyContext context)
     {
-        if (context.Revoked)
+        if (context.IdentityStatus == IdentityStatus.Revoked)
             return false;
 
-        if (!context.Verified)
+        if (context.IdentityStatus != IdentityStatus.Verified)
             return false;
 
         if (context.TrustScore < MinimumTrustScore)

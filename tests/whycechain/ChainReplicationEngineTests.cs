@@ -18,7 +18,7 @@ public class ChainReplicationEngineTests
         var blockEngine = new ChainBlockEngine(blockStore);
         var merkleEngine = new MerkleProofEngine();
         _builderEngine = new BlockBuilderEngine(_ledgerStore, blockEngine, merkleEngine);
-        var integrityEngine = new IntegrityVerificationEngine(blockStore, _ledgerStore, merkleEngine);
+        var integrityEngine = new IntegrityVerificationEngine(merkleEngine);
         _engine = new ChainReplicationEngine(blockStore, integrityEngine);
     }
 

@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T3I.Clusters.Property.Letting;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("LeaseCreation", EngineTier.T3I, EngineKind.Decision, "LeaseCreationRequest", typeof(EngineEvent))]
 public sealed class LeaseCreationEngine : IEngine

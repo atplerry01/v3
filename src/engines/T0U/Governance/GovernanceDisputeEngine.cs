@@ -1,5 +1,8 @@
 namespace Whycespace.Engines.T0U.Governance;
 
+using Whycespace.Engines.T0U.Governance.Commands;
+using Whycespace.Engines.T0U.Governance.Results;
+using Whycespace.Domain.Events.Governance;
 using Whycespace.System.Upstream.Governance.Models;
 using Whycespace.System.Upstream.Governance.Stores;
 
@@ -19,62 +22,233 @@ public sealed class GovernanceDisputeEngine
         _guardianStore = guardianStore;
     }
 
-    public GovernanceDispute OpenDispute(string disputeId, string proposalId, string filedBy, string reason)
+    public (GovernanceDisputeResult Result, GovernanceDisputeRaisedEvent? Event) Execute(
+        RaiseGovernanceDisputeCommand command)
     {
+        var proposalId = command.ProposalId.ToString();
+        var guardianId = command.RaisedByGuardianId.ToString();
+
         if (_proposalStore.Get(proposalId) is null)
-            throw new KeyNotFoundException($"Proposal not found: {proposalId}");
+            return Failure(command.ProposalId, command.DisputeType, $"Proposal not found: {proposalId}");
 
-        if (!_guardianStore.Exists(filedBy))
-            throw new KeyNotFoundException($"Guardian not found: {filedBy}");
+        if (!_guardianStore.Exists(guardianId))
+            return Failure(command.ProposalId, command.DisputeType, $"Guardian not found: {guardianId}");
 
-        if (string.IsNullOrWhiteSpace(reason))
-            throw new InvalidOperationException("Dispute reason is required.");
+        if (string.IsNullOrWhiteSpace(command.DisputeReason))
+            return Failure(command.ProposalId, command.DisputeType, "Dispute reason is required.");
+
+        if (_disputeStore.ExistsForProposalAndGuardian(proposalId, guardianId))
+            return Failure(command.ProposalId, command.DisputeType, "Dispute already exists for this proposal and guardian.");
+
+        var disputeId = Guid.NewGuid();
+        var now = DateTime.UtcNow;
 
         var dispute = new GovernanceDispute(
-            disputeId,
+            disputeId.ToString(),
             proposalId,
-            filedBy,
-            reason,
-            DisputeStatus.Open,
+            guardianId,
+            command.DisputeReason,
+            command.DisputeType,
+            DisputeStatus.Raised,
             EscalationLevel: 0,
-            DateTime.UtcNow,
+            now,
             ResolvedAt: null);
 
         _disputeStore.Add(dispute);
-        return dispute;
+
+        var result = new GovernanceDisputeResult(
+            Success: true,
+            DisputeId: disputeId,
+            ProposalId: command.ProposalId,
+            DisputeType: command.DisputeType,
+            DisputeStatus: DisputeStatus.Raised,
+            Message: "Dispute raised successfully.",
+            ExecutedAt: now);
+
+        var @event = new GovernanceDisputeRaisedEvent(
+            EventId: Guid.NewGuid(),
+            DisputeId: disputeId,
+            ProposalId: command.ProposalId,
+            DisputeType: command.DisputeType.ToString(),
+            RaisedByGuardianId: command.RaisedByGuardianId,
+            DisputeReason: command.DisputeReason,
+            RaisedAt: now);
+
+        return (result, @event);
     }
 
-    public GovernanceDispute ResolveDispute(string disputeId)
+    public (GovernanceDisputeResult Result, GovernanceDisputeWithdrawnEvent? Event) Execute(
+        WithdrawGovernanceDisputeCommand command)
     {
-        var dispute = _disputeStore.Get(disputeId)
-            ?? throw new KeyNotFoundException($"Dispute not found: {disputeId}");
+        var disputeId = command.DisputeId.ToString();
+        var dispute = _disputeStore.Get(disputeId);
+
+        if (dispute is null)
+            return FailureFor(command.DisputeId, $"Dispute not found: {disputeId}");
+
+        if (dispute.Status is DisputeStatus.Resolved or DisputeStatus.Withdrawn)
+            return FailureFor(command.DisputeId, $"Cannot withdraw a dispute with status: {dispute.Status}");
+
+        if (dispute.FiledBy != command.WithdrawnByGuardianId.ToString())
+            return FailureFor(command.DisputeId, "Only the guardian who raised the dispute can withdraw it.");
+
+        var now = DateTime.UtcNow;
+        var updated = dispute with { Status = DisputeStatus.Withdrawn };
+        _disputeStore.Update(updated);
+
+        var result = new GovernanceDisputeResult(
+            Success: true,
+            DisputeId: command.DisputeId,
+            ProposalId: Guid.Parse(dispute.ProposalId),
+            DisputeType: dispute.DisputeType,
+            DisputeStatus: DisputeStatus.Withdrawn,
+            Message: "Dispute withdrawn successfully.",
+            ExecutedAt: now);
+
+        var @event = new GovernanceDisputeWithdrawnEvent(
+            EventId: Guid.NewGuid(),
+            DisputeId: command.DisputeId,
+            WithdrawnByGuardianId: command.WithdrawnByGuardianId,
+            Reason: command.Reason,
+            WithdrawnAt: now);
+
+        return (result, @event);
+    }
+
+    public (GovernanceDisputeResult Result, GovernanceDisputeResolvedEvent? Event) Execute(
+        ResolveGovernanceDisputeCommand command)
+    {
+        var disputeId = command.DisputeId.ToString();
+        var dispute = _disputeStore.Get(disputeId);
+
+        if (dispute is null)
+            return FailureResolve(command.DisputeId, $"Dispute not found: {disputeId}");
 
         if (dispute.Status == DisputeStatus.Resolved)
-            throw new InvalidOperationException("Dispute is already resolved.");
+            return FailureResolve(command.DisputeId, "Dispute is already resolved.");
 
+        if (dispute.Status == DisputeStatus.Withdrawn)
+            return FailureResolve(command.DisputeId, "Cannot resolve a withdrawn dispute.");
+
+        if (!_guardianStore.Exists(command.ResolvedByGuardianId.ToString()))
+            return FailureResolve(command.DisputeId, $"Resolving guardian not found: {command.ResolvedByGuardianId}");
+
+        var now = DateTime.UtcNow;
         var updated = dispute with
         {
             Status = DisputeStatus.Resolved,
-            ResolvedAt = DateTime.UtcNow
+            ResolvedAt = now
         };
         _disputeStore.Update(updated);
-        return updated;
+
+        var result = new GovernanceDisputeResult(
+            Success: true,
+            DisputeId: command.DisputeId,
+            ProposalId: Guid.Parse(dispute.ProposalId),
+            DisputeType: dispute.DisputeType,
+            DisputeStatus: DisputeStatus.Resolved,
+            Message: "Dispute resolved successfully.",
+            ExecutedAt: now);
+
+        var @event = new GovernanceDisputeResolvedEvent(
+            EventId: Guid.NewGuid(),
+            DisputeId: command.DisputeId,
+            ResolutionOutcome: command.ResolutionOutcome,
+            ResolvedByGuardianId: command.ResolvedByGuardianId,
+            ResolvedAt: now);
+
+        return (result, @event);
     }
 
-    public GovernanceDispute EscalateDispute(string disputeId)
+    public (GovernanceDisputeResult Result, GovernanceDisputeEscalatedEvent? Event) Escalate(
+        Guid disputeId, string escalationReason)
     {
-        var dispute = _disputeStore.Get(disputeId)
-            ?? throw new KeyNotFoundException($"Dispute not found: {disputeId}");
+        var dispute = _disputeStore.Get(disputeId.ToString());
+
+        if (dispute is null)
+            return FailureEscalate(disputeId, $"Dispute not found: {disputeId}");
 
         if (dispute.Status == DisputeStatus.Resolved)
-            throw new InvalidOperationException("Cannot escalate a resolved dispute.");
+            return FailureEscalate(disputeId, "Cannot escalate a resolved dispute.");
 
+        if (dispute.Status == DisputeStatus.Withdrawn)
+            return FailureEscalate(disputeId, "Cannot escalate a withdrawn dispute.");
+
+        var now = DateTime.UtcNow;
         var updated = dispute with
         {
             Status = DisputeStatus.Escalated,
             EscalationLevel = dispute.EscalationLevel + 1
         };
         _disputeStore.Update(updated);
-        return updated;
+
+        var result = new GovernanceDisputeResult(
+            Success: true,
+            DisputeId: disputeId,
+            ProposalId: Guid.Parse(dispute.ProposalId),
+            DisputeType: dispute.DisputeType,
+            DisputeStatus: DisputeStatus.Escalated,
+            Message: $"Dispute escalated to level {updated.EscalationLevel}.",
+            ExecutedAt: now);
+
+        var @event = new GovernanceDisputeEscalatedEvent(
+            EventId: Guid.NewGuid(),
+            DisputeId: disputeId,
+            EscalationReason: escalationReason,
+            EscalatedAt: now);
+
+        return (result, @event);
+    }
+
+    private static (GovernanceDisputeResult Result, GovernanceDisputeRaisedEvent? Event) Failure(
+        Guid proposalId, DisputeType disputeType, string message)
+    {
+        return (new GovernanceDisputeResult(
+            Success: false,
+            DisputeId: Guid.Empty,
+            ProposalId: proposalId,
+            DisputeType: disputeType,
+            DisputeStatus: DisputeStatus.Raised,
+            Message: message,
+            ExecutedAt: DateTime.UtcNow), null);
+    }
+
+    private static (GovernanceDisputeResult Result, GovernanceDisputeWithdrawnEvent? Event) FailureFor(
+        Guid disputeId, string message)
+    {
+        return (new GovernanceDisputeResult(
+            Success: false,
+            DisputeId: disputeId,
+            ProposalId: Guid.Empty,
+            DisputeType: default,
+            DisputeStatus: default,
+            Message: message,
+            ExecutedAt: DateTime.UtcNow), null);
+    }
+
+    private static (GovernanceDisputeResult Result, GovernanceDisputeResolvedEvent? Event) FailureResolve(
+        Guid disputeId, string message)
+    {
+        return (new GovernanceDisputeResult(
+            Success: false,
+            DisputeId: disputeId,
+            ProposalId: Guid.Empty,
+            DisputeType: default,
+            DisputeStatus: default,
+            Message: message,
+            ExecutedAt: DateTime.UtcNow), null);
+    }
+
+    private static (GovernanceDisputeResult Result, GovernanceDisputeEscalatedEvent? Event) FailureEscalate(
+        Guid disputeId, string message)
+    {
+        return (new GovernanceDisputeResult(
+            Success: false,
+            DisputeId: disputeId,
+            ProposalId: Guid.Empty,
+            DisputeType: default,
+            DisputeStatus: default,
+            Message: message,
+            ExecutedAt: DateTime.UtcNow), null);
     }
 }

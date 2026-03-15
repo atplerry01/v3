@@ -1,7 +1,7 @@
-namespace Whycespace.EngineManifest.Loader;
+namespace Whycespace.Runtime.EngineManifest.Loader;
 
-using Whycespace.EngineManifest.Models;
-using Whycespace.EngineManifest.Registry;
+using Whycespace.Runtime.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Registry;
 
 public sealed class RuntimeManifestLoader
 {

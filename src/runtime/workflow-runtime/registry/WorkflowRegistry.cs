@@ -1,6 +1,6 @@
 namespace Whycespace.WorkflowRuntime.Registry;
 
-using System.Collections.Concurrent;
+using global::System.Collections.Concurrent;
 using Whycespace.Contracts.Workflows;
 
 public sealed class WorkflowRegistry : IWorkflowRegistry

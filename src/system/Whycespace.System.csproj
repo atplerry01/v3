@@ -7,12 +7,9 @@
     <Compile Remove="upstream\WhyceID\commands\**" />
     <Compile Remove="upstream\WhyceID\events\**" />
     <Compile Remove="upstream\WhyceID\stores\**" />
+    <Compile Remove="upstream\WhyceID\adapters\**" />
     <Compile Remove="upstream\WhyceID\bin\**" />
     <Compile Remove="upstream\WhyceID\obj\**" />
-    <Compile Remove="engine-manifest\**" />
-    <Content Remove="engine-manifest\**" />
-    <None Remove="engine-manifest\**" />
-    <EmbeddedResource Remove="engine-manifest\**" />
   </ItemGroup>
 
   <ItemGroup>

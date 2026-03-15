@@ -5,9 +5,11 @@ using Whycespace.Platform.RuntimeClient;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Events;
 using Whycespace.Runtime.Observability;
-using Whycespace.Projections.Projections;
+using Whycespace.Projections.Core.Economics;
+using Whycespace.Projections.Clusters.Mobility;
+using Whycespace.Projections.Clusters.Property;
 using Whycespace.Projections.Queries;
-using Whycespace.Projections.Storage;
+using Whycespace.ProjectionRuntime.Storage;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Reliability;
 using Whycespace.Runtime.Workflow;
@@ -211,16 +213,79 @@ builder.Services.AddSingleton(policyMonitoringStore);
 builder.Services.AddSingleton(policyEvidenceStore);
 
 // WhyceChain (Phase 2.0.40+)
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainLedgerStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainBlockStore());
-builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainEventStore());
+var chainLedgerStore = new Whycespace.System.Upstream.WhyceChain.Stores.ChainLedgerStore();
+var chainBlockStore = new Whycespace.System.Upstream.WhyceChain.Stores.ChainBlockStore();
+var chainEventStore = new Whycespace.System.Upstream.WhyceChain.Stores.ChainEventStore();
+builder.Services.AddSingleton(chainLedgerStore);
+builder.Services.AddSingleton(chainBlockStore);
+builder.Services.AddSingleton(chainEventStore);
 builder.Services.AddSingleton(new Whycespace.System.Upstream.WhyceChain.Stores.ChainIndexStore());
+
+// Chain Evidence Gateway (Phase 2.0.49)
+var chainLedgerEngine = new Whycespace.Engines.T0U.WhyceChain.ChainLedgerEngine(chainLedgerStore);
+var evidenceHashEngine = new Whycespace.Engines.T0U.WhyceChain.EvidenceHashEngine();
+var immutableEventLedgerEngine = new Whycespace.Engines.T0U.WhyceChain.ImmutableEventLedgerEngine(chainEventStore);
+var evidenceAnchoringEngine = new Whycespace.Engines.T0U.WhyceChain.EvidenceAnchoringEngine(chainLedgerEngine, evidenceHashEngine, immutableEventLedgerEngine);
+var merkleProofEngine = new Whycespace.Engines.T0U.WhyceChain.MerkleProofEngine();
+var integrityVerificationEngine = new Whycespace.Engines.T0U.WhyceChain.IntegrityVerificationEngine(merkleProofEngine);
+var chainEvidenceGateway = new Whycespace.Platform.WhyceChain.ChainEvidenceGateway(evidenceAnchoringEngine, evidenceHashEngine, integrityVerificationEngine, chainBlockStore);
+builder.Services.AddSingleton(chainEvidenceGateway);
+builder.Services.AddSingleton(integrityVerificationEngine);
 
 // Governance (Phase 2.0.54+)
 var guardianRegistryStore = new Whycespace.System.Upstream.Governance.Stores.GuardianRegistryStore();
 var governanceRoleStore = new Whycespace.System.Upstream.Governance.Stores.GovernanceRoleStore();
+var governanceDelegationStore = new Whycespace.System.Upstream.Governance.Stores.GovernanceDelegationStore();
 builder.Services.AddSingleton(guardianRegistryStore);
 builder.Services.AddSingleton(governanceRoleStore);
+builder.Services.AddSingleton(governanceDelegationStore);
+
+// Guardian Registry v2 (Phase 2.0.54 — GuardianRecord)
+var guardianRecordStore = new Whycespace.System.Upstream.Governance.Stores.GuardianRecordStore();
+var guardianRegistry = new Whycespace.System.Upstream.Governance.Registry.GuardianRegistry(guardianRecordStore);
+builder.Services.AddSingleton<Whycespace.System.Upstream.Governance.Stores.IGuardianRegistryStore>(guardianRecordStore);
+builder.Services.AddSingleton<Whycespace.System.Upstream.Governance.Registry.IGuardianRegistry>(guardianRegistry);
+
+// Governance Proposal Registry (Phase 2.0.57)
+var governanceProposalStore = new Whycespace.System.Upstream.Governance.Proposals.Stores.GovernanceProposalStore();
+var governanceProposalRegistry = new Whycespace.System.Upstream.Governance.Proposals.Registry.GovernanceProposalRegistry(governanceProposalStore);
+builder.Services.AddSingleton<Whycespace.System.Upstream.Governance.Proposals.Stores.IGovernanceProposalStore>(governanceProposalStore);
+builder.Services.AddSingleton<Whycespace.System.Upstream.Governance.Proposals.Registry.IGovernanceProposalRegistry>(governanceProposalRegistry);
+
+// Governance Proposal Type Engine (Phase 2.0.59)
+var governanceProposalTypeStore = new Whycespace.System.Upstream.Governance.Stores.GovernanceProposalTypeStore();
+var governanceProposalTypeEngine = new Whycespace.Engines.T0U.Governance.GovernanceProposalTypeEngine(governanceProposalTypeStore, guardianRegistryStore);
+builder.Services.AddSingleton(governanceProposalTypeStore);
+builder.Services.AddSingleton(governanceProposalTypeEngine);
+
+// Governance Proposal Engine (Phase 2.0.58)
+var governanceProposalEngineStore = new Whycespace.System.Upstream.Governance.Stores.GovernanceProposalStore();
+var governanceProposalEngine = new Whycespace.Engines.T0U.Governance.GovernanceProposalEngine(governanceProposalEngineStore);
+builder.Services.AddSingleton(governanceProposalEngineStore);
+builder.Services.AddSingleton(governanceProposalEngine);
+
+// Governance Domain Scope Engine (Phase 2.0.60)
+var governanceDomainScopeStore = new Whycespace.System.Upstream.Governance.Stores.GovernanceDomainScopeStore();
+var governanceDomainScopeEngine = new Whycespace.Engines.T0U.Governance.GovernanceDomainScopeEngine(governanceDomainScopeStore, guardianRegistryStore);
+builder.Services.AddSingleton(governanceDomainScopeStore);
+builder.Services.AddSingleton(governanceDomainScopeEngine);
+
+// Voting Engine (Phase 2.0.61)
+var governanceVoteStore = new Whycespace.System.Upstream.Governance.Stores.GovernanceVoteStore();
+var votingEngine = new Whycespace.Engines.T0U.Governance.VotingEngine(governanceVoteStore, governanceProposalEngineStore, guardianRegistryStore);
+builder.Services.AddSingleton(governanceVoteStore);
+builder.Services.AddSingleton(votingEngine);
+
+// Governance Emergency Engine (Phase 2.0.66)
+var governanceEmergencyStore = new Whycespace.System.Upstream.Governance.Stores.GovernanceEmergencyStore();
+var governanceEmergencyEngine = new Whycespace.Engines.T0U.Governance.GovernanceEmergencyEngine(governanceEmergencyStore, guardianRegistryStore);
+builder.Services.AddSingleton(governanceEmergencyStore);
+builder.Services.AddSingleton(governanceEmergencyEngine);
+
+// Governance Evidence Recorder (Phase 2.0.67)
+var engineChainEvidenceGateway = new Whycespace.Engines.T0U.WhyceChain.ChainEvidenceGateway(evidenceAnchoringEngine, evidenceHashEngine);
+var governanceEvidenceRecorder = new Whycespace.Engines.T0U.Governance.GovernanceEvidenceRecorder(engineChainEvidenceGateway);
+builder.Services.AddSingleton(governanceEvidenceRecorder);
 
 // WSS Runtime (Phase 2.1.x) — engines bootstrapped in runtime layer
 var wssBootstrapper = new WssRuntimeBootstrapper(eventBus, kafkaBrokers);
@@ -257,6 +322,7 @@ var platformDispatcher = PlatformDispatcherFactory.Create(
     policyEvidenceStore,
     guardianRegistryStore,
     governanceRoleStore,
+    governanceDelegationStore,
     wssBootstrapper);
 builder.Services.AddSingleton<IPlatformDispatcher>(platformDispatcher);
 

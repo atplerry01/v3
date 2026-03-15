@@ -14,6 +14,7 @@ public sealed class VaultCreationEngineTests
             Guid.NewGuid(), Guid.NewGuid().ToString(), "CreateVault",
             "partition-1", new Dictionary<string, object>
             {
+                ["vaultName"] = "Test Vault",
                 ["ownerId"] = Guid.NewGuid().ToString(),
                 ["currency"] = "GBP",
                 ["initialBalance"] = 10000m
@@ -35,6 +36,7 @@ public sealed class VaultCreationEngineTests
             Guid.NewGuid(), Guid.NewGuid().ToString(), "CreateVault",
             "partition-1", new Dictionary<string, object>
             {
+                ["vaultName"] = "Event Test Vault",
                 ["ownerId"] = ownerId,
                 ["currency"] = "USD",
                 ["initialBalance"] = 5000m
@@ -55,6 +57,7 @@ public sealed class VaultCreationEngineTests
             Guid.NewGuid(), Guid.NewGuid().ToString(), "CreateVault",
             "partition-1", new Dictionary<string, object>
             {
+                ["vaultName"] = "Deterministic Vault",
                 ["ownerId"] = Guid.NewGuid().ToString(),
                 ["currency"] = "GBP",
                 ["initialBalance"] = 100m
@@ -74,7 +77,11 @@ public sealed class VaultCreationEngineTests
     {
         var context = new EngineContext(
             Guid.NewGuid(), Guid.NewGuid().ToString(), "CreateVault",
-            "partition-1", new Dictionary<string, object> { ["currency"] = "GBP" });
+            "partition-1", new Dictionary<string, object>
+            {
+                ["vaultName"] = "Test Vault",
+                ["currency"] = "GBP"
+            });
 
         var result1 = await _engine.ExecuteAsync(context);
         var result2 = await _engine.ExecuteAsync(context);

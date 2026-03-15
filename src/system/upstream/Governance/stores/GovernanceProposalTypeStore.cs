@@ -19,6 +19,14 @@ public sealed class GovernanceProposalTypeStore
         return type;
     }
 
+    public void Update(GovernanceProposalType type)
+    {
+        if (!_types.ContainsKey(type.TypeId))
+            throw new KeyNotFoundException($"Proposal type not found: {type.TypeId}");
+
+        _types[type.TypeId] = type;
+    }
+
     public IReadOnlyList<GovernanceProposalType> ListAll()
     {
         return _types.Values.ToList();

@@ -16,6 +16,8 @@ public static class EventTopics
 
     public const string SystemEvents = "whyce.system.events";
 
+    public const string ReplayEvents = "whyce.events.replay";
+
     public static IReadOnlyList<string> All =>
     [
         Commands,
@@ -24,6 +26,7 @@ public static class EventTopics
         ClusterEvents,
         SpvEvents,
         EconomicEvents,
-        SystemEvents
+        SystemEvents,
+        ReplayEvents
     ];
 }

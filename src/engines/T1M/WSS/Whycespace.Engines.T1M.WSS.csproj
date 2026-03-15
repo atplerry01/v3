@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\Whycespace.Shared.csproj" />
     <ProjectReference Include="..\..\..\system\Whycespace.System.csproj" />
-    <ProjectReference Include="..\..\..\system\engine-manifest\Whycespace.System.EngineManifest.csproj" />
+    <ProjectReference Include="..\..\..\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Whycespace.WSS.WorkflowValidation.Tests" />
   </ItemGroup>
 
 </Project>

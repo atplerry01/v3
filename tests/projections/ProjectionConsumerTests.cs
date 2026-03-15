@@ -2,8 +2,7 @@ using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
 using Whycespace.EventIdempotency.Guard;
 using Whycespace.EventIdempotency.Registry;
-using Whycespace.Projections.Consumers;
-using Whycespace.Projections.Engine;
+using Whycespace.Projections.Contracts;
 using Whycespace.Projections.Registry;
 
 namespace Whycespace.Projections.Tests;
@@ -11,15 +10,13 @@ namespace Whycespace.Projections.Tests;
 public sealed class ProjectionConsumerTests
 {
     [Fact]
-    public async Task ConsumeAsync_ProcessesEvent()
+    public async Task RegistryResolveWithGuard_ProcessesEvent()
     {
         var registry = new ProjectionRegistry();
         var projection = new CountingProjection("Counter", ["TestEvent"]);
         registry.Register(projection);
 
-        var engine = new ProjectionEngine(registry);
         var guard = new EventProcessingGuard(new EventDeduplicationRegistry());
-        var consumer = new ProjectionEventConsumer(engine, guard);
 
         var envelope = new EventEnvelope(
             Guid.NewGuid(),
@@ -29,21 +26,24 @@ public sealed class ProjectionConsumerTests
             new PartitionKey("key-1"),
             Timestamp.Now());
 
-        await consumer.ConsumeAsync(envelope);
+        if (guard.ShouldProcess(envelope))
+        {
+            var projections = registry.Resolve(envelope.EventType);
+            foreach (var p in projections)
+                await p.HandleAsync(envelope);
+        }
 
         Assert.Equal(1, projection.HandleCount);
     }
 
     [Fact]
-    public async Task ConsumeAsync_DeduplicatesSameEvent()
+    public async Task RegistryResolveWithGuard_DeduplicatesSameEvent()
     {
         var registry = new ProjectionRegistry();
         var projection = new CountingProjection("Counter", ["TestEvent"]);
         registry.Register(projection);
 
-        var engine = new ProjectionEngine(registry);
         var guard = new EventProcessingGuard(new EventDeduplicationRegistry());
-        var consumer = new ProjectionEventConsumer(engine, guard);
 
         var eventId = Guid.NewGuid();
         var envelope = new EventEnvelope(
@@ -54,8 +54,15 @@ public sealed class ProjectionConsumerTests
             new PartitionKey("key-1"),
             Timestamp.Now());
 
-        await consumer.ConsumeAsync(envelope);
-        await consumer.ConsumeAsync(envelope);
+        for (var i = 0; i < 2; i++)
+        {
+            if (guard.ShouldProcess(envelope))
+            {
+                var projections = registry.Resolve(envelope.EventType);
+                foreach (var p in projections)
+                    await p.HandleAsync(envelope);
+            }
+        }
 
         Assert.Equal(1, projection.HandleCount);
     }

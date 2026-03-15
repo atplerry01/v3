@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\runtime\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
+    <ProjectReference Include="..\..\src\runtime\event-fabric\Whycespace.EventFabric.csproj" />
   </ItemGroup>
 
 </Project>

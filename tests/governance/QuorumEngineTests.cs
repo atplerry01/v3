@@ -1,147 +1,316 @@
 using Whycespace.Engines.T0U.Governance;
-using Whycespace.System.Upstream.Governance.Models;
-using Whycespace.System.Upstream.Governance.Stores;
-using Whycespace.System.WhyceID.Aggregates;
-using Whycespace.System.WhyceID.Models;
-using Whycespace.System.WhyceID.Registry;
+using Whycespace.Engines.T0U.Governance.Commands;
+using Whycespace.Domain.Events.Governance;
 
 namespace Whycespace.Governance.Tests;
 
 public class QuorumEngineTests
 {
-    private readonly IdentityRegistry _identityRegistry = new();
-    private readonly GuardianRegistryStore _guardianStore = new();
-    private readonly GovernanceProposalStore _proposalStore = new();
-    private readonly GovernanceVoteStore _voteStore = new();
-    private readonly GuardianRegistryEngine _guardianEngine;
-    private readonly GovernanceProposalRegistryEngine _registryEngine;
-    private readonly GovernanceProposalEngine _proposalEngine;
-    private readonly VotingEngine _votingEngine;
-    private readonly Guid _identityId;
-
-    public QuorumEngineTests()
+    private static EvaluateQuorumCommand MakeCommand(
+        int totalEligible = 10,
+        int votesCast = 6,
+        int votesApprove = 4,
+        int votesReject = 1,
+        int votesAbstain = 1,
+        decimal requiredParticipation = 50m,
+        decimal requiredApproval = 50m)
     {
-        _guardianEngine = new GuardianRegistryEngine(_guardianStore, _identityRegistry);
-        _registryEngine = new GovernanceProposalRegistryEngine(_proposalStore, _guardianStore);
-        _proposalEngine = new GovernanceProposalEngine(_proposalStore);
-        _votingEngine = new VotingEngine(_voteStore, _proposalStore, _guardianStore);
-
-        _identityId = Guid.NewGuid();
-        _identityRegistry.Register(new IdentityAggregate(IdentityId.From(_identityId), IdentityType.User));
+        return new EvaluateQuorumCommand(
+            CommandId: Guid.NewGuid(),
+            ProposalId: Guid.NewGuid(),
+            TotalEligibleGuardians: totalEligible,
+            VotesCast: votesCast,
+            VotesApprove: votesApprove,
+            VotesReject: votesReject,
+            VotesAbstain: votesAbstain,
+            RequiredParticipationPercentage: requiredParticipation,
+            RequiredApprovalPercentage: requiredApproval,
+            Timestamp: DateTime.UtcNow);
     }
 
-    private string RegisterActiveGuardian(string id, string name)
-    {
-        _guardianEngine.RegisterGuardian(id, _identityId, name, new List<string>());
-        _guardianEngine.ActivateGuardian(id);
-        return id;
-    }
+    private static QuorumEngine CreateEngine() => new();
 
-    private string CreateVotingProposal(string id)
+    [Fact]
+    public void Execute_SimpleMajority_QuorumMet()
     {
-        _registryEngine.CreateProposal(id, "Proposal", "Desc", ProposalType.Policy, RegisterActiveGuardian($"g-creator-{id}", "Creator"));
-        _proposalEngine.OpenProposal(id);
-        _proposalEngine.StartVoting(id);
-        return id;
+        var engine = CreateEngine();
+        // 6/10 = 60% participation (>= 50%), 4/6 = 66.67% approval (>= 50%)
+        var command = MakeCommand(
+            totalEligible: 10, votesCast: 6,
+            votesApprove: 4, votesReject: 1, votesAbstain: 1,
+            requiredParticipation: 50m, requiredApproval: 50m);
+
+        var (result, evaluatedEvent, outcomeEvent) = engine.Execute(command);
+
+        Assert.True(result.Success);
+        Assert.True(result.QuorumMet);
+        Assert.Equal(60m, result.ParticipationPercentage);
+        Assert.Equal("Quorum met", result.Message);
+        Assert.NotNull(evaluatedEvent);
+        Assert.IsType<GovernanceQuorumMetEvent>(outcomeEvent);
     }
 
     [Fact]
-    public void CalculateQuorumThreshold_60Percent_Of5_Returns3()
+    public void Execute_SuperMajority_QuorumMet()
     {
-        for (var i = 0; i < 5; i++)
-            RegisterActiveGuardian($"g-{i}", $"Guardian{i}");
+        var engine = CreateEngine();
+        // 8/10 = 80% participation (>= 60%), 6/8 = 75% approval (>= 66%)
+        var command = MakeCommand(
+            totalEligible: 10, votesCast: 8,
+            votesApprove: 6, votesReject: 1, votesAbstain: 1,
+            requiredParticipation: 60m, requiredApproval: 66m);
 
-        var engine = new QuorumEngine(_voteStore, _guardianStore, new QuorumConfig(60));
+        var (result, _, outcomeEvent) = engine.Execute(command);
 
-        Assert.Equal(3, engine.CalculateQuorumThreshold());
+        Assert.True(result.QuorumMet);
+        Assert.IsType<GovernanceQuorumMetEvent>(outcomeEvent);
     }
 
     [Fact]
-    public void CalculateQuorumThreshold_RoundsUp()
+    public void Execute_ConstitutionalDecision_QuorumMet()
     {
-        for (var i = 0; i < 3; i++)
-            RegisterActiveGuardian($"g-{i}", $"Guardian{i}");
+        var engine = CreateEngine();
+        // 8/10 = 80% participation (>= 75%), 7/8 = 87.5% approval (>= 75%)
+        var command = MakeCommand(
+            totalEligible: 10, votesCast: 8,
+            votesApprove: 7, votesReject: 1, votesAbstain: 0,
+            requiredParticipation: 75m, requiredApproval: 75m);
 
-        var engine = new QuorumEngine(_voteStore, _guardianStore, new QuorumConfig(60));
+        var (result, _, outcomeEvent) = engine.Execute(command);
 
-        // 60% of 3 = 1.8, ceiling = 2
-        Assert.Equal(2, engine.CalculateQuorumThreshold());
+        Assert.True(result.QuorumMet);
+        Assert.IsType<GovernanceQuorumMetEvent>(outcomeEvent);
     }
 
     [Fact]
-    public void CalculateQuorumThreshold_NoActiveGuardians_ReturnsZero()
+    public void Execute_EmergencyDecision_QuorumMet()
     {
-        var engine = new QuorumEngine(_voteStore, _guardianStore, new QuorumConfig(60));
+        var engine = CreateEngine();
+        // 5/10 = 50% participation (>= 40%), 4/5 = 80% approval (>= 80%)
+        var command = MakeCommand(
+            totalEligible: 10, votesCast: 5,
+            votesApprove: 4, votesReject: 1, votesAbstain: 0,
+            requiredParticipation: 40m, requiredApproval: 80m);
 
-        Assert.Equal(0, engine.CalculateQuorumThreshold());
+        var (result, _, outcomeEvent) = engine.Execute(command);
+
+        Assert.True(result.QuorumMet);
+        Assert.IsType<GovernanceQuorumMetEvent>(outcomeEvent);
     }
 
     [Fact]
-    public void CalculateQuorumThreshold_ExcludesInactive()
+    public void Execute_ParticipationNotMet_QuorumFailed()
     {
-        RegisterActiveGuardian("g-active-1", "Active1");
-        RegisterActiveGuardian("g-active-2", "Active2");
-        _guardianEngine.RegisterGuardian("g-inactive", _identityId, "Inactive", new List<string>());
+        var engine = CreateEngine();
+        // 3/10 = 30% participation (< 50%)
+        var command = MakeCommand(
+            totalEligible: 10, votesCast: 3,
+            votesApprove: 3, votesReject: 0, votesAbstain: 0,
+            requiredParticipation: 50m, requiredApproval: 50m);
 
-        var engine = new QuorumEngine(_voteStore, _guardianStore, new QuorumConfig(60));
+        var (result, evaluatedEvent, outcomeEvent) = engine.Execute(command);
 
-        // 60% of 2 active = 1.2, ceiling = 2
-        Assert.Equal(2, engine.CalculateQuorumThreshold());
+        Assert.True(result.Success);
+        Assert.False(result.QuorumMet);
+        Assert.Contains("Participation", result.Message);
+        Assert.NotNull(evaluatedEvent);
+        Assert.IsType<GovernanceQuorumFailedEvent>(outcomeEvent);
+        var failed = (GovernanceQuorumFailedEvent)outcomeEvent;
+        Assert.Contains("Participation", failed.FailureReason);
     }
 
     [Fact]
-    public void CheckQuorum_Met_ReturnsTrue()
+    public void Execute_ApprovalNotMet_QuorumFailed()
     {
-        var g1 = RegisterActiveGuardian("g-q1", "G1");
-        var g2 = RegisterActiveGuardian("g-q2", "G2");
-        RegisterActiveGuardian("g-q3", "G3");
+        var engine = CreateEngine();
+        // 8/10 = 80% participation (>= 50%), 2/8 = 25% approval (< 50%)
+        var command = MakeCommand(
+            totalEligible: 10, votesCast: 8,
+            votesApprove: 2, votesReject: 5, votesAbstain: 1,
+            requiredParticipation: 50m, requiredApproval: 50m);
 
-        var proposalId = CreateVotingProposal("p-quorum");
+        var (result, _, outcomeEvent) = engine.Execute(command);
 
-        _votingEngine.CastVote("v-1", proposalId, g1, VoteType.Approve);
-        _votingEngine.CastVote("v-2", proposalId, g2, VoteType.Reject);
-
-        // threshold for active guardians depends on total active count
-        // We have 3 original + 1 creator = at least 4 active. Let's use a low threshold.
-        var engine = new QuorumEngine(_voteStore, _guardianStore, new QuorumConfig(30));
-
-        Assert.True(engine.CheckQuorum(proposalId));
+        Assert.False(result.QuorumMet);
+        Assert.IsType<GovernanceQuorumFailedEvent>(outcomeEvent);
+        var failed = (GovernanceQuorumFailedEvent)outcomeEvent;
+        Assert.Contains("Approval", failed.FailureReason);
     }
 
     [Fact]
-    public void CheckQuorum_NotMet_ReturnsFalse()
+    public void Execute_BothThresholdsNotMet_ReportsBothReasons()
     {
-        RegisterActiveGuardian("g-nm1", "G1");
-        RegisterActiveGuardian("g-nm2", "G2");
-        RegisterActiveGuardian("g-nm3", "G3");
-        RegisterActiveGuardian("g-nm4", "G4");
-        RegisterActiveGuardian("g-nm5", "G5");
+        var engine = CreateEngine();
+        // 3/10 = 30% participation (< 50%), 1/3 = 33.33% approval (< 50%)
+        var command = MakeCommand(
+            totalEligible: 10, votesCast: 3,
+            votesApprove: 1, votesReject: 1, votesAbstain: 1,
+            requiredParticipation: 50m, requiredApproval: 50m);
 
-        var proposalId = CreateVotingProposal("p-noquorum");
+        var (result, _, outcomeEvent) = engine.Execute(command);
 
-        _votingEngine.CastVote("v-1", proposalId, "g-nm1", VoteType.Approve);
+        Assert.False(result.QuorumMet);
+        var failed = (GovernanceQuorumFailedEvent)outcomeEvent;
+        Assert.Contains("Participation", failed.FailureReason);
+        Assert.Contains("Approval", failed.FailureReason);
+    }
 
-        var engine = new QuorumEngine(_voteStore, _guardianStore, new QuorumConfig(60));
+    // --- Validation tests ---
 
-        Assert.False(engine.CheckQuorum(proposalId));
+    [Fact]
+    public void Execute_ZeroEligibleGuardians_ReturnsFailure()
+    {
+        var engine = CreateEngine();
+        var command = MakeCommand(totalEligible: 0);
+
+        var (result, _, _) = engine.Execute(command);
+
+        Assert.False(result.Success);
+        Assert.Contains("greater than zero", result.Message);
     }
 
     [Fact]
-    public void CheckQuorum_ConfigurableThreshold()
+    public void Execute_NegativeVoteCounts_ReturnsFailure()
     {
-        var g1 = RegisterActiveGuardian("g-ct1", "G1");
-        RegisterActiveGuardian("g-ct2", "G2");
+        var engine = CreateEngine();
+        var command = MakeCommand(votesApprove: -1, votesCast: 5, votesReject: 5, votesAbstain: 1);
 
-        var proposalId = CreateVotingProposal("p-config");
+        var (result, _, _) = engine.Execute(command);
 
-        _votingEngine.CastVote("v-1", proposalId, g1, VoteType.Approve);
+        Assert.False(result.Success);
+        Assert.Contains("negative", result.Message);
+    }
 
-        // 50% of 3 active (2 + creator) = 1.5, ceiling = 2. 1 vote < 2 = false
-        var strict = new QuorumEngine(_voteStore, _guardianStore, new QuorumConfig(50));
-        // 25% of 3 active = 0.75, ceiling = 1. 1 vote >= 1 = true
-        var lenient = new QuorumEngine(_voteStore, _guardianStore, new QuorumConfig(25));
+    [Fact]
+    public void Execute_VotesCastExceedsEligible_ReturnsFailure()
+    {
+        var engine = CreateEngine();
+        var command = MakeCommand(totalEligible: 5, votesCast: 6, votesApprove: 4, votesReject: 1, votesAbstain: 1);
 
-        Assert.False(strict.CheckQuorum(proposalId));
-        Assert.True(lenient.CheckQuorum(proposalId));
+        var (result, _, _) = engine.Execute(command);
+
+        Assert.False(result.Success);
+        Assert.Contains("exceed", result.Message);
+    }
+
+    [Fact]
+    public void Execute_VoteBreakdownMismatch_ReturnsFailure()
+    {
+        var engine = CreateEngine();
+        var command = MakeCommand(votesCast: 6, votesApprove: 4, votesReject: 1, votesAbstain: 0);
+
+        var (result, _, _) = engine.Execute(command);
+
+        Assert.False(result.Success);
+        Assert.Contains("breakdown", result.Message);
+    }
+
+    // --- Event field tests ---
+
+    [Fact]
+    public void Execute_EvaluatedEvent_ContainsCorrectFields()
+    {
+        var engine = CreateEngine();
+        var command = MakeCommand();
+
+        var (_, evaluatedEvent, _) = engine.Execute(command);
+
+        Assert.NotNull(evaluatedEvent);
+        Assert.Equal(command.ProposalId, evaluatedEvent.ProposalId);
+        Assert.Equal(command.TotalEligibleGuardians, evaluatedEvent.TotalEligibleGuardians);
+        Assert.Equal(command.VotesCast, evaluatedEvent.VotesCast);
+        Assert.Equal(command.VotesApprove, evaluatedEvent.VotesApprove);
+        Assert.Equal(command.VotesReject, evaluatedEvent.VotesReject);
+        Assert.Equal(command.VotesAbstain, evaluatedEvent.VotesAbstain);
+        Assert.NotEqual(Guid.Empty, evaluatedEvent.EventId);
+    }
+
+    [Fact]
+    public void Execute_CorrectPercentageCalculation()
+    {
+        var engine = CreateEngine();
+        // 7/10 = 70% participation, 5/7 = 71.43% approval
+        var command = MakeCommand(
+            totalEligible: 10, votesCast: 7,
+            votesApprove: 5, votesReject: 1, votesAbstain: 1,
+            requiredParticipation: 50m, requiredApproval: 50m);
+
+        var (result, evaluatedEvent, _) = engine.Execute(command);
+
+        Assert.Equal(70m, result.ParticipationPercentage);
+        Assert.True(Math.Abs(71.4285714285714285714285714m - result.ApprovalPercentage) < 0.01m);
+        Assert.NotNull(evaluatedEvent);
+        Assert.Equal(result.ParticipationPercentage, evaluatedEvent.ParticipationPercentage);
+        Assert.Equal(result.ApprovalPercentage, evaluatedEvent.ApprovalPercentage);
+    }
+
+    // --- Concurrency tests ---
+
+    [Fact]
+    public void Execute_ConcurrentEvaluations_AllDeterministic()
+    {
+        var engine = CreateEngine();
+        var commands = Enumerable.Range(0, 100).Select(i => MakeCommand(
+            totalEligible: 10, votesCast: 6,
+            votesApprove: 4, votesReject: 1, votesAbstain: 1,
+            requiredParticipation: 50m, requiredApproval: 50m)).ToList();
+
+        var results = new global::System.Collections.Concurrent.ConcurrentBag<bool>();
+
+        Parallel.ForEach(commands, cmd =>
+        {
+            var (result, _, _) = engine.Execute(cmd);
+            results.Add(result.QuorumMet);
+        });
+
+        Assert.Equal(100, results.Count);
+        Assert.All(results, met => Assert.True(met));
+    }
+
+    // --- Architecture tests ---
+
+    [Fact]
+    public void Engine_IsSealed()
+    {
+        Assert.True(typeof(QuorumEngine).IsSealed);
+    }
+
+    [Fact]
+    public void Engine_HasParameterlessConstructor()
+    {
+        var constructors = typeof(QuorumEngine).GetConstructors();
+        Assert.Single(constructors);
+        Assert.Empty(constructors[0].GetParameters());
+    }
+
+    [Fact]
+    public void Execute_NoPersistenceLogic_ReturnsResult()
+    {
+        var engine = CreateEngine();
+        var command = MakeCommand();
+
+        var (result, evaluatedEvent, outcomeEvent) = engine.Execute(command);
+
+        // Engine returns result and events — it does not persist anything
+        Assert.NotNull(result);
+        Assert.NotNull(evaluatedEvent);
+        Assert.NotNull(outcomeEvent);
+    }
+
+    [Fact]
+    public void Execute_ZeroVotesCast_ZeroApprovalPercentage()
+    {
+        var engine = CreateEngine();
+        var command = MakeCommand(
+            totalEligible: 10, votesCast: 0,
+            votesApprove: 0, votesReject: 0, votesAbstain: 0,
+            requiredParticipation: 50m, requiredApproval: 50m);
+
+        var (result, _, outcomeEvent) = engine.Execute(command);
+
+        Assert.Equal(0m, result.ParticipationPercentage);
+        Assert.Equal(0m, result.ApprovalPercentage);
+        Assert.False(result.QuorumMet);
+        Assert.IsType<GovernanceQuorumFailedEvent>(outcomeEvent);
     }
 }

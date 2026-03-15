@@ -1,11 +1,10 @@
 namespace Whycespace.Engines.T1M.WSS.Runtime;
 
-using Whycespace.System.Midstream.WSS.Models;
-
+/// <summary>
+/// Contract for stateless retry policy evaluation.
+/// Evaluates retry eligibility and calculates delays — does not manage retry state.
+/// </summary>
 public interface IWorkflowRetryPolicyEngine
 {
-    RetryDecision EvaluateRetryPolicy(WorkflowFailurePolicy policy, int currentRetryCount);
-    void RegisterRetryAttempt(string instanceId, string stepId);
-    int GetRetryCount(string instanceId, string stepId);
-    void ResetRetryCount(string instanceId, string stepId);
+    WorkflowRetryPolicyResult EvaluateRetryPolicy(WorkflowRetryPolicyCommand command);
 }

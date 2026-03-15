@@ -3,18 +3,18 @@ using OpenTelemetry.Trace;
 using Serilog;
 using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
 using Whycespace.FoundationHost.Workers;
-using Whycespace.EngineManifest.Loader;
+using Whycespace.Runtime.EngineManifest.Loader;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Events;
 using Whycespace.Runtime.Observability;
 using Whycespace.Runtime.Partitions;
 using Whycespace.Runtime.Persistence;
-using Whycespace.Projections.Consumers;
-using Whycespace.Projections.Engine;
-using Whycespace.Projections.Projections;
+using Whycespace.Projections.Core.Economics;
+using Whycespace.Projections.Clusters.Mobility;
+using Whycespace.Projections.Clusters.Property;
 using Whycespace.Projections.Queries;
 using Whycespace.Projections.Registry;
-using Whycespace.Projections.Storage;
+using Whycespace.ProjectionRuntime.Storage;
 using Whycespace.EventIdempotency.Guard;
 using Whycespace.EventIdempotency.Registry;
 using Whycespace.Runtime.Registry;
@@ -22,7 +22,6 @@ using Whycespace.Runtime.Reliability;
 using Whycespace.Runtime.Workflow;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Runtime;
-using IProjection = Whycespace.Projections.Engine.IProjection;
 using Whycespace.System.Midstream.WSS.Kafka;
 using Whycespace.System.Midstream.WSS.Mapping;
 using Whycespace.System.Midstream.WSS.Orchestration;
@@ -165,13 +164,9 @@ try
     projectionRegistry.Register(new RevenueProjection(projectionStore));
     builder.Services.AddSingleton<IProjectionRegistry>(projectionRegistry);
 
-    var projectionEngine = new ProjectionEngine(projectionRegistry);
-    builder.Services.AddSingleton(projectionEngine);
-
     var deduplicationRegistry = new EventDeduplicationRegistry();
     var processingGuard = new EventProcessingGuard(deduplicationRegistry);
-    var projectionConsumer = new ProjectionEventConsumer(projectionEngine, processingGuard);
-    builder.Services.AddSingleton(projectionConsumer);
+    builder.Services.AddSingleton(processingGuard);
 
     var projectionQueryService = new ProjectionQueryService(projectionStore);
     builder.Services.AddSingleton(projectionQueryService);
@@ -186,7 +181,7 @@ try
     var projectionCheckpointStore = new ProjectionCheckpointStore();
     builder.Services.AddSingleton(projectionCheckpointStore);
 
-    var projectionRebuildEngine = new ProjectionRebuildEngine(eventLogReader, projectionEngine, projectionResetService, projectionCheckpointStore);
+    var projectionRebuildEngine = new ProjectionRebuildEngine(eventLogReader, projectionRegistry, projectionResetService, projectionCheckpointStore);
     builder.Services.AddSingleton(projectionRebuildEngine);
 
     var projectionReplayController = new ProjectionReplayController(projectionRebuildEngine, projectionResetService, projectionRegistry);

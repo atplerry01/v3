@@ -4,7 +4,10 @@ public enum WorkflowInstanceStatus
 {
     Created = 0,
     Running = 1,
-    Completed = 2,
-    Failed = 3,
-    Cancelled = 4
+    Waiting = 2,
+    Retrying = 3,
+    Completed = 4,
+    Failed = 5,
+    Terminated = 6,
+    Cancelled = 7
 }

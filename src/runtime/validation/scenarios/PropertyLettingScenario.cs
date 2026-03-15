@@ -7,7 +7,7 @@ using Whycespace.Engines.T2E.Core.Revenue;
 using Whycespace.Engines.T2E.Core.Capital;
 using Whycespace.RuntimeValidation.Models;
 using Whycespace.RuntimeValidation.Reports;
-using System.Diagnostics;
+using global::System.Diagnostics;
 
 public sealed class PropertyLettingScenario
 {

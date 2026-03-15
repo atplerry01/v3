@@ -102,7 +102,6 @@ public class IdentityPolicyAdapterTests
         Assert.Equal(identityId, context.IdentityId);
         Assert.Equal(2, context.Roles.Count);
         Assert.Equal(75, context.TrustScore);
-        Assert.True(context.Verified);
-        Assert.False(context.Revoked);
+        Assert.Equal(IdentityStatus.Verified, context.IdentityStatus);
     }
 }

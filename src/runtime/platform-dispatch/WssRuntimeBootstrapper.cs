@@ -59,6 +59,7 @@ public sealed class WssRuntimeBootstrapper
             WorkflowStateStore,
             WorkflowEventRouter,
             RetryPolicyEngine,
+            RetryStore,
             TimeoutEngine,
             graphEngine);
     }

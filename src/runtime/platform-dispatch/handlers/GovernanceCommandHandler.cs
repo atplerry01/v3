@@ -1,5 +1,6 @@
 using Whycespace.Contracts.Runtime;
 using Whycespace.Engines.T0U.Governance;
+using Whycespace.System.Upstream.Governance.Models;
 using Whycespace.System.Upstream.Governance.Stores;
 using Whycespace.System.WhyceID.Registry;
 
@@ -9,15 +10,18 @@ public sealed class GovernanceCommandHandler
 {
     private readonly GuardianRegistryStore _guardianRegistryStore;
     private readonly GovernanceRoleStore _governanceRoleStore;
+    private readonly GovernanceDelegationStore _delegationStore;
     private readonly IdentityRegistry _identityRegistry;
 
     public GovernanceCommandHandler(
         GuardianRegistryStore guardianRegistryStore,
         GovernanceRoleStore governanceRoleStore,
+        GovernanceDelegationStore delegationStore,
         IdentityRegistry identityRegistry)
     {
         _guardianRegistryStore = guardianRegistryStore;
         _governanceRoleStore = governanceRoleStore;
+        _delegationStore = delegationStore;
         _identityRegistry = identityRegistry;
     }
 
@@ -34,6 +38,10 @@ public sealed class GovernanceCommandHandler
             "governance.role.assign" => Task.FromResult(HandleRoleAssign(payload)),
             "governance.role.revoke" => Task.FromResult(HandleRoleRevoke(payload)),
             "governance.role.getGuardianRoles" => Task.FromResult(HandleGetGuardianRoles(payload)),
+            "governance.delegation.create" => Task.FromResult(HandleDelegationCreate(payload)),
+            "governance.delegation.revoke" => Task.FromResult(HandleDelegationRevoke(payload)),
+            "governance.delegation.get" => Task.FromResult(HandleDelegationGet(payload)),
+            "governance.delegation.listByGuardian" => Task.FromResult(HandleDelegationListByGuardian(payload)),
             _ => Task.FromResult(DispatchResult.Fail($"Unknown governance command: {command}"))
         };
     }
@@ -101,14 +109,13 @@ public sealed class GovernanceCommandHandler
 
     private DispatchResult HandleRoleCreate(Dictionary<string, object> payload)
     {
-        var engine = new GovernanceRoleEngine(_governanceRoleStore, _guardianRegistryStore);
-
         var roleId = (string)payload["roleId"];
         var name = (string)payload["name"];
         var description = (string)payload["description"];
         var permissions = (List<string>)payload["permissions"];
 
-        var role = engine.CreateRole(roleId, name, description, permissions);
+        var role = new GovernanceRole(roleId, name, description, permissions);
+        _governanceRoleStore.AddRole(role);
 
         return DispatchResult.Ok(new Dictionary<string, object>
         {
@@ -121,66 +128,155 @@ public sealed class GovernanceCommandHandler
 
     private DispatchResult HandleRoleAssign(Dictionary<string, object> payload)
     {
-        var engine = new GovernanceRoleEngine(_governanceRoleStore, _guardianRegistryStore);
-
         var guardianId = (string)payload["guardianId"];
         var roleId = (string)payload["roleId"];
 
-        engine.AssignRole(guardianId, roleId);
-        var roles = engine.GetGuardianRoles(guardianId);
+        _governanceRoleStore.AssignRole(guardianId, roleId);
+        var roleIds = _governanceRoleStore.GetGuardianRoleIds(guardianId);
 
         return DispatchResult.Ok(new Dictionary<string, object>
         {
             ["guardianId"] = guardianId,
-            ["roles"] = roles.Select(r => new Dictionary<string, object>
+            ["roles"] = roleIds.Select(id =>
             {
-                ["RoleId"] = r.RoleId,
-                ["Name"] = r.Name,
-                ["Description"] = r.Description,
-                ["Permissions"] = r.Permissions
+                var r = _governanceRoleStore.GetRole(id);
+                return new Dictionary<string, object>
+                {
+                    ["RoleId"] = r?.RoleId ?? id,
+                    ["Name"] = r?.Name ?? id,
+                    ["Description"] = r?.Description ?? "",
+                    ["Permissions"] = (object)(r?.Permissions ?? (IReadOnlyList<string>)Array.Empty<string>())
+                };
             }).ToList()
         });
     }
 
     private DispatchResult HandleRoleRevoke(Dictionary<string, object> payload)
     {
-        var engine = new GovernanceRoleEngine(_governanceRoleStore, _guardianRegistryStore);
-
         var guardianId = (string)payload["guardianId"];
         var roleId = (string)payload["roleId"];
 
-        engine.RevokeRole(guardianId, roleId);
-        var roles = engine.GetGuardianRoles(guardianId);
+        _governanceRoleStore.RevokeRole(guardianId, roleId);
+        var roleIds = _governanceRoleStore.GetGuardianRoleIds(guardianId);
 
         return DispatchResult.Ok(new Dictionary<string, object>
         {
             ["guardianId"] = guardianId,
-            ["roles"] = roles.Select(r => new Dictionary<string, object>
+            ["roles"] = roleIds.Select(id =>
             {
-                ["RoleId"] = r.RoleId,
-                ["Name"] = r.Name,
-                ["Description"] = r.Description,
-                ["Permissions"] = r.Permissions
+                var r = _governanceRoleStore.GetRole(id);
+                return new Dictionary<string, object>
+                {
+                    ["RoleId"] = r?.RoleId ?? id,
+                    ["Name"] = r?.Name ?? id,
+                    ["Description"] = r?.Description ?? "",
+                    ["Permissions"] = (object)(r?.Permissions ?? (IReadOnlyList<string>)Array.Empty<string>())
+                };
             }).ToList()
         });
     }
 
     private DispatchResult HandleGetGuardianRoles(Dictionary<string, object> payload)
     {
-        var engine = new GovernanceRoleEngine(_governanceRoleStore, _guardianRegistryStore);
-
         var guardianId = (string)payload["guardianId"];
-        var roles = engine.GetGuardianRoles(guardianId);
+        var roleIds = _governanceRoleStore.GetGuardianRoleIds(guardianId);
 
         return DispatchResult.Ok(new Dictionary<string, object>
         {
             ["guardianId"] = guardianId,
-            ["roles"] = roles.Select(r => new Dictionary<string, object>
+            ["roles"] = roleIds.Select(id =>
             {
-                ["RoleId"] = r.RoleId,
-                ["Name"] = r.Name,
-                ["Description"] = r.Description,
-                ["Permissions"] = r.Permissions
+                var r = _governanceRoleStore.GetRole(id);
+                return new Dictionary<string, object>
+                {
+                    ["RoleId"] = r?.RoleId ?? id,
+                    ["Name"] = r?.Name ?? id,
+                    ["Description"] = r?.Description ?? "",
+                    ["Permissions"] = (object)(r?.Permissions ?? (IReadOnlyList<string>)Array.Empty<string>())
+                };
+            }).ToList()
+        });
+    }
+
+    private DispatchResult HandleDelegationCreate(Dictionary<string, object> payload)
+    {
+        var engine = new GovernanceDelegationEngine(_delegationStore, _guardianRegistryStore, _governanceRoleStore);
+
+        var delegationId = (string)payload["delegationId"];
+        var fromGuardian = (string)payload["fromGuardian"];
+        var toGuardian = (string)payload["toGuardian"];
+        var roleScope = (string)payload["roleScope"];
+        var startTime = (DateTime)payload["startTime"];
+        var endTime = (DateTime)payload["endTime"];
+
+        var delegation = engine.CreateDelegation(delegationId, fromGuardian, toGuardian, roleScope, startTime, endTime);
+
+        return DispatchResult.Ok(new Dictionary<string, object>
+        {
+            ["DelegationId"] = delegation.DelegationId,
+            ["FromGuardian"] = delegation.FromGuardian,
+            ["ToGuardian"] = delegation.ToGuardian,
+            ["RoleScope"] = delegation.RoleScope,
+            ["StartTime"] = delegation.StartTime,
+            ["EndTime"] = delegation.EndTime,
+            ["Status"] = delegation.Status.ToString()
+        });
+    }
+
+    private DispatchResult HandleDelegationRevoke(Dictionary<string, object> payload)
+    {
+        var engine = new GovernanceDelegationEngine(_delegationStore, _guardianRegistryStore, _governanceRoleStore);
+
+        var delegationId = (string)payload["delegationId"];
+        var delegation = engine.RevokeDelegation(delegationId);
+
+        return DispatchResult.Ok(new Dictionary<string, object>
+        {
+            ["DelegationId"] = delegation.DelegationId,
+            ["FromGuardian"] = delegation.FromGuardian,
+            ["ToGuardian"] = delegation.ToGuardian,
+            ["RoleScope"] = delegation.RoleScope,
+            ["Status"] = delegation.Status.ToString()
+        });
+    }
+
+    private DispatchResult HandleDelegationGet(Dictionary<string, object> payload)
+    {
+        var delegationId = (string)payload["delegationId"];
+        var delegation = _delegationStore.Get(delegationId);
+
+        if (delegation is null)
+            return DispatchResult.Fail($"Delegation not found: {delegationId}");
+
+        return DispatchResult.Ok(new Dictionary<string, object>
+        {
+            ["DelegationId"] = delegation.DelegationId,
+            ["FromGuardian"] = delegation.FromGuardian,
+            ["ToGuardian"] = delegation.ToGuardian,
+            ["RoleScope"] = delegation.RoleScope,
+            ["StartTime"] = delegation.StartTime,
+            ["EndTime"] = delegation.EndTime,
+            ["Status"] = delegation.Status.ToString()
+        });
+    }
+
+    private DispatchResult HandleDelegationListByGuardian(Dictionary<string, object> payload)
+    {
+        var guardianId = (string)payload["guardianId"];
+        var delegations = _delegationStore.GetByGuardian(guardianId);
+
+        return DispatchResult.Ok(new Dictionary<string, object>
+        {
+            ["guardianId"] = guardianId,
+            ["delegations"] = delegations.Select(d => new Dictionary<string, object>
+            {
+                ["DelegationId"] = d.DelegationId,
+                ["FromGuardian"] = d.FromGuardian,
+                ["ToGuardian"] = d.ToGuardian,
+                ["RoleScope"] = d.RoleScope,
+                ["StartTime"] = d.StartTime,
+                ["EndTime"] = d.EndTime,
+                ["Status"] = d.Status.ToString()
             }).ToList()
         });
     }

@@ -11,4 +11,10 @@ public interface IWorkflowGraphEngine
     IReadOnlyList<string> GetNextSteps(WorkflowGraph graph, string currentStep);
 
     IReadOnlyList<string> GetStartSteps(WorkflowGraph graph);
+
+    IReadOnlyList<string> ComputeExecutionOrder(WorkflowGraph graph);
+
+    IReadOnlyList<IReadOnlyList<string>> ComputeParallelGroups(WorkflowGraph graph);
+
+    WorkflowGraphResult BuildExecutionGraph(WorkflowGraphCommand command);
 }

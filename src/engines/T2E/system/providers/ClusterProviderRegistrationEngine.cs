@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T2E.System.Providers;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("ClusterProviderRegistration", EngineTier.T2E, EngineKind.Mutation, "ProviderRegistrationRequest", typeof(EngineEvent))]
 public sealed class ClusterProviderRegistrationEngine : IEngine

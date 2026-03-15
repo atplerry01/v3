@@ -21,6 +21,34 @@ public sealed class GovernanceVoteStore
         _votes[vote.VoteId] = vote;
     }
 
+    public bool Withdraw(string voteId, string proposalId, string guardianId)
+    {
+        if (!_votes.TryRemove(voteId, out _))
+            return false;
+
+        var voters = _proposalVoters.GetOrAdd(proposalId, _ => new HashSet<string>());
+        lock (voters)
+        {
+            voters.Remove(guardianId);
+        }
+
+        return true;
+    }
+
+    public GovernanceVote? GetByGuardianAndProposal(string guardianId, string proposalId)
+    {
+        return _votes.Values.FirstOrDefault(v => v.GuardianId == guardianId && v.ProposalId == proposalId);
+    }
+
+    public bool HasVoted(string guardianId, string proposalId)
+    {
+        var voters = _proposalVoters.GetOrAdd(proposalId, _ => new HashSet<string>());
+        lock (voters)
+        {
+            return voters.Contains(guardianId);
+        }
+    }
+
     public IReadOnlyList<GovernanceVote> GetByProposal(string proposalId)
     {
         return _votes.Values

@@ -1,4 +1,4 @@
-using Whycespace.Projections.Storage;
+using Whycespace.ProjectionRuntime.Storage;
 
 namespace Whycespace.Projections.Queries;
 

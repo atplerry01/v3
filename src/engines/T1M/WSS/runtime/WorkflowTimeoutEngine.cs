@@ -1,9 +1,11 @@
 namespace Whycespace.Engines.T1M.WSS.Runtime;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 using Whycespace.Engines.T1M.WSS.Stores;
+using Whycespace.Engines.T1M.WSS.Timeout;
+using Whycespace.Domain.Core.Workflows;
 using Whycespace.System.Midstream.WSS.Models;
 
 [EngineManifest("WorkflowTimeoutEngine", EngineTier.T1M, EngineKind.Decision, "WorkflowTimeoutRequest", typeof(EngineEvent))]
@@ -24,12 +26,13 @@ public sealed class WorkflowTimeoutEngine : IEngine, IWorkflowTimeoutEngine
 
         return action switch
         {
+            "evaluate" => HandleEvaluate(context),
             "registerStep" => HandleRegisterStep(context),
             "registerWorkflow" => HandleRegisterWorkflow(context),
             "checkStep" => HandleCheckStep(context),
             "checkWorkflow" => HandleCheckWorkflow(context),
             "clear" => HandleClear(context),
-            _ => Task.FromResult(EngineResult.Fail($"Unknown action '{action}'. Expected: registerStep, registerWorkflow, checkStep, checkWorkflow, clear"))
+            _ => Task.FromResult(EngineResult.Fail($"Unknown action '{action}'. Expected: evaluate, registerStep, registerWorkflow, checkStep, checkWorkflow, clear"))
         };
     }
 
@@ -78,6 +81,68 @@ public sealed class WorkflowTimeoutEngine : IEngine, IWorkflowTimeoutEngine
         }
 
         return new TimeoutDecision(false, instanceId, stepId, entry.TimeoutDuration, TimeSpan.Zero);
+    }
+
+    /// <summary>
+    /// Stateless, deterministic timeout evaluation.
+    /// Takes a command with step start time, current timestamp, and timeout policy,
+    /// and produces a result indicating whether the timeout threshold was exceeded.
+    /// </summary>
+    public WorkflowTimeoutResult EvaluateTimeout(WorkflowTimeoutCommand command)
+    {
+        var elapsed = command.CurrentTimestamp - command.StepStartedAt;
+        var timedOut = elapsed > command.TimeoutPolicy.TimeoutDuration;
+
+        return WorkflowTimeoutResult.Ok(
+            command.WorkflowInstanceId,
+            command.StepId,
+            timedOut,
+            elapsed,
+            command.TimeoutPolicy.TimeoutDuration,
+            command.CurrentTimestamp);
+    }
+
+    private Task<EngineResult> HandleEvaluate(EngineContext context)
+    {
+        var command = WorkflowTimeoutCommand.FromContextData(context.Data);
+
+        if (string.IsNullOrWhiteSpace(command.WorkflowInstanceId))
+            return Task.FromResult(EngineResult.Fail("Missing workflowInstanceId"));
+
+        if (string.IsNullOrWhiteSpace(command.StepId))
+            return Task.FromResult(EngineResult.Fail("Missing stepId"));
+
+        var result = EvaluateTimeout(command);
+
+        var aggregateId = Guid.TryParse(command.WorkflowInstanceId, out var parsed) ? parsed : Guid.Empty;
+
+        var events = result.TimedOut
+            ? new[]
+            {
+                EngineEvent.Create("WorkflowStepTimedOut", aggregateId,
+                    new Dictionary<string, object>
+                    {
+                        ["workflowInstanceId"] = result.WorkflowInstanceId,
+                        ["stepId"] = result.StepId,
+                        ["elapsedSeconds"] = result.ElapsedTime.TotalSeconds,
+                        ["timeoutThresholdSeconds"] = result.TimeoutThreshold.TotalSeconds,
+                        ["timeoutStrategy"] = command.TimeoutPolicy.TimeoutStrategy.ToString(),
+                        ["evaluatedAt"] = result.EvaluatedAt.ToString("O"),
+                        ["eventVersion"] = 1,
+                        ["topic"] = "whyce.wss.workflow.events"
+                    })
+            }
+            : Array.Empty<EngineEvent>();
+
+        return Task.FromResult(EngineResult.Ok(events, new Dictionary<string, object>
+        {
+            ["workflowInstanceId"] = result.WorkflowInstanceId,
+            ["stepId"] = result.StepId,
+            ["timedOut"] = result.TimedOut,
+            ["elapsedSeconds"] = result.ElapsedTime.TotalSeconds,
+            ["timeoutThresholdSeconds"] = result.TimeoutThreshold.TotalSeconds,
+            ["evaluatedAt"] = result.EvaluatedAt.ToString("O")
+        }));
     }
 
     private Task<EngineResult> HandleRegisterStep(EngineContext context)

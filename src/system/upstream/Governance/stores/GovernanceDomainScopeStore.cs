@@ -25,6 +25,19 @@ public sealed class GovernanceDomainScopeStore
         return _scopes.ContainsKey(scopeId);
     }
 
+    public void DeactivateScope(string scopeId, DateTime deactivatedAt)
+    {
+        if (!_scopes.TryGetValue(scopeId, out var scope))
+            throw new KeyNotFoundException($"Domain scope not found: {scopeId}");
+
+        _scopes[scopeId] = scope with { IsActive = false, DeactivatedAt = deactivatedAt };
+    }
+
+    public IReadOnlyList<GovernanceDomainScope> ListAll()
+    {
+        return _scopes.Values.ToList();
+    }
+
     public void AssignProposalScope(string proposalId, string scopeId)
     {
         if (!_proposalScopes.TryAdd(proposalId, scopeId))

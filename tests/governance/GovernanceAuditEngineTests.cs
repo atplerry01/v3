@@ -19,7 +19,6 @@ public class GovernanceAuditEngineTests
     private readonly GovernanceEvidenceRecorder _recorder;
     private readonly GovernanceProposalRegistryEngine _registryEngine;
     private readonly GovernanceProposalEngine _proposalEngine;
-    private readonly VotingEngine _votingEngine;
 
     public GovernanceAuditEngineTests()
     {
@@ -34,7 +33,6 @@ public class GovernanceAuditEngineTests
         _auditEngine = new GovernanceAuditEngine(_proposalStore, _voteStore, _gateway);
         _registryEngine = new GovernanceProposalRegistryEngine(_proposalStore, _guardianStore);
         _proposalEngine = new GovernanceProposalEngine(_proposalStore);
-        _votingEngine = new VotingEngine(_voteStore, _proposalStore, _guardianStore);
 
         var identityRegistry = new IdentityRegistry();
         var identityId = Guid.NewGuid();
@@ -87,8 +85,10 @@ public class GovernanceAuditEngineTests
         _proposalEngine.OpenProposal("p-v");
         _proposalEngine.StartVoting("p-v");
 
-        var vote1 = _votingEngine.CastVote("v-1", "p-v", "g-alice", VoteType.Approve);
-        var vote2 = _votingEngine.CastVote("v-2", "p-v", "g-bob", VoteType.Reject);
+        var vote1 = new GovernanceVote("v-1", "p-v", "g-alice", VoteType.Approve, 1, DateTime.UtcNow);
+        var vote2 = new GovernanceVote("v-2", "p-v", "g-bob", VoteType.Reject, 1, DateTime.UtcNow);
+        _voteStore.Add(vote1);
+        _voteStore.Add(vote2);
         _recorder.RecordVote(vote1);
         _recorder.RecordVote(vote2);
 
@@ -109,7 +109,7 @@ public class GovernanceAuditEngineTests
         _registryEngine.CreateProposal("p-vnoe", "Title", "Desc", ProposalType.Policy, "g-alice");
         _proposalEngine.OpenProposal("p-vnoe");
         _proposalEngine.StartVoting("p-vnoe");
-        _votingEngine.CastVote("v-noe", "p-vnoe", "g-alice", VoteType.Approve);
+        _voteStore.Add(new GovernanceVote("v-noe", "p-vnoe", "g-alice", VoteType.Approve, 1, DateTime.UtcNow));
 
         var results = _auditEngine.AuditVotes("p-vnoe");
 
@@ -155,7 +155,8 @@ public class GovernanceAuditEngineTests
         _proposalEngine.OpenProposal("p-e2e");
         _proposalEngine.StartVoting("p-e2e");
 
-        var vote = _votingEngine.CastVote("v-e2e", "p-e2e", "g-alice", VoteType.Approve);
+        var vote = new GovernanceVote("v-e2e", "p-e2e", "g-alice", VoteType.Approve, 1, DateTime.UtcNow);
+        _voteStore.Add(vote);
         _recorder.RecordVote(vote);
 
         var decision = new GovernanceDecision("p-e2e", DecisionOutcome.Approved, 1, 0, 0, true);

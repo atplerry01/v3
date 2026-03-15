@@ -47,6 +47,7 @@ public static class PlatformDispatcherFactory
         // Governance stores
         GuardianRegistryStore guardianRegistryStore,
         GovernanceRoleStore governanceRoleStore,
+        GovernanceDelegationStore governanceDelegationStore,
         // WSS bootstrapper
         WssRuntimeBootstrapper wssBootstrapper)
     {
@@ -84,6 +85,7 @@ public static class PlatformDispatcherFactory
         var governanceHandler = new GovernanceCommandHandler(
             guardianRegistryStore,
             governanceRoleStore,
+            governanceDelegationStore,
             identityRegistry);
 
         var wssHandler = new WssCommandHandler(

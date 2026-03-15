@@ -51,7 +51,7 @@ public class GovernanceEvidenceRecorderTests
     public void RecordVote_Succeeds()
     {
         var vote = new GovernanceVote(
-            "v-1", "p-1", "g-alice", VoteType.Approve, DateTime.UtcNow);
+            "v-1", "p-1", "g-alice", VoteType.Approve, 1, DateTime.UtcNow);
 
         var entry = _recorder.RecordVote(vote);
 
@@ -63,7 +63,7 @@ public class GovernanceEvidenceRecorderTests
     public void RecordVote_CanVerify()
     {
         var vote = new GovernanceVote(
-            "v-2", "p-1", "g-bob", VoteType.Reject, DateTime.UtcNow);
+            "v-2", "p-1", "g-bob", VoteType.Reject, 1, DateTime.UtcNow);
 
         _recorder.RecordVote(vote);
 

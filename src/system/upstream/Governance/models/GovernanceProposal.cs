@@ -23,5 +23,6 @@ public enum ProposalStatus
     Voting = 2,
     Approved = 3,
     Rejected = 4,
-    Closed = 5
+    Closed = 5,
+    Cancelled = 6
 }

@@ -9,6 +9,10 @@
   <Folder Name="/src/engines/">
     <Project Path="src/engines/Whycespace.Engines.csproj" />
   </Folder>
+  <Folder Name="/src/engines/T3I/" />
+  <Folder Name="/src/engines/T3I/economic/">
+    <Project Path="src/engines/T3I/economic/Whycespace.Engines.T3I.Economic.csproj" />
+  </Folder>
   <Folder Name="/src/platform/">
     <Project Path="src/platform/Whycespace.Platform.csproj" />
   </Folder>
@@ -87,9 +91,7 @@
   <Folder Name="/src/system/">
     <Project Path="src/system/Whycespace.System.csproj" />
   </Folder>
-  <Folder Name="/src/system/engine-manifest/">
-    <Project Path="src/system/engine-manifest/Whycespace.System.EngineManifest.csproj" />
-  </Folder>
+  <Folder Name="/src/system/upstream/" />
   <Folder Name="/src/system/upstream/whyceid/">
     <Project Path="src/system/upstream/WhyceID/Whycespace.System.WhyceID.csproj" />
   </Folder>
@@ -173,6 +175,7 @@
   <Folder Name="/tests/provider-domain/">
     <Project Path="tests/provider-domain/Whycespace.ProviderDomain.Tests.csproj" />
   </Folder>
+  <Folder Name="/src/domain/core/" />
   <Folder Name="/src/domain/core/economic/">
     <Project Path="src/domain/core/economic/Whycespace.EconomicDomain.csproj" />
   </Folder>
@@ -203,7 +206,38 @@
   <Folder Name="/simulation/">
     <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />
   </Folder>
+  <Folder Name="/infrastructure/" />
   <Folder Name="/infrastructure/host/">
     <Project Path="infrastructure/host/Whycespace.FoundationHost/Whycespace.FoundationHost.csproj" />
+  </Folder>
+  <Folder Name="/tests/whycechain-evidence/">
+    <Project Path="tests/whycechain-evidence/Whycespace.WhyceChain.Evidence.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/whycechain-blocks/">
+    <Project Path="tests/whycechain-blocks/Whycespace.WhyceChainBlocks.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/whycechain-merkle/">
+    <Project Path="tests/whycechain-merkle/Whycespace.WhyceChainMerkle.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/vault-fraud-detection/">
+    <Project Path="tests/vault-fraud-detection/Whycespace.VaultFraudDetection.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/whycechain-anchor/">
+    <Project Path="tests/whycechain-anchor/Whycespace.WhyceChain.Anchor.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/governance-proposals/">
+    <Project Path="tests/governance-proposals/Whycespace.GovernanceProposals.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/governance-guardian/">
+    <Project Path="tests/governance-guardian/Whycespace.GovernanceGuardian.Tests.csproj" />
+  </Folder>
+  <Folder Name="/src/engines/t3i-governance/">
+    <Project Path="src/engines/T3I/Governance/Whycespace.Engines.T3I.Governance.csproj" />
+  </Folder>
+  <Folder Name="/tests/governance-audit/">
+    <Project Path="tests/governance-audit/Whycespace.GovernanceAudit.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/governance-workflow/">
+    <Project Path="tests/governance-workflow/Whycespace.GovernanceWorkflow.Tests.csproj" />
   </Folder>
 </Solution>

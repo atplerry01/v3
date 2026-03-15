@@ -7,60 +7,74 @@ namespace Whycespace.WhyceChain.Tests;
 public class IntegrityVerificationEngineTests
 {
     private readonly ChainBlockStore _blockStore;
-    private readonly ChainLedgerStore _ledgerStore;
     private readonly ChainBlockEngine _blockEngine;
-    private readonly ChainLedgerEngine _ledgerEngine;
     private readonly MerkleProofEngine _merkleEngine;
     private readonly IntegrityVerificationEngine _engine;
 
     public IntegrityVerificationEngineTests()
     {
         _blockStore = new ChainBlockStore();
-        _ledgerStore = new ChainLedgerStore();
         _blockEngine = new ChainBlockEngine(_blockStore);
-        _ledgerEngine = new ChainLedgerEngine(_ledgerStore);
         _merkleEngine = new MerkleProofEngine();
-        _engine = new IntegrityVerificationEngine(_blockStore, _ledgerStore, _merkleEngine);
+        _engine = new IntegrityVerificationEngine(_merkleEngine);
     }
 
     [Fact]
-    public void VerifyChain_ValidChain_ShouldReturnTrue()
+    public void Execute_ValidChain_ShouldReturnTrue()
     {
         var entries = new[] { "entry-1", "entry-2" };
         var merkleRoot = _merkleEngine.BuildTree(entries);
-        _blockEngine.CreateBlock(entries, merkleRoot);
+        var block0 = _blockEngine.CreateBlock(entries, merkleRoot);
 
         var entries2 = new[] { "entry-3" };
         var merkleRoot2 = _merkleEngine.BuildTree(entries2);
-        _blockEngine.CreateBlock(entries2, merkleRoot2);
+        var block1 = _blockEngine.CreateBlock(entries2, merkleRoot2);
 
-        Assert.True(_engine.VerifyChain());
+        var command = new IntegrityVerificationCommand(
+            Array.Empty<ChainLedgerEntry>(),
+            [block0, block1],
+            MerkleProof: null,
+            TraceId: "test",
+            CorrelationId: "test",
+            Timestamp: DateTimeOffset.UtcNow);
+
+        var result = _engine.Execute(command);
+
+        Assert.True(result.BlockChainValid);
+        Assert.True(result.MerkleRootValid);
     }
 
     [Fact]
-    public void VerifyChain_CorruptedBlock_ShouldReturnFalse()
+    public void Execute_CorruptedBlock_ShouldReturnFalse()
     {
         var entries = new[] { "entry-1", "entry-2" };
         var merkleRoot = _merkleEngine.BuildTree(entries);
-        _blockEngine.CreateBlock(entries, merkleRoot);
+        var block0 = _blockEngine.CreateBlock(entries, merkleRoot);
 
-        // Insert a block with wrong merkle root
-        var latest = _blockStore.GetLatestBlock()!;
         var corrupt = new ChainBlock(
             "corrupt",
             1,
-            latest.BlockHash,
+            block0.BlockHash,
             "fake-hash",
             "wrong-merkle-root",
             DateTimeOffset.UtcNow,
             ["entry-3"]);
-        _blockStore.AddBlock(corrupt);
 
-        Assert.False(_engine.VerifyChain());
+        var command = new IntegrityVerificationCommand(
+            Array.Empty<ChainLedgerEntry>(),
+            [block0, corrupt],
+            MerkleProof: null,
+            TraceId: "test",
+            CorrelationId: "test",
+            Timestamp: DateTimeOffset.UtcNow);
+
+        var result = _engine.Execute(command);
+
+        Assert.False(result.MerkleRootValid);
     }
 
     [Fact]
-    public void VerifyBlock_InvalidBlock_ShouldReturnFalse()
+    public void Execute_InvalidBlock_ShouldReturnFalse()
     {
         var corrupt = new ChainBlock(
             "corrupt",
@@ -70,8 +84,18 @@ public class IntegrityVerificationEngineTests
             "wrong-merkle-root",
             DateTimeOffset.UtcNow,
             ["entry-1"]);
-        _blockStore.AddBlock(corrupt);
 
-        Assert.False(_engine.VerifyBlock(0));
+        var command = new IntegrityVerificationCommand(
+            Array.Empty<ChainLedgerEntry>(),
+            [corrupt],
+            MerkleProof: null,
+            TraceId: "test",
+            CorrelationId: "test",
+            Timestamp: DateTimeOffset.UtcNow);
+
+        var result = _engine.Execute(command);
+
+        Assert.False(result.BlockChainValid);
+        Assert.False(result.MerkleRootValid);
     }
 }

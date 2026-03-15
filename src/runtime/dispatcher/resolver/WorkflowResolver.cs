@@ -1,6 +1,6 @@
 namespace Whycespace.RuntimeDispatcher.Resolver;
 
-using System.Collections.Concurrent;
+using global::System.Collections.Concurrent;
 
 public sealed class WorkflowResolver : IWorkflowResolver
 {

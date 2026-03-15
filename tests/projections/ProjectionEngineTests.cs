@@ -1,6 +1,6 @@
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
-using Whycespace.Projections.Engine;
+using Whycespace.Projections.Contracts;
 using Whycespace.Projections.Registry;
 
 namespace Whycespace.Projections.Tests;
@@ -8,13 +8,11 @@ namespace Whycespace.Projections.Tests;
 public sealed class ProjectionEngineTests
 {
     [Fact]
-    public async Task ProcessAsync_DispatchesToMatchingProjection()
+    public async Task Registry_ResolveAndProcess_DispatchesToMatchingProjection()
     {
         var registry = new ProjectionRegistry();
         var projection = new TrackingProjection("Tracker", ["OrderCreated"]);
         registry.Register(projection);
-
-        var engine = new ProjectionEngine(registry);
 
         var envelope = new EventEnvelope(
             Guid.NewGuid(),
@@ -24,19 +22,19 @@ public sealed class ProjectionEngineTests
             new PartitionKey("order-1"),
             Timestamp.Now());
 
-        await engine.ProcessAsync(envelope);
+        var resolved = registry.Resolve(envelope.EventType);
+        foreach (var p in resolved)
+            await p.HandleAsync(envelope);
 
         Assert.Equal(1, projection.HandleCount);
     }
 
     [Fact]
-    public async Task ProcessAsync_IgnoresNonMatchingProjection()
+    public async Task Registry_ResolveAndProcess_IgnoresNonMatchingProjection()
     {
         var registry = new ProjectionRegistry();
         var projection = new TrackingProjection("Tracker", ["OrderCreated"]);
         registry.Register(projection);
-
-        var engine = new ProjectionEngine(registry);
 
         var envelope = new EventEnvelope(
             Guid.NewGuid(),
@@ -46,7 +44,9 @@ public sealed class ProjectionEngineTests
             new PartitionKey("x"),
             Timestamp.Now());
 
-        await engine.ProcessAsync(envelope);
+        var resolved = registry.Resolve(envelope.EventType);
+        foreach (var p in resolved)
+            await p.HandleAsync(envelope);
 
         Assert.Equal(0, projection.HandleCount);
     }

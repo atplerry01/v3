@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T2E.System.Cluster;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("ClusterCreation", EngineTier.T2E, EngineKind.Mutation, "ClusterCreationRequest", typeof(EngineEvent))]
 public sealed class ClusterCreationEngine : IEngine

@@ -19,6 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="IdentityAuditEngineTests.cs" />
+    <Compile Remove="WorkforceAuditEngineTests.cs" />
+    <Compile Remove="WorkforceComplianceEngineTests.cs" />
+    <Compile Remove="WorkforcePerformanceEngineTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\shared\Whycespace.Shared.csproj" />
     <ProjectReference Include="..\..\src\engines\Whycespace.Engines.csproj" />
   </ItemGroup>

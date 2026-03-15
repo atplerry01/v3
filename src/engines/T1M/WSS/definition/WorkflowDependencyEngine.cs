@@ -2,8 +2,8 @@ namespace Whycespace.Engines.T1M.WSS.Definition;
 
 using global::System.Collections.Concurrent;
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("WorkflowDependency", EngineTier.T1M, EngineKind.Decision, "WorkflowDependencyRequest", typeof(EngineEvent))]
 public sealed class WorkflowDependencyEngine : IEngine

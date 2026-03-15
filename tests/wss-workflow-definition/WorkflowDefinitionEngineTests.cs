@@ -1,151 +1,317 @@
-using Whycespace.Contracts.Workflows;
+using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Primitives;
 using Whycespace.Engines.T1M.WSS.Definition;
-using Whycespace.Engines.T1M.WSS.Stores;
-using WfDefinition = Whycespace.System.Midstream.WSS.Models.WorkflowDefinition;
 
 namespace Whycespace.WSS.WorkflowDefinition.Tests;
 
-public class WorkflowDefinitionEngineTests
+public sealed class WorkflowDefinitionEngineTests
 {
-    private readonly WorkflowDefinitionStore _store;
-    private readonly WorkflowDefinitionEngine _engine;
+    private readonly WorkflowDefinitionEngine _engine = new();
 
-    public WorkflowDefinitionEngineTests()
+    private static EngineContext CreateContext(Dictionary<string, object> data)
     {
-        _store = new WorkflowDefinitionStore();
-        _engine = new WorkflowDefinitionEngine(_store);
+        return new EngineContext(
+            Guid.NewGuid(),
+            Guid.NewGuid().ToString(),
+            "DefineWorkflow",
+            new PartitionKey("partition-1"),
+            data);
     }
 
-    private static IReadOnlyList<WorkflowStep> SampleSteps() => new List<WorkflowStep>
+    private static Dictionary<string, object> ValidWorkflowData() => new()
     {
-        new("step-1", "Request", "RideEngine", new List<string> { "step-2" }),
-        new("step-2", "Match", "DriverMatchEngine", new List<string> { "step-3" }),
-        new("step-3", "Complete", "PaymentEngine", new List<string>())
+        ["workflowName"] = "Taxi Ride Request",
+        ["workflowDescription"] = "End-to-end taxi ride flow",
+        ["workflowVersion"] = "1.0.0",
+        ["requestedBy"] = "system-test",
+        ["workflowSteps"] = new List<WorkflowStepInput>
+        {
+            new("step-1", "Request Ride", "RideEngine", new List<string>(), TimeSpan.FromMinutes(5), null),
+            new("step-2", "Match Driver", "DriverMatchEngine", new List<string> { "step-1" }, TimeSpan.FromMinutes(3), null),
+            new("step-3", "Complete Payment", "PaymentEngine", new List<string> { "step-2" }, TimeSpan.FromMinutes(5),
+                new WorkflowRetryPolicyInput(3, TimeSpan.FromSeconds(10)))
+        },
+        ["workflowParameters"] = new List<WorkflowParameterInput>
+        {
+            new("pickupLocation", "string", true),
+            new("destinationLocation", "string", true),
+            new("rideType", "string", false)
+        }
     };
 
-    [Fact]
-    public void RegisterWorkflow_ShouldStoreAndReturn()
-    {
-        var result = _engine.RegisterWorkflowDefinition("wf-1", "Taxi Ride Request", "End-to-end ride flow", "1.0.0", SampleSteps());
+    // ─── Test 1: Valid workflow definition ─────────────────────────────────
 
-        Assert.Equal("wf-1", result.WorkflowId);
-        Assert.Equal("Taxi Ride Request", result.Name);
-        Assert.Equal("End-to-end ride flow", result.Description);
-        Assert.Equal("1.0.0", result.Version);
-        Assert.Equal(3, result.Steps.Count);
-        Assert.True(result.CreatedAt <= DateTimeOffset.UtcNow);
+    [Fact]
+    public async Task ExecuteAsync_ValidWorkflow_ShouldSucceed()
+    {
+        var context = CreateContext(ValidWorkflowData());
+
+        var result = await _engine.ExecuteAsync(context);
+
+        Assert.True(result.Success);
+        Assert.Single(result.Events);
+        Assert.Equal("WorkflowDefinitionCreated", result.Events[0].EventType);
+        Assert.Equal("Taxi Ride Request", result.Output["workflowName"]);
+        Assert.Equal("1.0.0", result.Output["workflowVersion"]);
+        Assert.Equal(3, result.Output["stepCount"]);
+        Assert.Equal(3, result.Output["parameterCount"]);
+        Assert.True(result.Output.ContainsKey("workflowId"));
+    }
+
+    // ─── Test 2: Deterministic workflow ID generation ──────────────────────
+
+    [Fact]
+    public async Task ExecuteAsync_SameInput_ShouldProduceSameWorkflowId()
+    {
+        var data1 = ValidWorkflowData();
+        var data2 = ValidWorkflowData();
+
+        var result1 = await _engine.ExecuteAsync(CreateContext(data1));
+        var result2 = await _engine.ExecuteAsync(CreateContext(data2));
+
+        Assert.True(result1.Success);
+        Assert.True(result2.Success);
+        Assert.Equal(result1.Output["workflowId"], result2.Output["workflowId"]);
     }
 
     [Fact]
-    public void RegisterWorkflow_DuplicateId_ShouldThrow()
+    public void GenerateDeterministicWorkflowId_SameInput_ShouldProduceSameHash()
     {
-        _engine.RegisterWorkflowDefinition("wf-1", "Taxi Ride Request", "Ride flow", "1.0.0", SampleSteps());
-
-        Assert.Throws<InvalidOperationException>(() =>
-            _engine.RegisterWorkflowDefinition("wf-1", "Duplicate", "Should fail", "1.0.0", SampleSteps()));
-    }
-
-    [Fact]
-    public void GetWorkflow_ShouldReturnRegistered()
-    {
-        _engine.RegisterWorkflowDefinition("wf-1", "Taxi Ride Request", "Ride flow", "1.0.0", SampleSteps());
-
-        var result = _engine.GetWorkflowDefinition("wf-1");
-
-        Assert.Equal("wf-1", result.WorkflowId);
-        Assert.Equal("Taxi Ride Request", result.Name);
-    }
-
-    [Fact]
-    public void GetWorkflow_NotFound_ShouldThrow()
-    {
-        Assert.Throws<KeyNotFoundException>(() => _engine.GetWorkflowDefinition("nonexistent"));
-    }
-
-    [Fact]
-    public void ListWorkflows_ShouldReturnAll()
-    {
-        _engine.RegisterWorkflowDefinition("wf-1", "Taxi Ride Request", "Ride flow", "1.0.0", SampleSteps());
-        _engine.RegisterWorkflowDefinition("wf-2", "Property Letting Onboarding", "Letting flow", "1.0.0", SampleSteps());
-        _engine.RegisterWorkflowDefinition("wf-3", "SPV Capital Contribution", "Capital flow", "1.0.0", SampleSteps());
-
-        var results = _engine.ListWorkflowDefinitions();
-
-        Assert.Equal(3, results.Count);
-    }
-
-    [Fact]
-    public void ListWorkflows_Empty_ShouldReturnEmpty()
-    {
-        var results = _engine.ListWorkflowDefinitions();
-
-        Assert.Empty(results);
-    }
-
-    [Fact]
-    public void ValidateWorkflowDefinition_ValidWorkflow_ShouldReturnNoViolations()
-    {
-        var definition = new WfDefinition("wf-1", "Valid Workflow", "Test", "1.0.0", SampleSteps(), DateTimeOffset.UtcNow);
-
-        var violations = _engine.ValidateWorkflowDefinition(definition);
-
-        Assert.Empty(violations);
-    }
-
-    [Fact]
-    public void ValidateWorkflowDefinition_DuplicateStepIds_ShouldDetect()
-    {
-        var steps = new List<WorkflowStep>
+        var steps = new List<WorkflowStepInput>
         {
-            new("step-1", "First", "EngineA", new List<string> { "step-2" }),
-            new("step-1", "Duplicate", "EngineB", new List<string>()),
-            new("step-2", "Second", "EngineC", new List<string>())
+            new("step-1", "Step One", "EngineA", new List<string>(), TimeSpan.FromMinutes(5), null),
+            new("step-2", "Step Two", "EngineB", new List<string> { "step-1" }, TimeSpan.FromMinutes(3), null)
         };
-        var definition = new WfDefinition("wf-1", "Dup Steps", "Test", "1.0.0",steps, DateTimeOffset.UtcNow);
 
-        var violations = _engine.ValidateWorkflowDefinition(definition);
+        var id1 = WorkflowDefinitionEngine.GenerateDeterministicWorkflowId("TestFlow", "1.0.0", steps);
+        var id2 = WorkflowDefinitionEngine.GenerateDeterministicWorkflowId("TestFlow", "1.0.0", steps);
 
-        Assert.Contains(violations, v => v.Contains("Duplicate step ID: 'step-1'"));
+        Assert.Equal(id1, id2);
+        Assert.Equal(64, id1.Length); // SHA256 hex string
     }
 
     [Fact]
-    public void ValidateWorkflowDefinition_InvalidGraphReference_ShouldDetect()
+    public void GenerateDeterministicWorkflowId_DifferentVersion_ShouldProduceDifferentHash()
     {
-        var steps = new List<WorkflowStep>
+        var steps = new List<WorkflowStepInput>
         {
-            new("step-1", "Start", "EngineA", new List<string> { "step-99" }),
-            new("step-2", "End", "EngineB", new List<string>())
+            new("step-1", "Step One", "EngineA", new List<string>(), TimeSpan.FromMinutes(5), null)
         };
-        var definition = new WfDefinition("wf-1", "Bad Ref", "Test", "1.0.0",steps, DateTimeOffset.UtcNow);
 
-        var violations = _engine.ValidateWorkflowDefinition(definition);
+        var id1 = WorkflowDefinitionEngine.GenerateDeterministicWorkflowId("TestFlow", "1.0.0", steps);
+        var id2 = WorkflowDefinitionEngine.GenerateDeterministicWorkflowId("TestFlow", "2.0.0", steps);
 
-        Assert.Contains(violations, v => v.Contains("NextStep 'step-99' does not exist"));
+        Assert.NotEqual(id1, id2);
     }
 
+    // ─── Test 3: Dependency validation ─────────────────────────────────────
+
     [Fact]
-    public void ValidateWorkflowDefinition_CircularDependency_ShouldDetect()
+    public async Task ExecuteAsync_InvalidDependencyReference_ShouldFail()
     {
-        var steps = new List<WorkflowStep>
+        var data = ValidWorkflowData();
+        data["workflowSteps"] = new List<WorkflowStepInput>
         {
-            new("step-1", "First", "EngineA", new List<string> { "step-2" }),
-            new("step-2", "Second", "EngineB", new List<string> { "step-3" }),
-            new("step-3", "Third", "EngineC", new List<string> { "step-1" })
+            new("step-1", "Start", "EngineA", new List<string> { "step-99" }, TimeSpan.FromMinutes(5), null),
+            new("step-2", "End", "EngineB", new List<string>(), TimeSpan.FromMinutes(5), null)
         };
-        var definition = new WfDefinition("wf-1", "Circular", "Test", "1.0.0",steps, DateTimeOffset.UtcNow);
 
-        var violations = _engine.ValidateWorkflowDefinition(definition);
+        var result = await _engine.ExecuteAsync(CreateContext(data));
 
-        Assert.Contains(violations, v => v.Contains("Circular dependency"));
+        Assert.False(result.Success);
+        Assert.Contains("step-99", result.Output["error"] as string);
+        Assert.Contains("does not exist", result.Output["error"] as string);
     }
 
     [Fact]
-    public void ValidateWorkflowDefinition_EmptySteps_ShouldDetect()
+    public async Task ExecuteAsync_CircularDependency_ShouldFail()
     {
-        var definition = new WfDefinition("wf-1", "Empty", "Test", "1.0.0",new List<WorkflowStep>(), DateTimeOffset.UtcNow);
+        var data = ValidWorkflowData();
+        data["workflowSteps"] = new List<WorkflowStepInput>
+        {
+            new("step-1", "First", "EngineA", new List<string> { "step-3" }, TimeSpan.FromMinutes(5), null),
+            new("step-2", "Second", "EngineB", new List<string> { "step-1" }, TimeSpan.FromMinutes(5), null),
+            new("step-3", "Third", "EngineC", new List<string> { "step-2" }, TimeSpan.FromMinutes(5), null)
+        };
 
-        var violations = _engine.ValidateWorkflowDefinition(definition);
+        var result = await _engine.ExecuteAsync(CreateContext(data));
 
-        Assert.Contains(violations, v => v.Contains("at least one step"));
+        Assert.False(result.Success);
+        Assert.Contains("Circular dependency", result.Output["error"] as string);
+    }
+
+    // ─── Test 4: Step validation ───────────────────────────────────────────
+
+    [Fact]
+    public async Task ExecuteAsync_EmptySteps_ShouldFail()
+    {
+        var data = ValidWorkflowData();
+        data["workflowSteps"] = new List<WorkflowStepInput>();
+
+        var result = await _engine.ExecuteAsync(CreateContext(data));
+
+        Assert.False(result.Success);
+        Assert.Contains("at least one step", result.Output["error"] as string);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_DuplicateStepIds_ShouldFail()
+    {
+        var data = ValidWorkflowData();
+        data["workflowSteps"] = new List<WorkflowStepInput>
+        {
+            new("step-1", "First", "EngineA", new List<string>(), TimeSpan.FromMinutes(5), null),
+            new("step-1", "Duplicate", "EngineB", new List<string>(), TimeSpan.FromMinutes(5), null)
+        };
+
+        var result = await _engine.ExecuteAsync(CreateContext(data));
+
+        Assert.False(result.Success);
+        Assert.Contains("Duplicate step ID", result.Output["error"] as string);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_EmptyStepId_ShouldFail()
+    {
+        var data = ValidWorkflowData();
+        data["workflowSteps"] = new List<WorkflowStepInput>
+        {
+            new("", "Missing ID", "EngineA", new List<string>(), TimeSpan.FromMinutes(5), null)
+        };
+
+        var result = await _engine.ExecuteAsync(CreateContext(data));
+
+        Assert.False(result.Success);
+        Assert.Contains("StepId", result.Output["error"] as string);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_EmptyStepName_ShouldFail()
+    {
+        var data = ValidWorkflowData();
+        data["workflowSteps"] = new List<WorkflowStepInput>
+        {
+            new("step-1", "", "EngineA", new List<string>(), TimeSpan.FromMinutes(5), null)
+        };
+
+        var result = await _engine.ExecuteAsync(CreateContext(data));
+
+        Assert.False(result.Success);
+        Assert.Contains("StepName", result.Output["error"] as string);
+    }
+
+    // ─── Test 5: Engine mapping validation ─────────────────────────────────
+
+    [Fact]
+    public async Task ExecuteAsync_MissingEngineName_ShouldFail()
+    {
+        var data = ValidWorkflowData();
+        data["workflowSteps"] = new List<WorkflowStepInput>
+        {
+            new("step-1", "No Engine", "", new List<string>(), TimeSpan.FromMinutes(5), null)
+        };
+
+        var result = await _engine.ExecuteAsync(CreateContext(data));
+
+        Assert.False(result.Success);
+        Assert.Contains("EngineName", result.Output["error"] as string);
+    }
+
+    // ─── Test 6: Workflow name/version validation ──────────────────────────
+
+    [Fact]
+    public async Task ExecuteAsync_EmptyWorkflowName_ShouldFail()
+    {
+        var data = ValidWorkflowData();
+        data["workflowName"] = "";
+
+        var result = await _engine.ExecuteAsync(CreateContext(data));
+
+        Assert.False(result.Success);
+        Assert.Contains("WorkflowName", result.Output["error"] as string);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_EmptyWorkflowVersion_ShouldFail()
+    {
+        var data = ValidWorkflowData();
+        data["workflowVersion"] = "";
+
+        var result = await _engine.ExecuteAsync(CreateContext(data));
+
+        Assert.False(result.Success);
+        Assert.Contains("WorkflowVersion", result.Output["error"] as string);
+    }
+
+    // ─── Test 7: Concurrent command execution ──────────────────────────────
+
+    [Fact]
+    public async Task ExecuteAsync_ConcurrentExecution_ShouldBeThreadSafe()
+    {
+        var tasks = Enumerable.Range(0, 50).Select(i =>
+        {
+            var data = ValidWorkflowData();
+            data["workflowName"] = $"Workflow-{i}";
+            return _engine.ExecuteAsync(CreateContext(data));
+        }).ToArray();
+
+        var results = await Task.WhenAll(tasks);
+
+        Assert.All(results, r => Assert.True(r.Success));
+
+        var workflowIds = results.Select(r => r.Output["workflowId"]).ToHashSet();
+        Assert.Equal(50, workflowIds.Count); // All unique IDs
+    }
+
+    // ─── Test 8: Event structure ───────────────────────────────────────────
+
+    [Fact]
+    public async Task ExecuteAsync_ValidWorkflow_ShouldProduceCorrectEvent()
+    {
+        var context = CreateContext(ValidWorkflowData());
+
+        var result = await _engine.ExecuteAsync(context);
+
+        Assert.True(result.Success);
+        var evt = result.Events[0];
+        Assert.Equal("WorkflowDefinitionCreated", evt.EventType);
+        Assert.Equal("Taxi Ride Request", evt.Payload["workflowName"]);
+        Assert.Equal("1.0.0", evt.Payload["workflowVersion"]);
+        Assert.Equal(3, evt.Payload["stepCount"]);
+        Assert.Equal(3, evt.Payload["parameterCount"]);
+        Assert.Equal("system-test", evt.Payload["requestedBy"]);
+        Assert.Equal(1, evt.Payload["eventVersion"]);
+        Assert.Equal("whyce.wss.workflow.events", evt.Payload["topic"]);
+    }
+
+    // ─── Test 9: No parameters workflow ────────────────────────────────────
+
+    [Fact]
+    public async Task ExecuteAsync_NoParameters_ShouldSucceed()
+    {
+        var data = ValidWorkflowData();
+        data["workflowParameters"] = new List<WorkflowParameterInput>();
+
+        var result = await _engine.ExecuteAsync(CreateContext(data));
+
+        Assert.True(result.Success);
+        Assert.Equal(0, result.Output["parameterCount"]);
+    }
+
+    // ─── Test 10: Single step workflow ─────────────────────────────────────
+
+    [Fact]
+    public async Task ExecuteAsync_SingleStep_ShouldSucceed()
+    {
+        var data = ValidWorkflowData();
+        data["workflowSteps"] = new List<WorkflowStepInput>
+        {
+            new("step-1", "Only Step", "SimpleEngine", new List<string>(), TimeSpan.FromMinutes(5), null)
+        };
+
+        var result = await _engine.ExecuteAsync(CreateContext(data));
+
+        Assert.True(result.Success);
+        Assert.Equal(1, result.Output["stepCount"]);
     }
 }

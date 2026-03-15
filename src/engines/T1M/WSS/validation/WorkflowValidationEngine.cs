@@ -41,7 +41,7 @@ public sealed class WorkflowValidationOrchestrator : IWorkflowValidationEngine
         }
 
         if (workflow.Steps.Count == 0)
-            return WorkflowValidationResult.Create(errors, warnings);
+            return WorkflowValidationResult.Create(errors, warnings, workflow.WorkflowId);
 
         // Graph validation
         var graphModel = BuildGraphFromSteps(workflow);
@@ -55,7 +55,7 @@ public sealed class WorkflowValidationOrchestrator : IWorkflowValidationEngine
                 ExtractStepId(violation)));
         }
 
-        return WorkflowValidationResult.Create(errors, warnings);
+        return WorkflowValidationResult.Create(errors, warnings, workflow.WorkflowId);
     }
 
     public WorkflowValidationResult ValidateWorkflowTemplate(

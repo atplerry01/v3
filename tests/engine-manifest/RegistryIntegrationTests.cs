@@ -1,7 +1,7 @@
 namespace Whycespace.EngineManifest.Tests;
 
-using Whycespace.EngineManifest.Loader;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Loader;
+using Whycespace.Runtime.EngineManifest.Models;
 using Whycespace.EngineRuntime.Registry;
 using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
 

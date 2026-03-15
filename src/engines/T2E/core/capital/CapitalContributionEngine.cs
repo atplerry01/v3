@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T2E.Core.Capital;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("CapitalContribution", EngineTier.T2E, EngineKind.Mutation, "CapitalContributionRequest", typeof(EngineEvent))]
 public sealed class CapitalContributionEngine : IEngine

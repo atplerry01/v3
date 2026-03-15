@@ -1,6 +1,6 @@
 namespace Whycespace.PartitionRuntime.Worker;
 
-using System.Threading.Channels;
+using global::System.Threading.Channels;
 using Whycespace.Contracts.Runtime;
 using WfRuntime = Whycespace.WorkflowRuntime.Runtime.WorkflowRuntime;
 

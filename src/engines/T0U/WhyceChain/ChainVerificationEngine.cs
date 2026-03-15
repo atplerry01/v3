@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T0U.WhyceChain;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("ChainVerification", EngineTier.T0U, EngineKind.Validation, "ChainVerificationRequest", typeof(EngineEvent))]
 public sealed class ChainVerificationEngine : IEngine

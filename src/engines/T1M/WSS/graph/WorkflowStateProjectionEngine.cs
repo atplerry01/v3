@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T1M.WSS.Graph;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("WorkflowStateProjection", EngineTier.T1M, EngineKind.Projection, "WorkflowStateProjectionRequest", typeof(EngineEvent))]
 public sealed class WorkflowStateProjectionEngine : IEngine

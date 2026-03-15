@@ -6,6 +6,6 @@ public sealed class EventSerializer
 {
     public string Serialize(EventEnvelope envelope)
     {
-        return System.Text.Json.JsonSerializer.Serialize(envelope);
+        return global::System.Text.Json.JsonSerializer.Serialize(envelope);
     }
 }

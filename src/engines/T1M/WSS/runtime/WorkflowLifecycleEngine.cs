@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T1M.WSS.Runtime;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 using Whycespace.Engines.T1M.WSS.Graph;
 using Whycespace.Engines.T1M.WSS.Instance;
 using Whycespace.Engines.T1M.WSS.Registry;
@@ -18,6 +18,7 @@ public sealed class WorkflowLifecycleEngine : IEngine, IWorkflowLifecycleEngine
     private readonly IWssWorkflowStateStore _stateStore;
     private readonly IWorkflowEventRouter _eventRouter;
     private readonly IWorkflowRetryPolicyEngine _retryPolicyEngine;
+    private readonly IWorkflowRetryStore _retryStore;
     private readonly IWorkflowTimeoutEngine _timeoutEngine;
     private readonly IWorkflowGraphEngine _graphEngine;
 
@@ -29,6 +30,7 @@ public sealed class WorkflowLifecycleEngine : IEngine, IWorkflowLifecycleEngine
         IWssWorkflowStateStore stateStore,
         IWorkflowEventRouter eventRouter,
         IWorkflowRetryPolicyEngine retryPolicyEngine,
+        IWorkflowRetryStore retryStore,
         IWorkflowTimeoutEngine timeoutEngine,
         IWorkflowGraphEngine graphEngine)
     {
@@ -37,6 +39,7 @@ public sealed class WorkflowLifecycleEngine : IEngine, IWorkflowLifecycleEngine
         _stateStore = stateStore;
         _eventRouter = eventRouter;
         _retryPolicyEngine = retryPolicyEngine;
+        _retryStore = retryStore;
         _timeoutEngine = timeoutEngine;
         _graphEngine = graphEngine;
     }
@@ -166,16 +169,27 @@ public sealed class WorkflowLifecycleEngine : IEngine, IWorkflowLifecycleEngine
     {
         var state = _stateStore.GetState(instanceId);
 
-        var retryCount = _retryPolicyEngine.GetRetryCount(instanceId, stepId);
+        var retryCount = _retryStore.GetRetryCount(instanceId, stepId);
 
         var stepDef = GetStepDefinition(state.WorkflowId, stepId);
         var failurePolicy = stepDef?.FailurePolicy ?? new WorkflowFailurePolicy(FailureAction.Fail, 0, TimeSpan.Zero, null);
 
-        var retryDecision = _retryPolicyEngine.EvaluateRetryPolicy(failurePolicy, retryCount);
+        var retryCommand = new WorkflowRetryPolicyCommand(
+            instanceId,
+            stepId,
+            new Domain.Core.Workflows.RetryPolicy(
+                failurePolicy.MaxRetries,
+                Domain.Core.Workflows.RetryStrategy.FixedDelay,
+                failurePolicy.RetryDelay,
+                1.0),
+            retryCount,
+            DateTimeOffset.UtcNow);
 
-        if (retryDecision.ShouldRetry)
+        var retryResult = _retryPolicyEngine.EvaluateRetryPolicy(retryCommand);
+
+        if (retryResult.RetryAllowed)
         {
-            _retryPolicyEngine.RegisterRetryAttempt(instanceId, stepId);
+            _retryStore.IncrementRetryCount(instanceId, stepId);
 
             return new LifecycleDecision(instanceId, stepId, stepId, WorkflowInstanceStatus.Running, $"Retrying step (attempt {retryCount + 1})");
         }

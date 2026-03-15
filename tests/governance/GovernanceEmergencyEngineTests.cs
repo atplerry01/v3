@@ -1,4 +1,6 @@
 using Whycespace.Engines.T0U.Governance;
+using Whycespace.Engines.T0U.Governance.Commands;
+using Whycespace.Engines.T0U.Governance.Results;
 using Whycespace.System.Upstream.Governance.Models;
 using Whycespace.System.Upstream.Governance.Stores;
 using Whycespace.System.WhyceID.Aggregates;
@@ -27,85 +29,429 @@ public class GovernanceEmergencyEngineTests
         guardianEngine.RegisterGuardian("g-inactive", identityId, "Inactive", new List<string>());
     }
 
-    [Fact]
-    public void TriggerEmergency_SystemFreeze_Succeeds()
-    {
-        var emergency = _engine.TriggerEmergency("e-1", EmergencyType.SystemFreeze, "g-alice", "Critical vulnerability detected");
+    // --- Trigger Tests ---
 
-        Assert.Equal("e-1", emergency.EmergencyId);
-        Assert.Equal(EmergencyType.SystemFreeze, emergency.Type);
-        Assert.Equal("g-alice", emergency.TriggeredBy);
-        Assert.Equal(EmergencyStatus.Active, emergency.Status);
-        Assert.Null(emergency.ResolvedAt);
+    [Fact]
+    public void Execute_TriggerEmergency_SystemPause_Succeeds()
+    {
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-1", EmergencyType.SystemPause, "economic", "g-alice",
+            "Critical vulnerability detected", DateTime.UtcNow);
+
+        var result = _engine.Execute(command);
+
+        Assert.True(result.Success);
+        Assert.Equal("e-1", result.EmergencyActionId);
+        Assert.Equal(EmergencyType.SystemPause, result.EmergencyType);
+        Assert.Equal(EmergencyStatus.Active, result.EmergencyStatus);
+        Assert.Equal("economic", result.TargetDomain);
     }
 
     [Fact]
-    public void TriggerEmergency_PolicyOverride_Succeeds()
+    public void Execute_TriggerEmergency_SecurityLockdown_Succeeds()
     {
-        var emergency = _engine.TriggerEmergency("e-2", EmergencyType.EmergencyPolicyOverride, "g-alice", "Urgent policy change needed");
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-2", EmergencyType.SecurityLockdown, "identity", "g-alice",
+            "Breach detected", DateTime.UtcNow);
 
-        Assert.Equal(EmergencyType.EmergencyPolicyOverride, emergency.Type);
+        var result = _engine.Execute(command);
+
+        Assert.True(result.Success);
+        Assert.Equal(EmergencyType.SecurityLockdown, result.EmergencyType);
     }
 
     [Fact]
-    public void TriggerEmergency_SecurityLockdown_Succeeds()
+    public void Execute_TriggerEmergency_ClusterFreeze_Succeeds()
     {
-        var emergency = _engine.TriggerEmergency("e-3", EmergencyType.SecurityLockdown, "g-alice", "Breach detected");
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-3", EmergencyType.ClusterFreeze, "governance", "g-alice",
+            "Cluster integrity issue", DateTime.UtcNow);
 
-        Assert.Equal(EmergencyType.SecurityLockdown, emergency.Type);
+        var result = _engine.Execute(command);
+
+        Assert.True(result.Success);
+        Assert.Equal(EmergencyType.ClusterFreeze, result.EmergencyType);
     }
 
     [Fact]
-    public void TriggerEmergency_InvalidGuardian_Throws()
+    public void Execute_TriggerEmergency_PolicyOverride_Succeeds()
     {
-        var ex = Assert.Throws<KeyNotFoundException>(() =>
-            _engine.TriggerEmergency("e-bad", EmergencyType.SystemFreeze, "nonexistent", "Reason"));
-        Assert.Contains("Guardian not found", ex.Message);
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-4", EmergencyType.PolicyOverride, "policy", "g-alice",
+            "Urgent policy change", DateTime.UtcNow);
+
+        var result = _engine.Execute(command);
+
+        Assert.True(result.Success);
+        Assert.Equal(EmergencyType.PolicyOverride, result.EmergencyType);
     }
 
     [Fact]
-    public void TriggerEmergency_InactiveGuardian_Throws()
+    public void Execute_TriggerEmergency_ExecutionHalt_Succeeds()
     {
-        var ex = Assert.Throws<InvalidOperationException>(() =>
-            _engine.TriggerEmergency("e-bad", EmergencyType.SystemFreeze, "g-inactive", "Reason"));
-        Assert.Contains("Only active guardians", ex.Message);
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-5", EmergencyType.ExecutionHalt, "runtime", "g-alice",
+            "Runtime failure", DateTime.UtcNow);
+
+        var result = _engine.Execute(command);
+
+        Assert.True(result.Success);
+        Assert.Equal(EmergencyType.ExecutionHalt, result.EmergencyType);
     }
 
     [Fact]
-    public void TriggerEmergency_EmptyReason_Throws()
+    public void Execute_TriggerEmergency_EmergencyVoteOverride_Succeeds()
     {
-        var ex = Assert.Throws<InvalidOperationException>(() =>
-            _engine.TriggerEmergency("e-bad", EmergencyType.SystemFreeze, "g-alice", ""));
-        Assert.Contains("reason is required", ex.Message);
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-6", EmergencyType.EmergencyVoteOverride, "governance", "g-alice",
+            "Vote override required", DateTime.UtcNow);
+
+        var result = _engine.Execute(command);
+
+        Assert.True(result.Success);
+        Assert.Equal(EmergencyType.EmergencyVoteOverride, result.EmergencyType);
     }
 
     [Fact]
-    public void ResolveEmergency_Succeeds()
+    public void Execute_TriggerEmergency_InvalidGuardian_Fails()
     {
-        _engine.TriggerEmergency("e-res", EmergencyType.SystemFreeze, "g-alice", "Reason");
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-bad", EmergencyType.SystemPause, "economic", "nonexistent",
+            "Reason", DateTime.UtcNow);
 
-        var resolved = _engine.ResolveEmergency("e-res");
+        var result = _engine.Execute(command);
 
-        Assert.Equal(EmergencyStatus.Resolved, resolved.Status);
-        Assert.NotNull(resolved.ResolvedAt);
+        Assert.False(result.Success);
+        Assert.Contains("Guardian not found", result.Message);
     }
 
     [Fact]
-    public void ResolveEmergency_AlreadyResolved_Throws()
+    public void Execute_TriggerEmergency_InactiveGuardian_Fails()
     {
-        _engine.TriggerEmergency("e-dup", EmergencyType.SystemFreeze, "g-alice", "Reason");
-        _engine.ResolveEmergency("e-dup");
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-bad", EmergencyType.SystemPause, "economic", "g-inactive",
+            "Reason", DateTime.UtcNow);
 
-        var ex = Assert.Throws<InvalidOperationException>(() =>
-            _engine.ResolveEmergency("e-dup"));
-        Assert.Contains("already resolved", ex.Message);
+        var result = _engine.Execute(command);
+
+        Assert.False(result.Success);
+        Assert.Contains("Only active guardians", result.Message);
     }
 
     [Fact]
-    public void ResolveEmergency_NotFound_Throws()
+    public void Execute_TriggerEmergency_EmptyReason_Fails()
     {
-        var ex = Assert.Throws<KeyNotFoundException>(() =>
-            _engine.ResolveEmergency("nonexistent"));
-        Assert.Contains("Emergency not found", ex.Message);
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-bad", EmergencyType.SystemPause, "economic", "g-alice",
+            "", DateTime.UtcNow);
+
+        var result = _engine.Execute(command);
+
+        Assert.False(result.Success);
+        Assert.Contains("reason is required", result.Message);
+    }
+
+    [Fact]
+    public void Execute_TriggerEmergency_EmptyTargetDomain_Fails()
+    {
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-bad", EmergencyType.SystemPause, "", "g-alice",
+            "Reason", DateTime.UtcNow);
+
+        var result = _engine.Execute(command);
+
+        Assert.False(result.Success);
+        Assert.Contains("Target domain is required", result.Message);
+    }
+
+    [Fact]
+    public void Execute_TriggerEmergency_DuplicateId_Fails()
+    {
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-dup", EmergencyType.SystemPause, "economic", "g-alice",
+            "Reason", DateTime.UtcNow);
+
+        _engine.Execute(command);
+        var result = _engine.Execute(command with { CommandId = Guid.NewGuid() });
+
+        Assert.False(result.Success);
+        Assert.Contains("already exists", result.Message);
+    }
+
+    [Fact]
+    public void Execute_TriggerEmergency_StoresEmergencyCorrectly()
+    {
+        var timestamp = DateTime.UtcNow;
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-store", EmergencyType.SecurityLockdown, "identity", "g-alice",
+            "Store test", timestamp);
+
+        _engine.Execute(command);
+
+        var stored = _engine.GetEmergency("e-store");
+        Assert.NotNull(stored);
+        Assert.Equal(EmergencyType.SecurityLockdown, stored.Type);
+        Assert.Equal("identity", stored.TargetDomain);
+        Assert.Equal("g-alice", stored.TriggeredBy);
+        Assert.Equal("Store test", stored.Reason);
+        Assert.Equal(EmergencyStatus.Active, stored.Status);
+        Assert.Equal(timestamp, stored.TriggeredAt);
+        Assert.Null(stored.ResolvedAt);
+    }
+
+    // --- Revoke Tests ---
+
+    [Fact]
+    public void Execute_RevokeEmergency_Succeeds()
+    {
+        var trigger = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-rev", EmergencyType.SystemPause, "economic", "g-alice",
+            "Reason", DateTime.UtcNow);
+        _engine.Execute(trigger);
+
+        var revoke = new RevokeEmergencyActionCommand(
+            Guid.NewGuid(), "e-rev", "g-alice", "Issue resolved", DateTime.UtcNow);
+        var result = _engine.Execute(revoke);
+
+        Assert.True(result.Success);
+        Assert.Equal(EmergencyStatus.Revoked, result.EmergencyStatus);
+        Assert.Contains("revoked successfully", result.Message);
+    }
+
+    [Fact]
+    public void Execute_RevokeEmergency_NotFound_Fails()
+    {
+        var revoke = new RevokeEmergencyActionCommand(
+            Guid.NewGuid(), "nonexistent", "g-alice", "Reason", DateTime.UtcNow);
+        var result = _engine.Execute(revoke);
+
+        Assert.False(result.Success);
+        Assert.Contains("Emergency not found", result.Message);
+    }
+
+    [Fact]
+    public void Execute_RevokeEmergency_AlreadyRevoked_Fails()
+    {
+        var trigger = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-rr", EmergencyType.SystemPause, "economic", "g-alice",
+            "Reason", DateTime.UtcNow);
+        _engine.Execute(trigger);
+
+        var revoke = new RevokeEmergencyActionCommand(
+            Guid.NewGuid(), "e-rr", "g-alice", "First revoke", DateTime.UtcNow);
+        _engine.Execute(revoke);
+
+        var result = _engine.Execute(revoke with { CommandId = Guid.NewGuid(), Reason = "Second revoke" });
+
+        Assert.False(result.Success);
+        Assert.Contains("cannot be revoked", result.Message);
+    }
+
+    [Fact]
+    public void Execute_RevokeEmergency_EmptyReason_Fails()
+    {
+        var trigger = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-nr", EmergencyType.SystemPause, "economic", "g-alice",
+            "Reason", DateTime.UtcNow);
+        _engine.Execute(trigger);
+
+        var revoke = new RevokeEmergencyActionCommand(
+            Guid.NewGuid(), "e-nr", "g-alice", "", DateTime.UtcNow);
+        var result = _engine.Execute(revoke);
+
+        Assert.False(result.Success);
+        Assert.Contains("Revocation reason is required", result.Message);
+    }
+
+    [Fact]
+    public void Execute_RevokeEmergency_InvalidGuardian_Fails()
+    {
+        var trigger = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-rg", EmergencyType.SystemPause, "economic", "g-alice",
+            "Reason", DateTime.UtcNow);
+        _engine.Execute(trigger);
+
+        var revoke = new RevokeEmergencyActionCommand(
+            Guid.NewGuid(), "e-rg", "nonexistent", "Reason", DateTime.UtcNow);
+        var result = _engine.Execute(revoke);
+
+        Assert.False(result.Success);
+        Assert.Contains("Guardian not found", result.Message);
+    }
+
+    [Fact]
+    public void Execute_RevokeEmergency_InactiveGuardian_Fails()
+    {
+        var trigger = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-ri", EmergencyType.SystemPause, "economic", "g-alice",
+            "Reason", DateTime.UtcNow);
+        _engine.Execute(trigger);
+
+        var revoke = new RevokeEmergencyActionCommand(
+            Guid.NewGuid(), "e-ri", "g-inactive", "Reason", DateTime.UtcNow);
+        var result = _engine.Execute(revoke);
+
+        Assert.False(result.Success);
+        Assert.Contains("Only active guardians can revoke", result.Message);
+    }
+
+    [Fact]
+    public void Execute_RevokeEmergency_SetsResolvedAt()
+    {
+        var trigger = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-ts", EmergencyType.SystemPause, "economic", "g-alice",
+            "Reason", DateTime.UtcNow);
+        _engine.Execute(trigger);
+
+        var revokeTimestamp = DateTime.UtcNow;
+        var revoke = new RevokeEmergencyActionCommand(
+            Guid.NewGuid(), "e-ts", "g-alice", "Resolved now", revokeTimestamp);
+        _engine.Execute(revoke);
+
+        var stored = _engine.GetEmergency("e-ts");
+        Assert.NotNull(stored);
+        Assert.Equal(EmergencyStatus.Revoked, stored.Status);
+        Assert.Equal(revokeTimestamp, stored.ResolvedAt);
+    }
+
+    // --- Validate Tests ---
+
+    [Fact]
+    public void Execute_ValidateEmergency_Succeeds()
+    {
+        var trigger = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-val", EmergencyType.SecurityLockdown, "identity", "g-alice",
+            "Reason", DateTime.UtcNow);
+        _engine.Execute(trigger);
+
+        var validate = new ValidateEmergencyActionCommand(
+            Guid.NewGuid(), "e-val", "g-alice", DateTime.UtcNow);
+        var result = _engine.Execute(validate);
+
+        Assert.True(result.Success);
+        Assert.Equal(EmergencyStatus.Active, result.EmergencyStatus);
+        Assert.Contains("validated successfully", result.Message);
+    }
+
+    [Fact]
+    public void Execute_ValidateEmergency_NotFound_Fails()
+    {
+        var validate = new ValidateEmergencyActionCommand(
+            Guid.NewGuid(), "nonexistent", "g-alice", DateTime.UtcNow);
+        var result = _engine.Execute(validate);
+
+        Assert.False(result.Success);
+        Assert.Contains("Emergency not found", result.Message);
+    }
+
+    [Fact]
+    public void Execute_ValidateEmergency_InvalidGuardian_Fails()
+    {
+        var trigger = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-vg", EmergencyType.SystemPause, "economic", "g-alice",
+            "Reason", DateTime.UtcNow);
+        _engine.Execute(trigger);
+
+        var validate = new ValidateEmergencyActionCommand(
+            Guid.NewGuid(), "e-vg", "nonexistent", DateTime.UtcNow);
+        var result = _engine.Execute(validate);
+
+        Assert.False(result.Success);
+        Assert.Contains("Guardian not found", result.Message);
+    }
+
+    [Fact]
+    public void Execute_ValidateEmergency_InactiveGuardian_Fails()
+    {
+        var trigger = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-vi", EmergencyType.SystemPause, "economic", "g-alice",
+            "Reason", DateTime.UtcNow);
+        _engine.Execute(trigger);
+
+        var validate = new ValidateEmergencyActionCommand(
+            Guid.NewGuid(), "e-vi", "g-inactive", DateTime.UtcNow);
+        var result = _engine.Execute(validate);
+
+        Assert.False(result.Success);
+        Assert.Contains("Only active guardians can validate", result.Message);
+    }
+
+    // --- Concurrency Tests ---
+
+    [Fact]
+    public void Execute_ConcurrentTriggers_AllSucceed()
+    {
+        var tasks = Enumerable.Range(0, 10).Select(i =>
+        {
+            var command = new TriggerEmergencyActionCommand(
+                Guid.NewGuid(), $"e-conc-{i}", EmergencyType.SystemPause, "economic", "g-alice",
+                $"Concurrent trigger {i}", DateTime.UtcNow);
+            return Task.Run(() => _engine.Execute(command));
+        }).ToArray();
+
+        Task.WaitAll(tasks);
+
+        Assert.All(tasks, t => Assert.True(t.Result.Success));
+        Assert.Equal(10, _engine.ListEmergencies().Count);
+    }
+
+    [Fact]
+    public void Execute_DeterministicExecution_SameInputSameOutput()
+    {
+        var timestamp = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        var command = new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-det-1", EmergencyType.ClusterFreeze, "governance", "g-alice",
+            "Deterministic test", timestamp);
+
+        var result1 = _engine.Execute(command);
+
+        var command2 = command with { EmergencyActionId = "e-det-2", CommandId = Guid.NewGuid() };
+        var result2 = _engine.Execute(command2);
+
+        Assert.Equal(result1.Success, result2.Success);
+        Assert.Equal(result1.EmergencyType, result2.EmergencyType);
+        Assert.Equal(result1.EmergencyStatus, result2.EmergencyStatus);
+        Assert.Equal(result1.TargetDomain, result2.TargetDomain);
+    }
+
+    // --- Query Tests ---
+
+    [Fact]
+    public void GetEmergency_ReturnsNull_WhenNotFound()
+    {
+        Assert.Null(_engine.GetEmergency("nonexistent"));
+    }
+
+    [Fact]
+    public void ListEmergencies_ReturnsAll()
+    {
+        _engine.Execute(new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-list-1", EmergencyType.SystemPause, "economic", "g-alice",
+            "Reason 1", DateTime.UtcNow));
+        _engine.Execute(new TriggerEmergencyActionCommand(
+            Guid.NewGuid(), "e-list-2", EmergencyType.SecurityLockdown, "identity", "g-alice",
+            "Reason 2", DateTime.UtcNow));
+
+        var emergencies = _engine.ListEmergencies();
+
+        Assert.Equal(2, emergencies.Count);
+    }
+
+    // --- Architecture Tests ---
+
+    [Fact]
+    public void Engine_IsSealed()
+    {
+        Assert.True(typeof(GovernanceEmergencyEngine).IsSealed);
+    }
+
+    [Fact]
+    public void Engine_HasNoStaticMutableState()
+    {
+        var fields = typeof(GovernanceEmergencyEngine)
+            .GetFields(global::System.Reflection.BindingFlags.Static | global::System.Reflection.BindingFlags.NonPublic | global::System.Reflection.BindingFlags.Public);
+
+        Assert.All(fields, f => Assert.True(f.IsInitOnly || f.IsLiteral,
+            $"Static field {f.Name} must be readonly or const."));
     }
 }

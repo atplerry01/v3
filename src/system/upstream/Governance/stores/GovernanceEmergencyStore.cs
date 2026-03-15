@@ -26,4 +26,14 @@ public sealed class GovernanceEmergencyStore
 
         _emergencies[emergency.EmergencyId] = emergency;
     }
+
+    public bool Exists(string emergencyId)
+    {
+        return _emergencies.ContainsKey(emergencyId);
+    }
+
+    public IReadOnlyList<GovernanceEmergency> ListAll()
+    {
+        return _emergencies.Values.ToList().AsReadOnly();
+    }
 }

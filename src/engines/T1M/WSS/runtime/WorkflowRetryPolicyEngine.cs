@@ -1,167 +1,127 @@
 namespace Whycespace.Engines.T1M.WSS.Runtime;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EngineManifest.Manifest;
-using Whycespace.EngineManifest.Models;
-using Whycespace.Engines.T1M.WSS.Stores;
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Domain.Core.Workflows;
+using Whycespace.Runtime.EngineManifest.Attributes;
+using Whycespace.Runtime.EngineManifest.Models;
 
-[EngineManifest("WorkflowRetryPolicyEngine", EngineTier.T1M, EngineKind.Decision, "WorkflowRetryPolicyRequest", typeof(EngineEvent))]
+/// <summary>
+/// Evaluates retry policies for failed workflow steps.
+/// Determines whether a failed step should retry, calculates delay using the configured strategy,
+/// and enforces retry limits. Stateless and deterministic — retry state persistence is handled
+/// by the Workflow State Store in the runtime layer.
+/// </summary>
+[EngineManifest("WorkflowRetryPolicy", EngineTier.T1M, EngineKind.Decision,
+    "WorkflowRetryPolicyCommand", typeof(EngineEvent))]
 public sealed class WorkflowRetryPolicyEngine : IEngine, IWorkflowRetryPolicyEngine
 {
-    private readonly IWorkflowRetryStore _retryStore;
+    private readonly Whycespace.Engines.T1M.WSS.Stores.IWorkflowRetryStore? _retryStore;
 
-    public string Name => "WorkflowRetryPolicyEngine";
+    public WorkflowRetryPolicyEngine() { }
 
-    public WorkflowRetryPolicyEngine(IWorkflowRetryStore retryStore)
+    public WorkflowRetryPolicyEngine(Whycespace.Engines.T1M.WSS.Stores.IWorkflowRetryStore retryStore)
     {
         _retryStore = retryStore;
     }
 
+    public string Name => "WorkflowRetryPolicy";
+
     public Task<EngineResult> ExecuteAsync(EngineContext context)
     {
-        var action = context.Data.GetValueOrDefault("action") as string;
+        var command = WorkflowRetryPolicyCommand.FromContextData(context.Data);
+        if (command is null)
+            return Task.FromResult(EngineResult.Fail(
+                "Invalid command: missing workflowInstanceId, stepId, or retryPolicy."));
 
-        return action switch
+        var result = EvaluateRetryPolicy(command);
+
+        var events = BuildEvents(context, result);
+        var output = BuildOutput(result);
+
+        return Task.FromResult(EngineResult.Ok(events, output));
+    }
+
+    /// <summary>
+    /// Core retry policy evaluation logic. Stateless and deterministic.
+    /// </summary>
+    WorkflowRetryPolicyResult IWorkflowRetryPolicyEngine.EvaluateRetryPolicy(WorkflowRetryPolicyCommand command)
+        => EvaluateRetryPolicy(command);
+
+    public static WorkflowRetryPolicyResult EvaluateRetryPolicy(WorkflowRetryPolicyCommand command)
+    {
+        var policy = command.RetryPolicy;
+        var retryAllowed = command.CurrentRetryCount < policy.MaxRetries;
+
+        var retryDelay = retryAllowed
+            ? policy.CalculateDelay(command.CurrentRetryCount)
+            : TimeSpan.Zero;
+
+        return new WorkflowRetryPolicyResult(
+            command.WorkflowInstanceId,
+            command.StepId,
+            retryAllowed,
+            retryDelay,
+            command.CurrentRetryCount,
+            DateTimeOffset.UtcNow);
+    }
+
+    private static IReadOnlyList<EngineEvent> BuildEvents(
+        EngineContext context,
+        WorkflowRetryPolicyResult result)
+    {
+        var aggregateId = Guid.TryParse(context.WorkflowId, out var parsed)
+            ? parsed
+            : Guid.NewGuid();
+
+        var eventType = result.RetryAllowed
+            ? "WorkflowStepRetryApproved"
+            : "WorkflowStepRetryDenied";
+
+        return new[]
         {
-            "evaluate" => HandleEvaluate(context),
-            "register" => HandleRegister(context),
-            "get" => HandleGetRetryCount(context),
-            "reset" => HandleReset(context),
-            _ => Task.FromResult(EngineResult.Fail($"Unknown action '{action}'. Expected: evaluate, register, get, reset"))
+            EngineEvent.Create(eventType, aggregateId, new Dictionary<string, object>
+            {
+                ["workflowInstanceId"] = result.WorkflowInstanceId,
+                ["stepId"] = result.StepId,
+                ["retryAllowed"] = result.RetryAllowed,
+                ["retryDelay"] = result.RetryDelay.TotalMilliseconds,
+                ["retryCount"] = result.RetryCount,
+                ["topic"] = "whyce.wss.workflow.retry.events"
+            })
         };
     }
 
-    public RetryDecision EvaluateRetryPolicy(WorkflowFailurePolicy policy, int currentRetryCount)
+    private static IReadOnlyDictionary<string, object> BuildOutput(WorkflowRetryPolicyResult result)
     {
-        return policy.Action switch
+        return new Dictionary<string, object>
         {
-            FailureAction.Retry when currentRetryCount < policy.MaxRetries =>
-                new RetryDecision(true, policy.RetryDelay, FailureAction.Retry),
-
-            FailureAction.Retry =>
-                new RetryDecision(false, TimeSpan.Zero, FailureAction.Fail),
-
-            FailureAction.Skip =>
-                new RetryDecision(false, TimeSpan.Zero, FailureAction.Skip),
-
-            FailureAction.Compensate =>
-                new RetryDecision(false, TimeSpan.Zero, FailureAction.Compensate),
-
-            _ =>
-                new RetryDecision(false, TimeSpan.Zero, FailureAction.Fail)
+            ["workflowInstanceId"] = result.WorkflowInstanceId,
+            ["stepId"] = result.StepId,
+            ["retryAllowed"] = result.RetryAllowed,
+            ["retryDelay"] = result.RetryDelay.TotalMilliseconds,
+            ["retryCount"] = result.RetryCount,
+            ["decisionTimestamp"] = result.DecisionTimestamp
         };
-    }
-
-    public void RegisterRetryAttempt(string instanceId, string stepId)
-    {
-        _retryStore.IncrementRetryCount(instanceId, stepId);
     }
 
     public int GetRetryCount(string instanceId, string stepId)
     {
+        if (_retryStore is null)
+            throw new InvalidOperationException("RetryStore is not configured.");
         return _retryStore.GetRetryCount(instanceId, stepId);
+    }
+
+    public void RegisterRetryAttempt(string instanceId, string stepId)
+    {
+        if (_retryStore is null)
+            throw new InvalidOperationException("RetryStore is not configured.");
+        _retryStore.IncrementRetryCount(instanceId, stepId);
     }
 
     public void ResetRetryCount(string instanceId, string stepId)
     {
+        if (_retryStore is null)
+            throw new InvalidOperationException("RetryStore is not configured.");
         _retryStore.ResetRetryCount(instanceId, stepId);
-    }
-
-    private Task<EngineResult> HandleEvaluate(EngineContext context)
-    {
-        var instanceId = context.Data.GetValueOrDefault("instanceId") as string;
-        var stepId = context.Data.GetValueOrDefault("stepId") as string;
-        var actionStr = context.Data.GetValueOrDefault("failureAction") as string;
-        var maxRetriesObj = context.Data.GetValueOrDefault("maxRetries");
-        var retryDelaySecondsObj = context.Data.GetValueOrDefault("retryDelaySeconds");
-
-        if (string.IsNullOrWhiteSpace(instanceId) || string.IsNullOrWhiteSpace(stepId))
-            return Task.FromResult(EngineResult.Fail("Missing instanceId or stepId"));
-
-        if (!Enum.TryParse<FailureAction>(actionStr, true, out var failureAction))
-            return Task.FromResult(EngineResult.Fail($"Invalid failureAction: '{actionStr}'"));
-
-        var maxRetries = maxRetriesObj is int mr ? mr : 3;
-        var retryDelaySeconds = retryDelaySecondsObj is int rds ? rds : (retryDelaySecondsObj is double rdd ? (int)rdd : 5);
-
-        var policy = new WorkflowFailurePolicy(failureAction, maxRetries, TimeSpan.FromSeconds(retryDelaySeconds), null);
-        var currentCount = _retryStore.GetRetryCount(instanceId, stepId);
-        var decision = EvaluateRetryPolicy(policy, currentCount);
-
-        var events = new[]
-        {
-            EngineEvent.Create("WorkflowRetryEvaluated", Guid.Parse(context.WorkflowId),
-                new Dictionary<string, object>
-                {
-                    ["instanceId"] = instanceId,
-                    ["stepId"] = stepId,
-                    ["shouldRetry"] = decision.ShouldRetry,
-                    ["failureAction"] = decision.FailureAction.ToString()
-                })
-        };
-
-        return Task.FromResult(EngineResult.Ok(events, new Dictionary<string, object>
-        {
-            ["shouldRetry"] = decision.ShouldRetry,
-            ["retryDelay"] = decision.RetryDelay.TotalSeconds,
-            ["failureAction"] = decision.FailureAction.ToString(),
-            ["currentRetryCount"] = currentCount
-        }));
-    }
-
-    private Task<EngineResult> HandleRegister(EngineContext context)
-    {
-        var instanceId = context.Data.GetValueOrDefault("instanceId") as string;
-        var stepId = context.Data.GetValueOrDefault("stepId") as string;
-
-        if (string.IsNullOrWhiteSpace(instanceId) || string.IsNullOrWhiteSpace(stepId))
-            return Task.FromResult(EngineResult.Fail("Missing instanceId or stepId"));
-
-        RegisterRetryAttempt(instanceId, stepId);
-        var count = GetRetryCount(instanceId, stepId);
-
-        return Task.FromResult(EngineResult.Ok(Array.Empty<EngineEvent>(), new Dictionary<string, object>
-        {
-            ["instanceId"] = instanceId,
-            ["stepId"] = stepId,
-            ["retryCount"] = count
-        }));
-    }
-
-    private Task<EngineResult> HandleGetRetryCount(EngineContext context)
-    {
-        var instanceId = context.Data.GetValueOrDefault("instanceId") as string;
-        var stepId = context.Data.GetValueOrDefault("stepId") as string;
-
-        if (string.IsNullOrWhiteSpace(instanceId) || string.IsNullOrWhiteSpace(stepId))
-            return Task.FromResult(EngineResult.Fail("Missing instanceId or stepId"));
-
-        var count = GetRetryCount(instanceId, stepId);
-
-        return Task.FromResult(EngineResult.Ok(Array.Empty<EngineEvent>(), new Dictionary<string, object>
-        {
-            ["instanceId"] = instanceId,
-            ["stepId"] = stepId,
-            ["retryCount"] = count
-        }));
-    }
-
-    private Task<EngineResult> HandleReset(EngineContext context)
-    {
-        var instanceId = context.Data.GetValueOrDefault("instanceId") as string;
-        var stepId = context.Data.GetValueOrDefault("stepId") as string;
-
-        if (string.IsNullOrWhiteSpace(instanceId) || string.IsNullOrWhiteSpace(stepId))
-            return Task.FromResult(EngineResult.Fail("Missing instanceId or stepId"));
-
-        ResetRetryCount(instanceId, stepId);
-
-        return Task.FromResult(EngineResult.Ok(Array.Empty<EngineEvent>(), new Dictionary<string, object>
-        {
-            ["instanceId"] = instanceId,
-            ["stepId"] = stepId,
-            ["retryCount"] = 0
-        }));
     }
 }

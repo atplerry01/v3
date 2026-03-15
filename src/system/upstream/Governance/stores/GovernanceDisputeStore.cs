@@ -26,4 +26,20 @@ public sealed class GovernanceDisputeStore
 
         _disputes[dispute.DisputeId] = dispute;
     }
+
+    public bool ExistsForProposalAndGuardian(string proposalId, string guardianId)
+    {
+        return _disputes.Values.Any(d =>
+            d.ProposalId == proposalId &&
+            d.FiledBy == guardianId &&
+            d.Status != DisputeStatus.Withdrawn &&
+            d.Status != DisputeStatus.Resolved);
+    }
+
+    public IReadOnlyList<GovernanceDispute> ListByProposal(string proposalId)
+    {
+        return _disputes.Values
+            .Where(d => d.ProposalId == proposalId)
+            .ToList();
+    }
 }

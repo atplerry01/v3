@@ -66,6 +66,21 @@ public sealed class ChainReplicationEngine
         if (state.LatestBlockHash != latest.BlockHash)
             return false;
 
-        return _integrityEngine.VerifyChain();
+        var blocks = new List<ChainBlock>();
+        for (long i = 0; i <= latest.BlockNumber; i++)
+        {
+            try { blocks.Add(_blockStore.GetBlock(i)); }
+            catch (KeyNotFoundException) { return false; }
+        }
+
+        var command = new IntegrityVerificationCommand(
+            Array.Empty<ChainLedgerEntry>(),
+            blocks,
+            MerkleProof: null,
+            TraceId: $"replication-verify-{nodeId}",
+            CorrelationId: $"replication-{nodeId}",
+            Timestamp: DateTimeOffset.UtcNow);
+        var result = _integrityEngine.Execute(command);
+        return result.BlockChainValid && result.MerkleRootValid;
     }
 }
