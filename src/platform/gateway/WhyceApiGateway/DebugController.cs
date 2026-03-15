@@ -52,6 +52,12 @@ using Whycespace.Engines.T0U.Governance.Results;
 using Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.System.Upstream.Governance.Evidence.Models;
 using Whycespace.System.Upstream.WhyceChain.Ledger;
+using Whycespace.System.Midstream.Capital.Evidence;
+using Whycespace.System.Midstream.Capital.Registry;
+using Whycespace.System.Midstream.Capital.Governance;
+using Whycespace.System.Midstream.Capital.Stores;
+using Whycespace.Engines.T3I.Economic.Capital;
+using Whycespace.System.Upstream.WhycePolicy.Models;
 
 [ApiController]
 [Route("dev")]
@@ -113,6 +119,10 @@ public sealed class DebugController : ControllerBase
     private readonly GovernanceEvidenceRecorder _evidenceRecorder;
     private readonly GovernanceEmergencyEngine _emergencyEngine;
     private readonly GovernanceEmergencyStore _emergencyStore;
+    private readonly ICapitalEvidenceRecorder _capitalEvidenceRecorder;
+    private readonly ICapitalRegistry _capitalRegistry;
+    private readonly CapitalPolicyEnforcementAdapter _capitalPolicyAdapter;
+    private readonly CapitalLedgerStore _capitalLedgerStore;
 
     public DebugController(
         IPlatformDispatcher dispatcher,
@@ -170,7 +180,11 @@ public sealed class DebugController : ControllerBase
         GovernanceDomainScopeEngine domainScopeEngine,
         GovernanceEvidenceRecorder evidenceRecorder,
         GovernanceEmergencyEngine emergencyEngine,
-        GovernanceEmergencyStore emergencyStore)
+        GovernanceEmergencyStore emergencyStore,
+        ICapitalEvidenceRecorder capitalEvidenceRecorder,
+        ICapitalRegistry capitalRegistry,
+        CapitalPolicyEnforcementAdapter capitalPolicyAdapter,
+        CapitalLedgerStore capitalLedgerStore)
     {
         _dispatcher = dispatcher;
         _stateStore = stateStore;
@@ -228,6 +242,10 @@ public sealed class DebugController : ControllerBase
         _evidenceRecorder = evidenceRecorder;
         _emergencyEngine = emergencyEngine;
         _emergencyStore = emergencyStore;
+        _capitalEvidenceRecorder = capitalEvidenceRecorder;
+        _capitalRegistry = capitalRegistry;
+        _capitalPolicyAdapter = capitalPolicyAdapter;
+        _capitalLedgerStore = capitalLedgerStore;
     }
 
     [HttpGet("workflows")]
@@ -3386,6 +3404,49 @@ public sealed class DebugController : ControllerBase
             emergency.TriggeredAt,
             emergency.ResolvedAt
         });
+    }
+
+    [HttpGet("capital/ledger/{capitalId}")]
+    public IActionResult GetCapitalLedger(Guid capitalId)
+    {
+        var entries = _capitalLedgerStore.GetEntriesByCapitalId(capitalId);
+
+        if (entries.Count == 0)
+            return NotFound(new { error = $"No ledger entries found for capital: {capitalId}" });
+
+        return Ok(new
+        {
+            capitalId,
+            entryCount = entries.Count,
+            entries = entries.Select(e => new
+            {
+                e.EntryId,
+                entryType = e.EntryType.ToString(),
+                e.PoolId,
+                e.InvestorIdentityId,
+                e.ReferenceId,
+                e.Amount,
+                e.Currency,
+                e.PreviousBalance,
+                e.NewBalance,
+                e.Timestamp,
+                e.TraceId,
+                e.CorrelationId
+            })
+        });
+    }
+
+    [HttpGet("capital/evidence/{capitalId:guid}")]
+    public async Task<IActionResult> GetCapitalEvidence(Guid capitalId, [FromQuery] Guid? referenceId = null)
+    {
+        if (referenceId.HasValue)
+        {
+            var byReference = await _capitalEvidenceRecorder.GetEvidenceByReferenceIdAsync(referenceId.Value);
+            return Ok(byReference);
+        }
+
+        var evidence = await _capitalEvidenceRecorder.GetEvidenceByCapitalIdAsync(capitalId);
+        return Ok(evidence);
     }
 }
 

@@ -287,6 +287,27 @@ var engineChainEvidenceGateway = new Whycespace.Engines.T0U.WhyceChain.ChainEvid
 var governanceEvidenceRecorder = new Whycespace.Engines.T0U.Governance.GovernanceEvidenceRecorder(engineChainEvidenceGateway);
 builder.Services.AddSingleton(governanceEvidenceRecorder);
 
+// Capital Policy Enforcement Adapter (Phase 2.2.25)
+var capitalRegistry = new Whycespace.System.Midstream.Capital.Registry.CapitalRegistry();
+var capitalPolicyAdapter = new Whycespace.System.Midstream.Capital.Governance.CapitalPolicyEnforcementAdapter(capitalRegistry);
+builder.Services.AddSingleton<Whycespace.System.Midstream.Capital.Registry.ICapitalRegistry>(capitalRegistry);
+builder.Services.AddSingleton(capitalRegistry);
+builder.Services.AddSingleton(capitalPolicyAdapter);
+
+// Capital Evidence Recorder (Phase 2.2.28)
+var capitalEvidenceRecorder = new Whycespace.System.Midstream.Capital.Evidence.CapitalEvidenceRecorder();
+builder.Services.AddSingleton<Whycespace.System.Midstream.Capital.Evidence.ICapitalEvidenceRecorder>(capitalEvidenceRecorder);
+builder.Services.AddSingleton(capitalEvidenceRecorder);
+
+// Capital Balance Engine (Phase 2.2.27)
+var capitalBalanceEngine = new Whycespace.Engines.T3I.Economic.Capital.CapitalBalanceEngine();
+builder.Services.AddSingleton(capitalBalanceEngine);
+
+// Capital Ledger Store (Phase 2.2.29)
+var capitalLedgerStore = new Whycespace.System.Midstream.Capital.Stores.CapitalLedgerStore();
+builder.Services.AddSingleton<Whycespace.System.Midstream.Capital.Stores.ICapitalLedgerStore>(capitalLedgerStore);
+builder.Services.AddSingleton(capitalLedgerStore);
+
 // WSS Runtime (Phase 2.1.x) — engines bootstrapped in runtime layer
 var wssBootstrapper = new WssRuntimeBootstrapper(eventBus, kafkaBrokers);
 builder.Services.AddSingleton(wssBootstrapper);
