@@ -1,7 +1,7 @@
-using Whycespace.Projections.Queries;
+using Whycespace.ProjectionRuntime.Projections.Queries;
 using Whycespace.ProjectionRuntime.Storage;
 
-namespace Whycespace.Projections.Tests;
+namespace Whycespace.ProjectionRuntime.Projections.Tests;
 
 public sealed class ProjectionQueryServiceTests
 {

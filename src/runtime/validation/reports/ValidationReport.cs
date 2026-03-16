@@ -1,4 +1,4 @@
-namespace Whycespace.RuntimeValidation.Reports;
+namespace Whycespace.Runtime.Validation.Reports;
 
 public sealed record ValidationReport(
     Guid ScenarioId,

@@ -1,12 +1,12 @@
-namespace Whycespace.RuntimeValidation.Scenarios;
+namespace Whycespace.Runtime.Validation.Scenarios;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Engines.T4A.API;
 using Whycespace.Engines.T2E.Clusters.Property.Letting;
 using Whycespace.Engines.T2E.Core.Revenue;
 using Whycespace.Engines.T2E.Core.Capital;
-using Whycespace.RuntimeValidation.Models;
-using Whycespace.RuntimeValidation.Reports;
+using Whycespace.Runtime.Validation.Models;
+using Whycespace.Runtime.Validation.Reports;
 using global::System.Diagnostics;
 
 public sealed class PropertyLettingScenario

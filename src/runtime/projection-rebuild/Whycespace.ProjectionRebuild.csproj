@@ -10,7 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
     <ProjectReference Include="..\event-fabric\Whycespace.EventFabric.csproj" />
-    <ProjectReference Include="..\projections\Whycespace.Projections.csproj" />
+    <ProjectReference Include="..\projection-runtime\Whycespace.ProjectionRuntime.csproj" />
     <ProjectReference Include="..\event-replay\Whycespace.EventReplay.csproj" />
   </ItemGroup>
 

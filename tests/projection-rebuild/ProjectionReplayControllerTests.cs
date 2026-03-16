@@ -1,7 +1,7 @@
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
-using Whycespace.Projections.Contracts;
-using Whycespace.Projections.Registry;
+using Whycespace.ProjectionRuntime.Projections.Contracts;
+using Whycespace.ProjectionRuntime.Projections.Registry;
 using Whycespace.ProjectionRuntime.Storage;
 using Whycespace.ProjectionRebuild.Checkpoints;
 using Whycespace.ProjectionRebuild.Controller;

@@ -314,7 +314,7 @@
     <ProjectReference Include="..\src\platform\Whycespace.Platform.csproj" />
     <ProjectReference Include="..\src\runtime\guardrails\Whycespace.ArchitectureGuardrails.csproj" />
     <ProjectReference Include="..\src\runtime\reliability\Whycespace.Reliability.csproj" />
-    <ProjectReference Include="..\src\runtime\projections\Whycespace.Projections.csproj" />
+    <ProjectReference Include="..\src\runtime\projection-runtime\Whycespace.ProjectionRuntime.csproj" />
     <ProjectReference Include="..\src\runtime\event-idempotency\Whycespace.EventIdempotency.csproj" />
     <ProjectReference Include="..\src\runtime\event-fabric\Whycespace.EventFabric.csproj" />
   </ItemGroup>

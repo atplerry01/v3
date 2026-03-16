@@ -1,6 +1,6 @@
 namespace Whycespace.SystemValidation.Tests;
 
-using Whycespace.RuntimeValidation.Scenarios;
+using Whycespace.Runtime.Validation.Scenarios;
 
 public sealed class WorkflowExecutionTests
 {

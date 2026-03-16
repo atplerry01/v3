@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T3I.Economic.Capital;
 
-using Whycespace.Systems.Midstream.Capital.Registry;
+using Whycespace.Domain.Core.Economic.CapitalRegistry;
 
 public sealed class CapitalBalanceEngine
 {

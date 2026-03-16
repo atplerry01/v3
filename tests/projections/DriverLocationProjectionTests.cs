@@ -1,9 +1,9 @@
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
-using Whycespace.Projections.Clusters.Mobility;
+using Whycespace.ProjectionRuntime.Projections.Clusters.Mobility;
 using Whycespace.ProjectionRuntime.Storage;
 
-namespace Whycespace.Projections.Tests;
+namespace Whycespace.ProjectionRuntime.Projections.Tests;
 
 public sealed class DriverLocationProjectionTests
 {

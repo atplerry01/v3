@@ -6,7 +6,7 @@ using Whycespace.Contracts.Events;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
 using Whycespace.Systems.Midstream.WSS.Events;
-using Whycespace.Systems.Midstream.WSS.Kafka;
+using Whycespace.Runtime.EventFabric.WSS;
 
 [EngineManifest("WorkflowEventRouter", EngineTier.T1M, EngineKind.Decision, "WorkflowEventRouterRequest", typeof(EngineEvent))]
 public sealed class WorkflowEventRouter : IEngine, IWorkflowEventRouter

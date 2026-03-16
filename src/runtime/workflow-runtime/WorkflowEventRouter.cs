@@ -1,8 +1,8 @@
 namespace Whycespace.WorkflowRuntime;
 
 using global::System.Collections.Concurrent;
-using Whycespace.Systems.Midstream.WSS.Instances;
-using Whycespace.Systems.Midstream.WSS.Stores;
+using Whycespace.Systems.Midstream.WSS.Registry;
+using Whycespace.Runtime.Persistence.Workflow;
 using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Models.WorkflowInstanceStatus;
 using StepStatus = Whycespace.Domain.Core.Workflows.StepStatus;
 

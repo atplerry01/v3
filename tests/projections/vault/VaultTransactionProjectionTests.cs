@@ -1,10 +1,10 @@
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
-using Whycespace.Projections.Core.Economics.Vault;
+using Whycespace.ProjectionRuntime.Projections.Core.Economics.Vault;
 using Whycespace.ProjectionRuntime.Storage;
 using System.Text.Json;
 
-namespace Whycespace.Projections.Tests.Vault;
+namespace Whycespace.ProjectionRuntime.Projections.Tests.Vault;
 
 public sealed class VaultTransactionProjectionTests
 {

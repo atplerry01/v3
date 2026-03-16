@@ -1,4 +1,4 @@
-using Whycespace.Projections.Registry;
+using Whycespace.ProjectionRuntime.Projections.Registry;
 using Whycespace.ProjectionRebuild.Models;
 using Whycespace.ProjectionRebuild.Rebuild;
 using Whycespace.ProjectionRebuild.Reset;

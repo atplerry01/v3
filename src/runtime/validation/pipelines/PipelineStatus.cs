@@ -1,4 +1,4 @@
-namespace Whycespace.RuntimeValidation.Pipelines;
+namespace Whycespace.Runtime.Validation.Pipelines;
 
 public sealed record PipelineStatus(
     string Api,

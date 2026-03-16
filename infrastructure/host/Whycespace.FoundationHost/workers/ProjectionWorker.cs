@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
 using Whycespace.EventIdempotency.Guard;
-using Whycespace.Projections.Registry;
+using Whycespace.ProjectionRuntime.Projections.Registry;
 using Whycespace.Runtime.Events;
 
 public sealed class ProjectionWorker : BackgroundService

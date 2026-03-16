@@ -25,7 +25,6 @@
     <ProjectReference Include="..\runtime\guardrails\Whycespace.ArchitectureGuardrails.csproj" />
     <ProjectReference Include="..\runtime\command\Whycespace.CommandSystem.csproj" />
     <ProjectReference Include="..\runtime\reliability\Whycespace.Reliability.csproj" />
-    <ProjectReference Include="..\runtime\projections\Whycespace.Projections.csproj" />
     <ProjectReference Include="..\runtime\observability\Whycespace.Observability.csproj" />
     <ProjectReference Include="..\domain\clusters\Whycespace.ClusterDomain.csproj" />
     <ProjectReference Include="..\runtime\simulation\Whycespace.SimulationRuntime.csproj" />
@@ -43,6 +42,10 @@
     <ProjectReference Include="..\runtime\event-replay\Whycespace.EventReplay.csproj" />
     <ProjectReference Include="..\engines\T0U\WhyceChain\Whycespace.Engines.T0U.WhyceChain.csproj" />
     <ProjectReference Include="..\engines\T0U\Governance\Whycespace.Engines.T0U.Governance.csproj" />
+    <ProjectReference Include="..\engines\T0U\WhyceID\Whycespace.Engines.T0U.WhyceID.csproj" />
+    <ProjectReference Include="..\engines\T0U\WhycePolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
+    <ProjectReference Include="..\engines\T1M\WSS\Whycespace.Engines.T1M.WSS.csproj" />
+    <ProjectReference Include="..\runtime\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
     <ProjectReference Include="..\engines\T3I\economic\Whycespace.Engines.T3I.Economic.csproj" />
     <ProjectReference Include="..\engines\T3I\Capital\Whycespace.Engines.T3I.Capital.csproj" />
   </ItemGroup>

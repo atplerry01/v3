@@ -9,11 +9,11 @@ using Whycespace.Runtime.Events;
 using Whycespace.Runtime.Observability;
 using Whycespace.Runtime.Partitions;
 using Whycespace.Runtime.Persistence;
-using Whycespace.Projections.Core.Economics;
-using Whycespace.Projections.Clusters.Mobility;
-using Whycespace.Projections.Clusters.Property;
-using Whycespace.Projections.Queries;
-using Whycespace.Projections.Registry;
+using Whycespace.ProjectionRuntime.Projections.Core.Economics;
+using Whycespace.ProjectionRuntime.Projections.Clusters.Mobility;
+using Whycespace.ProjectionRuntime.Projections.Clusters.Property;
+using Whycespace.ProjectionRuntime.Projections.Queries;
+using Whycespace.ProjectionRuntime.Projections.Registry;
 using Whycespace.ProjectionRuntime.Storage;
 using Whycespace.EventIdempotency.Guard;
 using Whycespace.EventIdempotency.Registry;
@@ -156,7 +156,7 @@ try
     var projectionStore = new RedisProjectionStore();
     builder.Services.AddSingleton<IProjectionStore>(projectionStore);
 
-    var projectionRegistry = new Whycespace.Projections.Registry.ProjectionRegistry();
+    var projectionRegistry = new Whycespace.ProjectionRuntime.Projections.Registry.ProjectionRegistry();
     projectionRegistry.Register(new DriverLocationProjection(projectionStore));
     projectionRegistry.Register(new RideStatusProjection(projectionStore));
     projectionRegistry.Register(new PropertyListingProjection(projectionStore));

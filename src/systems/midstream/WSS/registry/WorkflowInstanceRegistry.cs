@@ -1,7 +1,7 @@
 namespace Whycespace.Systems.WSS.Registry;
 
 using Whycespace.Systems.Midstream.WSS.Models;
-using Whycespace.Systems.Midstream.WSS.Stores;
+using Whycespace.Systems.Midstream.WSS.Registry;
 
 public sealed class WorkflowInstanceRegistry : IWorkflowInstanceRegistry
 {

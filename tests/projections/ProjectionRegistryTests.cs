@@ -1,9 +1,9 @@
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
-using Whycespace.Projections.Contracts;
-using Whycespace.Projections.Registry;
+using Whycespace.ProjectionRuntime.Projections.Contracts;
+using Whycespace.ProjectionRuntime.Projections.Registry;
 
-namespace Whycespace.Projections.Tests;
+namespace Whycespace.ProjectionRuntime.Projections.Tests;
 
 public sealed class ProjectionRegistryTests
 {

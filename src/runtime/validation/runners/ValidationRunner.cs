@@ -1,8 +1,8 @@
-namespace Whycespace.RuntimeValidation.Runners;
+namespace Whycespace.Runtime.Validation.Runners;
 
-using Whycespace.RuntimeValidation.Models;
-using Whycespace.RuntimeValidation.Reports;
-using Whycespace.RuntimeValidation.Scenarios;
+using Whycespace.Runtime.Validation.Models;
+using Whycespace.Runtime.Validation.Reports;
+using Whycespace.Runtime.Validation.Scenarios;
 
 public sealed class ValidationRunner
 {

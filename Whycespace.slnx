@@ -76,8 +76,8 @@
   <Folder Name="/src/runtime/observability/">
     <Project Path="src/runtime/observability/Whycespace.Observability.csproj" />
   </Folder>
-  <Folder Name="/src/runtime/projections/">
-    <Project Path="src/runtime/projections/Whycespace.Projections.csproj" />
+  <Folder Name="/src/runtime/validation/">
+    <Project Path="src/runtime/validation/Whycespace.RuntimeValidation.csproj" />
   </Folder>
   <Folder Name="/src/runtime/projection-rebuild/">
     <Project Path="src/runtime/projection-rebuild/Whycespace.ProjectionRebuild.csproj" />
@@ -187,9 +187,6 @@
   </Folder>
   <Folder Name="/tests/whyceid-identity/">
     <Project Path="tests/whyceid-identity/Whycespace.WhyceID.Identity.Tests.csproj" />
-  </Folder>
-  <Folder Name="/src/runtime/validation/">
-    <Project Path="src/runtime/validation/Whycespace.RuntimeValidation.csproj" />
   </Folder>
   <Folder Name="/tests/system-validation/">
     <Project Path="tests/system-validation/Whycespace.SystemValidation.Tests.csproj" />

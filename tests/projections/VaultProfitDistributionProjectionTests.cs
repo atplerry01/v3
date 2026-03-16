@@ -1,11 +1,11 @@
 using System.Text.Json;
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
-using Whycespace.Projections.Core.Economics;
-using Whycespace.Projections.Core.Economics.Models;
+using Whycespace.ProjectionRuntime.Projections.Core.Economics;
+using Whycespace.ProjectionRuntime.Projections.Core.Economics.Models;
 using Whycespace.ProjectionRuntime.Storage;
 
-namespace Whycespace.Projections.Tests;
+namespace Whycespace.ProjectionRuntime.Projections.Tests;
 
 public sealed class VaultProfitDistributionProjectionTests
 {

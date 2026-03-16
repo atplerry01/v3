@@ -1,5 +1,5 @@
-using Whycespace.Projections.Contracts;
-using Whycespace.Projections.Registry;
+using Whycespace.ProjectionRuntime.Projections.Contracts;
+using Whycespace.ProjectionRuntime.Projections.Registry;
 using Whycespace.ProjectionRuntime.Storage;
 
 namespace Whycespace.ProjectionRebuild.Reset;

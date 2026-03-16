@@ -4,7 +4,6 @@ using global::System.Security.Cryptography;
 using global::System.Text;
 using global::System.Text.Json;
 using Whycespace.Systems.Midstream.WSS.Models;
-using Whycespace.Systems.Midstream.WSS.Stores;
 
 public sealed class WorkflowRegistry : IWorkflowRegistry
 {

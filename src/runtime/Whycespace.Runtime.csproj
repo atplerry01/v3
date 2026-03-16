@@ -97,6 +97,10 @@
     <Content Remove="governance/**" />
     <None Remove="governance/**" />
     <EmbeddedResource Remove="governance/**" />
+    <Compile Remove="persistence/**" />
+    <Content Remove="persistence/**" />
+    <None Remove="persistence/**" />
+    <EmbeddedResource Remove="persistence/**" />
   </ItemGroup>
 
   <ItemGroup>

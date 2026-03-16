@@ -1,7 +1,7 @@
 namespace Whycespace.Platform.Gateway.WhyceApiGateway;
 
 using Microsoft.AspNetCore.Mvc;
-using Whycespace.Projections.Queries;
+using Whycespace.ProjectionRuntime.Projections.Queries;
 using Whycespace.Runtime.Workflow;
 
 [ApiController]
