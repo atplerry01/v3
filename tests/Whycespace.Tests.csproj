@@ -288,6 +288,10 @@
     <Content Remove="domain/**" />
     <None Remove="domain/**" />
     <EmbeddedResource Remove="domain/**" />
+    <Compile Remove="capital-system/**" />
+    <Content Remove="capital-system/**" />
+    <None Remove="capital-system/**" />
+    <EmbeddedResource Remove="capital-system/**" />
   </ItemGroup>
 
   <ItemGroup>

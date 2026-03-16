@@ -299,10 +299,6 @@ var capitalEvidenceRecorder = new Whycespace.System.Midstream.Capital.Evidence.C
 builder.Services.AddSingleton<Whycespace.System.Midstream.Capital.Evidence.ICapitalEvidenceRecorder>(capitalEvidenceRecorder);
 builder.Services.AddSingleton(capitalEvidenceRecorder);
 
-// Capital Balance Engine (Phase 2.2.27)
-var capitalBalanceEngine = new Whycespace.Engines.T3I.Economic.Capital.CapitalBalanceEngine();
-builder.Services.AddSingleton(capitalBalanceEngine);
-
 // Capital Ledger Store (Phase 2.2.29)
 var capitalLedgerStore = new Whycespace.System.Midstream.Capital.Stores.CapitalLedgerStore();
 builder.Services.AddSingleton<Whycespace.System.Midstream.Capital.Stores.ICapitalLedgerStore>(capitalLedgerStore);
