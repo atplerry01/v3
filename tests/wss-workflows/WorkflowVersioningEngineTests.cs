@@ -5,7 +5,7 @@ using Whycespace.Contracts.Primitives;
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Stores;
 using Whycespace.Engines.T1M.WSS.Versioning;
-using WfDefinition = Whycespace.System.Midstream.WSS.Models.WorkflowDefinition;
+using WfDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
 using Xunit;
 
 public sealed class WorkflowVersioningEngineTests

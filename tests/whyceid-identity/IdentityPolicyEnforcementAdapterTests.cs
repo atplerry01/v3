@@ -1,10 +1,10 @@
-using Adapters = Whycespace.System.WhyceID.Adapters;
-using Whycespace.System.WhyceID.Aggregates;
-using Whycespace.System.WhyceID.Models;
-using Whycespace.System.WhyceID.Registry;
-using Whycespace.System.WhyceID.Stores;
-using Whycespace.System.Upstream.WhycePolicy.Models;
-using SystemAdapter = Whycespace.System.WhyceID.Adapters.IdentityPolicyEnforcementAdapter;
+using Adapters = Whycespace.Systems.WhyceID.Adapters;
+using Whycespace.Systems.WhyceID.Aggregates;
+using Whycespace.Systems.WhyceID.Models;
+using Whycespace.Systems.WhyceID.Registry;
+using Whycespace.Systems.WhyceID.Stores;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
+using SystemAdapter = Whycespace.Systems.WhyceID.Adapters.IdentityPolicyEnforcementAdapter;
 
 namespace Whycespace.WhyceID.Identity.Tests;
 

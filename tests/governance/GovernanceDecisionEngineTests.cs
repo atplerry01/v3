@@ -1,5 +1,5 @@
 using Whycespace.Engines.T0U.Governance;
-using Whycespace.System.Upstream.Governance.Models;
+using Whycespace.Systems.Upstream.Governance.Models;
 using Whycespace.Domain.Events.Governance;
 
 namespace Whycespace.Governance.Tests;

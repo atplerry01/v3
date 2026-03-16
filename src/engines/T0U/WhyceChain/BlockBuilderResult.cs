@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T0U.WhyceChain;
 
-using Whycespace.System.Upstream.WhyceChain.Ledger;
+using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 
 public sealed record BlockBuilderResult(
     ChainBlock Block,

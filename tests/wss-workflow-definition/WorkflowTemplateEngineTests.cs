@@ -1,9 +1,9 @@
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Definition;
 using Whycespace.Engines.T1M.WSS.Graph;
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Models;
 using Whycespace.Engines.T1M.WSS.Stores;
-using WssWorkflowGraph = Whycespace.System.Midstream.WSS.Models.WorkflowGraph;
+using WssWorkflowGraph = Whycespace.Systems.Midstream.WSS.Models.WorkflowGraph;
 
 namespace Whycespace.WSS.WorkflowDefinition.Tests;
 

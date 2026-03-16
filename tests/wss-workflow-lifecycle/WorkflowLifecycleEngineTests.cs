@@ -4,8 +4,8 @@ using Whycespace.Engines.T1M.WSS.Instance;
 using Whycespace.Engines.T1M.WSS.Registry;
 using Whycespace.Engines.T1M.WSS.Runtime;
 using Whycespace.Engines.T1M.WSS.Stores;
-using Whycespace.System.Midstream.WSS.Events;
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Events;
+using Whycespace.Systems.Midstream.WSS.Models;
 
 namespace Whycespace.WSS.WorkflowLifecycle.Tests;
 

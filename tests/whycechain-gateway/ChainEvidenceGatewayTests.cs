@@ -1,7 +1,7 @@
 using Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.Platform.WhyceChain;
 using Whycespace.Platform.WhyceChain.Models;
-using Whycespace.System.Upstream.WhyceChain.Stores;
+using Whycespace.Systems.Upstream.WhyceChain.Stores;
 
 namespace Whycespace.WhyceChainGateway.Tests;
 

@@ -6,7 +6,7 @@ using Whycespace.Engines.T1M.WSS.Governance.Commands;
 using Whycespace.Engines.T1M.WSS.Governance.Results;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
-using Whycespace.System.Midstream.WSS.Governance;
+using Whycespace.Systems.Midstream.WSS.Governance;
 
 [EngineManifest("GovernanceWorkflowEngine", EngineTier.T1M, EngineKind.Decision,
     "GovernanceWorkflowRequest", typeof(EngineEvent))]

@@ -3,8 +3,8 @@ namespace Whycespace.Engines.T0U.WhyceChain;
 using global::System.Security.Cryptography;
 using global::System.Text;
 using global::System.Text.Json;
-using Whycespace.System.Upstream.WhyceChain.Ledger;
-using LedgerChainBlock = Whycespace.System.Upstream.WhyceChain.Ledger.ChainBlock;
+using Whycespace.Systems.Upstream.WhyceChain.Ledger;
+using LedgerChainBlock = Whycespace.Systems.Upstream.WhyceChain.Ledger.ChainBlock;
 
 public sealed partial class EvidenceAnchoringEngine
 {

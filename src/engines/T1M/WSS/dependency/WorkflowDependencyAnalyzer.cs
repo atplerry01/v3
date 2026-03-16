@@ -2,7 +2,7 @@ namespace Whycespace.Engines.T1M.WSS.Dependency;
 
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Stores;
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Models;
 
 public sealed class WorkflowDependencyAnalyzer : IWorkflowDependencyEngine
 {

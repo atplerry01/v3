@@ -1,6 +1,6 @@
-using Whycespace.System.Upstream.WhyceChain.Ledger;
-using LedgerEntry = Whycespace.System.Upstream.WhyceChain.Ledger.ChainLedgerEntry;
-using LedgerBlock = Whycespace.System.Upstream.WhyceChain.Ledger.ChainLedgerBlock;
+using Whycespace.Systems.Upstream.WhyceChain.Ledger;
+using LedgerEntry = Whycespace.Systems.Upstream.WhyceChain.Ledger.ChainLedgerEntry;
+using LedgerBlock = Whycespace.Systems.Upstream.WhyceChain.Ledger.ChainLedgerBlock;
 
 namespace Whycespace.WhyceChain.Ledger.Tests;
 

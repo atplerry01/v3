@@ -1,6 +1,6 @@
 using Whycespace.Engines.T3I.WhyceChain;
-using Whycespace.System.Upstream.WhyceChain.Models;
-using ChainHashUtility = Whycespace.System.Upstream.WhyceChain.Ledger.ChainHashUtility;
+using Whycespace.Systems.Upstream.WhyceChain.Models;
+using ChainHashUtility = Whycespace.Systems.Upstream.WhyceChain.Ledger.ChainHashUtility;
 
 namespace Whycespace.WhyceChainAudit.Tests;
 

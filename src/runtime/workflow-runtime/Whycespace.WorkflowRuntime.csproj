@@ -9,9 +9,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
-    <ProjectReference Include="..\..\system\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\systems\Whycespace.System.csproj" />
     <ProjectReference Include="..\..\domain\Whycespace.Domain.csproj" />
     <ProjectReference Include="..\event-fabric\Whycespace.EventFabric.csproj" />
+    <ProjectReference Include="..\persistence\Whycespace.RuntimePersistence.csproj" />
   </ItemGroup>
 
 </Project>

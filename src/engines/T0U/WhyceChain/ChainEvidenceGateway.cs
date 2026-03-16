@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T0U.WhyceChain;
 
-using Whycespace.System.Upstream.WhyceChain.Models;
+using Whycespace.Systems.Upstream.WhyceChain.Models;
 
 public sealed class ChainEvidenceGateway
 {

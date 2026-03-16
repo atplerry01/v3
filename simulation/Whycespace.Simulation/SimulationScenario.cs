@@ -1,7 +1,7 @@
 namespace Whycespace.Simulation;
 
 using Whycespace.Contracts.Workflows;
-using Whycespace.System.Midstream.WSS.Workflows;
+using Whycespace.Systems.Midstream.WSS.Workflows;
 
 public sealed record SimulationConfig(
     string Name,

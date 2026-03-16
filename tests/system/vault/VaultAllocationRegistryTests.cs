@@ -1,6 +1,6 @@
 namespace Whycespace.VaultRegistry.Tests;
 
-using Whycespace.System.Downstream.Economic.Vault.Allocation;
+using Whycespace.Systems.Downstream.Economic.Vault.Allocation;
 
 public sealed class VaultAllocationRegistryTests
 {

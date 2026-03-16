@@ -1,6 +1,6 @@
 using Whycespace.Engines.T0U.WhycePolicy;
 using Whycespace.Engines.T3I.WhycePolicy;
-using Whycespace.System.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
 using PolicyMonitoringEngine = Whycespace.Engines.T3I.WhycePolicy.PolicyMonitoringEngine;
 
 namespace Whycespace.WhycePolicy.Tests;

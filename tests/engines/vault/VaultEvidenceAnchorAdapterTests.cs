@@ -2,7 +2,7 @@ namespace Whycespace.Tests.Engines.Vault;
 
 using Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.Engines.T2E.Economic.Vault.Adapters;
-using Whycespace.System.Upstream.WhyceChain.Stores;
+using Whycespace.Systems.Upstream.WhyceChain.Stores;
 using Xunit;
 
 public sealed class VaultEvidenceAnchorAdapterTests

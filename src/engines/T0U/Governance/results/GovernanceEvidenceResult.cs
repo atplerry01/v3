@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T0U.Governance.Results;
 
-using Whycespace.System.Upstream.Governance.Evidence.Models;
+using Whycespace.Systems.Upstream.Governance.Evidence.Models;
 
 public sealed record GovernanceEvidenceResult(
     bool Success,

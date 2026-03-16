@@ -1,7 +1,7 @@
 namespace Whycespace.WhycePolicy.Tests;
 
 using Whycespace.Engines.T4A.WhycePolicy;
-using Whycespace.System.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
 using PolicyEnforcementResult = Whycespace.Engines.T4A.WhycePolicy.PolicyEnforcementResult;
 
 public sealed class PolicyEnforcementAdapterTests

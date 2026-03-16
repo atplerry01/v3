@@ -1,7 +1,7 @@
 using Whycespace.Engines.T0U.WhyceID;
-using Whycespace.System.WhyceID.Commands;
-using Whycespace.System.WhyceID.Models;
-using Whycespace.System.WhyceID.Registry;
+using Whycespace.Systems.WhyceID.Commands;
+using Whycespace.Systems.WhyceID.Models;
+using Whycespace.Systems.WhyceID.Registry;
 
 namespace Whycespace.WhyceID.Identity.Tests;
 

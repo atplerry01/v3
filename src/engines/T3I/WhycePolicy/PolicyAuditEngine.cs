@@ -1,7 +1,7 @@
 namespace Whycespace.Engines.T3I.WhycePolicy;
 
-using Whycespace.System.Upstream.WhycePolicy.Models;
-using SystemEvidenceRecord = Whycespace.System.Upstream.WhycePolicy.Models.PolicyEvidenceRecord;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
+using SystemEvidenceRecord = Whycespace.Systems.Upstream.WhycePolicy.Models.PolicyEvidenceRecord;
 
 public sealed class PolicyAuditEngine
 {

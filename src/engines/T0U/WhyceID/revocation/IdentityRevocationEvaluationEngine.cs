@@ -2,10 +2,10 @@ namespace Whycespace.Engines.T0U.WhyceID.Revocation;
 
 using global::System.Security.Cryptography;
 using global::System.Text;
-using Whycespace.System.WhyceID.Aggregates;
-using Whycespace.System.WhyceID.Models;
-using Whycespace.System.WhyceID.Registry;
-using Whycespace.System.WhyceID.Stores;
+using Whycespace.Systems.WhyceID.Aggregates;
+using Whycespace.Systems.WhyceID.Models;
+using Whycespace.Systems.WhyceID.Registry;
+using Whycespace.Systems.WhyceID.Stores;
 
 public sealed class IdentityRevocationEvaluationEngine
 {

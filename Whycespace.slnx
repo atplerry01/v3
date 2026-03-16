@@ -88,12 +88,12 @@
   <Folder Name="/src/shared/contracts/">
     <Project Path="src/shared/contracts/Whycespace.Contracts.csproj" />
   </Folder>
-  <Folder Name="/src/system/">
-    <Project Path="src/system/Whycespace.System.csproj" />
+  <Folder Name="/src/systems/">
+    <Project Path="src/systems/Whycespace.System.csproj" />
   </Folder>
-  <Folder Name="/src/system/upstream/" />
-  <Folder Name="/src/system/upstream/whyceid/">
-    <Project Path="src/system/upstream/WhyceID/Whycespace.System.WhyceID.csproj" />
+  <Folder Name="/src/systems/upstream/" />
+  <Folder Name="/src/systems/upstream/whyceid/">
+    <Project Path="src/systems/upstream/WhyceID/Whycespace.System.WhyceID.csproj" />
   </Folder>
   <Folder Name="/src/engines/t0u-whyce-identity/">
   </Folder>

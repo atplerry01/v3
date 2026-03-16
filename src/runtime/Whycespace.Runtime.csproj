@@ -107,8 +107,8 @@
     <ProjectReference Include="..\engines\T0U\WhyceChain\Whycespace.Engines.T0U.WhyceChain.csproj" />
     <ProjectReference Include="..\engines\T0U\Governance\Whycespace.Engines.T0U.Governance.csproj" />
     <ProjectReference Include="..\engines\T1M\WSS\Whycespace.Engines.T1M.WSS.csproj" />
-    <ProjectReference Include="..\system\Whycespace.System.csproj" />
-    <ProjectReference Include="..\system\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
+    <ProjectReference Include="..\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\systems\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
   </ItemGroup>
 
   <ItemGroup>

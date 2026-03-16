@@ -1,6 +1,6 @@
-using Whycespace.System.Upstream.WhycePolicy.Cache;
-using Whycespace.System.Upstream.WhycePolicy.Models;
-using Whycespace.System.Upstream.WhycePolicy.Stores;
+using Whycespace.Systems.Upstream.WhycePolicy.Cache;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Stores;
 
 namespace Whycespace.WhycePolicy.Tests;
 

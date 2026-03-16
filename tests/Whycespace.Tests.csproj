@@ -309,7 +309,7 @@
     <ProjectReference Include="..\src\shared\Whycespace.Shared.csproj" />
     <ProjectReference Include="..\src\engines\Whycespace.Engines.csproj" />
     <ProjectReference Include="..\src\runtime\Whycespace.Runtime.csproj" />
-    <ProjectReference Include="..\src\system\Whycespace.System.csproj" />
+    <ProjectReference Include="..\src\systems\Whycespace.System.csproj" />
     <ProjectReference Include="..\src\domain\Whycespace.Domain.csproj" />
     <ProjectReference Include="..\src\platform\Whycespace.Platform.csproj" />
     <ProjectReference Include="..\src\runtime\guardrails\Whycespace.ArchitectureGuardrails.csproj" />

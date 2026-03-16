@@ -5,7 +5,7 @@ using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Stores;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Models;
 
 [EngineManifest("WorkflowVersioning", EngineTier.T1M, EngineKind.Decision,
     "WorkflowVersionCommand", typeof(EngineEvent))]

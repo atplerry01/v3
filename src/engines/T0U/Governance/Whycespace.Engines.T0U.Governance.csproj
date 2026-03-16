@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\domain\Whycespace.Domain.csproj" />
-    <ProjectReference Include="..\..\..\system\Whycespace.System.csproj" />
-    <ProjectReference Include="..\..\..\system\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
+    <ProjectReference Include="..\..\..\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\..\systems\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
     <ProjectReference Include="..\WhyceChain\Whycespace.Engines.T0U.WhyceChain.csproj" />
   </ItemGroup>
 

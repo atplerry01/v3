@@ -2,8 +2,8 @@ namespace Whycespace.Engines.T0U.WhyceChain;
 
 using global::System.Security.Cryptography;
 using global::System.Text;
-using Whycespace.System.Upstream.WhyceChain.Models;
-using Whycespace.System.Upstream.WhyceChain.Stores;
+using Whycespace.Systems.Upstream.WhyceChain.Models;
+using Whycespace.Systems.Upstream.WhyceChain.Stores;
 
 public sealed class ChainBlockEngine
 {

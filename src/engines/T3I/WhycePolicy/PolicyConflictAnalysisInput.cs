@@ -1,7 +1,7 @@
 namespace Whycespace.Engines.T3I.WhycePolicy;
 
 using Whycespace.Engines.T0U.WhycePolicy;
-using Whycespace.System.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
 public sealed record PolicyConflictAnalysisInput(
     IReadOnlyList<PolicyDefinition> Policies,

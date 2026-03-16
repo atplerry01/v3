@@ -1,8 +1,8 @@
 using Whycespace.Domain.Core.Workflows;
-using Whycespace.System.Midstream.WSS.Instances;
-using Whycespace.System.Midstream.WSS.Stores;
+using Whycespace.Systems.Midstream.WSS.Instances;
+using Whycespace.Systems.Midstream.WSS.Stores;
 using Whycespace.WorkflowRuntime;
-using WorkflowInstanceStatus = Whycespace.System.Midstream.WSS.Models.WorkflowInstanceStatus;
+using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Models.WorkflowInstanceStatus;
 
 namespace Whycespace.WSS.Workflows.Tests;
 

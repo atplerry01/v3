@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T3I.WhycePolicy;
 
-using Whycespace.System.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
 public sealed class PolicyImpactForecastEngine
 {

@@ -1,7 +1,7 @@
 namespace Whycespace.Engines.T1M.WSS.Stores;
 
 using global::System.Collections.Concurrent;
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Models;
 
 public sealed class WssWorkflowStateStore : IWssWorkflowStateStore
 {

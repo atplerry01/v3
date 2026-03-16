@@ -1,6 +1,6 @@
 namespace Whycespace.VaultParticipantRegistry.Tests;
 
-using Whycespace.System.Downstream.Economic.Vault.Participants;
+using Whycespace.Systems.Downstream.Economic.Vault.Participants;
 
 public sealed class VaultParticipantRegistryTests
 {

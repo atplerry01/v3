@@ -1,5 +1,5 @@
 using Whycespace.Engines.T0U.WhyceChain;
-using Whycespace.System.Upstream.WhyceChain.Ledger;
+using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 
 namespace Whycespace.WhyceChainBlocks.Tests;
 

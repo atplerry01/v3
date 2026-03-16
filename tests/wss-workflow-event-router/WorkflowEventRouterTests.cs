@@ -1,7 +1,7 @@
 using Whycespace.Engines.T1M.WSS.Runtime;
 using Whycespace.Runtime.Events;
-using Whycespace.System.Midstream.WSS.Events;
-using Whycespace.System.Midstream.WSS.Kafka;
+using Whycespace.Systems.Midstream.WSS.Events;
+using Whycespace.Systems.Midstream.WSS.Kafka;
 
 namespace Whycespace.WSS.WorkflowEventRouter.Tests;
 

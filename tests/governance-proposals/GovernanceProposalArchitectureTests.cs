@@ -1,6 +1,6 @@
 using System.Reflection;
-using Whycespace.System.Upstream.Governance.Proposals.Registry;
-using Whycespace.System.Upstream.Governance.Proposals.Stores;
+using Whycespace.Systems.Upstream.Governance.Proposals.Registry;
+using Whycespace.Systems.Upstream.Governance.Proposals.Stores;
 
 namespace Whycespace.GovernanceProposals.Tests;
 
@@ -51,7 +51,7 @@ public class GovernanceProposalArchitectureTests
     {
         var ns = typeof(GovernanceProposalRegistry).Namespace;
         Assert.NotNull(ns);
-        Assert.StartsWith("Whycespace.System.", ns);
+        Assert.StartsWith("Whycespace.Systems.", ns);
     }
 
     [Fact]
@@ -59,6 +59,6 @@ public class GovernanceProposalArchitectureTests
     {
         var ns = typeof(GovernanceProposalStore).Namespace;
         Assert.NotNull(ns);
-        Assert.StartsWith("Whycespace.System.", ns);
+        Assert.StartsWith("Whycespace.Systems.", ns);
     }
 }

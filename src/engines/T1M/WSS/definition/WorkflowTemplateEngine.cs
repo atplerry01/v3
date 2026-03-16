@@ -4,7 +4,7 @@ using global::System.Text.RegularExpressions;
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Graph;
 using Whycespace.Engines.T1M.WSS.Template;
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Models;
 using Whycespace.Engines.T1M.WSS.Stores;
 
 public sealed class WorkflowTemplateEngine : IWorkflowTemplateEngine

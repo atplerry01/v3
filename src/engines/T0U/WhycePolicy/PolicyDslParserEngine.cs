@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T0U.WhycePolicy;
 
-using Whycespace.System.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
 /// <summary>
 /// Parses WHYCEPOLICY DSL strings into PolicyDefinition records.

@@ -1,6 +1,6 @@
 namespace Whycespace.Tests.Workflows;
 
-using Whycespace.System.Midstream.WSS.Workflows;
+using Whycespace.Systems.Midstream.WSS.Workflows;
 using Xunit;
 
 public sealed class PropertyListingWorkflowTests

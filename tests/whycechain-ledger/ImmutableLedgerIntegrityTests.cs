@@ -1,4 +1,4 @@
-using Whycespace.System.Upstream.WhyceChain.Ledger;
+using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 
 namespace Whycespace.WhyceChain.Ledger.Tests;
 

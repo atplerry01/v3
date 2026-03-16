@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Whycespace.Engines.T0U.WhyceGovernance</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\domain\Whycespace.Domain.csproj" />
+    <ProjectReference Include="..\..\..\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\..\systems\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
+    <ProjectReference Include="..\WhyceChain\Whycespace.Engines.T0U.WhyceChain.csproj" />
+  </ItemGroup>
+
+</Project>

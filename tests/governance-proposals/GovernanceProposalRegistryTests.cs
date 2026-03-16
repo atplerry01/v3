@@ -1,6 +1,6 @@
-using Whycespace.System.Upstream.Governance.Proposals.Models;
-using Whycespace.System.Upstream.Governance.Proposals.Registry;
-using Whycespace.System.Upstream.Governance.Proposals.Stores;
+using Whycespace.Systems.Upstream.Governance.Proposals.Models;
+using Whycespace.Systems.Upstream.Governance.Proposals.Registry;
+using Whycespace.Systems.Upstream.Governance.Proposals.Stores;
 
 namespace Whycespace.GovernanceProposals.Tests;
 

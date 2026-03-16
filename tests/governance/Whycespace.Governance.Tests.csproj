@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\system\Whycespace.System.csproj" />
-    <ProjectReference Include="..\..\src\system\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
+    <ProjectReference Include="..\..\src\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\src\systems\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
     <ProjectReference Include="..\..\src\engines\T0U\Governance\Whycespace.Engines.T0U.Governance.csproj" />
   </ItemGroup>
 

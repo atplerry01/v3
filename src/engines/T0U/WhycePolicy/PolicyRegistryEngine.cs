@@ -1,7 +1,7 @@
 namespace Whycespace.Engines.T0U.WhycePolicy;
 
-using Whycespace.System.Upstream.WhycePolicy.Models;
-using Whycespace.System.Upstream.WhycePolicy.Stores;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Stores;
 
 public sealed class PolicyRegistryEngine
 {

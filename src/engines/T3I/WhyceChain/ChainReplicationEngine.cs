@@ -2,7 +2,7 @@ namespace Whycespace.Engines.T3I.WhyceChain;
 
 using global::System.Security.Cryptography;
 using global::System.Text;
-using Whycespace.System.Upstream.WhyceChain.Models;
+using Whycespace.Systems.Upstream.WhyceChain.Models;
 
 public sealed class ChainReplicationEngine
 {

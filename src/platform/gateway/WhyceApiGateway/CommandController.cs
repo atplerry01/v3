@@ -3,7 +3,7 @@ namespace Whycespace.Platform.Gateway.WhyceApiGateway;
 using Microsoft.AspNetCore.Mvc;
 using Whycespace.CommandSystem.Models;
 using Whycespace.Contracts.Runtime;
-using Whycespace.System.Midstream.WSS.Orchestration;
+using Whycespace.Systems.Midstream.WSS.Orchestration;
 using CmdDispatcher = Whycespace.CommandSystem.Dispatcher.CommandDispatcher;
 
 [ApiController]

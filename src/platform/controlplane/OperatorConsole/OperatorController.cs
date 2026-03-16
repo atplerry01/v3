@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Observability;
 using Whycespace.Runtime.Reliability;
-using Whycespace.System.Downstream.Clusters;
+using Whycespace.Systems.Downstream.Clusters;
 
 [ApiController]
 [Route("api/operator")]

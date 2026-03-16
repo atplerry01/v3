@@ -1,7 +1,7 @@
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Primitives;
 using Whycespace.Engines.T1M.WSS.Template;
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Models;
 
 namespace Whycespace.WSS.Workflows.Tests;
 

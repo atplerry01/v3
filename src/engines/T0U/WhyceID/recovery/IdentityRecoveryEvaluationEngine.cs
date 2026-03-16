@@ -2,8 +2,8 @@ namespace Whycespace.Engines.T0U.WhyceID.Recovery;
 
 using global::System.Security.Cryptography;
 using global::System.Text;
-using Whycespace.System.WhyceID.Models;
-using Whycespace.System.WhyceID.Registry;
+using Whycespace.Systems.WhyceID.Models;
+using Whycespace.Systems.WhyceID.Registry;
 
 public sealed class IdentityRecoveryEvaluationEngine
 {

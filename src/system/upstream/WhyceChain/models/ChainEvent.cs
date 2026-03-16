@@ -1,8 +1,0 @@
-namespace Whycespace.System.Upstream.WhyceChain.Models;
-
-public sealed record ChainEvent(
-    string EventId,
-    string Domain,
-    string EventType,
-    string PayloadHash,
-    DateTimeOffset Timestamp);

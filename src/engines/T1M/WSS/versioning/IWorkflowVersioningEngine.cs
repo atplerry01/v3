@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T1M.WSS.Versioning;
 
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Models;
 
 public interface IWorkflowVersioningEngine
 {

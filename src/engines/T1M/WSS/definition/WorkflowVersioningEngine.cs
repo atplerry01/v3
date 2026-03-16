@@ -1,7 +1,7 @@
 namespace Whycespace.Engines.T1M.WSS.Definition;
 
 using Whycespace.Engines.T1M.WSS.Versioning;
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Models;
 using Whycespace.Engines.T1M.WSS.Stores;
 
 public sealed class WorkflowVersioningEngine

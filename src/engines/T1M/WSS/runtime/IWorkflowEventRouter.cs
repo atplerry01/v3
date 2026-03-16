@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T1M.WSS.Runtime;
 
-using Whycespace.System.Midstream.WSS.Events;
+using Whycespace.Systems.Midstream.WSS.Events;
 
 public interface IWorkflowEventRouter
 {

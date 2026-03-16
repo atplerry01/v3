@@ -2,8 +2,8 @@ namespace Whycespace.Engines.T0U.WhycePolicy;
 
 using global::System.Security.Cryptography;
 using global::System.Text;
-using Whycespace.System.Upstream.WhycePolicy.Models;
-using Whycespace.System.Upstream.WhycePolicy.Stores;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Stores;
 
 public sealed class PolicyDecisionCacheEngine
 {

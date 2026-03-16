@@ -2,10 +2,10 @@ namespace Whycespace.ExecutionEngines.Tests;
 
 using Whycespace.Engines.T0U.WhyceID;
 using Whycespace.Engines.T2E.Economic.Vault.Adapters;
-using Whycespace.System.WhyceID.Aggregates;
-using Whycespace.System.WhyceID.Models;
-using Whycespace.System.WhyceID.Registry;
-using Whycespace.System.WhyceID.Stores;
+using Whycespace.Systems.WhyceID.Aggregates;
+using Whycespace.Systems.WhyceID.Models;
+using Whycespace.Systems.WhyceID.Registry;
+using Whycespace.Systems.WhyceID.Stores;
 
 public sealed class VaultIdentityAuthorizationAdapterTests
 {

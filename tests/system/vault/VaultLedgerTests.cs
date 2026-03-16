@@ -1,6 +1,6 @@
 namespace Whycespace.VaultLedger.Tests;
 
-using Whycespace.System.Downstream.Economic.Vault.Ledger;
+using Whycespace.Systems.Downstream.Economic.Vault.Ledger;
 
 public sealed class VaultLedgerTests
 {

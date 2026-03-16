@@ -1,5 +1,5 @@
-using Whycespace.System.Upstream.WhycePolicy.Models;
-using Whycespace.System.Upstream.WhycePolicy.Registry;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Registry;
 
 namespace Whycespace.WhycePolicy.Tests;
 

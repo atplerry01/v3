@@ -1,7 +1,7 @@
 namespace Whycespace.CapitalSystem.Tests;
 
 using Whycespace.Engines.T3I.Economic.Capital;
-using Whycespace.System.Midstream.Capital.Registry;
+using Whycespace.Systems.Midstream.Capital.Registry;
 
 public sealed class CapitalBalanceEngineTests
 {

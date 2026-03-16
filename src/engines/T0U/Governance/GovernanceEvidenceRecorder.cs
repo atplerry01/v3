@@ -6,9 +6,9 @@ using global::System.Text.Json;
 using Whycespace.Engines.T0U.Governance.Commands;
 using Whycespace.Engines.T0U.Governance.Results;
 using Whycespace.Engines.T0U.WhyceChain;
-using Whycespace.System.Upstream.Governance.Evidence.Models;
-using Whycespace.System.Upstream.Governance.Models;
-using Whycespace.System.Upstream.WhyceChain.Models;
+using Whycespace.Systems.Upstream.Governance.Evidence.Models;
+using Whycespace.Systems.Upstream.Governance.Models;
+using Whycespace.Systems.Upstream.WhyceChain.Models;
 
 public sealed class GovernanceEvidenceRecorder
 {

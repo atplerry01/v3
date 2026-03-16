@@ -1,7 +1,7 @@
 using Whycespace.Engines.T0U.Governance;
 using Whycespace.Engines.T0U.WhyceChain;
-using Whycespace.System.Upstream.Governance.Models;
-using Whycespace.System.Upstream.WhyceChain.Stores;
+using Whycespace.Systems.Upstream.Governance.Models;
+using Whycespace.Systems.Upstream.WhyceChain.Stores;
 
 namespace Whycespace.Governance.Tests;
 

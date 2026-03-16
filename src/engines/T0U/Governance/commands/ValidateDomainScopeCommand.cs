@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T0U.Governance.Commands;
 
-using Whycespace.System.Upstream.Governance.Models;
+using Whycespace.Systems.Upstream.Governance.Models;
 
 public sealed record ValidateDomainScopeCommand(
     Guid CommandId,

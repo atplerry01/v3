@@ -7,8 +7,8 @@ using Whycespace.Engines.T1M.WSS.Graph;
 using Whycespace.Engines.T1M.WSS.Instance;
 using Whycespace.Engines.T1M.WSS.Registry;
 using Whycespace.Engines.T1M.WSS.Stores;
-using Whycespace.System.Midstream.WSS.Events;
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Events;
+using Whycespace.Systems.Midstream.WSS.Models;
 
 [EngineManifest("WorkflowInstanceLifecycleEngine", EngineTier.T1M, EngineKind.Decision, "WorkflowLifecycleRequest", typeof(EngineEvent))]
 public sealed class WorkflowLifecycleEngine : IEngine, IWorkflowLifecycleEngine

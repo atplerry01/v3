@@ -1,6 +1,6 @@
 namespace Whycespace.CapitalSystem.Tests;
 
-using Whycespace.System.Midstream.Capital.Evidence;
+using Whycespace.Systems.Midstream.Capital.Evidence;
 
 public sealed class CapitalEvidenceRecorderTests
 {

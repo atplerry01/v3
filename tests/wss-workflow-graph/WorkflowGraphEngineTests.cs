@@ -1,6 +1,6 @@
 using Whycespace.Engines.T1M.WSS.Graph;
-using Whycespace.System.Midstream.WSS.Models;
-using WfGraph = Whycespace.System.Midstream.WSS.Models.WorkflowGraph;
+using Whycespace.Systems.Midstream.WSS.Models;
+using WfGraph = Whycespace.Systems.Midstream.WSS.Models.WorkflowGraph;
 
 namespace Whycespace.WSS.WorkflowGraph.Tests;
 

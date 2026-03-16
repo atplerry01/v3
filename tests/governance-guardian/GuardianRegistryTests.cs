@@ -1,6 +1,6 @@
-using Whycespace.System.Upstream.Governance.Models;
-using Whycespace.System.Upstream.Governance.Registry;
-using Whycespace.System.Upstream.Governance.Stores;
+using Whycespace.Systems.Upstream.Governance.Models;
+using Whycespace.Systems.Upstream.Governance.Registry;
+using Whycespace.Systems.Upstream.Governance.Stores;
 
 namespace Whycespace.GovernanceGuardian.Tests;
 

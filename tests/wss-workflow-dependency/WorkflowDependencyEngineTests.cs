@@ -1,7 +1,7 @@
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Dependency;
 using Whycespace.Engines.T1M.WSS.Stores;
-using WfDefinition = Whycespace.System.Midstream.WSS.Models.WorkflowDefinition;
+using WfDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
 
 namespace Whycespace.WSS.WorkflowDependency.Tests;
 

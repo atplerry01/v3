@@ -3,7 +3,7 @@ using Whycespace.Contracts.Primitives;
 using Whycespace.Domain.Events.Governance;
 using Whycespace.Engines.T1M.WSS.Governance;
 using Whycespace.Engines.T1M.WSS.Governance.Commands;
-using Whycespace.System.Midstream.WSS.Governance;
+using Whycespace.Systems.Midstream.WSS.Governance;
 
 namespace Whycespace.GovernanceWorkflow.Tests;
 

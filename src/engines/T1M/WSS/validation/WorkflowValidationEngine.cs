@@ -4,7 +4,7 @@ using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Definition;
 using Whycespace.Engines.T1M.WSS.Graph;
 using Whycespace.Engines.T1M.WSS.Stores;
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Models;
 
 public sealed class WorkflowValidationOrchestrator : IWorkflowValidationEngine
 {
@@ -164,14 +164,14 @@ public sealed class WorkflowValidationOrchestrator : IWorkflowValidationEngine
         return WorkflowValidationResult.Combine(definitionResult, versionResult);
     }
 
-    private static Whycespace.System.Midstream.WSS.Models.WorkflowGraph BuildGraphFromSteps(WorkflowDefinition workflow)
+    private static Whycespace.Systems.Midstream.WSS.Models.WorkflowGraph BuildGraphFromSteps(WorkflowDefinition workflow)
     {
         var transitions = new Dictionary<string, IReadOnlyList<string>>();
         foreach (var step in workflow.Steps)
         {
             transitions[step.StepId] = step.NextSteps;
         }
-        return new Whycespace.System.Midstream.WSS.Models.WorkflowGraph(workflow.WorkflowId, transitions);
+        return new Whycespace.Systems.Midstream.WSS.Models.WorkflowGraph(workflow.WorkflowId, transitions);
     }
 
     private static string ClassifyDefinitionViolation(string violation)

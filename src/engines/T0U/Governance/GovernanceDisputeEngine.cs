@@ -3,8 +3,8 @@ namespace Whycespace.Engines.T0U.Governance;
 using Whycespace.Engines.T0U.Governance.Commands;
 using Whycespace.Engines.T0U.Governance.Results;
 using Whycespace.Domain.Events.Governance;
-using Whycespace.System.Upstream.Governance.Models;
-using Whycespace.System.Upstream.Governance.Stores;
+using Whycespace.Systems.Upstream.Governance.Models;
+using Whycespace.Systems.Upstream.Governance.Stores;
 
 public sealed class GovernanceDisputeEngine
 {

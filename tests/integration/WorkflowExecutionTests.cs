@@ -10,11 +10,11 @@ using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Workflow;
 using Whycespace.Contracts.Workflows;
-using Whycespace.System.Midstream.WSS.Dispatcher;
-using Whycespace.System.Midstream.WSS.Mapping;
-using Whycespace.System.Midstream.WSS.Orchestration;
-using Whycespace.System.Midstream.WSS.Routing;
-using Whycespace.System.Midstream.WSS.Workflows;
+using Whycespace.Systems.Midstream.WSS.Dispatcher;
+using Whycespace.Systems.Midstream.WSS.Mapping;
+using Whycespace.Systems.Midstream.WSS.Orchestration;
+using Whycespace.Systems.Midstream.WSS.Routing;
+using Whycespace.Systems.Midstream.WSS.Workflows;
 using Xunit;
 
 /// <summary>

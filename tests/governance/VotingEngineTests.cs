@@ -2,11 +2,11 @@ using Whycespace.Domain.Events.Governance;
 using Whycespace.Engines.T0U.Governance;
 using Whycespace.Engines.T0U.Governance.Commands;
 using Whycespace.Engines.T0U.Governance.Results;
-using Whycespace.System.Upstream.Governance.Models;
-using Whycespace.System.Upstream.Governance.Stores;
-using Whycespace.System.WhyceID.Aggregates;
-using Whycespace.System.WhyceID.Models;
-using Whycespace.System.WhyceID.Registry;
+using Whycespace.Systems.Upstream.Governance.Models;
+using Whycespace.Systems.Upstream.Governance.Stores;
+using Whycespace.Systems.WhyceID.Aggregates;
+using Whycespace.Systems.WhyceID.Models;
+using Whycespace.Systems.WhyceID.Registry;
 
 namespace Whycespace.Governance.Tests;
 

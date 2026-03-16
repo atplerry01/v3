@@ -6,7 +6,7 @@ using global::System.Text.Json;
 using Whycespace.Contracts.Engines;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
-using Whycespace.System.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Models;
 
 [EngineManifest("WorkflowTemplateBlueprint", EngineTier.T1M, EngineKind.Decision,
     "WorkflowTemplateCommand", typeof(EngineEvent))]

@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T3I.WhyceChain;
 
-using Whycespace.System.Upstream.WhyceChain.Models;
+using Whycespace.Systems.Upstream.WhyceChain.Models;
 
 public sealed record ChainReplicationCommand(
     IReadOnlyList<ChainBlock> SourceBlocks,

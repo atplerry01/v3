@@ -2,10 +2,10 @@ namespace Whycespace.Runtime.PlatformDispatch;
 
 using Whycespace.Contracts.Runtime;
 using Whycespace.Runtime.PlatformDispatch.Handlers;
-using Whycespace.System.WhyceID.Registry;
-using Whycespace.System.WhyceID.Stores;
-using Whycespace.System.Upstream.WhycePolicy.Stores;
-using Whycespace.System.Upstream.Governance.Stores;
+using Whycespace.Systems.WhyceID.Registry;
+using Whycespace.Systems.WhyceID.Stores;
+using Whycespace.Systems.Upstream.WhycePolicy.Stores;
+using Whycespace.Systems.Upstream.Governance.Stores;
 
 /// <summary>
 /// Factory that wires up the PlatformDispatcher with all engine command handlers.

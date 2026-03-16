@@ -5,7 +5,7 @@ namespace Whycespace.GovernanceGuardian.Tests;
 public class GuardianRegistryArchitectureTests
 {
     private readonly Assembly _systemAssembly =
-        typeof(Whycespace.System.Upstream.Governance.Registry.GuardianRegistry).Assembly;
+        typeof(Whycespace.Systems.Upstream.Governance.Registry.GuardianRegistry).Assembly;
 
     [Fact]
     public void SystemAssembly_DoesNotReference_EngineAssemblies()

@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T0U.Governance;
 
-using Whycespace.System.Upstream.Governance.Models;
-using Whycespace.System.Upstream.Governance.Stores;
-using Whycespace.System.WhyceID.Registry;
+using Whycespace.Systems.Upstream.Governance.Models;
+using Whycespace.Systems.Upstream.Governance.Stores;
+using Whycespace.Systems.WhyceID.Registry;
 
 public sealed class GuardianRegistryEngine
 {

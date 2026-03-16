@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T4A.WhycePolicy;
 
-using Whycespace.System.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
 public sealed class PolicyEnforcementAdapter
 {

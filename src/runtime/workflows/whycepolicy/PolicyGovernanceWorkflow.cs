@@ -1,7 +1,7 @@
 namespace Whycespace.Runtime.Workflows.WhycePolicy;
 
 using Whycespace.Contracts.Workflows;
-using Whycespace.System.Midstream.WSS.Contracts;
+using Whycespace.Systems.Midstream.WSS.Contracts;
 
 public sealed class PolicyGovernanceWorkflow : IWorkflowDefinition
 {

@@ -1,5 +1,5 @@
-using Whycespace.System.Upstream.WhyceChain.Ledger;
-using LedgerEntry = Whycespace.System.Upstream.WhyceChain.Ledger.ChainLedgerEntry;
+using Whycespace.Systems.Upstream.WhyceChain.Ledger;
+using LedgerEntry = Whycespace.Systems.Upstream.WhyceChain.Ledger.ChainLedgerEntry;
 
 namespace Whycespace.WhyceChain.Ledger.Tests;
 

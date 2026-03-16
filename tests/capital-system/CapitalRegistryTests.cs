@@ -1,6 +1,6 @@
 namespace Whycespace.CapitalSystem.Tests;
 
-using Whycespace.System.Midstream.Capital.Registry;
+using Whycespace.Systems.Midstream.Capital.Registry;
 
 public sealed class CapitalRegistryTests
 {

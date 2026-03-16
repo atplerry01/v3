@@ -20,7 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\shared\Whycespace.Shared.csproj" />
     <ProjectReference Include="..\runtime\Whycespace.Runtime.csproj" />
-    <ProjectReference Include="..\system\Whycespace.System.csproj" />
+    <ProjectReference Include="..\systems\Whycespace.System.csproj" />
     <ProjectReference Include="..\domain\Whycespace.Domain.csproj" />
     <ProjectReference Include="..\runtime\guardrails\Whycespace.ArchitectureGuardrails.csproj" />
     <ProjectReference Include="..\runtime\command\Whycespace.CommandSystem.csproj" />
@@ -37,7 +37,7 @@
     <ProjectReference Include="..\runtime\event-fabric-runtime\Whycespace.EventFabricRuntime.csproj" />
     <ProjectReference Include="..\runtime\projection-runtime\Whycespace.ProjectionRuntime.csproj" />
     <ProjectReference Include="..\runtime\reliability-runtime\Whycespace.ReliabilityRuntime.csproj" />
-    <ProjectReference Include="..\system\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
+    <ProjectReference Include="..\systems\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
     <ProjectReference Include="..\runtime\dispatcher\Whycespace.RuntimeDispatcher.csproj" />
     <ProjectReference Include="..\runtime\event-observability\Whycespace.EventObservability.csproj" />
     <ProjectReference Include="..\runtime\event-replay\Whycespace.EventReplay.csproj" />

@@ -1,5 +1,5 @@
 using Whycespace.Engines.T0U.WhyceChain;
-using Whycespace.System.Upstream.WhyceChain.Stores;
+using Whycespace.Systems.Upstream.WhyceChain.Stores;
 
 namespace Whycespace.WhyceChain.Tests;
 

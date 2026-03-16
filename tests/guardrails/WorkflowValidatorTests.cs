@@ -10,7 +10,7 @@ using Whycespace.Engines.T3I.Clusters.Property.Letting;
 using Whycespace.Engines.T3I.Core.Workforce;
 using Whycespace.Runtime.Registry;
 using Whycespace.Contracts.Workflows;
-using Whycespace.System.Midstream.WSS.Workflows;
+using Whycespace.Systems.Midstream.WSS.Workflows;
 
 public sealed class WorkflowValidatorTests
 {

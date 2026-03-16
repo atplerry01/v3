@@ -1,5 +1,5 @@
 using Whycespace.Engines.T0U.WhyceChain;
-using Whycespace.System.Upstream.WhyceChain.Stores;
+using Whycespace.Systems.Upstream.WhyceChain.Stores;
 
 namespace Whycespace.WhyceChain.Tests;
 
@@ -41,7 +41,7 @@ public class ChainBlockEngineTests
     {
         _engine.CreateBlock(["entry-1"], "merkle-1");
 
-        var invalid = new Whycespace.System.Upstream.WhyceChain.Models.ChainBlock(
+        var invalid = new Whycespace.Systems.Upstream.WhyceChain.Models.ChainBlock(
             "bad-block",
             1,
             "wrong-hash",

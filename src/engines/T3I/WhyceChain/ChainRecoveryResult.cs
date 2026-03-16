@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T3I.WhyceChain;
 
-using Whycespace.System.Upstream.WhyceChain.Ledger;
+using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 
 public sealed record ChainRecoveryResult(
     IReadOnlyList<ChainBlock> RecoveredBlocks,

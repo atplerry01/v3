@@ -13,7 +13,7 @@
     <ProjectReference Include="..\..\src\engines\Whycespace.Engines.csproj" />
     <ProjectReference Include="..\..\src\engines\T0U\WhycePolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
     <ProjectReference Include="..\..\src\runtime\Whycespace.Runtime.csproj" />
-    <ProjectReference Include="..\..\src\system\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\src\systems\Whycespace.System.csproj" />
     <ProjectReference Include="..\..\src\domain\Whycespace.Domain.csproj" />
     <ProjectReference Include="..\..\src\runtime\reliability\Whycespace.Reliability.csproj" />
   </ItemGroup>

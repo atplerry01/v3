@@ -5,7 +5,7 @@ using Whycespace.Engines.T1M.WSS.Registry;
 using Whycespace.Engines.T1M.WSS.Graph;
 using Whycespace.Engines.T1M.WSS.Instance;
 using Whycespace.Engines.T1M.WSS.Runtime;
-using Whycespace.System.Midstream.WSS.Kafka;
+using Whycespace.Systems.Midstream.WSS.Kafka;
 using Whycespace.Runtime.Events;
 
 /// <summary>

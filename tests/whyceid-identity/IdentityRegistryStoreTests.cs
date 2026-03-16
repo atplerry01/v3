@@ -1,5 +1,5 @@
-using Whycespace.System.WhyceID.Models;
-using Whycespace.System.WhyceID.Stores;
+using Whycespace.Systems.WhyceID.Models;
+using Whycespace.Systems.WhyceID.Stores;
 
 namespace Whycespace.WhyceID.Identity.Tests;
 

@@ -1,8 +1,8 @@
 namespace Whycespace.Engines.T0U.WhyceID;
 
-using Whycespace.System.WhyceID.Registry;
-using Whycespace.System.WhyceID.Models;
-using Whycespace.System.WhyceID.Stores;
+using Whycespace.Systems.WhyceID.Registry;
+using Whycespace.Systems.WhyceID.Models;
+using Whycespace.Systems.WhyceID.Stores;
 
 public sealed class IdentityRevocationEngine
 {

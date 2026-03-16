@@ -8,9 +8,9 @@ using Whycespace.Runtime.Registry;
 using Whycespace.Runtime.Workflow;
 using Whycespace.Contracts.Events;
 using Whycespace.Contracts.Runtime;
-using Whycespace.System.Midstream.WSS.Mapping;
-using Whycespace.System.Midstream.WSS.Models;
-using Whycespace.System.Midstream.WSS.Events;
+using Whycespace.Systems.Midstream.WSS.Mapping;
+using Whycespace.Systems.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Events;
 using Whycespace.Domain.Clusters;
 using Whycespace.Domain.Core.Cluster;
 using Whycespace.SimulationRuntime.Models;
@@ -30,16 +30,16 @@ using ProjectionRuntimeRegistry = Whycespace.ProjectionRuntime.Registry.Projecti
 using Whycespace.ReliabilityRuntime.Retry;
 using Whycespace.ReliabilityRuntime.Dlq;
 using Whycespace.ReliabilityRuntime.Timeout;
-using Whycespace.System.WhyceID.Registry;
-using Whycespace.System.WhyceID.Stores;
-using Whycespace.System.WhyceID.Models;
-using Whycespace.System.Upstream.WhycePolicy.Stores;
-using Whycespace.System.Upstream.WhyceChain.Stores;
-using Whycespace.System.Upstream.Governance.Stores;
-using Whycespace.System.Upstream.Governance.Registry;
-using Whycespace.System.Upstream.Governance.Models;
-using Whycespace.System.Upstream.Governance.Proposals.Models;
-using Whycespace.System.Upstream.Governance.Proposals.Registry;
+using Whycespace.Systems.WhyceID.Registry;
+using Whycespace.Systems.WhyceID.Stores;
+using Whycespace.Systems.WhyceID.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Stores;
+using Whycespace.Systems.Upstream.WhyceChain.Stores;
+using Whycespace.Systems.Upstream.Governance.Stores;
+using Whycespace.Systems.Upstream.Governance.Registry;
+using Whycespace.Systems.Upstream.Governance.Models;
+using Whycespace.Systems.Upstream.Governance.Proposals.Models;
+using Whycespace.Systems.Upstream.Governance.Proposals.Registry;
 using Whycespace.EventReplay.Governance.Engine;
 using Whycespace.EventReplay.Governance.Models;
 using Whycespace.EventObservability.Metrics.Engine;
@@ -50,14 +50,14 @@ using Whycespace.Engines.T0U.Governance;
 using Whycespace.Engines.T0U.Governance.Commands;
 using Whycespace.Engines.T0U.Governance.Results;
 using Whycespace.Engines.T0U.WhyceChain;
-using Whycespace.System.Upstream.Governance.Evidence.Models;
-using Whycespace.System.Upstream.WhyceChain.Ledger;
-using Whycespace.System.Midstream.Capital.Evidence;
-using Whycespace.System.Midstream.Capital.Registry;
-using Whycespace.System.Midstream.Capital.Governance;
-using Whycespace.System.Midstream.Capital.Stores;
+using Whycespace.Systems.Upstream.Governance.Evidence.Models;
+using Whycespace.Systems.Upstream.WhyceChain.Ledger;
+using Whycespace.Systems.Midstream.Capital.Evidence;
+using Whycespace.Systems.Midstream.Capital.Registry;
+using Whycespace.Systems.Midstream.Capital.Governance;
+using Whycespace.Systems.Midstream.Capital.Stores;
 using Whycespace.Engines.T3I.Capital;
-using Whycespace.System.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
 [ApiController]
 [Route("dev")]
@@ -1355,9 +1355,9 @@ public sealed class DebugController : ControllerBase
     [HttpPost("policy/rollout")]
     public IActionResult SetPolicyRollout([FromBody] DebugSetRolloutDto dto)
     {
-        var config = new Whycespace.System.Upstream.WhycePolicy.Models.PolicyRolloutConfig(
+        var config = new Whycespace.Systems.Upstream.WhycePolicy.Models.PolicyRolloutConfig(
             dto.PolicyId, dto.Version,
-            Enum.Parse<Whycespace.System.Upstream.WhycePolicy.Models.PolicyRolloutStrategy>(dto.Strategy, ignoreCase: true),
+            Enum.Parse<Whycespace.Systems.Upstream.WhycePolicy.Models.PolicyRolloutStrategy>(dto.Strategy, ignoreCase: true),
             dto.Percentage, dto.Actors ?? new List<string>(),
             dto.Domains ?? new List<string>(), DateTime.UtcNow);
         _policyRolloutStore.SetRolloutConfig(config);
@@ -1756,7 +1756,7 @@ public sealed class DebugController : ControllerBase
     {
         var entries = _chainLedgerStore.GetAllEntries().ToList();
         var latestBlock = _chainBlockStore.GetLatestBlock();
-        var blocks = new List<Whycespace.System.Upstream.WhyceChain.Models.ChainBlock>();
+        var blocks = new List<Whycespace.Systems.Upstream.WhyceChain.Models.ChainBlock>();
 
         if (latestBlock is not null)
         {
@@ -1767,7 +1767,7 @@ public sealed class DebugController : ControllerBase
             }
         }
 
-        var command = new Whycespace.System.Upstream.WhyceChain.Models.IntegrityVerificationCommand(
+        var command = new Whycespace.Systems.Upstream.WhyceChain.Models.IntegrityVerificationCommand(
             entries,
             blocks,
             MerkleProof: null,
@@ -1794,12 +1794,12 @@ public sealed class DebugController : ControllerBase
     [HttpPost("chain/integrity/proof")]
     public IActionResult VerifyMerkleProof([FromBody] DebugVerifyMerkleProofDto dto)
     {
-        var proof = new Whycespace.System.Upstream.WhyceChain.Models.MerkleProof(
+        var proof = new Whycespace.Systems.Upstream.WhyceChain.Models.MerkleProof(
             dto.RootHash, dto.LeafHash, dto.ProofPath);
 
-        var command = new Whycespace.System.Upstream.WhyceChain.Models.IntegrityVerificationCommand(
-            Array.Empty<Whycespace.System.Upstream.WhyceChain.Models.ChainLedgerEntry>(),
-            Array.Empty<Whycespace.System.Upstream.WhyceChain.Models.ChainBlock>(),
+        var command = new Whycespace.Systems.Upstream.WhyceChain.Models.IntegrityVerificationCommand(
+            Array.Empty<Whycespace.Systems.Upstream.WhyceChain.Models.ChainLedgerEntry>(),
+            Array.Empty<Whycespace.Systems.Upstream.WhyceChain.Models.ChainBlock>(),
             proof,
             TraceId: Guid.NewGuid().ToString(),
             CorrelationId: Guid.NewGuid().ToString(),
@@ -3083,7 +3083,7 @@ public sealed class DebugController : ControllerBase
     }
 
     [HttpGet("governance/proposals/type/{type}")]
-    public IActionResult GetGovernanceProposalsByType(Whycespace.System.Upstream.Governance.Proposals.Models.GovernanceProposalType type)
+    public IActionResult GetGovernanceProposalsByType(Whycespace.Systems.Upstream.Governance.Proposals.Models.GovernanceProposalType type)
     {
         return Ok(_governanceProposalRegistry.GetProposalsByType(type));
     }
@@ -3555,7 +3555,7 @@ public sealed record DebugLifecycleInstanceDto(string InstanceId);
 public sealed record DebugLifecycleStepDto(string InstanceId, string? StepId);
 public sealed record DebugLifecycleFailDto(string InstanceId, string StepId, string Reason);
 public sealed record DebugVerifyMerkleProofDto(string RootHash, string LeafHash, List<string> ProofPath);
-public sealed record DebugRegisterGovernanceProposalDto(string Title, string Description, Whycespace.System.Upstream.Governance.Proposals.Models.GovernanceProposalType Type, string AuthorityDomain, Guid ProposedByGuardianId, Dictionary<string, string>? Metadata);
+public sealed record DebugRegisterGovernanceProposalDto(string Title, string Description, Whycespace.Systems.Upstream.Governance.Proposals.Models.GovernanceProposalType Type, string AuthorityDomain, Guid ProposedByGuardianId, Dictionary<string, string>? Metadata);
 public sealed record DebugEvaluateQuorumDto(Guid ProposalId, int TotalEligibleGuardians, int VotesCast, int VotesApprove, int VotesReject, int VotesAbstain, decimal RequiredParticipationPercentage, decimal RequiredApprovalPercentage);
 public sealed record DebugRegisterProposalTypeDto(string ProposalType, string Description, Guid GuardianId);
 public sealed record DebugDeactivateProposalTypeDto(string ProposalType, string Reason, Guid GuardianId);

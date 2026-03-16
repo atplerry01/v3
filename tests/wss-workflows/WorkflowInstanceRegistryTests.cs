@@ -1,8 +1,8 @@
 namespace Whycespace.WSS.Workflows.Tests;
 
-using Whycespace.System.Midstream.WSS.Instances;
-using Whycespace.System.Midstream.WSS.Models;
-using Whycespace.System.Midstream.WSS.Stores;
+using Whycespace.Systems.Midstream.WSS.Instances;
+using Whycespace.Systems.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Stores;
 using Xunit;
 
 public sealed class WorkflowInstanceRegistryTests

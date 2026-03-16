@@ -1,10 +1,10 @@
 namespace Whycespace.Engines.T0U.WhyceID;
 
-using Whycespace.System.WhyceID.Aggregates;
-using Whycespace.System.WhyceID.Commands;
-using Whycespace.System.WhyceID.Events;
-using Whycespace.System.WhyceID.Models;
-using Whycespace.System.WhyceID.Registry;
+using Whycespace.Systems.WhyceID.Aggregates;
+using Whycespace.Systems.WhyceID.Commands;
+using Whycespace.Systems.WhyceID.Events;
+using Whycespace.Systems.WhyceID.Models;
+using Whycespace.Systems.WhyceID.Registry;
 
 public sealed class IdentityCreationEngine
 {

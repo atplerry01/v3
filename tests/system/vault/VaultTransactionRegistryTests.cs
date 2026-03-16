@@ -1,6 +1,6 @@
 namespace Whycespace.VaultTransactionRegistry.Tests;
 
-using Whycespace.System.Downstream.Economic.Vault.TransactionRegistry;
+using Whycespace.Systems.Downstream.Economic.Vault.TransactionRegistry;
 
 public sealed class VaultTransactionRegistryTests
 {
