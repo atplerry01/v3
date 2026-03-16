@@ -22,6 +22,7 @@
     <ProjectReference Include="..\..\src\system\Whycespace.System.csproj" />
     <ProjectReference Include="..\..\src\engines\Whycespace.Engines.csproj" />
     <ProjectReference Include="..\..\src\engines\T3I\economic\Whycespace.Engines.T3I.Economic.csproj" />
+    <ProjectReference Include="..\..\src\engines\T3I\Capital\Whycespace.Engines.T3I.Capital.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,6 +21,10 @@
     <Content Remove="T3I\WhycePolicy\**" />
     <None Remove="T3I\WhycePolicy\**" />
     <EmbeddedResource Remove="T3I\WhycePolicy\**" />
+    <Compile Remove="T3I\Capital\**" />
+    <Content Remove="T3I\Capital\**" />
+    <None Remove="T3I\Capital\**" />
+    <EmbeddedResource Remove="T3I\Capital\**" />
     <Compile Remove="T3I\economic\**" />
     <Content Remove="T3I\economic\**" />
     <None Remove="T3I\economic\**" />

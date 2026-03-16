@@ -44,6 +44,7 @@
     <ProjectReference Include="..\engines\T0U\WhyceChain\Whycespace.Engines.T0U.WhyceChain.csproj" />
     <ProjectReference Include="..\engines\T0U\Governance\Whycespace.Engines.T0U.Governance.csproj" />
     <ProjectReference Include="..\engines\T3I\economic\Whycespace.Engines.T3I.Economic.csproj" />
+    <ProjectReference Include="..\engines\T3I\Capital\Whycespace.Engines.T3I.Capital.csproj" />
   </ItemGroup>
 
   <ItemGroup>

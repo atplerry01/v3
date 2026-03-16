@@ -304,6 +304,9 @@ var capitalLedgerStore = new Whycespace.System.Midstream.Capital.Stores.CapitalL
 builder.Services.AddSingleton<Whycespace.System.Midstream.Capital.Stores.ICapitalLedgerStore>(capitalLedgerStore);
 builder.Services.AddSingleton(capitalLedgerStore);
 
+var capitalLifecycleEngine = new Whycespace.Engines.T3I.Capital.CapitalLifecycleEngine();
+builder.Services.AddSingleton(capitalLifecycleEngine);
+
 // WSS Runtime (Phase 2.1.x) — engines bootstrapped in runtime layer
 var wssBootstrapper = new WssRuntimeBootstrapper(eventBus, kafkaBrokers);
 builder.Services.AddSingleton(wssBootstrapper);

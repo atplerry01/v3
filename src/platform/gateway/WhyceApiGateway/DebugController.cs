@@ -56,7 +56,7 @@ using Whycespace.System.Midstream.Capital.Evidence;
 using Whycespace.System.Midstream.Capital.Registry;
 using Whycespace.System.Midstream.Capital.Governance;
 using Whycespace.System.Midstream.Capital.Stores;
-using Whycespace.Engines.T3I.Economic.Capital;
+using Whycespace.Engines.T3I.Capital;
 using Whycespace.System.Upstream.WhycePolicy.Models;
 
 [ApiController]
@@ -123,6 +123,7 @@ public sealed class DebugController : ControllerBase
     private readonly ICapitalRegistry _capitalRegistry;
     private readonly CapitalPolicyEnforcementAdapter _capitalPolicyAdapter;
     private readonly CapitalLedgerStore _capitalLedgerStore;
+    private readonly CapitalLifecycleEngine _capitalLifecycleEngine;
 
     public DebugController(
         IPlatformDispatcher dispatcher,
@@ -184,7 +185,8 @@ public sealed class DebugController : ControllerBase
         ICapitalEvidenceRecorder capitalEvidenceRecorder,
         ICapitalRegistry capitalRegistry,
         CapitalPolicyEnforcementAdapter capitalPolicyAdapter,
-        CapitalLedgerStore capitalLedgerStore)
+        CapitalLedgerStore capitalLedgerStore,
+        CapitalLifecycleEngine capitalLifecycleEngine)
     {
         _dispatcher = dispatcher;
         _stateStore = stateStore;
@@ -246,6 +248,7 @@ public sealed class DebugController : ControllerBase
         _capitalRegistry = capitalRegistry;
         _capitalPolicyAdapter = capitalPolicyAdapter;
         _capitalLedgerStore = capitalLedgerStore;
+        _capitalLifecycleEngine = capitalLifecycleEngine;
     }
 
     [HttpGet("workflows")]
@@ -3448,6 +3451,32 @@ public sealed class DebugController : ControllerBase
         var evidence = await _capitalEvidenceRecorder.GetEvidenceByCapitalIdAsync(capitalId);
         return Ok(evidence);
     }
+
+    [HttpPost("capital/lifecycle/{capitalId:guid}")]
+    public IActionResult TrackCapitalLifecycle(Guid capitalId, [FromBody] DebugTrackCapitalLifecycleDto dto)
+    {
+        var command = new TrackCapitalLifecycleCommand(
+            CapitalId: capitalId,
+            PreviousStage: dto.PreviousStage,
+            NewStage: dto.NewStage,
+            ReferenceId: dto.ReferenceId,
+            TriggeredBy: dto.TriggeredBy,
+            TriggeredAt: DateTimeOffset.UtcNow);
+
+        var result = _capitalLifecycleEngine.TrackLifecycle(command);
+
+        if (!result.Success)
+            return BadRequest(new { error = result.Error });
+
+        return Ok(new
+        {
+            capitalId = result.Record!.CapitalId,
+            previousStage = result.Record.PreviousStage.ToString(),
+            currentStage = result.Record.CurrentStage.ToString(),
+            referenceId = result.Record.ReferenceId,
+            timestamp = result.Record.Timestamp.ToString("O")
+        });
+    }
 }
 
 public sealed record DebugRecordGovernanceEvidenceDto(Guid ProposalId, Guid EventReferenceId, EvidenceType EvidenceType, Guid RecordedByGuardianId, string EvidencePayload);
@@ -3546,3 +3575,4 @@ public sealed record DebugCompleteGovernanceWorkflowDto(Guid ProposalId, Guid Co
 public sealed record DebugTriggerEmergencyDto(string EmergencyActionId, EmergencyType EmergencyType, string TargetDomain, string TriggeredByGuardianId, string Reason);
 public sealed record DebugRevokeEmergencyDto(string EmergencyActionId, string RevokedByGuardianId, string Reason);
 public sealed record DebugValidateEmergencyDto(string EmergencyActionId, string GuardianId);
+public sealed record DebugTrackCapitalLifecycleDto(CapitalLifecycleStage PreviousStage, CapitalLifecycleStage NewStage, Guid ReferenceId, Guid TriggeredBy);
