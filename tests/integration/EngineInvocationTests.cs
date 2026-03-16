@@ -12,7 +12,7 @@ using Whycespace.Engines.T4A.Auth;
 using Whycespace.Engines.T4A.Developer;
 using Whycespace.Engines.T4A.Integration;
 using Whycespace.Runtime.Dispatcher;
-using Whycespace.Runtime.Registry;
+using Whycespace.EngineRuntime.Registry;
 using Whycespace.Contracts.Engines;
 using Xunit;
 

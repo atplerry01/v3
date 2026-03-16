@@ -1,6 +1,6 @@
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
-using Whycespace.ProjectionRuntime.Projections.Core.Economics.Vault;
+using Whycespace.Systems.Midstream.WhyceAtlas.Projections.Vault;
 using Whycespace.ProjectionRuntime.Storage;
 using System.Text.Json;
 

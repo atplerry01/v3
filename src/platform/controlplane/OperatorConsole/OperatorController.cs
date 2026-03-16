@@ -1,7 +1,7 @@
 namespace Whycespace.Platform.ControlPlane.OperatorConsole;
 
 using Microsoft.AspNetCore.Mvc;
-using Whycespace.Runtime.Registry;
+using Whycespace.EngineRuntime.Registry;
 using Whycespace.Runtime.Observability;
 using Whycespace.Runtime.Reliability;
 using Whycespace.Systems.Downstream.Clusters;
@@ -28,7 +28,7 @@ public sealed class OperatorController : ControllerBase
     }
 
     [HttpGet("engines")]
-    public IActionResult GetEngines() => Ok(_engineRegistry.GetRegisteredEngines());
+    public IActionResult GetEngines() => Ok(_engineRegistry.ListEngines());
 
     [HttpGet("invocations")]
     public IActionResult GetInvocations() => Ok(_observer.GetLogs());

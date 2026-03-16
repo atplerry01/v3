@@ -6,7 +6,7 @@ using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
 using Whycespace.EventIdempotency.Guard;
 using Whycespace.ProjectionRuntime.Projections.Registry;
-using Whycespace.Runtime.Events;
+using Whycespace.EventFabricRuntime.Bus;
 
 public sealed class ProjectionWorker : BackgroundService
 {

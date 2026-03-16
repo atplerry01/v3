@@ -3,16 +3,16 @@ using OpenTelemetry.Trace;
 using Serilog;
 using Whycespace.Platform.RuntimeClient;
 using Whycespace.Runtime.Dispatcher;
-using Whycespace.Runtime.Events;
+using Whycespace.EventFabricRuntime.Bus;
 using Whycespace.Runtime.Observability;
-using Whycespace.ProjectionRuntime.Projections.Core.Economics;
-using Whycespace.ProjectionRuntime.Projections.Clusters.Mobility;
-using Whycespace.ProjectionRuntime.Projections.Clusters.Property;
+using Whycespace.Systems.Midstream.WhyceAtlas.Projections;
+using Whycespace.Systems.Downstream.Mobility.Projections;
+using Whycespace.Systems.Downstream.Property.Projections;
 using Whycespace.ProjectionRuntime.Projections.Queries;
 using Whycespace.ProjectionRuntime.Storage;
-using Whycespace.Runtime.Registry;
+using Whycespace.EngineRuntime.Registry;
 using Whycespace.Runtime.Reliability;
-using Whycespace.Runtime.Workflow;
+using Whycespace.WorkflowRuntime;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Runtime;
 using Whycespace.Systems.Downstream.Clusters;
@@ -300,8 +300,8 @@ builder.Services.AddSingleton<Whycespace.Contracts.Evidence.ICapitalEvidenceReco
 builder.Services.AddSingleton(capitalEvidenceRecorder);
 
 // Capital Ledger Store (Phase 2.2.29)
-var capitalLedgerStore = new Whycespace.Runtime.Persistence.Capital.CapitalLedgerStore();
-builder.Services.AddSingleton<Whycespace.Runtime.Persistence.Capital.ICapitalLedgerStore>(capitalLedgerStore);
+var capitalLedgerStore = new Whycespace.Systems.Midstream.Economics.CapitalLedger.CapitalLedgerStore();
+builder.Services.AddSingleton<Whycespace.Systems.Midstream.Economics.CapitalLedger.ICapitalLedgerStore>(capitalLedgerStore);
 builder.Services.AddSingleton(capitalLedgerStore);
 
 var capitalLifecycleEngine = new Whycespace.Engines.T3I.Capital.CapitalLifecycleEngine();

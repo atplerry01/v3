@@ -1,0 +1,59 @@
+# Build outputs
+**/bin/
+**/obj/
+
+# IDE / editor state
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.sln.docstates
+
+# NuGet
+*.nupkg
+project.assets.json
+*.nuget.props
+*.nuget.targets
+*.nuget.g.props
+*.nuget.g.targets
+*.dgspec.json
+
+# Test artifacts
+TestResults/
+coverage/
+
+# Artifacts / publish
+artifacts/
+publish/
+out/
+
+# Logs
+logs/
+*.log
+*.tmp
+
+# Caches
+*.cache
+packages/
+.nuget/
+
+# Node / frontend
+node_modules/
+dist/
+build/
+.next/
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Archives
+*.zip
+*.7z
+*.rar

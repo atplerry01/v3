@@ -1,6 +1,6 @@
 namespace Whycespace.Runtime.Dispatcher;
 
-using Whycespace.Runtime.Registry;
+using Whycespace.EngineRuntime.Registry;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Runtime;
 
@@ -15,18 +15,23 @@ public sealed class RuntimeDispatcher : IEngineRuntimeDispatcher
 
     public async Task<EngineResult> DispatchAsync(EngineInvocationEnvelope envelope)
     {
-        var engine = _registry.Resolve(envelope.EngineName);
-        if (engine is null)
-            return EngineResult.Fail($"Engine not found: {envelope.EngineName}");
+        try
+        {
+            var engine = _registry.Resolve(envelope.EngineName);
 
-        var context = new EngineContext(
-            envelope.InvocationId,
-            envelope.WorkflowId,
-            envelope.WorkflowStep,
-            envelope.PartitionKey,
-            envelope.Context
-        );
+            var context = new EngineContext(
+                envelope.InvocationId,
+                envelope.WorkflowId,
+                envelope.WorkflowStep,
+                envelope.PartitionKey,
+                envelope.Context
+            );
 
-        return await engine.ExecuteAsync(context);
+            return await engine.ExecuteAsync(context);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return EngineResult.Fail(ex.Message);
+        }
     }
 }

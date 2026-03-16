@@ -1,7 +1,7 @@
 namespace Whycespace.Simulation;
 
 using Whycespace.Runtime.Dispatcher;
-using Whycespace.Runtime.Registry;
+using Whycespace.EngineRuntime.Registry;
 using Whycespace.Runtime.Reliability;
 using Whycespace.Contracts.Engines;
 

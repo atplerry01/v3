@@ -3,9 +3,9 @@ namespace Whycespace.Platform.Gateway.WhyceApiGateway;
 using Microsoft.AspNetCore.Mvc;
 using Whycespace.ArchitectureGuardrails.Enforcement;
 using Whycespace.ArchitectureGuardrails.Rules;
-using Whycespace.Runtime.Events;
-using Whycespace.Runtime.Registry;
-using Whycespace.Runtime.Workflow;
+using Whycespace.EventFabricRuntime.Bus;
+using Whycespace.EngineRuntime.Registry;
+using Whycespace.WorkflowRuntime;
 using Whycespace.Contracts.Events;
 using Whycespace.Contracts.Runtime;
 using Whycespace.Systems.Midstream.WSS.Mapping;
@@ -55,7 +55,7 @@ using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 using Whycespace.Contracts.Evidence;
 using Whycespace.Domain.Core.Economic.CapitalRegistry;
 using Whycespace.Engines.T2E.Capital;
-using Whycespace.Runtime.Persistence.Capital;
+using Whycespace.Systems.Midstream.Economics.CapitalLedger;
 using Whycespace.Engines.T3I.Capital;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
@@ -255,7 +255,7 @@ public sealed class DebugController : ControllerBase
     public IActionResult GetWorkflows() => Ok(_stateStore.GetAll());
 
     [HttpGet("engines")]
-    public IActionResult GetEngines() => Ok(_engineRegistry.GetRegisteredEngines());
+    public IActionResult GetEngines() => Ok(_engineRegistry.ListEngines());
 
     [HttpGet("projections")]
     public IActionResult GetProjections() => Ok(new[] { "DriverLocation", "PropertyListing", "VaultBalance", "Revenue" });
@@ -457,7 +457,7 @@ public sealed class DebugController : ControllerBase
     [HttpGet("platform/health")]
     public IActionResult GetPlatformHealth()
     {
-        var engines = _engineRegistry.GetRegisteredEngines();
+        var engines = _engineRegistry.ListEngines();
         return Ok(new
         {
             status = "healthy",

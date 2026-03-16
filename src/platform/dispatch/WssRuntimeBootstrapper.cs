@@ -6,7 +6,7 @@ using Whycespace.Engines.T1M.WSS.Graph;
 using Whycespace.Engines.T1M.WSS.Instance;
 using Whycespace.Engines.T1M.WSS.Runtime;
 using Whycespace.Runtime.EventFabric.WSS;
-using Whycespace.Runtime.Events;
+using Whycespace.EventFabricRuntime.Bus;
 
 /// <summary>
 /// Bootstraps all WSS engine stores and instances that were previously

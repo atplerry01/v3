@@ -1,4 +1,4 @@
-using Whycespace.Runtime.Workflows.WhycePolicy;
+using Whycespace.Systems.Upstream.WhycePolicy.Workflows;
 
 namespace Whycespace.WhycePolicy.Tests;
 

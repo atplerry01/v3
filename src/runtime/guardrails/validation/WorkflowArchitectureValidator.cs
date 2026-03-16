@@ -1,7 +1,7 @@
 namespace Whycespace.ArchitectureGuardrails.Validation;
 
 using Whycespace.ArchitectureGuardrails.Rules;
-using Whycespace.Runtime.Registry;
+using Whycespace.EngineRuntime.Registry;
 using Whycespace.Contracts.Workflows;
 
 public sealed record WorkflowValidationResult(
@@ -41,8 +41,11 @@ public sealed class WorkflowArchitectureValidator
                 continue;
             }
 
-            var engine = _registry.Resolve(step.EngineName);
-            if (engine is null)
+            try
+            {
+                _registry.Resolve(step.EngineName);
+            }
+            catch (InvalidOperationException)
             {
                 violations.Add($"{name}/{step.StepId}: Engine '{step.EngineName}' is not registered in the dispatcher. [{ArchitectureRules.DispatcherOnlyEntrypoint}]");
             }

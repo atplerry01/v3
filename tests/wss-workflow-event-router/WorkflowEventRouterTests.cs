@@ -1,5 +1,5 @@
 using Whycespace.Engines.T1M.WSS.Runtime;
-using Whycespace.Runtime.Events;
+using Whycespace.EventFabricRuntime.Bus;
 using Whycespace.Systems.Midstream.WSS.Events;
 using Whycespace.Systems.Midstream.WSS.Kafka;
 

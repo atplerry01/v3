@@ -3,7 +3,7 @@ namespace Whycespace.FoundationHost.Workers;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Whycespace.Runtime.Dispatcher;
-using Whycespace.Runtime.Workflow;
+using Whycespace.WorkflowRuntime;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Workflows;
 

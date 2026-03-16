@@ -5,7 +5,7 @@ using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Whycespace.Runtime.Events;
+using Whycespace.EventFabricRuntime.Bus;
 using Whycespace.Contracts.Events;
 
 public sealed class KafkaConsumerWorker : BackgroundService

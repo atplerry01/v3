@@ -1,8 +1,8 @@
 using System.Text.Json;
 using Whycespace.Contracts.Primitives;
 using Whycespace.EventFabric.Models;
-using Whycespace.ProjectionRuntime.Projections.Core.Economics;
-using Whycespace.ProjectionRuntime.Projections.Core.Economics.Models;
+using Whycespace.Systems.Midstream.WhyceAtlas.Projections;
+using Whycespace.Systems.Midstream.WhyceAtlas.Projections.Models;
 using Whycespace.ProjectionRuntime.Storage;
 
 namespace Whycespace.ProjectionRuntime.Projections.Tests;

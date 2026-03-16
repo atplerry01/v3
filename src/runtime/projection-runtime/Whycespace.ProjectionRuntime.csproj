@@ -13,4 +13,10 @@
     <ProjectReference Include="..\event-fabric\Whycespace.EventFabric.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="..\..\systems\downstream\mobility\projections\**\*.cs" LinkBase="projections\clusters\mobility" />
+    <Compile Include="..\..\systems\downstream\property\projections\**\*.cs" LinkBase="projections\clusters\property" />
+    <Compile Include="..\..\systems\midstream\WhyceAtlas\projections\**\*.cs" LinkBase="projections\core\economics" />
+  </ItemGroup>
+
 </Project>

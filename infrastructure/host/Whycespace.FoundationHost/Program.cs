@@ -5,21 +5,20 @@ using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
 using Whycespace.FoundationHost.Workers;
 using Whycespace.Runtime.EngineManifest.Loader;
 using Whycespace.Runtime.Dispatcher;
-using Whycespace.Runtime.Events;
+using Whycespace.EventFabricRuntime.Bus;
 using Whycespace.Runtime.Observability;
-using Whycespace.Runtime.Partitions;
 using Whycespace.Runtime.Persistence;
-using Whycespace.ProjectionRuntime.Projections.Core.Economics;
-using Whycespace.ProjectionRuntime.Projections.Clusters.Mobility;
-using Whycespace.ProjectionRuntime.Projections.Clusters.Property;
+using Whycespace.Systems.Midstream.WhyceAtlas.Projections;
+using Whycespace.Systems.Downstream.Mobility.Projections;
+using Whycespace.Systems.Downstream.Property.Projections;
 using Whycespace.ProjectionRuntime.Projections.Queries;
 using Whycespace.ProjectionRuntime.Projections.Registry;
 using Whycespace.ProjectionRuntime.Storage;
 using Whycespace.EventIdempotency.Guard;
 using Whycespace.EventIdempotency.Registry;
-using Whycespace.Runtime.Registry;
+using Whycespace.EngineRuntime.Registry;
 using Whycespace.Runtime.Reliability;
-using Whycespace.Runtime.Workflow;
+using Whycespace.WorkflowRuntime;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Runtime;
 using Whycespace.Systems.Midstream.WSS.Kafka;
@@ -109,7 +108,7 @@ try
     builder.Services.AddSingleton(workflowStepEngineExecutor);
 
     // Legacy engine dispatcher (for backward compatibility)
-    var legacyEngineRegistry = new Whycespace.Runtime.Registry.EngineRegistry();
+    var legacyEngineRegistry = new Whycespace.EngineRuntime.Registry.EngineRegistry();
     foreach (var name in engineRegistry.ListEngines())
         legacyEngineRegistry.Register(engineRegistry.Resolve(name));
     builder.Services.AddSingleton(legacyEngineRegistry);
@@ -124,9 +123,6 @@ try
     var orchestrator = new WorkflowOrchestrator(engineDispatcher, workflowStateStore);
     builder.Services.AddSingleton(orchestrator);
     builder.Services.AddSingleton<IWorkflowOrchestrator>(orchestrator);
-
-    var partitionManager = new PartitionManager();
-    builder.Services.AddSingleton(partitionManager);
 
     var eventBus = new EventBus();
     builder.Services.AddSingleton(eventBus);

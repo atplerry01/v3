@@ -4,7 +4,7 @@ using global::System.Reflection;
 using Whycespace.ArchitectureGuardrails.Architecture;
 using Whycespace.ArchitectureGuardrails.Rules;
 using Whycespace.ArchitectureGuardrails.Validation;
-using Whycespace.Runtime.Registry;
+using Whycespace.EngineRuntime.Registry;
 
 public sealed record GuardrailReport(
     bool IsValid,
