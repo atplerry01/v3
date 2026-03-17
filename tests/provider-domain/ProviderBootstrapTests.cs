@@ -1,7 +1,7 @@
 namespace Whycespace.ProviderDomain.Tests;
 
-using Whycespace.Domain.Clusters;
-using Whycespace.Domain.Core.Cluster;
+using Whycespace.Domain.Core.Cluster.Bootstrap;
+using Whycespace.Domain.Core.Cluster.Services;
 using Whycespace.Domain.Core.Providers;
 using Whycespace.Domain.Core.Spv;
 

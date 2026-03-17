@@ -1,6 +1,6 @@
 namespace Whycespace.ClusterTemplatePlatform;
 
-using Whycespace.Domain.Clusters;
+using Whycespace.Domain.Core.Cluster.Services;
 using Whycespace.Domain.Core.Providers;
 
 public sealed class ClusterTemplateGenerator

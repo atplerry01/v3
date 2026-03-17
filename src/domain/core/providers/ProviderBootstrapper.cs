@@ -1,6 +1,7 @@
 namespace Whycespace.Domain.Core.Providers;
 
-using Whycespace.Domain.Clusters;
+using Whycespace.Domain.Core.Cluster.Aggregates;
+using Whycespace.Domain.Core.Cluster.Services;
 
 public sealed class ProviderBootstrapper
 {
@@ -36,7 +37,7 @@ public sealed class ProviderBootstrapper
         }
     }
 
-    private void BootstrapMobility(Cluster cluster)
+    private void BootstrapMobility(ClusterAggregate cluster)
     {
         var taxi = cluster.SubClusters.FirstOrDefault(s => s.SubClusterName == "Taxi");
         if (taxi is null) return;
@@ -48,7 +49,7 @@ public sealed class ProviderBootstrapper
         }
     }
 
-    private void BootstrapProperty(Cluster cluster)
+    private void BootstrapProperty(ClusterAggregate cluster)
     {
         var letting = cluster.SubClusters.FirstOrDefault(s => s.SubClusterName == "LettingAgent");
         if (letting is null) return;

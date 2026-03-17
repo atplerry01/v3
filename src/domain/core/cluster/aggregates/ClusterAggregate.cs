@@ -1,6 +1,6 @@
-namespace Whycespace.Domain.Clusters;
+namespace Whycespace.Domain.Core.Cluster.Aggregates;
 
-public sealed class Cluster
+public sealed class ClusterAggregate
 {
     private readonly List<SubCluster> _subClusters = new();
 
@@ -10,7 +10,7 @@ public sealed class Cluster
 
     public IReadOnlyCollection<SubCluster> SubClusters => _subClusters.AsReadOnly();
 
-    public Cluster(Guid clusterId, string clusterName)
+    public ClusterAggregate(Guid clusterId, string clusterName)
     {
         ClusterId = clusterId;
         ClusterName = clusterName;

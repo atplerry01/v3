@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Cluster;
+namespace Whycespace.Domain.Core.Cluster.Aggregates;
 
 public sealed record ClusterAdministration(
     Guid AdministrationId,

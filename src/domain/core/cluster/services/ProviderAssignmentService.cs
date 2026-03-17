@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Clusters;
+namespace Whycespace.Domain.Core.Cluster.Services;
 
 public sealed class ProviderAssignmentService
 {

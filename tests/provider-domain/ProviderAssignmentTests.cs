@@ -1,6 +1,6 @@
 namespace Whycespace.ProviderDomain.Tests;
 
-using Whycespace.Domain.Clusters;
+using Whycespace.Domain.Core.Cluster.Services;
 
 public sealed class ProviderAssignmentTests
 {
