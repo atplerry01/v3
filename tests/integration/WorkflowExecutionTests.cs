@@ -1,6 +1,6 @@
 namespace Whycespace.Tests.Integration;
 
-using Whycespace.Domain.Application.Commands;
+using Whycespace.Application.Commands;
 using Whycespace.Engines.T0U.WhycePolicy;
 using Whycespace.Engines.T2E;
 using Whycespace.Engines.T2E.Clusters.Mobility.Taxi;

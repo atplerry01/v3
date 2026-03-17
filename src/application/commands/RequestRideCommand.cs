@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Application.Commands;
+namespace Whycespace.Application.Commands;
 
 using Whycespace.Contracts.Commands;
 using Whycespace.Shared.Location;

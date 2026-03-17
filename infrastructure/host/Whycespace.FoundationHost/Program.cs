@@ -217,9 +217,9 @@ try
 
     // Command System
     var commandCatalog = new CommandCatalog();
-    commandCatalog.Register("RequestRideCommand", typeof(Whycespace.Domain.Application.Commands.RequestRideCommand));
-    commandCatalog.Register("ListPropertyCommand", typeof(Whycespace.Domain.Application.Commands.ListPropertyCommand));
-    commandCatalog.Register("AllocateCapitalCommand", typeof(Whycespace.Domain.Application.Commands.AllocateCapitalCommand));
+    commandCatalog.Register("RequestRideCommand", typeof(Whycespace.Application.Commands.RequestRideCommand));
+    commandCatalog.Register("ListPropertyCommand", typeof(Whycespace.Application.Commands.ListPropertyCommand));
+    commandCatalog.Register("AllocateCapitalCommand", typeof(Whycespace.Application.Commands.AllocateCapitalCommand));
     builder.Services.AddSingleton<ICommandCatalog>(commandCatalog);
 
     var commandValidator = new CommandValidator();

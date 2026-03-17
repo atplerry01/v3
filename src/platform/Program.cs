@@ -110,9 +110,9 @@ var wssOrchestrator = new WSSOrchestrator(workflowMapper, orchestrator);
 builder.Services.AddSingleton(wssOrchestrator);
 
 var workflowRouter = new WorkflowRouter();
-workflowRouter.MapCommand<Whycespace.Domain.Application.Commands.RequestRideCommand>("RideRequest");
-workflowRouter.MapCommand<Whycespace.Domain.Application.Commands.ListPropertyCommand>("PropertyListing");
-workflowRouter.MapCommand<Whycespace.Domain.Application.Commands.AllocateCapitalCommand>("EconomicLifecycle");
+workflowRouter.MapCommand<Whycespace.Application.Commands.RequestRideCommand>("RideRequest");
+workflowRouter.MapCommand<Whycespace.Application.Commands.ListPropertyCommand>("PropertyListing");
+workflowRouter.MapCommand<Whycespace.Application.Commands.AllocateCapitalCommand>("EconomicLifecycle");
 builder.Services.AddSingleton(workflowRouter);
 
 var commandDispatcher = new CommandDispatcher(workflowRouter, wssOrchestrator);

@@ -1,6 +1,6 @@
 namespace Whycespace.Tests.Domain;
 
-using Whycespace.Domain.Application.Commands;
+using Whycespace.Application.Commands;
 using Whycespace.Shared.Location;
 using Xunit;
 
