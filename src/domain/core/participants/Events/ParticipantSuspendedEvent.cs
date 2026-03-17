@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Participants.Events;
+namespace Whycespace.Domain.Events.Core.Participants;
 
 public sealed record ParticipantSuspendedEvent(
     Guid EventId,

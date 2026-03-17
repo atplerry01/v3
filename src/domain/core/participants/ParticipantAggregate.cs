@@ -1,6 +1,6 @@
 namespace Whycespace.Domain.Core.Participants;
 
-using Whycespace.Domain.Core.Participants.Events;
+using Whycespace.Domain.Events.Core.Participants;
 
 public sealed class ParticipantAggregate
 {

@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Economic.CapitalRegistry;
+namespace Whycespace.Domain.Core.Economic;
 
 public sealed class CapitalRegistry : ICapitalRegistry
 {

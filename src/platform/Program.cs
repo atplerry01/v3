@@ -26,7 +26,7 @@ using Whycespace.Systems.Upstream.WhycePolicy;
 using Whycespace.Domain.Clusters;
 using Whycespace.Domain.Core.Cluster;
 using Whycespace.Domain.Core.Providers;
-using Whycespace.Domain.Core.Registry;
+using Whycespace.Domain.Core.Spv;
 using Whycespace.SimulationRuntime.Loader;
 using Whycespace.SimulationRuntime.Runtime;
 using Whycespace.SimulationRuntime.Services;
@@ -288,9 +288,9 @@ var governanceEvidenceRecorder = new Whycespace.Engines.T0U.Governance.Governanc
 builder.Services.AddSingleton(governanceEvidenceRecorder);
 
 // Capital Policy Enforcement Adapter (Phase 2.2.25)
-var capitalRegistry = new Whycespace.Domain.Economic.Capital.CapitalRegistry();
+var capitalRegistry = new Whycespace.Domain.Core.Economic.CapitalRegistry();
 var capitalPolicyAdapter = new Whycespace.Engines.T2E.Capital.CapitalPolicyEnforcementAdapter(capitalRegistry);
-builder.Services.AddSingleton<Whycespace.Domain.Economic.Capital.ICapitalRegistry>(capitalRegistry);
+builder.Services.AddSingleton<Whycespace.Domain.Core.Economic.ICapitalRegistry>(capitalRegistry);
 builder.Services.AddSingleton(capitalRegistry);
 builder.Services.AddSingleton(capitalPolicyAdapter);
 

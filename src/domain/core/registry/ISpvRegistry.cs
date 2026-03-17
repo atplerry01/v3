@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Registry;
+namespace Whycespace.Domain.Core.Spv;
 
 public interface ISpvRegistry
 {

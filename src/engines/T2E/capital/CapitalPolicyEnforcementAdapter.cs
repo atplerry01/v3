@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T2E.Capital;
 
-using Whycespace.Domain.Core.Economic.CapitalRegistry;
+using Whycespace.Domain.Core.Economic;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
 public sealed class CapitalPolicyEnforcementAdapter

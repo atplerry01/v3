@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Vault;
+namespace Whycespace.Domain.Core.Economic;
 
 public enum VaultAllocationType
 {

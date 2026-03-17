@@ -1,7 +1,7 @@
 namespace Whycespace.Tests.Domain;
 
 using Whycespace.Domain.Core.Participants;
-using Whycespace.Domain.Core.Participants.Events;
+using Whycespace.Domain.Events.Core.Participants;
 using Xunit;
 
 public sealed class ParticipantAggregateTests

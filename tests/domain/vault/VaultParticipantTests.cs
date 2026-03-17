@@ -1,6 +1,6 @@
 namespace Whycespace.Tests.Domain.Vault;
 
-using Whycespace.Domain.Core.Vault;
+using Whycespace.Domain.Core.Economic;
 using Xunit;
 
 public sealed class VaultParticipantTests

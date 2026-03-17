@@ -1,6 +1,6 @@
 namespace Whycespace.ClusterDomain.Tests;
 
-using Whycespace.Domain.Core.Registry;
+using Whycespace.Domain.Core.Spv;
 
 public sealed class SpvRegistryTests
 {

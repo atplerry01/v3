@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Economic.Events;
+namespace Whycespace.Domain.Events.Core.Economic;
 
 public sealed record RevenueRecordedEvent(
     Guid RevenueId,

@@ -1,4 +1,6 @@
-namespace Whycespace.Domain.Core.Participants.Events;
+namespace Whycespace.Domain.Events.Core.Participants;
+
+using Whycespace.Domain.Core.Participants;
 
 public sealed record ParticipantRoleAssignedEvent(
     Guid EventId,

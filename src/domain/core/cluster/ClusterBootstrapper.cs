@@ -2,7 +2,7 @@ namespace Whycespace.Domain.Core.Cluster;
 
 using Whycespace.Domain.Clusters;
 using Whycespace.Domain.Core.Providers;
-using Whycespace.Domain.Core.Registry;
+using Whycespace.Domain.Core.Spv;
 
 public sealed class ClusterBootstrapper
 {

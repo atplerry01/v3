@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Vault;
+namespace Whycespace.Domain.Core.Economic;
 
 public readonly record struct VaultAllocationId(Guid Value)
 {

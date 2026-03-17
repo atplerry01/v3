@@ -53,7 +53,7 @@ using Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.Systems.Upstream.Governance.Evidence.Models;
 using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 using Whycespace.Contracts.Evidence;
-using Whycespace.Domain.Core.Economic.CapitalRegistry;
+using Whycespace.Domain.Core.Economic;
 using Whycespace.Engines.T2E.Capital;
 using Whycespace.Systems.Midstream.Economics.CapitalLedger;
 using Whycespace.Engines.T3I.Capital;
