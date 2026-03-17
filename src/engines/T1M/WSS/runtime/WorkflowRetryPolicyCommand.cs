@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T1M.WSS.Runtime;
 
-using Whycespace.Domain.Core.Workflows;
+using Whycespace.Engines.T1M.WSS.Workflows;
 
 /// <summary>
 /// Input command for the Workflow Retry Policy Engine.

@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T1M.WSS.Graph;
 
-using Whycespace.Domain.Core.Workflows;
+using Whycespace.Engines.T1M.WSS.Workflows;
 using WorkflowGraph = Whycespace.Systems.Midstream.WSS.Models.WorkflowGraph;
 using WorkflowStepDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowStepDefinition;
 

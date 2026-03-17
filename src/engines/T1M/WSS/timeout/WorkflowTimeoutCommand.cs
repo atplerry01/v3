@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T1M.WSS.Timeout;
 
-using Whycespace.Domain.Core.Workflows;
+using Whycespace.Engines.T1M.WSS.Workflows;
 
 /// <summary>
 /// Immutable command for evaluating whether a workflow step or instance has exceeded

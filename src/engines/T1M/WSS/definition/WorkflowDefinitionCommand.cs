@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T1M.WSS.Definition;
 
-using Whycespace.Domain.Core.Workflows;
+using Whycespace.Engines.T1M.WSS.Workflows;
 
 public sealed record WorkflowDefinitionCommand(
     string WorkflowName,

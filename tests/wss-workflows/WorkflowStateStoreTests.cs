@@ -1,6 +1,6 @@
 namespace Whycespace.WSS.Workflows.Tests;
 
-using Whycespace.Domain.Core.Workflows;
+using Whycespace.Engines.T1M.WSS.Workflows;
 using Whycespace.Systems.Midstream.WSS.Stores;
 
 public class WorkflowStateStoreTests

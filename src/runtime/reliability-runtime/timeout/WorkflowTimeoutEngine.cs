@@ -4,7 +4,7 @@ using Whycespace.Contracts.Engines;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
 using Whycespace.Runtime.Persistence.Workflow;
-using Whycespace.Domain.Core.Workflows;
+using Whycespace.Engines.T1M.WSS.Workflows;
 using Whycespace.Systems.Midstream.WSS.Models;
 
 /// <summary>

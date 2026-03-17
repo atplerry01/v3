@@ -1,4 +1,4 @@
-using Whycespace.Domain.Core.Workflows;
+using Whycespace.Engines.T1M.WSS.Workflows;
 using Whycespace.Engines.T1M.WSS.Runtime;
 
 namespace Whycespace.WSS.WorkflowRetryPolicy.Tests;

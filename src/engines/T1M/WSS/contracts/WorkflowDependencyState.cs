@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Workflows;
+namespace Whycespace.Engines.T1M.WSS.Workflows;
 
 /// <summary>
 /// Domain state representing the dependency resolution outcome for a workflow instance.

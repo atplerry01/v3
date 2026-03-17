@@ -1,6 +1,6 @@
 namespace Whycespace.Runtime.Persistence.Workflow;
 
-using Whycespace.Domain.Core.Workflows;
+using Whycespace.Engines.T1M.WSS.Workflows;
 
 public sealed record WorkflowStateRecord(
     string InstanceId,

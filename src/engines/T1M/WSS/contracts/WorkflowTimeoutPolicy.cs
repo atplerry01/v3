@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Workflows;
+namespace Whycespace.Engines.T1M.WSS.Workflows;
 
 /// <summary>
 /// Domain model representing a timeout policy for a workflow step or workflow instance.

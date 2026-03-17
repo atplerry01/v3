@@ -1,7 +1,7 @@
 namespace Whycespace.Engines.T1M.WSS.Runtime;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Domain.Core.Workflows;
+using Whycespace.Engines.T1M.WSS.Workflows;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
 

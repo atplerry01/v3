@@ -5,7 +5,7 @@ using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
 using Whycespace.Engines.T1M.WSS.Stores;
 using Whycespace.Engines.T1M.WSS.Timeout;
-using Whycespace.Domain.Core.Workflows;
+using Whycespace.Engines.T1M.WSS.Workflows;
 using Whycespace.Systems.Midstream.WSS.Models;
 
 [EngineManifest("WorkflowTimeoutEngine", EngineTier.T1M, EngineKind.Decision, "WorkflowTimeoutRequest", typeof(EngineEvent))]

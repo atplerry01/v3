@@ -4,9 +4,9 @@ using global::System.Security.Cryptography;
 using global::System.Text;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Workflows;
-using Whycespace.Domain.Core.Workflows;
+using Whycespace.Engines.T1M.WSS.Workflows;
 using SystemWorkflowDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
-using DomainWorkflowStepDefinition = Whycespace.Domain.Core.Workflows.WorkflowStepDefinition;
+using DomainWorkflowStepDefinition = Whycespace.Engines.T1M.WSS.Workflows.WorkflowStepDefinition;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
 

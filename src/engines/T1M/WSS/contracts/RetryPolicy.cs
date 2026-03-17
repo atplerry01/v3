@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Workflows;
+namespace Whycespace.Engines.T1M.WSS.Workflows;
 
 /// <summary>
 /// Retry strategy defining how delays are calculated between retry attempts.

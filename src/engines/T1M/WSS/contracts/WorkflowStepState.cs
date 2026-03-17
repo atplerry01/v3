@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Workflows;
+namespace Whycespace.Engines.T1M.WSS.Workflows;
 
 /// <summary>
 /// Domain model representing the current execution state of a workflow step,

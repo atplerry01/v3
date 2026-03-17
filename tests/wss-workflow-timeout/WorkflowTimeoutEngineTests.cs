@@ -1,7 +1,7 @@
 using Whycespace.Engines.T1M.WSS.Runtime;
 using Whycespace.Engines.T1M.WSS.Stores;
 using Whycespace.Engines.T1M.WSS.Timeout;
-using Whycespace.Domain.Core.Workflows;
+using Whycespace.Engines.T1M.WSS.Workflows;
 using Whycespace.Systems.Midstream.WSS.Models;
 
 namespace Whycespace.WSS.WorkflowTimeout.Tests;

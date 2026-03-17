@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="contracts/**" />
+    <Content Remove="contracts/**" />
+    <None Remove="contracts/**" />
+    <EmbeddedResource Remove="contracts/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="contracts\Whycespace.Engines.T1M.WSS.Contracts.csproj" />
     <ProjectReference Include="..\..\..\shared\Whycespace.Shared.csproj" />
     <ProjectReference Include="..\..\..\systems\Whycespace.System.csproj" />
     <ProjectReference Include="..\..\..\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />

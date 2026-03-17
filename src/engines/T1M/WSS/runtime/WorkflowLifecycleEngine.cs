@@ -177,9 +177,9 @@ public sealed class WorkflowLifecycleEngine : IEngine, IWorkflowLifecycleEngine
         var retryCommand = new WorkflowRetryPolicyCommand(
             instanceId,
             stepId,
-            new Domain.Core.Workflows.RetryPolicy(
+            new Workflows.RetryPolicy(
                 failurePolicy.MaxRetries,
-                Domain.Core.Workflows.RetryStrategy.FixedDelay,
+                Workflows.RetryStrategy.FixedDelay,
                 failurePolicy.RetryDelay,
                 1.0),
             retryCount,
