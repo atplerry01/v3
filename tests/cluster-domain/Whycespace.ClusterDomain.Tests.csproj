@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\domain\clusters\Whycespace.ClusterDomain.csproj" />
     <ProjectReference Include="..\..\src\domain\Whycespace.Domain.csproj" />
+    <ProjectReference Include="..\..\src\systems\Whycespace.System.csproj" />
   </ItemGroup>
 
 </Project>

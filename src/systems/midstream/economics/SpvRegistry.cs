@@ -1,6 +1,6 @@
 namespace Whycespace.Domain.Core.Registry;
 
-public sealed class SpvRegistry
+public sealed class SpvRegistry : ISpvRegistry
 {
     private readonly Dictionary<Guid, string> _spvs = new();
 

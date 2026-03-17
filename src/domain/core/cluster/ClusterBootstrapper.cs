@@ -8,14 +8,14 @@ public sealed class ClusterBootstrapper
 {
     private readonly ClusterAdministrationService _administration;
     private readonly ClusterProviderRegistry _providerRegistry;
-    private readonly SpvRegistry _spvRegistry;
+    private readonly ISpvRegistry _spvRegistry;
     private readonly ProviderAssignmentService _assignmentService;
     private readonly ProviderBootstrapper _providerBootstrapper;
 
     public ClusterBootstrapper(
         ClusterAdministrationService administration,
         ClusterProviderRegistry providerRegistry,
-        SpvRegistry spvRegistry,
+        ISpvRegistry spvRegistry,
         ProviderAssignmentService assignmentService)
     {
         _administration = administration;
@@ -44,6 +44,6 @@ public sealed class ClusterBootstrapper
 
     public ClusterAdministrationService Administration => _administration;
     public ClusterProviderRegistry ProviderRegistry => _providerRegistry;
-    public SpvRegistry SpvRegistry => _spvRegistry;
+    public ISpvRegistry SpvRegistry => _spvRegistry;
     public ProviderAssignmentService AssignmentService => _assignmentService;
 }
