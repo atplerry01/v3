@@ -36,7 +36,6 @@ public sealed class EngineInvocationTests
         // T2E Execution
         registry.Register(new RideExecutionEngine());
         registry.Register(new PropertyExecutionEngine());
-        registry.Register(new EconomicExecutionEngine());
 
         // T3I Intelligence
         registry.Register(new DriverMatchingEngine());

@@ -35,7 +35,6 @@ public sealed class EventProjectionTests
         _registry = new EngineRegistry();
         _registry.Register(new RideExecutionEngine());
         _registry.Register(new PropertyExecutionEngine());
-        _registry.Register(new EconomicExecutionEngine());
         _registry.Register(new DriverMatchingEngine());
     }
 

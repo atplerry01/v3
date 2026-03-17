@@ -23,7 +23,6 @@ public sealed class WorkflowValidatorTests
         registry.Register(new WorkforceAssignmentEngine());
         registry.Register(new RideExecutionEngine());
         registry.Register(new PropertyExecutionEngine());
-        registry.Register(new EconomicExecutionEngine());
         return registry;
     }
 

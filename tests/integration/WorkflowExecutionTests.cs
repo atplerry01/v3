@@ -35,7 +35,6 @@ public sealed class WorkflowExecutionTests
         _registry.Register(new DriverMatchingEngine());
         _registry.Register(new RideExecutionEngine());
         _registry.Register(new PropertyExecutionEngine());
-        _registry.Register(new EconomicExecutionEngine());
 
         var dispatcher = new RuntimeDispatcher(_registry);
         _stateStore = new WorkflowStateStore();

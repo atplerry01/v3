@@ -43,7 +43,6 @@ public sealed class SimulationRunner
         _registry.Register(new WorkforceAssignmentEngine());
         _registry.Register(new RideExecutionEngine());
         _registry.Register(new PropertyExecutionEngine());
-        _registry.Register(new EconomicExecutionEngine());
     }
 
     public async Task RunAsync(CancellationToken ct = default)
