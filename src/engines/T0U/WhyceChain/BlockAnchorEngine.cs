@@ -6,7 +6,7 @@ using global::System.Text.Json;
 using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 using LedgerChainBlock = Whycespace.Systems.Upstream.WhyceChain.Ledger.ChainBlock;
 
-public sealed partial class EvidenceAnchoringEngine
+public sealed class BlockAnchorEngine
 {
     private static readonly JsonSerializerOptions CanonicalJsonOptions = new()
     {

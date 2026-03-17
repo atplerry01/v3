@@ -3,7 +3,7 @@ namespace Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.Systems.Upstream.WhyceChain.Models;
 using Whycespace.Systems.Upstream.WhyceChain.Stores;
 
-public sealed partial class EvidenceAnchoringEngine
+public sealed class EvidenceAnchoringEngine
 {
     private readonly ChainLedgerEngine _ledgerEngine;
     private readonly EvidenceHashEngine _hashEngine;
