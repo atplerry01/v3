@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T4A.Integration;
+namespace Whycespace.Engines.T4A.Interface.Integration;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Runtime.EngineManifest.Attributes;

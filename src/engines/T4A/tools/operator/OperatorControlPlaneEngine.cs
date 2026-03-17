@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T4A.Operator;
+namespace Whycespace.Engines.T4A.Tools.Operator;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Runtime.EngineManifest.Attributes;
