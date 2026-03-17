@@ -1,4 +1,4 @@
-using Whycespace.Engines.T0U.Governance;
+using Whycespace.Engines.T0U.WhyceGovernance;
 using Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.Systems.Upstream.Governance.Models;
 using Whycespace.Systems.Upstream.WhyceChain.Stores;

@@ -1,5 +1,5 @@
-using Whycespace.Engines.T0U.Governance;
-using Whycespace.Engines.T0U.Governance.Commands;
+using Whycespace.Engines.T0U.WhyceGovernance;
+using Whycespace.Engines.T0U.WhyceGovernance.Commands;
 using Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.Systems.Upstream.Governance.Evidence.Models;
 using Whycespace.Systems.Upstream.WhyceChain.Stores;

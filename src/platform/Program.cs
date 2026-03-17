@@ -254,37 +254,37 @@ builder.Services.AddSingleton<Whycespace.Systems.Upstream.Governance.Proposals.R
 
 // Governance Proposal Type Engine (Phase 2.0.59)
 var governanceProposalTypeStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceProposalTypeStore();
-var governanceProposalTypeEngine = new Whycespace.Engines.T0U.Governance.GovernanceProposalTypeEngine(governanceProposalTypeStore, guardianRegistryStore);
+var governanceProposalTypeEngine = new Whycespace.Engines.T0U.WhyceGovernance.GovernanceProposalTypeEngine(governanceProposalTypeStore, guardianRegistryStore);
 builder.Services.AddSingleton(governanceProposalTypeStore);
 builder.Services.AddSingleton(governanceProposalTypeEngine);
 
 // Governance Proposal Engine (Phase 2.0.58)
 var governanceProposalEngineStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceProposalStore();
-var governanceProposalEngine = new Whycespace.Engines.T0U.Governance.GovernanceProposalEngine(governanceProposalEngineStore);
+var governanceProposalEngine = new Whycespace.Engines.T0U.WhyceGovernance.GovernanceProposalEngine(governanceProposalEngineStore);
 builder.Services.AddSingleton(governanceProposalEngineStore);
 builder.Services.AddSingleton(governanceProposalEngine);
 
 // Governance Domain Scope Engine (Phase 2.0.60)
 var governanceDomainScopeStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceDomainScopeStore();
-var governanceDomainScopeEngine = new Whycespace.Engines.T0U.Governance.GovernanceDomainScopeEngine(governanceDomainScopeStore, guardianRegistryStore);
+var governanceDomainScopeEngine = new Whycespace.Engines.T0U.WhyceGovernance.GovernanceDomainScopeEngine(governanceDomainScopeStore, guardianRegistryStore);
 builder.Services.AddSingleton(governanceDomainScopeStore);
 builder.Services.AddSingleton(governanceDomainScopeEngine);
 
 // Voting Engine (Phase 2.0.61)
 var governanceVoteStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceVoteStore();
-var votingEngine = new Whycespace.Engines.T0U.Governance.VotingEngine(governanceVoteStore, governanceProposalEngineStore, guardianRegistryStore);
+var votingEngine = new Whycespace.Engines.T0U.WhyceGovernance.VotingEngine(governanceVoteStore, governanceProposalEngineStore, guardianRegistryStore);
 builder.Services.AddSingleton(governanceVoteStore);
 builder.Services.AddSingleton(votingEngine);
 
 // Governance Emergency Engine (Phase 2.0.66)
 var governanceEmergencyStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceEmergencyStore();
-var governanceEmergencyEngine = new Whycespace.Engines.T0U.Governance.GovernanceEmergencyEngine(governanceEmergencyStore, guardianRegistryStore);
+var governanceEmergencyEngine = new Whycespace.Engines.T0U.WhyceGovernance.GovernanceEmergencyEngine(governanceEmergencyStore, guardianRegistryStore);
 builder.Services.AddSingleton(governanceEmergencyStore);
 builder.Services.AddSingleton(governanceEmergencyEngine);
 
 // Governance Evidence Recorder (Phase 2.0.67)
 var engineChainEvidenceGateway = new Whycespace.Engines.T0U.WhyceChain.ChainEvidenceGateway(evidenceAnchoringEngine, evidenceHashEngine);
-var governanceEvidenceRecorder = new Whycespace.Engines.T0U.Governance.GovernanceEvidenceRecorder(engineChainEvidenceGateway);
+var governanceEvidenceRecorder = new Whycespace.Engines.T0U.WhyceGovernance.GovernanceEvidenceRecorder(engineChainEvidenceGateway);
 builder.Services.AddSingleton(governanceEvidenceRecorder);
 
 // Capital Policy Enforcement Adapter (Phase 2.2.25)

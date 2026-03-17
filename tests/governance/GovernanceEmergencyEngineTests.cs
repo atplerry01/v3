@@ -1,6 +1,6 @@
-using Whycespace.Engines.T0U.Governance;
-using Whycespace.Engines.T0U.Governance.Commands;
-using Whycespace.Engines.T0U.Governance.Results;
+using Whycespace.Engines.T0U.WhyceGovernance;
+using Whycespace.Engines.T0U.WhyceGovernance.Commands;
+using Whycespace.Engines.T0U.WhyceGovernance.Results;
 using Whycespace.Systems.Upstream.Governance.Models;
 using Whycespace.Systems.Upstream.Governance.Stores;
 using Whycespace.Systems.WhyceID.Aggregates;

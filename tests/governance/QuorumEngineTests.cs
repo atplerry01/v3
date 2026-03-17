@@ -1,5 +1,5 @@
-using Whycespace.Engines.T0U.Governance;
-using Whycespace.Engines.T0U.Governance.Commands;
+using Whycespace.Engines.T0U.WhyceGovernance;
+using Whycespace.Engines.T0U.WhyceGovernance.Commands;
 using Whycespace.Domain.Events.Governance;
 
 namespace Whycespace.Governance.Tests;

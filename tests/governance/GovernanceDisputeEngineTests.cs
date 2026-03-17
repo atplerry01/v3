@@ -1,5 +1,5 @@
-using Whycespace.Engines.T0U.Governance;
-using Whycespace.Engines.T0U.Governance.Commands;
+using Whycespace.Engines.T0U.WhyceGovernance;
+using Whycespace.Engines.T0U.WhyceGovernance.Commands;
 using Whycespace.Systems.Upstream.Governance.Models;
 using Whycespace.Systems.Upstream.Governance.Stores;
 using Whycespace.Systems.WhyceID.Aggregates;
@@ -285,7 +285,7 @@ public class GovernanceDisputeEngineTests
     public void ConcurrentDisputeSubmissions_AreDeterministic()
     {
         var tasks = new List<Task>();
-        var results = new global::System.Collections.Concurrent.ConcurrentBag<Whycespace.Engines.T0U.Governance.Results.GovernanceDisputeResult>();
+        var results = new global::System.Collections.Concurrent.ConcurrentBag<Whycespace.Engines.T0U.WhyceGovernance.Results.GovernanceDisputeResult>();
 
         for (int i = 0; i < 10; i++)
         {
