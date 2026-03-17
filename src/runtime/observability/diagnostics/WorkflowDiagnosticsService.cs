@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
-using Whycespace.Observability.Models;
+using Whycespace.Runtime.Observability.Models;
 
-namespace Whycespace.Observability.Diagnostics;
+namespace Whycespace.Runtime.Observability.Diagnostics;
 
 public sealed class WorkflowDiagnosticsService
 {

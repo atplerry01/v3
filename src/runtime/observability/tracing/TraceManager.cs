@@ -1,6 +1,8 @@
 using System.Collections.Concurrent;
 
-namespace Whycespace.Observability.Tracing;
+using Whycespace.Runtime.Observability.Tracing.Context;
+
+namespace Whycespace.Runtime.Observability.Tracing;
 
 public sealed class TraceManager
 {

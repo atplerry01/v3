@@ -1,4 +1,4 @@
-using Whycespace.Observability.Health;
+using Whycespace.Runtime.Observability.Health;
 
 namespace Whycespace.Observability.Tests;
 

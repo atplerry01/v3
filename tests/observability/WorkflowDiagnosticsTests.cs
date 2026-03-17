@@ -1,4 +1,4 @@
-using Whycespace.Observability.Diagnostics;
+using Whycespace.Runtime.Observability.Diagnostics;
 
 namespace Whycespace.Observability.Tests;
 

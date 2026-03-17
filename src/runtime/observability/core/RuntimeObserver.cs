@@ -1,4 +1,4 @@
-namespace Whycespace.Runtime.Observability;
+namespace Whycespace.Runtime.Observability.Core;
 
 public sealed record EngineInvocationLog(
     Guid InvocationId,

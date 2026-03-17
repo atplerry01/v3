@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-namespace Whycespace.Observability.Metrics;
+namespace Whycespace.Runtime.Observability.Metrics.Collectors;
 
 public sealed class MetricsCollector
 {

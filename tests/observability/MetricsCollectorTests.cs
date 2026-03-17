@@ -1,4 +1,4 @@
-using Whycespace.Observability.Metrics;
+using Whycespace.Runtime.Observability.Metrics.Collectors;
 
 namespace Whycespace.Observability.Tests;
 

@@ -2,7 +2,7 @@ namespace Whycespace.Platform.ControlPlane.OperatorConsole;
 
 using Microsoft.AspNetCore.Mvc;
 using Whycespace.EngineRuntime.Registry;
-using Whycespace.Runtime.Observability;
+using Whycespace.Runtime.Observability.Core;
 using Whycespace.Runtime.Reliability;
 using Whycespace.Systems.Downstream.Clusters;
 

@@ -1,4 +1,4 @@
-namespace Whycespace.Runtime.Observability.Workflow;
+namespace Whycespace.Runtime.Observability.Metrics.Workflow;
 
 public sealed record WorkflowMetric(
     string WorkflowName,

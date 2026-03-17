@@ -4,11 +4,12 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Whycespace.Runtime.Observability</RootNamespace>
+    <RootNamespace>Whycespace.Runtime.EventFabricGuard</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="..\event-schema-registry\Whycespace.EventSchemaRegistry.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Whycespace.Runtime.ControlPlane</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="..\command-registry\Whycespace.CommandRegistry.csproj" />
+    <ProjectReference Include="..\engine-registry\Whycespace.EngineRegistry.csproj" />
+    <ProjectReference Include="..\event-schema-registry\Whycespace.EventSchemaRegistry.csproj" />
+    <ProjectReference Include="..\event-fabric-governance\Whycespace.EventFabricGovernance.csproj" />
+  </ItemGroup>
+
+</Project>

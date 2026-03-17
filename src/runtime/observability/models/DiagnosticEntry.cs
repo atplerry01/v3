@@ -1,4 +1,4 @@
-namespace Whycespace.Observability.Models;
+namespace Whycespace.Runtime.Observability.Models;
 
 public sealed record DiagnosticEntry(
     Guid WorkflowId,

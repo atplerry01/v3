@@ -1,6 +1,6 @@
-using Whycespace.Observability.Models;
+using Whycespace.Runtime.Observability.Models;
 
-namespace Whycespace.Observability.Health;
+namespace Whycespace.Runtime.Observability.Health;
 
 public sealed class HealthCheckService
 {

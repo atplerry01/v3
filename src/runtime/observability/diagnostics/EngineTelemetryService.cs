@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-namespace Whycespace.Observability.Diagnostics;
+namespace Whycespace.Runtime.Observability.Diagnostics;
 
 public sealed class EngineTelemetryService
 {

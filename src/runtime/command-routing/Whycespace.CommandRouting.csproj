@@ -4,11 +4,12 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Whycespace.Runtime.Observability</RootNamespace>
+    <RootNamespace>Whycespace.Runtime.CommandRouting</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="..\engine-registry\Whycespace.EngineRegistry.csproj" />
   </ItemGroup>
 
 </Project>

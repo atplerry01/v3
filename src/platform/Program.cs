@@ -4,7 +4,7 @@ using Serilog;
 using Whycespace.Platform.RuntimeClient;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.EventFabricRuntime.Bus;
-using Whycespace.Runtime.Observability;
+using Whycespace.Runtime.Observability.Core;
 using Whycespace.Systems.Midstream.WhyceAtlas.Projections;
 using Whycespace.Systems.Downstream.Mobility.Projections;
 using Whycespace.Systems.Downstream.Property.Projections;

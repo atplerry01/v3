@@ -1,4 +1,4 @@
-namespace Whycespace.Observability.Tracing;
+namespace Whycespace.Runtime.Observability.Tracing.Context;
 
 public sealed record TraceContext(
     Guid TraceId,

@@ -1,4 +1,5 @@
-using Whycespace.Observability.Tracing;
+using Whycespace.Runtime.Observability.Tracing;
+using Whycespace.Runtime.Observability.Tracing.Context;
 
 namespace Whycespace.Observability.Tests;
 

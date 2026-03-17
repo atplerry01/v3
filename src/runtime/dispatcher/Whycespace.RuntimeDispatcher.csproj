@@ -12,6 +12,9 @@
     <ProjectReference Include="..\command\Whycespace.CommandSystem.csproj" />
     <ProjectReference Include="..\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
     <ProjectReference Include="..\partition\Whycespace.PartitionRuntime.csproj" />
+    <ProjectReference Include="..\control-plane\Whycespace.ControlPlane.csproj" />
+    <ProjectReference Include="..\command-routing\Whycespace.CommandRouting.csproj" />
+    <ProjectReference Include="..\event-fabric-guard\Whycespace.EventFabricGuard.csproj" />
   </ItemGroup>
 
 </Project>
