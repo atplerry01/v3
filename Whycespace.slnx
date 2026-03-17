@@ -11,7 +11,6 @@
   </Folder>
   <Folder Name="/src/engines/T3I/" />
   <Folder Name="/src/engines/T3I/economic/">
-    <Project Path="src/engines/T3I/economic/Whycespace.Engines.T3I.Economic.csproj" />
   </Folder>
   <Folder Name="/src/platform/">
     <Project Path="src/platform/Whycespace.Platform.csproj" />
@@ -229,12 +228,14 @@
     <Project Path="tests/governance-guardian/Whycespace.GovernanceGuardian.Tests.csproj" />
   </Folder>
   <Folder Name="/src/engines/t3i-governance/">
-    <Project Path="src/engines/T3I/Governance/Whycespace.Engines.T3I.Governance.csproj" />
   </Folder>
   <Folder Name="/tests/governance-audit/">
     <Project Path="tests/governance-audit/Whycespace.GovernanceAudit.Tests.csproj" />
   </Folder>
   <Folder Name="/tests/governance-workflow/">
     <Project Path="tests/governance-workflow/Whycespace.GovernanceWorkflow.Tests.csproj" />
+  </Folder>
+  <Folder Name="/src/runtime/intelligence/">
+    <Project Path="src/runtime/intelligence/Whycespace.IntelligenceRuntime.csproj" />
   </Folder>
 </Solution>

@@ -11,5 +11,7 @@ public sealed record PolicyDefinition(
     string TargetDomain,
     IReadOnlyList<PolicyCondition> Conditions,
     IReadOnlyList<PolicyAction> Actions,
-    DateTime CreatedAt
+    DateTime CreatedAt,
+    PolicyPriority Priority = PolicyPriority.Medium,
+    PolicyLifecycleState LifecycleState = PolicyLifecycleState.Draft
 );

@@ -1,6 +1,7 @@
 namespace Whycespace.ExecutionEngines.Tests;
 
-using Whycespace.Engines.T2E.HEOS;
+using Whycespace.Engines.T2E.Workforce.Engines;
+using Whycespace.Engines.T2E.Workforce.Models;
 using Whycespace.Domain.Core.Workforce;
 using Whycespace.Contracts.Engines;
 

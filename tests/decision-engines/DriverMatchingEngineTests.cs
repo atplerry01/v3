@@ -1,6 +1,6 @@
 namespace Whycespace.DecisionEngines.Tests;
 
-using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
+using Whycespace.Engines.T2E.Clusters.Mobility.Taxi.Engines;
 using Whycespace.Contracts.Engines;
 
 public sealed class DriverMatchingEngineTests

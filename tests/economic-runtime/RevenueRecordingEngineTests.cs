@@ -2,7 +2,7 @@ namespace Whycespace.EconomicRuntime.Tests;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Primitives;
-using Whycespace.Engines.T2E.Core.Revenue;
+using Whycespace.Engines.T2E.Economic.Revenue.Engines;
 
 public sealed class RevenueRecordingEngineTests
 {

@@ -254,42 +254,42 @@ builder.Services.AddSingleton<Whycespace.Systems.Upstream.Governance.Proposals.R
 
 // Governance Proposal Type Engine (Phase 2.0.59)
 var governanceProposalTypeStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceProposalTypeStore();
-var governanceProposalTypeEngine = new Whycespace.Engines.T0U.WhyceGovernance.GovernanceProposalTypeEngine(governanceProposalTypeStore, guardianRegistryStore);
+var governanceProposalTypeEngine = new Whycespace.Engines.T0U.WhyceGovernance.Engines.GovernanceProposalTypeEngine(governanceProposalTypeStore, guardianRegistryStore);
 builder.Services.AddSingleton(governanceProposalTypeStore);
 builder.Services.AddSingleton(governanceProposalTypeEngine);
 
 // Governance Proposal Engine (Phase 2.0.58)
 var governanceProposalEngineStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceProposalStore();
-var governanceProposalEngine = new Whycespace.Engines.T0U.WhyceGovernance.GovernanceProposalEngine(governanceProposalEngineStore);
+var governanceProposalEngine = new Whycespace.Engines.T0U.WhyceGovernance.Engines.GovernanceProposalEngine(governanceProposalEngineStore);
 builder.Services.AddSingleton(governanceProposalEngineStore);
 builder.Services.AddSingleton(governanceProposalEngine);
 
 // Governance Domain Scope Engine (Phase 2.0.60)
 var governanceDomainScopeStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceDomainScopeStore();
-var governanceDomainScopeEngine = new Whycespace.Engines.T0U.WhyceGovernance.GovernanceDomainScopeEngine(governanceDomainScopeStore, guardianRegistryStore);
+var governanceDomainScopeEngine = new Whycespace.Engines.T0U.WhyceGovernance.Engines.GovernanceDomainScopeEngine(governanceDomainScopeStore, guardianRegistryStore);
 builder.Services.AddSingleton(governanceDomainScopeStore);
 builder.Services.AddSingleton(governanceDomainScopeEngine);
 
 // Voting Engine (Phase 2.0.61)
 var governanceVoteStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceVoteStore();
-var votingEngine = new Whycespace.Engines.T0U.WhyceGovernance.VotingEngine(governanceVoteStore, governanceProposalEngineStore, guardianRegistryStore);
+var votingEngine = new Whycespace.Engines.T0U.WhyceGovernance.Engines.VotingEngine(governanceVoteStore, governanceProposalEngineStore, guardianRegistryStore);
 builder.Services.AddSingleton(governanceVoteStore);
 builder.Services.AddSingleton(votingEngine);
 
 // Governance Emergency Engine (Phase 2.0.66)
 var governanceEmergencyStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceEmergencyStore();
-var governanceEmergencyEngine = new Whycespace.Engines.T0U.WhyceGovernance.GovernanceEmergencyEngine(governanceEmergencyStore, guardianRegistryStore);
+var governanceEmergencyEngine = new Whycespace.Engines.T0U.WhyceGovernance.Engines.GovernanceEmergencyEngine(governanceEmergencyStore, guardianRegistryStore);
 builder.Services.AddSingleton(governanceEmergencyStore);
 builder.Services.AddSingleton(governanceEmergencyEngine);
 
 // Governance Evidence Recorder (Phase 2.0.67)
 var engineChainEvidenceGateway = new Whycespace.Engines.T0U.WhyceChain.ChainEvidenceGateway(evidenceAnchoringEngine, evidenceHashEngine);
-var governanceEvidenceRecorder = new Whycespace.Engines.T0U.WhyceGovernance.GovernanceEvidenceRecorder(engineChainEvidenceGateway);
+var governanceEvidenceRecorder = new Whycespace.Engines.T0U.WhyceGovernance.Engines.GovernanceEvidenceRecorder(engineChainEvidenceGateway);
 builder.Services.AddSingleton(governanceEvidenceRecorder);
 
 // Capital Policy Enforcement Adapter (Phase 2.2.25)
 var capitalRegistry = new Whycespace.Domain.Core.Economic.CapitalRegistry();
-var capitalPolicyAdapter = new Whycespace.Engines.T2E.Capital.CapitalPolicyEnforcementAdapter(capitalRegistry);
+var capitalPolicyAdapter = new Whycespace.Engines.T2E.Economic.Capital.Adapters.CapitalPolicyEnforcementAdapter(capitalRegistry);
 builder.Services.AddSingleton<Whycespace.Domain.Core.Economic.ICapitalRegistry>(capitalRegistry);
 builder.Services.AddSingleton(capitalRegistry);
 builder.Services.AddSingleton(capitalPolicyAdapter);
@@ -304,7 +304,7 @@ var capitalLedgerStore = new Whycespace.Systems.Midstream.Economics.CapitalLedge
 builder.Services.AddSingleton<Whycespace.Systems.Midstream.Economics.CapitalLedger.ICapitalLedgerStore>(capitalLedgerStore);
 builder.Services.AddSingleton(capitalLedgerStore);
 
-var capitalLifecycleEngine = new Whycespace.Engines.T3I.Capital.CapitalLifecycleEngine();
+var capitalLifecycleEngine = new Whycespace.Engines.T3I.Forecasting.Economic.CapitalLifecycleEngine();
 builder.Services.AddSingleton(capitalLifecycleEngine);
 
 // WSS Runtime (Phase 2.1.x) — engines bootstrapped in runtime layer

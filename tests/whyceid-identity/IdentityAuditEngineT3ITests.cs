@@ -1,6 +1,6 @@
 namespace Whycespace.WhyceID.Identity.Tests;
 
-using Whycespace.Engines.T3I.WhyceID.Audit;
+using Whycespace.Engines.T3I.Reporting.Identity;
 using Whycespace.Contracts.Engines;
 
 public sealed class IdentityAuditEngineT3ITests

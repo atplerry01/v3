@@ -1,6 +1,6 @@
 namespace Whycespace.AccessEngines.Tests;
 
-using Whycespace.Engines.T4A.Integration;
+using Whycespace.Engines.T4A.Interface.Integration;
 using Whycespace.Contracts.Engines;
 
 public sealed class IntegrationEngineTests

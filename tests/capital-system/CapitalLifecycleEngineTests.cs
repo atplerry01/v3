@@ -1,6 +1,6 @@
 namespace Whycespace.CapitalSystem.Tests;
 
-using Whycespace.Engines.T3I.Capital;
+using Whycespace.Engines.T3I.Forecasting.Economic;
 
 public sealed class CapitalLifecycleEngineTests
 {

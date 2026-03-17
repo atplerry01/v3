@@ -52,10 +52,10 @@ using Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.Systems.Upstream.Governance.Evidence.Models;
 using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 using Whycespace.Contracts.Evidence;
-using Whycespace.Domain.Core.Economic;
-using Whycespace.Engines.T2E.Capital;
+using Whycespace.Engines.T2E.Economic.Capital.Adapters;
+using Whycespace.Engines.T2E.Economic.Capital.Models;
 using Whycespace.Systems.Midstream.Economics.CapitalLedger;
-using Whycespace.Engines.T3I.Capital;
+using Whycespace.Engines.T3I.Forecasting.Economic;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
 [ApiController]
@@ -2181,7 +2181,7 @@ public sealed class DebugController : ControllerBase
     [HttpPost("governance/quorum/evaluate")]
     public IActionResult EvaluateQuorum([FromBody] DebugEvaluateQuorumDto dto)
     {
-        var command = new Engines.T0U.Governance.Commands.EvaluateQuorumCommand(
+        var command = new Engines.T0U.WhyceGovernance.Commands.EvaluateQuorumCommand(
             CommandId: Guid.NewGuid(),
             ProposalId: dto.ProposalId,
             TotalEligibleGuardians: dto.TotalEligibleGuardians,
@@ -2193,7 +2193,7 @@ public sealed class DebugController : ControllerBase
             RequiredApprovalPercentage: dto.RequiredApprovalPercentage,
             Timestamp: DateTime.UtcNow);
 
-        var quorumEngine = new Engines.T0U.Governance.QuorumEngine();
+        var quorumEngine = new Engines.T0U.WhyceGovernance.Engines.QuorumEngine();
 
         var (result, evaluatedEvent, outcomeEvent) = quorumEngine.Execute(command);
 

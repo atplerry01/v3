@@ -1,6 +1,6 @@
 namespace Whycespace.ExecutionEngines.Tests;
 
-using Whycespace.Engines.T2E.System.Spv;
+using Whycespace.Engines.T2E.System.Spv.Engines;
 using Whycespace.Contracts.Engines;
 
 public sealed class SpvCreationEngineTests

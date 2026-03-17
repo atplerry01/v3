@@ -1,8 +1,0 @@
-namespace Whycespace.Engines.T3I.HEOS;
-
-public sealed record WorkforceComplianceDecision(
-    bool Compliant,
-    decimal ComplianceScore,
-    IReadOnlyList<string> Violations,
-    IReadOnlyList<string> Recommendations
-);

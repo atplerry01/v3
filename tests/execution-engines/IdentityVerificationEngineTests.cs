@@ -1,6 +1,7 @@
 namespace Whycespace.ExecutionEngines.Tests;
 
-using Whycespace.Engines.T2E.System.Identity;
+using Whycespace.Engines.T2E.Identity.Engines;
+using Whycespace.Engines.T2E.Identity.Models;
 using Whycespace.Contracts.Engines;
 
 public sealed class IdentityVerificationEngineTests

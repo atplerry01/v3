@@ -1,4 +1,4 @@
-using Whycespace.Engines.T3I.WhyceChain;
+using Whycespace.Engines.T3I.Reporting.Chain;
 using Whycespace.Systems.Upstream.WhyceChain.Models;
 
 namespace Whycespace.WhyceChainReplication.Tests;

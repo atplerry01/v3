@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\shared\Whycespace.Shared.csproj" />
-    <ProjectReference Include="..\..\src\engines\T3I\economic\Whycespace.Engines.T3I.Economic.csproj" />
+    <ProjectReference Include="..\..\src\engines\T3I\atlas\Whycespace.Engines.T3I.Atlas.csproj" />
   </ItemGroup>
 
 </Project>

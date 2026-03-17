@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
-using Whycespace.Engines.T3I.WhyceChain;
+using Whycespace.Engines.T3I.Reporting.Chain;
 using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 
 namespace Whycespace.WhyceChain.Recovery.Tests;

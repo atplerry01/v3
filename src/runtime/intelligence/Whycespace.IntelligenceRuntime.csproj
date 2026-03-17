@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Whycespace.IntelligenceRuntime</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="..\..\shared\Whycespace.Shared.csproj" />
+    <ProjectReference Include="..\engine-manifest\Whycespace.EngineManifest.csproj" />
+    <ProjectReference Include="..\event-fabric\Whycespace.EventFabric.csproj" />
+    <ProjectReference Include="..\projection-runtime\Whycespace.ProjectionRuntime.csproj" />
+    <ProjectReference Include="..\..\engines\T3I\atlas\Whycespace.Engines.T3I.Atlas.csproj" />
+    <ProjectReference Include="..\..\engines\T3I\forecasting\Whycespace.Engines.T3I.Forecasting.csproj" />
+    <ProjectReference Include="..\..\engines\T3I\monitoring\Whycespace.Engines.T3I.Monitoring.csproj" />
+    <ProjectReference Include="..\..\engines\T3I\reporting\Whycespace.Engines.T3I.Reporting.csproj" />
+  </ItemGroup>
+
+</Project>

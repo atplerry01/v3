@@ -1,4 +1,4 @@
-using Whycespace.Engines.T3I.WhycePolicy;
+using Whycespace.Engines.T3I.Reporting.Policy;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
 namespace Whycespace.WhycePolicy.Tests;

@@ -1,6 +1,6 @@
 namespace Whycespace.ExecutionEngines.Tests;
 
-using Whycespace.Engines.T2E.Core.Vault;
+using Whycespace.Engines.T2E.Economic.Vault.Engines;
 using Whycespace.Contracts.Engines;
 
 public sealed class VaultContributionEngineTests

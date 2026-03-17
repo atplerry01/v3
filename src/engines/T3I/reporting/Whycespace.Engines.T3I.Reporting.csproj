@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Whycespace.Engines.T3I.Reporting</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\Whycespace.Shared.csproj" />
+    <ProjectReference Include="..\..\..\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\..\domain\core\economic\Whycespace.EconomicDomain.csproj" />
+    <ProjectReference Include="..\..\T0U\WhycePolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
+  </ItemGroup>
+
+</Project>

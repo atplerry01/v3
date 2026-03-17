@@ -1,6 +1,6 @@
 namespace Whycespace.AccessEngines.Tests;
 
-using Whycespace.Engines.T4A.Operator;
+using Whycespace.Engines.T4A.Tools.Operator;
 using Whycespace.Contracts.Engines;
 
 public sealed class OperatorControlPlaneTests

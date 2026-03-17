@@ -101,6 +101,38 @@
     <Content Remove="persistence/**" />
     <None Remove="persistence/**" />
     <EmbeddedResource Remove="persistence/**" />
+    <Compile Remove="command-registry/**" />
+    <Content Remove="command-registry/**" />
+    <None Remove="command-registry/**" />
+    <EmbeddedResource Remove="command-registry/**" />
+    <Compile Remove="command-routing/**" />
+    <Content Remove="command-routing/**" />
+    <None Remove="command-routing/**" />
+    <EmbeddedResource Remove="command-routing/**" />
+    <Compile Remove="control-plane/**" />
+    <Content Remove="control-plane/**" />
+    <None Remove="control-plane/**" />
+    <EmbeddedResource Remove="control-plane/**" />
+    <Compile Remove="engine-registry/**" />
+    <Content Remove="engine-registry/**" />
+    <None Remove="engine-registry/**" />
+    <EmbeddedResource Remove="engine-registry/**" />
+    <Compile Remove="event-fabric-governance/**" />
+    <Content Remove="event-fabric-governance/**" />
+    <None Remove="event-fabric-governance/**" />
+    <EmbeddedResource Remove="event-fabric-governance/**" />
+    <Compile Remove="event-fabric-guard/**" />
+    <Content Remove="event-fabric-guard/**" />
+    <None Remove="event-fabric-guard/**" />
+    <EmbeddedResource Remove="event-fabric-guard/**" />
+    <Compile Remove="event-schema-registry/**" />
+    <Content Remove="event-schema-registry/**" />
+    <None Remove="event-schema-registry/**" />
+    <EmbeddedResource Remove="event-schema-registry/**" />
+    <Compile Remove="intelligence/**" />
+    <Content Remove="intelligence/**" />
+    <None Remove="intelligence/**" />
+    <EmbeddedResource Remove="intelligence/**" />
   </ItemGroup>
 
   <ItemGroup>

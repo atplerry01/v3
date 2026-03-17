@@ -1,6 +1,6 @@
 namespace Whycespace.ExecutionEngines.Tests;
 
-using Whycespace.Engines.T2E.System.Cluster;
+using Whycespace.Engines.T2E.System.Cluster.Engines;
 using Whycespace.Contracts.Engines;
 
 public sealed class ClusterCreationEngineTests

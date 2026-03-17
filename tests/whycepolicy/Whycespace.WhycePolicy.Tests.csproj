@@ -22,7 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\systems\Whycespace.System.csproj" />
     <ProjectReference Include="..\..\src\engines\T0U\WhycePolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
-    <ProjectReference Include="..\..\src\engines\T3I\WhycePolicy\Whycespace.Engines.T3I.WhycePolicy.csproj" />
+    <ProjectReference Include="..\..\src\engines\T3I\reporting\Whycespace.Engines.T3I.Reporting.csproj" />
     <ProjectReference Include="..\..\src\engines\T4A\WhycePolicy\Whycespace.Engines.T4A.WhycePolicy.csproj" />
     <ProjectReference Include="..\..\src\runtime\Whycespace.Runtime.csproj" />
   </ItemGroup>

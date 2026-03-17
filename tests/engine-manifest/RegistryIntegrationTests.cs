@@ -3,7 +3,7 @@ namespace Whycespace.EngineManifest.Tests;
 using Whycespace.Runtime.EngineManifest.Loader;
 using Whycespace.Runtime.EngineManifest.Models;
 using Whycespace.EngineRuntime.Registry;
-using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
+using Whycespace.Engines.T2E.Clusters.Mobility.Taxi.Engines;
 
 public class RegistryIntegrationTests
 {

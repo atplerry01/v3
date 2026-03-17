@@ -1,13 +1,11 @@
 namespace Whycespace.Tests.Guardrails;
 
 using Whycespace.ArchitectureGuardrails.Validation;
-using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Engines.T0U.WhycePolicy.Validation;
 using Whycespace.Engines.T2E;
-using Whycespace.Engines.T2E.Clusters.Mobility.Taxi;
-using Whycespace.Engines.T2E.Clusters.Property.Letting;
-using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
-using Whycespace.Engines.T3I.Clusters.Property.Letting;
-using Whycespace.Engines.T3I.Core.Workforce;
+using Whycespace.Engines.T2E.Clusters.Mobility.Taxi.Engines;
+using Whycespace.Engines.T2E.Clusters.Property.Letting.Engines;
+using Whycespace.Engines.T3I.Atlas.Workforce;
 using Whycespace.EngineRuntime.Registry;
 using Whycespace.Contracts.Workflows;
 using Whycespace.Systems.Midstream.WSS.Workflows;

@@ -1,8 +1,8 @@
 namespace Whycespace.SystemValidation.Tests;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Engines.T2E.Clusters.Mobility.Taxi;
-using Whycespace.Engines.T2E.Clusters.Property.Letting;
+using Whycespace.Engines.T2E.Clusters.Mobility.Taxi.Engines;
+using Whycespace.Engines.T2E.Clusters.Property.Letting.Engines;
 
 public sealed class ProjectionValidationTests
 {

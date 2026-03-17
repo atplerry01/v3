@@ -1,9 +1,10 @@
 namespace Whycespace.SystemValidation.Tests;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Engines.T2E.Core.Capital;
-using Whycespace.Engines.T2E.Core.Revenue;
-using Whycespace.Engines.T2E.Core.Vault;
+using Whycespace.Engines.T2E.Economic.Capital.Engines;
+using Whycespace.Engines.T2E.Economic.Distribution.Engines;
+using Whycespace.Engines.T2E.Economic.Revenue.Engines;
+using Whycespace.Engines.T2E.Economic.Vault.Engines;
 
 public sealed class EconomicFlowTests
 {

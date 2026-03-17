@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\..\src\runtime\event-idempotency\Whycespace.EventIdempotency.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\projection-runtime\Whycespace.ProjectionRuntime.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\projection-rebuild\Whycespace.ProjectionRebuild.csproj" />
+    <ProjectReference Include="..\..\..\src\application\Whycespace.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

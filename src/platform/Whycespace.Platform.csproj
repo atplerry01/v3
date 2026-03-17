@@ -47,8 +47,9 @@
     <ProjectReference Include="..\engines\T0U\WhycePolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
     <ProjectReference Include="..\engines\T1M\WSS\Whycespace.Engines.T1M.WSS.csproj" />
     <ProjectReference Include="..\runtime\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
-    <ProjectReference Include="..\engines\T3I\economic\Whycespace.Engines.T3I.Economic.csproj" />
-    <ProjectReference Include="..\engines\T3I\Capital\Whycespace.Engines.T3I.Capital.csproj" />
+    <ProjectReference Include="..\engines\T3I\atlas\Whycespace.Engines.T3I.Atlas.csproj" />
+    <ProjectReference Include="..\engines\T3I\forecasting\Whycespace.Engines.T3I.Forecasting.csproj" />
+    <ProjectReference Include="..\runtime\intelligence\Whycespace.IntelligenceRuntime.csproj" />
   </ItemGroup>
 
   <ItemGroup>

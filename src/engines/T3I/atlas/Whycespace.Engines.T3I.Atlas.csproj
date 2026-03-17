@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Whycespace.Engines.T3I.Atlas</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\Whycespace.Shared.csproj" />
+    <ProjectReference Include="..\..\..\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />
+    <ProjectReference Include="..\..\..\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\..\systems\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
+    <ProjectReference Include="..\..\..\domain\core\economic\Whycespace.EconomicDomain.csproj" />
+    <ProjectReference Include="..\reporting\Whycespace.Engines.T3I.Reporting.csproj" />
+  </ItemGroup>
+
+</Project>

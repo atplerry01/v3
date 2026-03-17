@@ -1,6 +1,6 @@
 namespace Whycespace.DecisionEngines.Tests;
 
-using Whycespace.Engines.T3I.Core.Identity;
+using Whycespace.Engines.T3I.Atlas.Identity;
 using Whycespace.Contracts.Engines;
 
 public sealed class IdentityGraphEngineTests

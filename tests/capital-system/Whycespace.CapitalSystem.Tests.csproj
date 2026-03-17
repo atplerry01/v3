@@ -21,8 +21,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\systems\Whycespace.System.csproj" />
     <ProjectReference Include="..\..\src\engines\Whycespace.Engines.csproj" />
-    <ProjectReference Include="..\..\src\engines\T3I\economic\Whycespace.Engines.T3I.Economic.csproj" />
-    <ProjectReference Include="..\..\src\engines\T3I\Capital\Whycespace.Engines.T3I.Capital.csproj" />
+    <ProjectReference Include="..\..\src\engines\T3I\atlas\Whycespace.Engines.T3I.Atlas.csproj" />
+    <ProjectReference Include="..\..\src\engines\T3I\forecasting\Whycespace.Engines.T3I.Forecasting.csproj" />
+    <ProjectReference Include="..\..\src\engines\T3I\monitoring\Whycespace.Engines.T3I.Monitoring.csproj" />
   </ItemGroup>
 
 </Project>

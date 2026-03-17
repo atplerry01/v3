@@ -1,5 +1,5 @@
 using System.Reflection;
-using Whycespace.Engines.T3I.Governance;
+using Whycespace.Engines.T3I.Reporting.Governance;
 
 namespace Whycespace.GovernanceAudit.Tests;
 

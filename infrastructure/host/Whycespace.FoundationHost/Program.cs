@@ -1,7 +1,7 @@
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
-using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
+using Whycespace.Engines.T2E.Clusters.Mobility.Taxi.Engines;
 using Whycespace.FoundationHost.Workers;
 using Whycespace.Runtime.EngineManifest.Loader;
 using Whycespace.Runtime.Dispatcher;
@@ -21,7 +21,7 @@ using Whycespace.Runtime.Reliability;
 using Whycespace.WorkflowRuntime;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Runtime;
-using Whycespace.Systems.Midstream.WSS.Kafka;
+using Whycespace.Runtime.EventFabric.WSS;
 using Whycespace.Systems.Midstream.WSS.Mapping;
 using Whycespace.Systems.Midstream.WSS.Orchestration;
 using Whycespace.Systems.Midstream.WSS.Workflows;

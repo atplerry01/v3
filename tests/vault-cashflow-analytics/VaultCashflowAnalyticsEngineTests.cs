@@ -1,6 +1,6 @@
 namespace Whycespace.VaultCashflowAnalytics.Tests;
 
-using Whycespace.Engines.T3I.Economic.Vault;
+using Whycespace.Engines.T3I.Atlas.Economic;
 using Whycespace.Contracts.Engines;
 
 public sealed class VaultCashflowAnalyticsEngineTests

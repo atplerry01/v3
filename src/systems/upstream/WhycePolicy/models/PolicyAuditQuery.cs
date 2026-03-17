@@ -5,5 +5,7 @@ public sealed record PolicyAuditQuery(
     string? ActorId,
     string? Domain,
     DateTime? From,
-    DateTime? To
+    DateTime? To,
+    string? ActionType = null,
+    bool IncludeEvidence = false
 );

@@ -1,6 +1,6 @@
 namespace Whycespace.CapitalSystem.Tests;
 
-using Whycespace.Engines.T3I.Economic.Capital;
+using Whycespace.Engines.T3I.Atlas.Economic;
 using Whycespace.Systems.Midstream.Capital.Registry;
 
 public sealed class CapitalBalanceEngineTests

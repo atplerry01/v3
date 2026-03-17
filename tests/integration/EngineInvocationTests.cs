@@ -1,16 +1,14 @@
 namespace Whycespace.Tests.Integration;
 
 using Whycespace.Engines.T0U.WhyceChain;
-using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Engines.T0U.WhycePolicy.Validation;
 using Whycespace.Engines.T2E;
-using Whycespace.Engines.T2E.Clusters.Mobility.Taxi;
-using Whycespace.Engines.T2E.Clusters.Property.Letting;
-using Whycespace.Engines.T3I.Clusters.Mobility.Taxi;
-using Whycespace.Engines.T3I.Clusters.Property.Letting;
+using Whycespace.Engines.T2E.Clusters.Mobility.Taxi.Engines;
+using Whycespace.Engines.T2E.Clusters.Property.Letting.Engines;
 using Whycespace.Engines.T4A.API;
-using Whycespace.Engines.T4A.Auth;
-using Whycespace.Engines.T4A.Developer;
-using Whycespace.Engines.T4A.Integration;
+using Whycespace.Engines.T4A.Interface.Auth;
+using Whycespace.Engines.T4A.Tools.Developer;
+using Whycespace.Engines.T4A.Interface.Integration;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.EngineRuntime.Registry;
 using Whycespace.Contracts.Engines;
@@ -42,8 +40,8 @@ public sealed class EngineInvocationTests
         registry.Register(new TenantMatchingEngine());
 
         // T4A Access
-        registry.Register(new Whycespace.Engines.T4A.Auth.AuthenticationEngine());
-        registry.Register(new Whycespace.Engines.T4A.Auth.AuthorizationEngine());
+        registry.Register(new Whycespace.Engines.T4A.Interface.Auth.AuthenticationEngine());
+        registry.Register(new Whycespace.Engines.T4A.Interface.Auth.AuthorizationEngine());
         registry.Register(new APIEngine());
         registry.Register(new IntegrationEngine());
         registry.Register(new DeveloperToolsEngine());

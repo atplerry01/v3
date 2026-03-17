@@ -1,6 +1,6 @@
 namespace Whycespace.DecisionEngines.Tests;
 
-using Whycespace.Engines.T3I.Clusters.Property.Letting;
+using Whycespace.Engines.T2E.Clusters.Property.Letting.Engines;
 using Whycespace.Contracts.Engines;
 
 public sealed class LeaseCreationEngineTests
