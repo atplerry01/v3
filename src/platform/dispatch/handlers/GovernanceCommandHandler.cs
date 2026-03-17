@@ -1,5 +1,5 @@
 using Whycespace.Contracts.Runtime;
-using Whycespace.Engines.T0U.WhyceGovernance;
+using Whycespace.Engines.T0U.WhyceGovernance.Engines;
 using Whycespace.Systems.Upstream.Governance.Models;
 using Whycespace.Systems.Upstream.Governance.Stores;
 using Whycespace.Systems.WhyceID.Registry;

@@ -1,5 +1,5 @@
 using Whycespace.Domain.Events.Governance;
-using Whycespace.Engines.T0U.WhyceGovernance;
+using Whycespace.Engines.T0U.WhyceGovernance.Engines;
 using Whycespace.Engines.T0U.WhyceGovernance.Commands;
 using Whycespace.Engines.T0U.WhyceGovernance.Results;
 using Whycespace.Systems.Upstream.Governance.Models;

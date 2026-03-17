@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T0U.WhyceGovernance;
+namespace Whycespace.Engines.T0U.WhyceGovernance.Engines;
 
 using Whycespace.Engines.T0U.WhyceChain;
 using Whycespace.Systems.Upstream.Governance.Models;

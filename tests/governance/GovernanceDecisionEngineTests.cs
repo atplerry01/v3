@@ -1,4 +1,4 @@
-using Whycespace.Engines.T0U.WhyceGovernance;
+using Whycespace.Engines.T0U.WhyceGovernance.Engines;
 using Whycespace.Systems.Upstream.Governance.Models;
 using Whycespace.Domain.Events.Governance;
 

@@ -45,7 +45,7 @@ using Whycespace.EventObservability.Metrics.Engine;
 using Whycespace.Reliability.Isolation.Monitor;
 using Whycespace.Reliability.Isolation.Registry;
 using Whycespace.Reliability.Isolation.Engine;
-using Whycespace.Engines.T0U.WhyceGovernance;
+using Whycespace.Engines.T0U.WhyceGovernance.Engines;
 using Whycespace.Engines.T0U.WhyceGovernance.Commands;
 using Whycespace.Engines.T0U.WhyceGovernance.Results;
 using Whycespace.Engines.T0U.WhyceChain;

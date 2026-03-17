@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T0U.WhyceGovernance;
+namespace Whycespace.Engines.T0U.WhyceGovernance.Engines;
 
 using Whycespace.Systems.Upstream.Governance.Models;
 using Whycespace.Domain.Events.Governance;

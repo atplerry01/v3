@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T0U.WhyceGovernance;
+namespace Whycespace.Engines.T0U.WhyceGovernance.Engines;
 
 using Whycespace.Engines.T0U.WhyceGovernance.Commands;
 using Whycespace.Engines.T0U.WhyceGovernance.Results;

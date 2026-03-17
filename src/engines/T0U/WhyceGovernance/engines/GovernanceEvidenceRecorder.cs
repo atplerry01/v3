@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T0U.WhyceGovernance;
+namespace Whycespace.Engines.T0U.WhyceGovernance.Engines;
 
 using global::System.Security.Cryptography;
 using global::System.Text;
