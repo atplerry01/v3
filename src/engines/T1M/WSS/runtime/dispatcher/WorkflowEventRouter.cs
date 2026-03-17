@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T1M.WSS.Runtime;
+namespace Whycespace.Engines.T1M.WSS.Runtime.Dispatcher;
 
 using global::System.Collections.Concurrent;
 using Whycespace.Contracts.Engines;

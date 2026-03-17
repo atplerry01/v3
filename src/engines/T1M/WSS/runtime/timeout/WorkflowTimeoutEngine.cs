@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T1M.WSS.Runtime;
+namespace Whycespace.Engines.T1M.WSS.Runtime.Timeout;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Runtime.EngineManifest.Attributes;

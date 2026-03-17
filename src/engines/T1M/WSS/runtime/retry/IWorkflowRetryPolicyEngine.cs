@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T1M.WSS.Runtime;
+namespace Whycespace.Engines.T1M.WSS.Runtime.Retry;
 
 /// <summary>
 /// Contract for stateless retry policy evaluation.
