@@ -1,6 +1,6 @@
 namespace Whycespace.ExecutionEngines.Tests;
 
-using Whycespace.Engines.T2E.Economic.Capital.Engines;
+using Whycespace.Engines.T2E.Economic.Capital.Contribution.Engines;
 using Whycespace.Contracts.Engines;
 
 public sealed class CapitalContributionEngineTests

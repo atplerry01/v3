@@ -1,18 +1,30 @@
 using Whycespace.Contracts.Workflows;
-using Whycespace.Engines.T1M.WSS.Versioning;
-using Whycespace.Engines.T1M.WSS.Stores;
+using Whycespace.Engines.T1M.WSS.Definition;
+using Whycespace.Engines.T1M.Shared;
+using Whycespace.Engines.T1M.WSS.Definition;
+using Whycespace.Runtime.Persistence.Workflow;
 using WfDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
 
 namespace Whycespace.WSS.WorkflowDefinition.Tests;
 
+internal sealed class VersionStoreAdapter : WorkflowVersioningEngine.IVersionStore
+{
+    private readonly WorkflowVersionStore _inner = new();
+    public void Store(WfDefinition workflow) => _inner.Store(workflow);
+    public WfDefinition? Get(string workflowId, string version) => _inner.Get(workflowId, version);
+    public WfDefinition? GetLatest(string workflowId) => _inner.GetLatest(workflowId);
+    public IReadOnlyList<WfDefinition> GetVersions(string workflowId) => _inner.GetVersions(workflowId);
+    public bool VersionExists(string workflowId, string version) => _inner.VersionExists(workflowId, version);
+}
+
 public class WorkflowVersioningEngineTests
 {
-    private readonly WorkflowVersionStore _versionStore;
+    private readonly VersionStoreAdapter _versionStore;
     private readonly WorkflowVersioningEngine _engine;
 
     public WorkflowVersioningEngineTests()
     {
-        _versionStore = new WorkflowVersionStore();
+        _versionStore = new VersionStoreAdapter();
         _engine = new WorkflowVersioningEngine(_versionStore);
     }
 

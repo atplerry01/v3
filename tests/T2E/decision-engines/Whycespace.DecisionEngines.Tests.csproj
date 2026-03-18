@@ -26,12 +26,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\shared\Whycespace.Shared.csproj" />
-    <ProjectReference Include="..\..\src\engines\Whycespace.Engines.csproj" />
-    <ProjectReference Include="..\..\src\engines\T3I\atlas\Whycespace.Engines.T3I.Atlas.csproj" />
-    <ProjectReference Include="..\..\src\engines\T3I\reporting\Whycespace.Engines.T3I.Reporting.csproj" />
-    <ProjectReference Include="..\..\src\engines\T3I\monitoring\Whycespace.Engines.T3I.Monitoring.csproj" />
-    <ProjectReference Include="..\..\src\engines\T3I\forecasting\Whycespace.Engines.T3I.Forecasting.csproj" />
+    <ProjectReference Include="..\..\..\src\shared\Whycespace.Shared.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\Whycespace.Engines.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T3I\atlas\Whycespace.Engines.T3I.Atlas.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T3I\reporting\Whycespace.Engines.T3I.Reporting.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T3I\monitoring\Whycespace.Engines.T3I.Monitoring.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T3I\forecasting\Whycespace.Engines.T3I.Forecasting.csproj" />
   </ItemGroup>
 
 </Project>

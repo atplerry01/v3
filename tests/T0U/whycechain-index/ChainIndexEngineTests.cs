@@ -1,4 +1,6 @@
-using Whycespace.Engines.T3I.Reporting.Chain;
+using Whycespace.Engines.T3I.Reporting.Chain.Engines;
+using Whycespace.Engines.T3I.Reporting.Chain.Models;
+using Whycespace.Engines.T3I.Shared;
 using Whycespace.Systems.Upstream.WhyceChain.Models;
 
 namespace Whycespace.WhyceChainIndex.Tests;
@@ -17,7 +19,7 @@ public class ChainIndexEngineTests
         };
         var command = new ChainIndexCommand(entries, [], "trace-1", "corr-1", DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainIndexCommand>.Create(command)).Output!;
 
         Assert.Equal("hash-1", result.EntryIndexBySequence[0]);
         Assert.Equal("hash-2", result.EntryIndexBySequence[1]);
@@ -34,7 +36,7 @@ public class ChainIndexEngineTests
         };
         var command = new ChainIndexCommand(entries, [], "trace-1", "corr-1", DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainIndexCommand>.Create(command)).Output!;
 
         Assert.Equal(0L, result.EntryIndexByHash["hash-1"]);
         Assert.Equal(1L, result.EntryIndexByHash["hash-2"]);
@@ -50,7 +52,7 @@ public class ChainIndexEngineTests
         };
         var command = new ChainIndexCommand([], blocks, "trace-1", "corr-1", DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainIndexCommand>.Create(command)).Output!;
 
         Assert.Equal("blockhash-0", result.BlockIndexByHeight[0]);
         Assert.Equal("blockhash-1", result.BlockIndexByHeight[1]);
@@ -66,7 +68,7 @@ public class ChainIndexEngineTests
         };
         var command = new ChainIndexCommand([], blocks, "trace-1", "corr-1", DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainIndexCommand>.Create(command)).Output!;
 
         Assert.Equal(0L, result.BlockIndexByHash["blockhash-0"]);
         Assert.Equal(1L, result.BlockIndexByHash["blockhash-1"]);
@@ -82,7 +84,7 @@ public class ChainIndexEngineTests
         };
         var command = new ChainIndexCommand(entries, [], "trace-42", "corr-1", DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainIndexCommand>.Create(command)).Output!;
 
         Assert.True(result.TraceIndex.ContainsKey("trace-42"));
         Assert.Equal(new List<string> { "hash-1", "hash-2" }, result.TraceIndex["trace-42"]);
@@ -98,7 +100,7 @@ public class ChainIndexEngineTests
         };
         var command = new ChainIndexCommand(entries, [], "trace-1", "corr-99", DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainIndexCommand>.Create(command)).Output!;
 
         Assert.True(result.CorrelationIndex.ContainsKey("corr-99"));
         Assert.Equal(new List<string> { "hash-1", "hash-2" }, result.CorrelationIndex["corr-99"]);
@@ -119,8 +121,8 @@ public class ChainIndexEngineTests
         };
         var command = new ChainIndexCommand(entries, blocks, "trace-1", "corr-1", timestamp);
 
-        var result1 = _engine.Execute(command);
-        var result2 = _engine.Execute(command);
+        var result1 = _engine.Execute(IntelligenceContext<ChainIndexCommand>.Create(command)).Output!;
+        var result2 = _engine.Execute(IntelligenceContext<ChainIndexCommand>.Create(command)).Output!;
 
         Assert.Equal(result1.EntryIndexBySequence, result2.EntryIndexBySequence);
         Assert.Equal(result1.EntryIndexByHash, result2.EntryIndexByHash);
@@ -135,7 +137,7 @@ public class ChainIndexEngineTests
     {
         var command = new ChainIndexCommand([], [], "trace-1", "corr-1", DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainIndexCommand>.Create(command)).Output!;
 
         Assert.Empty(result.EntryIndexBySequence);
         Assert.Empty(result.EntryIndexByHash);

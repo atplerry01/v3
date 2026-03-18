@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\engines\T3I\reporting\Whycespace.Engines.T3I.Reporting.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T3I\reporting\Whycespace.Engines.T3I.Reporting.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@ namespace Whycespace.EconomicRuntime.Tests;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Primitives;
-using Whycespace.Engines.T2E.Economic.Distribution.Engines;
+using Whycespace.Engines.T2E.Economic.Distribution.Execution.Engines;
 
 public sealed class ProfitDistributionEngineTests
 {

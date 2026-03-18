@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\shared\Whycespace.Shared.csproj" />
     <ProjectReference Include="..\..\..\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\shared\Whycespace.Engines.T3I.Shared.csproj" />
   </ItemGroup>
 
 </Project>

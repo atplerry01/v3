@@ -1,4 +1,6 @@
-using Whycespace.Engines.T3I.Reporting.Chain;
+using Whycespace.Engines.T3I.Reporting.Chain.Engines;
+using Whycespace.Engines.T3I.Reporting.Chain.Models;
+using Whycespace.Engines.T3I.Shared;
 using Whycespace.Systems.Upstream.WhyceChain.Models;
 using ChainHashUtility = Whycespace.Systems.Upstream.WhyceChain.Ledger.ChainHashUtility;
 
@@ -42,7 +44,7 @@ public class ChainAuditEngineTests
         var block = CreateBlock(blockId, 0, "genesis", ["e-1", "e-2"], ["hash-1", "hash-2"], timestamp);
 
         var command = new ChainAuditCommand(entries, [block], null, "trace-1", "corr-1", DateTime.UtcNow);
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainAuditCommand>.Create(command)).Output!;
 
         Assert.Equal(1, result.TotalBlocks);
         Assert.Equal(2, result.TotalEntries);
@@ -71,7 +73,7 @@ public class ChainAuditEngineTests
         var block2 = CreateBlock(blockId2, 1, "wrong-hash", ["e-2"], ["hash-2"], timestamp.AddSeconds(2));
 
         var command = new ChainAuditCommand(entries, [block1, block2], null, "trace-1", "corr-1", DateTime.UtcNow);
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainAuditCommand>.Create(command)).Output!;
 
         Assert.True(result.BrokenBlockLinks > 0);
         Assert.True(result.AnomalyDetected);
@@ -92,7 +94,7 @@ public class ChainAuditEngineTests
         var block = new ChainBlock(blockId, 0, "genesis", "tampered-hash", merkleRoot, timestamp, ["e-1"]);
 
         var command = new ChainAuditCommand(entries, [block], null, "trace-1", "corr-1", DateTime.UtcNow);
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainAuditCommand>.Create(command)).Output!;
 
         Assert.True(result.InvalidBlockHashes > 0);
         Assert.True(result.AnomalyDetected);
@@ -115,7 +117,7 @@ public class ChainAuditEngineTests
         var block = new ChainBlock(blockId, 0, "genesis", blockHash, wrongMerkle, timestamp, ["e-1"]);
 
         var command = new ChainAuditCommand(entries, [block], null, "trace-1", "corr-1", DateTime.UtcNow);
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainAuditCommand>.Create(command)).Output!;
 
         Assert.True(result.MerkleRootMismatches > 0);
         Assert.True(result.AnomalyDetected);
@@ -139,7 +141,7 @@ public class ChainAuditEngineTests
         var block2 = CreateBlock(blockId2, 3, block1.BlockHash, ["e-2"], ["hash-2"], timestamp.AddSeconds(2));
 
         var command = new ChainAuditCommand(entries, [block1, block2], null, "trace-1", "corr-1", DateTime.UtcNow);
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainAuditCommand>.Create(command)).Output!;
 
         Assert.True(result.SequenceGaps > 0);
         Assert.True(result.AnomalyDetected);
@@ -149,7 +151,7 @@ public class ChainAuditEngineTests
     public void Execute_EmptyChain_ShouldReportNoAnomalies()
     {
         var command = new ChainAuditCommand([], [], null, "trace-1", "corr-1", DateTime.UtcNow);
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainAuditCommand>.Create(command)).Output!;
 
         Assert.Equal(0, result.TotalBlocks);
         Assert.Equal(0, result.TotalEntries);
@@ -170,8 +172,8 @@ public class ChainAuditEngineTests
 
         var command = new ChainAuditCommand(entries, [block], null, "trace-1", "corr-1", timestamp);
 
-        var result1 = _engine.Execute(command);
-        var result2 = _engine.Execute(command);
+        var result1 = _engine.Execute(IntelligenceContext<ChainAuditCommand>.Create(command)).Output!;
+        var result2 = _engine.Execute(IntelligenceContext<ChainAuditCommand>.Create(command)).Output!;
 
         Assert.Equal(result1.TotalBlocks, result2.TotalBlocks);
         Assert.Equal(result1.TotalEntries, result2.TotalEntries);
@@ -205,7 +207,7 @@ public class ChainAuditEngineTests
         var block3 = CreateBlock(blockId3, 2, block2.BlockHash, ["e-3"], ["hash-3"], timestamp.AddSeconds(2));
 
         var command = new ChainAuditCommand(entries, [block1, block2, block3], null, "trace-1", "corr-1", DateTime.UtcNow);
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainAuditCommand>.Create(command)).Output!;
 
         Assert.Equal(3, result.TotalBlocks);
         Assert.Equal(3, result.TotalEntries);

@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
-    <ProjectReference Include="..\..\engines\T1M\WSS\contracts\Whycespace.Engines.T1M.WSS.Contracts.csproj" />
+    <ProjectReference Include="..\..\engines\T1M\shared\Whycespace.Engines.T1M.Shared.csproj" />
     <ProjectReference Include="..\engine\Whycespace.EngineRuntime.csproj" />
     <ProjectReference Include="..\engine-manifest\Whycespace.EngineManifest.csproj" />
   </ItemGroup>

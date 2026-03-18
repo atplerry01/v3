@@ -1,7 +1,8 @@
 namespace Whycespace.CapitalSystem.Tests;
 
-using Whycespace.Systems.Midstream.Capital.Governance;
-using Whycespace.Systems.Midstream.Capital.Registry;
+using Whycespace.Domain.Core.Economic;
+using Whycespace.Engines.T2E.Economic.Capital.Adapters;
+using Whycespace.Engines.T2E.Economic.Capital.Shared.Models;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
 public sealed class CapitalPolicyEnforcementAdapterTests

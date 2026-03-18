@@ -1,5 +1,6 @@
-using Whycespace.Engines.T3I.Reporting.Governance;
-using Whycespace.Engines.T3I.Reporting.Governance.Commands;
+using Whycespace.Engines.T3I.Reporting.Governance.Engines;
+using Whycespace.Engines.T3I.Reporting.Governance.Models;
+using Whycespace.Engines.T3I.Shared;
 
 namespace Whycespace.GovernanceAudit.Tests;
 
@@ -12,13 +13,13 @@ public class GovernanceAuditEngineTests
     {
         var command = CreateValidCommand();
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<GenerateGovernanceAuditCommand>.Create(command));
 
         Assert.True(result.Success);
-        Assert.NotEmpty(result.AuditId);
-        Assert.NotEmpty(result.AuditHash);
-        Assert.Equal(command.ProposalId, result.ProposalId);
-        Assert.Equal(command.ActionType, result.ActionType);
+        Assert.NotEmpty(result.Output!.AuditId);
+        Assert.NotEmpty(result.Output!.AuditHash);
+        Assert.Equal(command.ProposalId, result.Output!.ProposalId);
+        Assert.Equal(command.ActionType, result.Output!.ActionType);
     }
 
     [Fact]
@@ -26,10 +27,10 @@ public class GovernanceAuditEngineTests
     {
         var command = CreateValidCommand() with { ProposalId = Guid.Empty };
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<GenerateGovernanceAuditCommand>.Create(command));
 
         Assert.False(result.Success);
-        Assert.Contains("ProposalId", result.Message);
+        Assert.Contains("ProposalId", result.Error);
     }
 
     [Fact]
@@ -37,10 +38,10 @@ public class GovernanceAuditEngineTests
     {
         var command = CreateValidCommand() with { PerformedBy = Guid.Empty };
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<GenerateGovernanceAuditCommand>.Create(command));
 
         Assert.False(result.Success);
-        Assert.Contains("PerformedBy", result.Message);
+        Assert.Contains("PerformedBy", result.Error);
     }
 
     [Fact]
@@ -48,10 +49,10 @@ public class GovernanceAuditEngineTests
     {
         var command = CreateValidCommand() with { Timestamp = default };
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<GenerateGovernanceAuditCommand>.Create(command));
 
         Assert.False(result.Success);
-        Assert.Contains("Timestamp", result.Message);
+        Assert.Contains("Timestamp", result.Error);
     }
 
     [Fact]
@@ -59,10 +60,10 @@ public class GovernanceAuditEngineTests
     {
         var command = CreateValidCommand() with { ActionType = (GovernanceAuditActionType)999 };
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<GenerateGovernanceAuditCommand>.Create(command));
 
         Assert.False(result.Success);
-        Assert.Contains("action type", result.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("action type", result.Error, StringComparison.OrdinalIgnoreCase);
     }
 
     [Theory]
@@ -76,10 +77,10 @@ public class GovernanceAuditEngineTests
     {
         var command = CreateValidCommand() with { ActionType = actionType };
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<GenerateGovernanceAuditCommand>.Create(command));
 
         Assert.True(result.Success);
-        Assert.Equal(actionType, result.ActionType);
+        Assert.Equal(actionType, result.Output!.ActionType);
     }
 
     [Fact]
@@ -105,14 +106,14 @@ public class GovernanceAuditEngineTests
         var command = CreateValidCommand();
 
         var tasks = Enumerable.Range(0, 10)
-            .Select(_ => Task.Run(() => _engine.Execute(command)))
+            .Select(_ => Task.Run(() => _engine.Execute(IntelligenceContext<GenerateGovernanceAuditCommand>.Create(command))))
             .ToArray();
 
         Task.WaitAll(tasks);
 
         var results = tasks.Select(t => t.Result).ToList();
-        var distinctHashes = results.Select(r => r.AuditHash).Distinct().ToList();
-        var distinctIds = results.Select(r => r.AuditId).Distinct().ToList();
+        var distinctHashes = results.Select(r => r.Output!.AuditHash).Distinct().ToList();
+        var distinctIds = results.Select(r => r.Output!.AuditId).Distinct().ToList();
 
         Assert.Single(distinctHashes);
         Assert.Single(distinctIds);

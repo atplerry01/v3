@@ -2,7 +2,8 @@ namespace Whycespace.Runtime.Persistence.Workflow;
 
 using global::System.Collections.Concurrent;
 
-public sealed class WorkflowRetryStore : IWorkflowRetryStore
+public sealed class WorkflowRetryStore : IWorkflowRetryStore,
+    Whycespace.Engines.T1M.Shared.IWorkflowRetryStore
 {
     private readonly ConcurrentDictionary<(string InstanceId, string StepId), int> _retryCounts = new();
 

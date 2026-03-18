@@ -3,7 +3,8 @@ namespace Whycespace.Runtime.Persistence.Workflow;
 using global::System.Collections.Concurrent;
 using Whycespace.Systems.Midstream.WSS.Models;
 
-public sealed class WssWorkflowStateStore : IWssWorkflowStateStore
+public sealed class WssWorkflowStateStore : IWssWorkflowStateStore,
+    Whycespace.Engines.T1M.Shared.IWssWorkflowStateStore
 {
     private readonly ConcurrentDictionary<string, WorkflowState> _states = new();
 

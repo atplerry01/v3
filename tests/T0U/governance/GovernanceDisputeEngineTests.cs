@@ -1,5 +1,33 @@
-using Whycespace.Engines.T0U.WhyceGovernance.Engines;
-using Whycespace.Engines.T0U.WhyceGovernance.Commands;
+using Whycespace.Engines.T0U.Governance.Proposal.Validation;
+using Whycespace.Engines.T0U.Governance.Proposal.Lifecycle;
+using Whycespace.Engines.T0U.Governance.Voting.Casting;
+using Whycespace.Engines.T0U.Governance.Quorum.Evaluation;
+using Whycespace.Engines.T0U.Governance.Delegation.Assignment;
+using Whycespace.Engines.T0U.Governance.Dispute.Raising;
+using Whycespace.Engines.T0U.Governance.Emergency.Trigger;
+using Whycespace.Engines.T0U.Governance.Roles.Assignment;
+using Whycespace.Engines.T0U.Governance.Domain.Registration;
+using Whycespace.Engines.T0U.Governance.ProposalType.Validation;
+using Whycespace.Engines.T0U.Governance.Evidence.Recording;
+using Whycespace.Engines.T0U.Governance.Evidence.Audit;
+using Whycespace.Engines.T0U.Governance.Workflow.Execution;
+using Whycespace.Engines.T0U.Governance.Decisions.Evaluation;
+using Whycespace.Engines.T0U.Governance.Guardians.Registry;
+using Whycespace.Engines.T0U.Governance.Proposal.Creation;
+using Whycespace.Engines.T0U.Governance.Proposal.Submission;
+using Whycespace.Engines.T0U.Governance.Proposal.Cancellation;
+using Whycespace.Engines.T0U.Governance.Voting.Validation;
+using Whycespace.Engines.T0U.Governance.Voting.Withdrawal;
+using Whycespace.Engines.T0U.Governance.Delegation.Revocation;
+using Whycespace.Engines.T0U.Governance.Dispute.Resolution;
+using Whycespace.Engines.T0U.Governance.Dispute.Withdrawal;
+using Whycespace.Engines.T0U.Governance.Emergency.Validation;
+using Whycespace.Engines.T0U.Governance.Emergency.Revocation;
+using Whycespace.Engines.T0U.Governance.Roles.Revocation;
+using Whycespace.Engines.T0U.Governance.Domain.Validation;
+using Whycespace.Engines.T0U.Governance.Domain.Deactivation;
+using Whycespace.Engines.T0U.Governance.ProposalType.Registration;
+using Whycespace.Engines.T0U.Governance.ProposalType.Deactivation;
 using Whycespace.Systems.Upstream.Governance.Models;
 using Whycespace.Systems.Upstream.Governance.Stores;
 using Whycespace.Systems.WhyceID.Aggregates;
@@ -285,7 +313,7 @@ public class GovernanceDisputeEngineTests
     public void ConcurrentDisputeSubmissions_AreDeterministic()
     {
         var tasks = new List<Task>();
-        var results = new global::System.Collections.Concurrent.ConcurrentBag<Whycespace.Engines.T0U.WhyceGovernance.Results.GovernanceDisputeResult>();
+        var results = new global::System.Collections.Concurrent.ConcurrentBag<Whycespace.Engines.T0U.Governance.Dispute.Raising.GovernanceDisputeResult>();
 
         for (int i = 0; i < 10; i++)
         {

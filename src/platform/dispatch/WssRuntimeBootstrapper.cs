@@ -1,14 +1,12 @@
 namespace Whycespace.Platform.Dispatch;
 
-using Whycespace.Engines.T1M.WSS.Stores;
 using Whycespace.Engines.T1M.WSS.Registry;
 using Whycespace.Engines.T1M.WSS.Graph;
-using Whycespace.Engines.T1M.WSS.Instance;
-using Whycespace.Engines.T1M.WSS.Runtime.Dispatcher;
-using Whycespace.Engines.T1M.WSS.Runtime.Retry;
-using Whycespace.Engines.T1M.WSS.Runtime.Scheduler;
-using Whycespace.Engines.T1M.WSS.Runtime.Timeout;
+using Whycespace.Engines.T1M.Orchestration.Dispatcher;
+using Whycespace.Engines.T1M.Orchestration.Resilience;
+using Whycespace.Engines.T1M.Orchestration.Scheduling;
 using Whycespace.Runtime.EventFabric.WSS;
+using Whycespace.Runtime.Persistence.Workflow;
 using Whycespace.EventFabricRuntime.Bus;
 
 /// <summary>
@@ -48,21 +46,21 @@ public sealed class WssRuntimeBootstrapper
         WorkflowEventRouter = new WorkflowEventRouter(kafkaPublisher);
 
         RetryStore = new WorkflowRetryStore();
-        RetryPolicyEngine = new WorkflowRetryPolicyEngine(RetryStore);
+        RetryPolicyEngine = new WorkflowRetryPolicyEngine(null);
 
         TimeoutStore = new WorkflowTimeoutStore();
-        TimeoutEngine = new WorkflowTimeoutEngine(TimeoutStore);
+        TimeoutEngine = new WorkflowTimeoutEngine(null);
 
-        var instanceRegistry = new WorkflowInstanceRegistry(InstanceRegistryStore);
+        var instanceRegistry = new WorkflowInstanceRegistry(null);
         var graphEngine = new WorkflowGraphEngine();
 
         LifecycleEngine = new WorkflowLifecycleEngine(
             WorkflowRegistry,
             instanceRegistry,
-            WorkflowStateStore,
+            null,
             WorkflowEventRouter,
             RetryPolicyEngine,
-            RetryStore,
+            null,
             TimeoutEngine,
             graphEngine);
     }

@@ -20,8 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\systems\Whycespace.System.csproj" />
-    <ProjectReference Include="..\..\src\engines\T3I\monitoring\Whycespace.Engines.T3I.Monitoring.csproj" />
+    <ProjectReference Include="..\..\..\src\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T3I\monitoring\Whycespace.Engines.T3I.Monitoring.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T3I\shared\Whycespace.Engines.T3I.Shared.csproj" />
   </ItemGroup>
 
 </Project>

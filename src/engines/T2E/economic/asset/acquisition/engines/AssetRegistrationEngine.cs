@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T2E.Economic.Asset.Engines;
+namespace Whycespace.Engines.T2E.Economic.Asset.Acquisition.Engines;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Runtime.EngineManifest.Attributes;

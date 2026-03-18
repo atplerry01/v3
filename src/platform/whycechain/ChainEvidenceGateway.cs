@@ -1,6 +1,9 @@
 namespace Whycespace.Platform.WhyceChain;
 
-using Whycespace.Engines.T0U.WhyceChain;
+using Whycespace.Engines.T0U.WhyceChain.Evidence.Anchoring;
+using Whycespace.Engines.T0U.WhyceChain.Evidence.Hashing;
+using Whycespace.Engines.T0U.WhyceChain.Verification.Integrity;
+using Whycespace.Engines.T0U.WhyceChain.Verification.Merkle;
 using Whycespace.Platform.WhyceChain.Models;
 using Whycespace.Systems.Upstream.WhyceChain.Models;
 using Whycespace.Systems.Upstream.WhyceChain.Stores;

@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T1M.WSS.Graph;
 
-using Whycespace.Engines.T1M.WSS.Workflows;
+using Whycespace.Engines.T1M.Shared;
 
 public sealed record WorkflowGraphResult(
     bool Success,

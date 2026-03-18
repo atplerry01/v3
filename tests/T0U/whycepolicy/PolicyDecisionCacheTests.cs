@@ -13,6 +13,17 @@ public class PolicyDecisionCacheTests
         return new PolicyDecision(policyId, allowed, allowed ? "allow" : "deny", "Test reason", DateTime.UtcNow);
     }
 
+    private static PolicyDecisionCacheEntry CreateEntry(
+        string cacheKey,
+        PolicyDecision? decision = null,
+        TimeSpan? ttl = null)
+    {
+        var d = decision ?? CreateDecision();
+        var now = DateTime.UtcNow;
+        var expiry = now.Add(ttl ?? TimeSpan.FromMinutes(5));
+        return new PolicyDecisionCacheEntry(cacheKey, new List<PolicyDecision> { d }, now, expiry);
+    }
+
     private static PolicyContext CreateContext(
         string domain = "identity",
         Dictionary<string, string>? attributes = null)
@@ -41,27 +52,29 @@ public class PolicyDecisionCacheTests
     public void CacheEntry_Creation()
     {
         var decision = CreateDecision();
-        _store.Set("test-key", decision, TimeSpan.FromMinutes(5));
+        var entry = CreateEntry("test-key", decision);
+        _store.Set("test-key", entry);
 
-        var entry = _store.Get("test-key");
+        var retrieved = _store.Get("test-key");
 
-        Assert.NotNull(entry);
-        Assert.Equal("test-key", entry.CacheKey);
-        Assert.Equal("pol-1", entry.Decision.PolicyId);
-        Assert.True(entry.ExpiresAt > entry.CreatedAt);
+        Assert.NotNull(retrieved);
+        Assert.Equal("test-key", retrieved.CacheKey);
+        Assert.Equal("pol-1", retrieved.Decisions[0].PolicyId);
+        Assert.True(retrieved.ExpiresAt > retrieved.CachedAt);
     }
 
     [Fact]
     public void CacheHit_ReturnsStoredEntry()
     {
         var decision = CreateDecision();
-        _store.Set("hit-key", decision, TimeSpan.FromMinutes(5));
+        var entry = CreateEntry("hit-key", decision);
+        _store.Set("hit-key", entry);
 
-        var entry = _store.Get("hit-key");
+        var retrieved = _store.Get("hit-key");
 
-        Assert.NotNull(entry);
-        Assert.Equal(decision.PolicyId, entry.Decision.PolicyId);
-        Assert.Equal(decision.Allowed, entry.Decision.Allowed);
+        Assert.NotNull(retrieved);
+        Assert.Equal(decision.PolicyId, retrieved.Decisions[0].PolicyId);
+        Assert.Equal(decision.Allowed, retrieved.Decisions[0].Allowed);
     }
 
     [Fact]
@@ -76,10 +89,13 @@ public class PolicyDecisionCacheTests
     public void Expiration_ReturnsNullForExpiredEntry()
     {
         var decision = CreateDecision();
-        _store.Set("expired-key", decision, TimeSpan.FromMilliseconds(1));
+        var entry = CreateEntry("expired-key", decision, TimeSpan.FromMilliseconds(1));
+        _store.Set("expired-key", entry);
 
         Thread.Sleep(10);
 
+        // ClearExpired must be called to remove expired entries
+        _store.ClearExpired();
         var result = _store.Get("expired-key");
         Assert.Null(result);
     }
@@ -120,10 +136,11 @@ public class PolicyDecisionCacheTests
             tasks.Add(Task.Run(() =>
             {
                 var key = $"concurrent-key-{index}";
-                _store.Set(key, CreateDecision($"pol-{index}"), TimeSpan.FromMinutes(5));
+                var entry = CreateEntry(key, CreateDecision($"pol-{index}"));
+                _store.Set(key, entry);
                 var result = _store.Get(key);
                 Assert.NotNull(result);
-                Assert.Equal($"pol-{index}", result.Decision.PolicyId);
+                Assert.Equal($"pol-{index}", result.Decisions[0].PolicyId);
             }));
         }
 
@@ -137,11 +154,12 @@ public class PolicyDecisionCacheTests
     public void CacheInvalidation_RemovesEntry()
     {
         var decision = CreateDecision();
-        _store.Set("remove-key", decision, TimeSpan.FromMinutes(5));
+        var entry = CreateEntry("remove-key", decision);
+        _store.Set("remove-key", entry);
 
         Assert.NotNull(_store.Get("remove-key"));
 
-        _store.Remove("remove-key");
+        _store.Invalidate("remove-key");
 
         Assert.Null(_store.Get("remove-key"));
     }
@@ -149,8 +167,8 @@ public class PolicyDecisionCacheTests
     [Fact]
     public void Clear_RemovesAllEntries()
     {
-        _store.Set("key-1", CreateDecision("pol-1"), TimeSpan.FromMinutes(5));
-        _store.Set("key-2", CreateDecision("pol-2"), TimeSpan.FromMinutes(5));
+        _store.Set("key-1", CreateEntry("key-1", CreateDecision("pol-1")));
+        _store.Set("key-2", CreateEntry("key-2", CreateDecision("pol-2")));
 
         Assert.Equal(2, _store.GetAll().Count);
 
@@ -160,15 +178,16 @@ public class PolicyDecisionCacheTests
     }
 
     [Fact]
-    public void GetAll_ExcludesExpiredEntries()
+    public void GetAll_ExcludesExpiredEntries_AfterCleanup()
     {
-        _store.Set("fresh-key", CreateDecision("pol-fresh"), TimeSpan.FromMinutes(5));
-        _store.Set("expired-key", CreateDecision("pol-expired"), TimeSpan.FromMilliseconds(1));
+        _store.Set("fresh-key", CreateEntry("fresh-key", CreateDecision("pol-fresh")));
+        _store.Set("expired-key", CreateEntry("expired-key", CreateDecision("pol-expired"), TimeSpan.FromMilliseconds(1)));
 
         Thread.Sleep(10);
 
+        _store.ClearExpired();
         var all = _store.GetAll();
         Assert.Single(all);
-        Assert.Equal("pol-fresh", all[0].Decision.PolicyId);
+        Assert.Equal("pol-fresh", all[0].Decisions[0].PolicyId);
     }
 }

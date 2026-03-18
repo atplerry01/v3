@@ -1,4 +1,5 @@
-using Whycespace.Engines.T3I.Monitoring.Chain;
+using Whycespace.Engines.T3I.Monitoring.Chain.Engines;
+using Whycespace.Engines.T3I.Monitoring.Chain.Models;
 using Whycespace.Systems.Upstream.WhyceChain.Models;
 
 namespace Whycespace.WhyceChainHealth.Tests;
@@ -52,7 +53,7 @@ public class ChainHealthMonitorEngineTests
             CorrelationId: "corr-1",
             Timestamp: timestamp);
 
-        var result = _engine.Execute(command);
+        var result = _engine.ExecuteCore(command);
 
         Assert.Equal("Healthy", result.ChainHealthStatus);
         Assert.Equal("Valid", result.BlockContinuityStatus);
@@ -79,7 +80,7 @@ public class ChainHealthMonitorEngineTests
             CorrelationId: "corr-2",
             Timestamp: DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.ExecuteCore(command);
 
         Assert.Equal("Degraded", result.ChainHealthStatus);
         Assert.Equal(6L, result.ReplicationLag);
@@ -99,7 +100,7 @@ public class ChainHealthMonitorEngineTests
             CorrelationId: "corr-3",
             Timestamp: DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.ExecuteCore(command);
 
         Assert.Equal("Degraded", result.ChainHealthStatus);
         Assert.Equal(14L, result.AnchorLag);
@@ -124,7 +125,7 @@ public class ChainHealthMonitorEngineTests
             CorrelationId: "corr-4",
             Timestamp: DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.ExecuteCore(command);
 
         Assert.Equal("Critical", result.ChainHealthStatus);
         Assert.Equal("Broken", result.BlockContinuityStatus);
@@ -149,7 +150,7 @@ public class ChainHealthMonitorEngineTests
             CorrelationId: "corr-5",
             Timestamp: DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.ExecuteCore(command);
 
         Assert.Equal("Critical", result.ChainHealthStatus);
         Assert.Equal("Broken", result.BlockContinuityStatus);
@@ -174,7 +175,7 @@ public class ChainHealthMonitorEngineTests
             CorrelationId: "corr-6",
             Timestamp: DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.ExecuteCore(command);
 
         Assert.Equal("Critical", result.ChainHealthStatus);
         Assert.Equal("Broken", result.LedgerIntegrityStatus);
@@ -194,7 +195,7 @@ public class ChainHealthMonitorEngineTests
             CorrelationId: "corr-7",
             Timestamp: DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.ExecuteCore(command);
 
         Assert.Equal("Degraded", result.ChainHealthStatus);
     }
@@ -211,7 +212,7 @@ public class ChainHealthMonitorEngineTests
             CorrelationId: "corr-8",
             Timestamp: DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.ExecuteCore(command);
 
         Assert.Equal("Healthy", result.ChainHealthStatus);
         Assert.Equal("Valid", result.BlockContinuityStatus);
@@ -236,8 +237,8 @@ public class ChainHealthMonitorEngineTests
             CorrelationId: "corr-det",
             Timestamp: timestamp);
 
-        var result1 = _engine.Execute(command);
-        var result2 = _engine.Execute(command);
+        var result1 = _engine.ExecuteCore(command);
+        var result2 = _engine.ExecuteCore(command);
 
         Assert.Equal(result1.CurrentChainHeight, result2.CurrentChainHeight);
         Assert.Equal(result1.ReplicationLag, result2.ReplicationLag);

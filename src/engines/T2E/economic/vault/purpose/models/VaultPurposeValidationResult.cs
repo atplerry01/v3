@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T2E.Economic.Vault.Models;
+namespace Whycespace.Engines.T2E.Economic.Vault.Purpose.Models;
 
 public sealed record VaultPurposeValidationResult(
     Guid VaultId,

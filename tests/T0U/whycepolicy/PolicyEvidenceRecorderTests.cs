@@ -1,4 +1,5 @@
-using Whycespace.Engines.T3I.Reporting.Policy;
+using Whycespace.Engines.T3I.Reporting.Policy.Engines;
+using Whycespace.Engines.T3I.Reporting.Policy.Models;
 
 namespace Whycespace.WhycePolicy.Tests;
 
@@ -100,7 +101,7 @@ public class PolicyEvidenceRecorderTests
     public void RecordEvidence_ConcurrentRecording_ThreadSafe()
     {
         var engine = new PolicyEvidenceRecorder();
-        var results = new global::System.Collections.Concurrent.ConcurrentBag<Whycespace.Engines.T3I.WhycePolicy.PolicyEvidenceRecord>();
+        var results = new global::System.Collections.Concurrent.ConcurrentBag<Whycespace.Engines.T3I.Reporting.Policy.Models.PolicyEvidenceRecord>();
 
         Parallel.For(0, 100, i =>
         {

@@ -1,5 +1,5 @@
-using Whycespace.Engines.T1M.WSS.Workflows;
-using Whycespace.Engines.T1M.WSS.Runtime;
+using Whycespace.Engines.T1M.Shared;
+using Whycespace.Engines.T1M.Orchestration.Resilience;
 
 namespace Whycespace.WSS.Workflows.Tests;
 

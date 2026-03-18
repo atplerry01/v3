@@ -1,22 +1,19 @@
 using Whycespace.Contracts.Runtime;
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Definition;
-using WorkflowGraph = Whycespace.Systems.Midstream.WSS.Models.WorkflowGraph;
-using WorkflowState = Whycespace.Systems.Midstream.WSS.Models.WorkflowState;
-using Whycespace.Engines.T1M.WSS.Dependency;
 using Whycespace.Engines.T1M.WSS.Graph;
-using Whycespace.Engines.T1M.WSS.Instance;
-using Whycespace.Engines.T1M.WSS.Mapping;
 using Whycespace.Engines.T1M.WSS.Registry;
-using Whycespace.Engines.T1M.WSS.Stores;
-using Whycespace.Engines.T1M.WSS.Validation;
+using Whycespace.Engines.T1M.WSS.Step;
 using Whycespace.Systems.Midstream.WSS.Events;
 using Whycespace.Systems.Midstream.WSS.Models;
-using WssWorkflowEventRouter = Whycespace.Engines.T1M.WSS.Runtime.Dispatcher.WorkflowEventRouter;
-using Whycespace.Engines.T1M.WSS.Runtime.Dispatcher;
-using Whycespace.Engines.T1M.WSS.Runtime.Retry;
-using Whycespace.Engines.T1M.WSS.Runtime.Scheduler;
-using Whycespace.Engines.T1M.WSS.Runtime.Timeout;
+using Whycespace.Runtime.Persistence.Workflow;
+using WssWorkflowEventRouter = Whycespace.Engines.T1M.Orchestration.Dispatcher.WorkflowEventRouter;
+using Whycespace.Engines.T1M.Orchestration.Dispatcher;
+using Whycespace.Engines.T1M.Orchestration.Resilience;
+using Whycespace.Engines.T1M.Orchestration.Scheduling;
+using WorkflowGraph = Whycespace.Systems.Midstream.WSS.Models.WorkflowGraph;
+using WorkflowState = Whycespace.Systems.Midstream.WSS.Models.WorkflowState;
+using WorkflowDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
 
 namespace Whycespace.Platform.Dispatch.Handlers;
 
@@ -160,7 +157,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleDefinitionList()
     {
-        var engine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
+        var engine = new WorkflowDefinitionEngine(null);
         var definitions = engine.ListWorkflowDefinitions();
 
         return DispatchResult.Ok(new Dictionary<string, object>
@@ -179,7 +176,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleDefinitionGet(Dictionary<string, object> payload)
     {
-        var engine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
+        var engine = new WorkflowDefinitionEngine(null);
         var workflowId = (string)payload["workflowId"];
         var definition = engine.GetWorkflowDefinition(workflowId);
 
@@ -196,7 +193,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleDefinitionRegister(Dictionary<string, object> payload)
     {
-        var engine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
+        var engine = new WorkflowDefinitionEngine(null);
 
         var workflowId = (string)payload["workflowId"];
         var name = (string)payload["name"];
@@ -222,7 +219,7 @@ public sealed class WssCommandHandler
     private DispatchResult HandleGraphBuild(Dictionary<string, object> payload)
     {
         var workflowId = (string)payload["workflowId"];
-        var engine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
+        var engine = new WorkflowDefinitionEngine(null);
         var definition = engine.GetWorkflowDefinition(workflowId);
 
         var graphEngine = new WorkflowGraphEngine();
@@ -264,7 +261,7 @@ public sealed class WssCommandHandler
     private DispatchResult HandleTemplateList()
     {
         var graphEngine = new WorkflowGraphEngine();
-        var engine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
+        var engine = new WorkflowTemplateEngine(null, graphEngine);
         var templates = engine.ListTemplates();
 
         return DispatchResult.Ok(new Dictionary<string, object>
@@ -276,7 +273,7 @@ public sealed class WssCommandHandler
     private DispatchResult HandleTemplateGet(Dictionary<string, object> payload)
     {
         var graphEngine = new WorkflowGraphEngine();
-        var engine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
+        var engine = new WorkflowTemplateEngine(null, graphEngine);
         var templateId = (string)payload["templateId"];
         var template = engine.GetTemplate(templateId);
 
@@ -294,7 +291,7 @@ public sealed class WssCommandHandler
     private DispatchResult HandleTemplateRegister(Dictionary<string, object> payload)
     {
         var graphEngine = new WorkflowGraphEngine();
-        var engine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
+        var engine = new WorkflowTemplateEngine(null, graphEngine);
 
         var templateId = (string)payload["templateId"];
         var name = (string)payload["name"];
@@ -332,7 +329,7 @@ public sealed class WssCommandHandler
     private DispatchResult HandleTemplateGenerate(Dictionary<string, object> payload)
     {
         var graphEngine = new WorkflowGraphEngine();
-        var engine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
+        var engine = new WorkflowTemplateEngine(null, graphEngine);
 
         var templateId = (string)payload["templateId"];
         var parameters = (Dictionary<string, string>)payload["parameters"];
@@ -418,7 +415,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleVersionList(Dictionary<string, object> payload)
     {
-        var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
+        var engine = new WorkflowVersioningEngine(null);
         var workflowId = (string)payload["workflowId"];
         var versions = engine.ListWorkflowVersions(workflowId);
 
@@ -439,7 +436,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleVersionGet(Dictionary<string, object> payload)
     {
-        var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
+        var engine = new WorkflowVersioningEngine(null);
         var workflowId = (string)payload["workflowId"];
         var version = (string)payload["version"];
         var definition = engine.GetWorkflowVersion(workflowId, version);
@@ -457,7 +454,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleVersionLatest(Dictionary<string, object> payload)
     {
-        var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
+        var engine = new WorkflowVersioningEngine(null);
         var workflowId = (string)payload["workflowId"];
         var definition = engine.GetLatestWorkflow(workflowId);
 
@@ -474,7 +471,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleVersionRegister(Dictionary<string, object> payload)
     {
-        var engine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
+        var engine = new WorkflowVersioningEngine(null);
         var definition = BuildWorkflowDefinition(payload);
         var registered = engine.RegisterWorkflowVersion(definition);
 
@@ -527,7 +524,7 @@ public sealed class WssCommandHandler
     private DispatchResult HandleDependencyAnalyze(Dictionary<string, object> payload)
     {
         var definition = BuildWorkflowDefinition(payload);
-        var analyzer = new WorkflowDependencyAnalyzer(_workflowDefinitionStore);
+        var analyzer = new WorkflowDependencyAnalyzer(null);
         var result = analyzer.AnalyzeWorkflowDependencies(definition);
 
         return FormatDependencyResult(result);
@@ -536,10 +533,10 @@ public sealed class WssCommandHandler
     private DispatchResult HandleDependencyGet(Dictionary<string, object> payload)
     {
         var workflowId = (string)payload["workflowId"];
-        var engine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
+        var engine = new WorkflowDefinitionEngine(null);
         var definition = engine.GetWorkflowDefinition(workflowId);
 
-        var analyzer = new WorkflowDependencyAnalyzer(_workflowDefinitionStore);
+        var analyzer = new WorkflowDependencyAnalyzer(null);
         var result = analyzer.AnalyzeWorkflowDependencies(definition);
 
         return FormatDependencyResult(result);
@@ -548,7 +545,7 @@ public sealed class WssCommandHandler
     private DispatchResult HandleDependencyResolve(Dictionary<string, object> payload)
     {
         var definition = BuildWorkflowDefinition(payload);
-        var analyzer = new WorkflowDependencyAnalyzer(_workflowDefinitionStore);
+        var analyzer = new WorkflowDependencyAnalyzer(null);
         var executionOrder = analyzer.ResolveExecutionOrder(definition);
 
         return DispatchResult.Ok(new Dictionary<string, object>
@@ -562,7 +559,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleEngineList()
     {
-        var mapper = new WorkflowStepEngineMapper(_engineMappingStore);
+        var mapper = new WorkflowStepEngineMapper(null);
         var engines = mapper.ListEngines();
 
         return DispatchResult.Ok(new Dictionary<string, object>
@@ -573,7 +570,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleEngineRegister(Dictionary<string, object> payload)
     {
-        var mapper = new WorkflowStepEngineMapper(_engineMappingStore);
+        var mapper = new WorkflowStepEngineMapper(null);
         var engineName = (string)payload["engineName"];
         var runtimeIdentifier = (string)payload["runtimeIdentifier"];
 
@@ -589,7 +586,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleEngineResolve(Dictionary<string, object> payload)
     {
-        var mapper = new WorkflowStepEngineMapper(_engineMappingStore);
+        var mapper = new WorkflowStepEngineMapper(null);
         var engineName = (string)payload["engineName"];
         var exists = mapper.EngineExists(engineName);
 
@@ -617,7 +614,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleInstanceList()
     {
-        var registry = new WorkflowInstanceRegistry(_instanceRegistryStore);
+        var registry = new WorkflowInstanceRegistry(null);
         var instances = registry.ListInstances();
 
         return DispatchResult.Ok(new Dictionary<string, object>
@@ -638,7 +635,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleInstanceGet(Dictionary<string, object> payload)
     {
-        var registry = new WorkflowInstanceRegistry(_instanceRegistryStore);
+        var registry = new WorkflowInstanceRegistry(null);
         var instanceId = (string)payload["instanceId"];
         var instance = registry.GetInstance(instanceId);
 
@@ -657,7 +654,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleInstanceCreate(Dictionary<string, object> payload)
     {
-        var registry = new WorkflowInstanceRegistry(_instanceRegistryStore);
+        var registry = new WorkflowInstanceRegistry(null);
         var workflowId = (string)payload["workflowId"];
         var version = (string)payload["version"];
         var context = payload.TryGetValue("context", out var ctx) ? ctx as Dictionary<string, object> : null;
@@ -677,7 +674,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleInstanceUpdate(Dictionary<string, object> payload)
     {
-        var registry = new WorkflowInstanceRegistry(_instanceRegistryStore);
+        var registry = new WorkflowInstanceRegistry(null);
         var instanceId = (string)payload["instanceId"];
         var currentStep = (string)payload["currentStep"];
         var status = (WorkflowInstanceStatus)payload["status"];
@@ -698,7 +695,7 @@ public sealed class WssCommandHandler
 
     private DispatchResult HandleInstanceRemove(Dictionary<string, object> payload)
     {
-        var registry = new WorkflowInstanceRegistry(_instanceRegistryStore);
+        var registry = new WorkflowInstanceRegistry(null);
         var instanceId = (string)payload["instanceId"];
         registry.RemoveInstance(instanceId);
 
@@ -1050,9 +1047,9 @@ public sealed class WssCommandHandler
     private WorkflowValidationOrchestrator CreateValidationOrchestrator()
     {
         var graphEngine = new WorkflowGraphEngine();
-        var definitionEngine = new WorkflowDefinitionEngine(_workflowDefinitionStore);
-        var templateEngine = new WorkflowTemplateEngine(_workflowTemplateStore, graphEngine);
-        var versioningEngine = new WorkflowVersioningEngine(_workflowVersionStore, _workflowDefinitionStore);
+        var definitionEngine = new WorkflowDefinitionEngine(null);
+        var templateEngine = new WorkflowTemplateEngine(null, graphEngine);
+        var versioningEngine = new WorkflowVersioningEngine(null);
         return new WorkflowValidationOrchestrator(definitionEngine, graphEngine, templateEngine, versioningEngine);
     }
 

@@ -109,7 +109,7 @@ public sealed class WorkflowLifecycleEngine : IWorkflowLifecycleEngine
         {
             var command = new WorkflowRetryPolicyCommand(
                 instanceId, stepId,
-                new Whycespace.Engines.T1M.WSS.Workflows.RetryPolicy(3, Whycespace.Engines.T1M.WSS.Workflows.RetryStrategy.FixedDelay, TimeSpan.FromSeconds(1), 2.0),
+                new Whycespace.Engines.T1M.Shared.RetryPolicy(3, Whycespace.Engines.T1M.Shared.RetryStrategy.FixedDelay, TimeSpan.FromSeconds(1), 2.0),
                 _retryStore.GetRetryCount(instanceId, stepId),
                 DateTimeOffset.UtcNow);
 

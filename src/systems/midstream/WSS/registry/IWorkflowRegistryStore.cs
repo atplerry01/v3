@@ -1,6 +1,5 @@
 namespace Whycespace.Systems.Midstream.WSS.Registry;
 
-
 public interface IWorkflowRegistryStore
 {
     void Save(WorkflowRegistryRecord record);

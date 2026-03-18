@@ -1,11 +1,12 @@
 namespace Whycespace.Simulation;
 
 using global::System.Diagnostics;
-using Whycespace.Engines.T0U.WhycePolicy.Validation;
+using Whycespace.Engines.T0U.WhycePolicy.Validation.Engines;
 using Whycespace.Engines.T2E;
 using Whycespace.Engines.T2E.Clusters.Mobility.Taxi.Engines;
 using Whycespace.Engines.T2E.Clusters.Property.Letting.Engines;
-using Whycespace.Engines.T3I.Atlas.Workforce;
+using Whycespace.Engines.T3I.Atlas.Workforce.Engines;
+using Whycespace.Engines.T3I.Atlas.Workforce.Models;
 using Whycespace.Runtime.Dispatcher;
 using Whycespace.EngineRuntime.Registry;
 using Whycespace.Runtime.Reliability;
@@ -21,11 +22,13 @@ public sealed class SimulationRunner
     private readonly DeadLetterQueue _dlq;
     private readonly FaultInjector _faultInjector;
     private readonly RetryPolicyEngine _retryPolicy;
+    private readonly AtlasSimulationRunner? _atlasRunner;
 
-    public SimulationRunner(SimulationConfig config, SimulationMetrics metrics)
+    public SimulationRunner(SimulationConfig config, SimulationMetrics metrics, AtlasSimulationRunner? atlasRunner = null)
     {
         _config = config;
         _metrics = metrics;
+        _atlasRunner = atlasRunner;
         _dlq = new DeadLetterQueue();
         _retryPolicy = new RetryPolicyEngine
         {
@@ -150,14 +153,48 @@ public sealed class SimulationRunner
             foreach (var kvp in result.Output)
                 context[kvp.Key] = kvp.Value;
 
-            // Simulate projection update
-            var projSw = Stopwatch.StartNew();
-            // Projection update is in-memory — negligible but measured
-            projSw.Stop();
-            _metrics.RecordProjectionUpdate(projSw.Elapsed.TotalMilliseconds);
+            // Apply events to Atlas intelligence pipeline if wired
+            if (_atlasRunner is not null)
+            {
+                var projSw = Stopwatch.StartNew();
+                foreach (var ev in result.Events)
+                {
+                    var simEvent = SimulationEventGenerator.GenerateRandom();
+                    await _atlasRunner.IngestAsync(simEvent);
+                }
+                // Also generate a context-appropriate event for the workflow type
+                var contextEvent = GenerateWorkflowEvent(payload.WorkflowType, context);
+                if (contextEvent is not null)
+                    await _atlasRunner.IngestAsync(contextEvent);
+                projSw.Stop();
+                _metrics.RecordProjectionUpdate(projSw.Elapsed.TotalMilliseconds);
+            }
+            else
+            {
+                var projSw = Stopwatch.StartNew();
+                projSw.Stop();
+                _metrics.RecordProjectionUpdate(projSw.Elapsed.TotalMilliseconds);
+            }
         }
 
         sw.Stop();
         _metrics.RecordWorkflowCompleted(payload.WorkflowType, sw.Elapsed.TotalMilliseconds, success);
+    }
+
+    private static EventFabric.Models.EventEnvelope? GenerateWorkflowEvent(
+        string workflowType, Dictionary<string, object> context)
+    {
+        return workflowType switch
+        {
+            "EconomicLifecycle" =>
+                context.TryGetValue("spvName", out var spvName)
+                    ? SimulationEventGenerator.GenerateCapitalContribution()
+                    : null,
+            "RideRequest" =>
+                SimulationEventGenerator.GenerateTaskAssigned(),
+            "PropertyListing" =>
+                SimulationEventGenerator.GenerateRevenueRecorded(),
+            _ => null
+        };
     }
 }

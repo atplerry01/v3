@@ -1,5 +1,5 @@
-using Whycespace.Engines.T3I.Reporting.Governance;
-using Whycespace.Engines.T3I.Reporting.Governance.Commands;
+using Whycespace.Engines.T3I.Reporting.Governance.Engines;
+using Whycespace.Engines.T3I.Reporting.Governance.Models;
 
 namespace Whycespace.GovernanceAudit.Tests;
 

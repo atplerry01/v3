@@ -1,4 +1,4 @@
-using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Engines.T0U.WhycePolicy.Simulation.Engines;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;
 using Whycespace.Systems.Upstream.WhycePolicy.Stores;
 
@@ -19,105 +19,91 @@ public class PolicySimulationEngineTests
             DateTime.UtcNow
         );
 
-    private static PolicyContext MakeContext(string domain = "platform", Dictionary<string, string>? attributes = null) =>
-        new(
-            Guid.NewGuid(),
-            Guid.NewGuid(),
-            domain,
-            attributes ?? new Dictionary<string, string>(),
-            DateTime.UtcNow
-        );
-
-    private static PolicySimulationEngine CreateEngine()
+    private static PolicyRegistryStore CreateRegistryWithPolicies(params PolicyDefinition[] policies)
     {
-        return new PolicySimulationEngine(new PolicyRegistryStore(), new PolicyDependencyStore());
-    }
-
-    [Fact]
-    public void RunSimulation_SinglePolicyEvaluation_ReturnsDecision()
-    {
-        var engine = CreateEngine();
-        var input = new PolicySimulationInput(
-            new[] { MakePolicy("p1") },
-            new[] { MakeContext() }
-        );
-
-        var result = engine.RunSimulation(input);
-
-        Assert.Equal(1, result.SimulationCount);
-        Assert.Single(result.SimulationRecords);
-        Assert.Single(result.SimulationRecords[0].Decisions);
-        Assert.True(result.SimulationRecords[0].FinalDecision.Allowed);
-    }
-
-    [Fact]
-    public void RunSimulation_MultiplePolicies_EvaluatesAll()
-    {
-        var engine = CreateEngine();
-        var input = new PolicySimulationInput(
-            new[] { MakePolicy("p1", "allow"), MakePolicy("p2", "deny") },
-            new[] { MakeContext() }
-        );
-
-        var result = engine.RunSimulation(input);
-
-        Assert.Equal(1, result.SimulationCount);
-        Assert.Equal(2, result.SimulationRecords[0].Decisions.Count);
-        Assert.False(result.SimulationRecords[0].FinalDecision.Allowed);
-    }
-
-    [Fact]
-    public void RunSimulation_MultipleContexts_EvaluatesEachContext()
-    {
-        var engine = CreateEngine();
-        var input = new PolicySimulationInput(
-            new[] { MakePolicy("p1") },
-            new[] { MakeContext(), MakeContext(), MakeContext() }
-        );
-
-        var result = engine.RunSimulation(input);
-
-        Assert.Equal(3, result.SimulationCount);
-        Assert.Equal(3, result.SimulationRecords.Count);
-    }
-
-    [Fact]
-    public void RunSimulation_DeterministicResults_SameInputSameOutput()
-    {
-        var engine = CreateEngine();
-        var context = MakeContext(attributes: new Dictionary<string, string> { ["role"] = "admin" });
-        var policies = new[] { MakePolicy("p1", "allow", "role", "admin"), MakePolicy("p2", "deny", "role", "guest") };
-        var input = new PolicySimulationInput(policies, new[] { context });
-
-        var result1 = engine.RunSimulation(input);
-        var result2 = engine.RunSimulation(input);
-
-        Assert.Equal(result1.SimulationCount, result2.SimulationCount);
-        for (var i = 0; i < result1.SimulationRecords.Count; i++)
+        var store = new PolicyRegistryStore();
+        foreach (var policy in policies)
         {
-            var r1 = result1.SimulationRecords[i];
-            var r2 = result2.SimulationRecords[i];
-            Assert.Equal(r1.Decisions.Count, r2.Decisions.Count);
-            for (var j = 0; j < r1.Decisions.Count; j++)
-            {
-                Assert.Equal(r1.Decisions[j].PolicyId, r2.Decisions[j].PolicyId);
-                Assert.Equal(r1.Decisions[j].Allowed, r2.Decisions[j].Allowed);
-                Assert.Equal(r1.Decisions[j].Action, r2.Decisions[j].Action);
-            }
-            Assert.Equal(r1.FinalDecision.Allowed, r2.FinalDecision.Allowed);
-            Assert.Equal(r1.FinalDecision.Action, r2.FinalDecision.Action);
+            var record = new PolicyRecord(policy.PolicyId, policy.Version, policy, PolicyStatus.Active, DateTime.UtcNow);
+            store.Register(record);
+        }
+        return store;
+    }
+
+    private static PolicySimulationEngine CreateEngine(params PolicyDefinition[] policies)
+    {
+        var registryStore = CreateRegistryWithPolicies(policies);
+        return new PolicySimulationEngine(registryStore, new PolicyDependencyStore());
+    }
+
+    [Fact]
+    public void SimulatePolicyEvaluation_SinglePolicy_ReturnsDecisions()
+    {
+        var policy = MakePolicy("p1");
+        var engine = CreateEngine(policy);
+        var request = new PolicySimulationRequest("platform", Guid.NewGuid().ToString(), new Dictionary<string, string>());
+
+        var result = engine.SimulatePolicyEvaluation(request);
+
+        Assert.Equal("platform", result.Domain);
+        Assert.NotEmpty(result.Decisions);
+    }
+
+    [Fact]
+    public void SimulatePolicyEvaluation_MultiplePolicies_EvaluatesAll()
+    {
+        var engine = CreateEngine(MakePolicy("p1", "allow"), MakePolicy("p2", "deny"));
+        var request = new PolicySimulationRequest("platform", Guid.NewGuid().ToString(), new Dictionary<string, string>());
+
+        var result = engine.SimulatePolicyEvaluation(request);
+
+        Assert.Equal(2, result.Decisions.Count);
+    }
+
+    [Fact]
+    public void SimulatePolicyEvaluation_ConditionMatching_EvaluatesCorrectly()
+    {
+        var engine = CreateEngine(MakePolicy("p1", "allow", "role", "admin"));
+        var request = new PolicySimulationRequest(
+            "platform",
+            Guid.NewGuid().ToString(),
+            new Dictionary<string, string> { ["role"] = "admin" });
+
+        var result = engine.SimulatePolicyEvaluation(request);
+
+        Assert.NotEmpty(result.Decisions);
+        Assert.Contains(result.Decisions, d => d.Action == "allow");
+    }
+
+    [Fact]
+    public void SimulatePolicyEvaluation_DeterministicResults_SameInputSameOutput()
+    {
+        var engine = CreateEngine(
+            MakePolicy("p1", "allow", "role", "admin"),
+            MakePolicy("p2", "deny", "role", "guest"));
+        var actorId = Guid.NewGuid().ToString();
+        var attributes = new Dictionary<string, string> { ["role"] = "admin" };
+
+        var result1 = engine.SimulatePolicyEvaluation(new PolicySimulationRequest("platform", actorId, attributes));
+        var result2 = engine.SimulatePolicyEvaluation(new PolicySimulationRequest("platform", actorId, attributes));
+
+        Assert.Equal(result1.Decisions.Count, result2.Decisions.Count);
+        for (var i = 0; i < result1.Decisions.Count; i++)
+        {
+            Assert.Equal(result1.Decisions[i].PolicyId, result2.Decisions[i].PolicyId);
+            Assert.Equal(result1.Decisions[i].Allowed, result2.Decisions[i].Allowed);
+            Assert.Equal(result1.Decisions[i].Action, result2.Decisions[i].Action);
         }
     }
 
     [Fact]
-    public void RunSimulation_IsolationTest_DoesNotMutatePolicies()
+    public void SimulatePolicyEvaluation_IsolationTest_DoesNotMutatePolicies()
     {
-        var engine = CreateEngine();
         var policy = MakePolicy("p1", "allow");
-        var context = MakeContext();
-        var input = new PolicySimulationInput(new[] { policy }, new[] { context });
+        var engine = CreateEngine(policy);
+        var request = new PolicySimulationRequest("platform", Guid.NewGuid().ToString(), new Dictionary<string, string>());
 
-        var result = engine.RunSimulation(input);
+        var result = engine.SimulatePolicyEvaluation(request);
 
         // Verify original policy is unchanged
         Assert.Equal("p1", policy.PolicyId);
@@ -126,40 +112,31 @@ public class PolicySimulationEngineTests
         Assert.Equal("platform", policy.TargetDomain);
 
         // Verify simulation produced results
-        Assert.Equal(1, result.SimulationCount);
+        Assert.NotEmpty(result.Decisions);
     }
 
     [Fact]
-    public void RunSimulation_LargeContextSet_HandlesCorrectly()
+    public void SimulatePolicyEvaluation_IncludesActorId()
     {
-        var engine = CreateEngine();
-        var contexts = Enumerable.Range(0, 100)
-            .Select(_ => MakeContext())
-            .ToList();
+        var engine = CreateEngine(MakePolicy("p1"));
+        var actorId = Guid.NewGuid().ToString();
+        var request = new PolicySimulationRequest("platform", actorId, new Dictionary<string, string>());
 
-        var input = new PolicySimulationInput(
-            new[] { MakePolicy("p1"), MakePolicy("p2") },
-            contexts
-        );
+        var result = engine.SimulatePolicyEvaluation(request);
 
-        var result = engine.RunSimulation(input);
-
-        Assert.Equal(100, result.SimulationCount);
-        Assert.Equal(100, result.SimulationRecords.Count);
-        Assert.All(result.SimulationRecords, r => Assert.Equal(2, r.Decisions.Count));
+        Assert.Equal(actorId, result.ActorId);
     }
 
     [Fact]
-    public void RunSimulation_ConcurrentSafety_ProducesSameResults()
+    public void SimulatePolicyEvaluation_ConcurrentSafety_ProducesSameResults()
     {
-        var engine = CreateEngine();
-        var input = new PolicySimulationInput(
-            new[] { MakePolicy("p1", "allow"), MakePolicy("p2", "deny") },
-            new[] { MakeContext(), MakeContext() }
-        );
+        var engine = CreateEngine(MakePolicy("p1", "allow"), MakePolicy("p2", "deny"));
+        var actorId = Guid.NewGuid().ToString();
+        var attributes = new Dictionary<string, string>();
 
         var tasks = Enumerable.Range(0, 10)
-            .Select(_ => Task.Run(() => engine.RunSimulation(input)))
+            .Select(_ => Task.Run(() => engine.SimulatePolicyEvaluation(
+                new PolicySimulationRequest("platform", actorId, attributes))))
             .ToArray();
 
         Task.WaitAll(tasks);
@@ -168,15 +145,12 @@ public class PolicySimulationEngineTests
         foreach (var task in tasks)
         {
             var actual = task.Result;
-            Assert.Equal(expected.SimulationCount, actual.SimulationCount);
-            for (var i = 0; i < expected.SimulationRecords.Count; i++)
+            Assert.Equal(expected.Decisions.Count, actual.Decisions.Count);
+            for (var i = 0; i < expected.Decisions.Count; i++)
             {
-                Assert.Equal(
-                    expected.SimulationRecords[i].FinalDecision.Allowed,
-                    actual.SimulationRecords[i].FinalDecision.Allowed);
-                Assert.Equal(
-                    expected.SimulationRecords[i].FinalDecision.Action,
-                    actual.SimulationRecords[i].FinalDecision.Action);
+                Assert.Equal(expected.Decisions[i].PolicyId, actual.Decisions[i].PolicyId);
+                Assert.Equal(expected.Decisions[i].Allowed, actual.Decisions[i].Allowed);
+                Assert.Equal(expected.Decisions[i].Action, actual.Decisions[i].Action);
             }
         }
     }

@@ -4,9 +4,9 @@ using global::System.Security.Cryptography;
 using global::System.Text;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Workflows;
-using Whycespace.Engines.T1M.WSS.Workflows;
+using Whycespace.Engines.T1M.Shared;
 using SystemWorkflowDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
-using DomainWorkflowStepDefinition = Whycespace.Engines.T1M.WSS.Workflows.WorkflowStepDefinition;
+using DomainWorkflowStepDefinition = Whycespace.Engines.T1M.Shared.WorkflowStepDefinition;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
 
@@ -23,13 +23,23 @@ using Whycespace.Runtime.EngineManifest.Models;
     typeof(EngineEvent))]
 public sealed class WorkflowDefinitionEngine : IEngine
 {
-    private readonly Whycespace.Engines.T1M.WSS.Stores.WorkflowDefinitionStore? _store;
+    private readonly IDefinitionStore? _store;
 
     public WorkflowDefinitionEngine() { }
 
-    public WorkflowDefinitionEngine(Whycespace.Engines.T1M.WSS.Stores.WorkflowDefinitionStore store)
+    public WorkflowDefinitionEngine(IDefinitionStore store)
     {
         _store = store;
+    }
+
+    /// <summary>
+    /// Abstraction for definition storage while the persistence layer is migrated.
+    /// </summary>
+    public interface IDefinitionStore
+    {
+        void Register(SystemWorkflowDefinition definition);
+        SystemWorkflowDefinition Get(string workflowId);
+        IReadOnlyCollection<SystemWorkflowDefinition> GetAll();
     }
 
     public string Name => "WorkflowDefinition";

@@ -14,6 +14,8 @@ public sealed class IntelligenceRuntimeBootstrapper
     public IntelligenceEngineRegistry Registry { get; }
     public IntelligenceRouter Router { get; }
     public IntelligenceOrchestrator Orchestrator { get; }
+    public IntelligenceContextBuilder ContextBuilder { get; }
+    public IntelligencePipeline Pipeline { get; }
     public IntelligenceProjectionRouter ProjectionRouter { get; }
     public IntelligenceProjection Projection { get; }
     public IntelligenceInsightStore InsightStore { get; }
@@ -26,6 +28,8 @@ public sealed class IntelligenceRuntimeBootstrapper
         Router = new IntelligenceRouter(Registry);
         TraceCollector = new IntelligenceTraceCollector();
         Orchestrator = new IntelligenceOrchestrator(Router, TraceCollector);
+        ContextBuilder = new IntelligenceContextBuilder();
+        Pipeline = new IntelligencePipeline(Orchestrator, ContextBuilder);
         ProjectionRouter = new IntelligenceProjectionRouter(Orchestrator);
         Projection = new IntelligenceProjection(ProjectionRouter);
         InsightStore = new IntelligenceInsightStore();

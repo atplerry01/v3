@@ -19,10 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\shared\Whycespace.Shared.csproj" />
-    <ProjectReference Include="..\..\src\engines\Whycespace.Engines.csproj" />
-    <ProjectReference Include="..\..\src\engines\T0U\WhyceID\Whycespace.Engines.T0U.WhyceID.csproj" />
-    <ProjectReference Include="..\..\src\systems\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
+    <ProjectReference Include="..\..\..\src\shared\Whycespace.Shared.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\Whycespace.Engines.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T0U\whyceid\Whycespace.Engines.T0U.WhyceID.csproj" />
+    <ProjectReference Include="..\..\..\src\systems\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
   </ItemGroup>
 
 </Project>

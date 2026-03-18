@@ -3,44 +3,60 @@ namespace Whycespace.Engines.T1M.WSS.Definition;
 using global::System.Text.RegularExpressions;
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Graph;
-using Whycespace.Engines.T1M.WSS.Template;
+using Whycespace.Engines.T1M.WSS.Definition;
 using Whycespace.Systems.Midstream.WSS.Models;
-using Whycespace.Engines.T1M.WSS.Stores;
 
 public sealed class WorkflowTemplateEngine : IWorkflowTemplateEngine
 {
     private static readonly Regex ParameterPattern = new(@"\$\{(\w+)\}", RegexOptions.Compiled);
 
-    private readonly WorkflowTemplateStore _templateStore;
+    private readonly ITemplateStore? _templateStore;
     private readonly IWorkflowGraphEngine _graphEngine;
 
-    public WorkflowTemplateEngine(WorkflowTemplateStore templateStore, IWorkflowGraphEngine graphEngine)
+    public WorkflowTemplateEngine(IWorkflowGraphEngine graphEngine)
+    {
+        _graphEngine = graphEngine;
+    }
+
+    public WorkflowTemplateEngine(ITemplateStore templateStore, IWorkflowGraphEngine graphEngine)
     {
         _templateStore = templateStore;
         _graphEngine = graphEngine;
     }
 
+    /// <summary>
+    /// Abstraction for template storage while the persistence layer is migrated.
+    /// </summary>
+    public interface ITemplateStore
+    {
+        void Register(WorkflowTemplate template);
+        WorkflowTemplate Get(string templateId);
+        IReadOnlyCollection<WorkflowTemplate> GetAll();
+    }
+
     public void RegisterTemplate(WorkflowTemplate template)
     {
         ValidateTemplate(template);
-        _templateStore.Register(template);
+        _templateStore?.Register(template);
     }
 
     public WorkflowTemplate GetTemplate(string templateId)
     {
-        return _templateStore.Get(templateId);
+        return _templateStore?.Get(templateId)
+            ?? throw new KeyNotFoundException($"Template '{templateId}' not found (store not configured).");
     }
 
     public IReadOnlyCollection<WorkflowTemplate> ListTemplates()
     {
-        return _templateStore.GetAll();
+        return _templateStore?.GetAll() ?? Array.Empty<WorkflowTemplate>();
     }
 
     public WorkflowDefinition GenerateWorkflowDefinition(
         string templateId,
         IDictionary<string, string> parameters)
     {
-        var template = _templateStore.Get(templateId);
+        var template = _templateStore?.Get(templateId)
+            ?? throw new KeyNotFoundException($"Template '{templateId}' not found (store not configured).");
 
         ValidateParametersResolved(template, parameters);
 

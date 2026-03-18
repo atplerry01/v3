@@ -1,6 +1,7 @@
 namespace Whycespace.Tests.Engines.Vault;
 
-using Whycespace.Engines.T3I.Atlas.Economic;
+using Whycespace.Engines.T3I.Atlas.Economic.Engines;
+using Whycespace.Engines.T3I.Atlas.Economic.Models;
 using Xunit;
 
 public sealed class VaultBalanceAnalyticsEngineTests

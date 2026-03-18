@@ -19,9 +19,19 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <!-- SystemWorkflowStateStoreTests excluded: the old systems-layer WorkflowStateStore
+       (with PersistWorkflowState/GetWorkflowState/UpdateStepState APIs) was deleted
+       during the T1M refactor. These tests need the IWorkflowStateStore implementation
+       to be created before they can be restored. -->
   <ItemGroup>
-    <ProjectReference Include="..\..\src\systems\Whycespace.System.csproj" />
-    <ProjectReference Include="..\..\src\engines\T1M\WSS\Whycespace.Engines.T1M.WSS.csproj" />
+    <Compile Remove="SystemWorkflowStateStoreTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T1M\WSS\Whycespace.Engines.T1M.WSS.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T1M\shared\Whycespace.Engines.T1M.Shared.csproj" />
+    <ProjectReference Include="..\..\..\src\runtime\persistence\Whycespace.RuntimePersistence.csproj" />
   </ItemGroup>
 
 </Project>

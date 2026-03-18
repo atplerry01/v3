@@ -1,207 +1,189 @@
-using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Engines.T0U.WhycePolicy.Lifecycle.Engines;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Stores;
 
 namespace Whycespace.WhycePolicy.Tests;
 
 public class PolicyLifecycleManagerTests
 {
-    private static PolicyLifecycleManager CreateEngine() => new();
+    private static PolicyLifecycleManager CreateEngine()
+    {
+        var store = new PolicyLifecycleStore();
+        return new PolicyLifecycleManager(store);
+    }
 
-    private static PolicyLifecycleCommand MakeCommand(
-        PolicyLifecycleState current,
-        PolicyLifecycleState target,
+    private static PolicyLifecycleManager CreateEngineWithDraftPolicy(
+        PolicyLifecycleStore store,
         string policyId = "policy-1",
-        string requestedBy = "admin",
-        string reason = "test transition") =>
-        new(policyId, current, target, requestedBy, reason);
-
-    [Fact]
-    public void DraftToReview_ValidTransition_ReturnsAllowed()
+        string version = "1")
     {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(PolicyLifecycleState.Draft, PolicyLifecycleState.Review));
-
-        Assert.True(result.TransitionAllowed);
-        Assert.Equal(PolicyLifecycleState.Draft, result.PreviousState);
-        Assert.Equal(PolicyLifecycleState.Review, result.NewState);
+        var record = new PolicyLifecycleRecord(policyId, version, PolicyLifecycleState.Draft, DateTime.UtcNow);
+        store.SetLifecycleState(record);
+        return new PolicyLifecycleManager(store);
     }
 
     [Fact]
-    public void ReviewToApproved_ValidTransition_ReturnsAllowed()
+    public void ApprovePolicy_FromDraft_TransitionsToApproved()
     {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(PolicyLifecycleState.Review, PolicyLifecycleState.Approved));
+        var store = new PolicyLifecycleStore();
+        var engine = CreateEngineWithDraftPolicy(store);
 
-        Assert.True(result.TransitionAllowed);
-        Assert.Equal(PolicyLifecycleState.Review, result.PreviousState);
-        Assert.Equal(PolicyLifecycleState.Approved, result.NewState);
+        var result = engine.ApprovePolicy("policy-1", "1");
+
+        Assert.Equal(PolicyLifecycleState.Approved, result.State);
+        Assert.Equal("policy-1", result.PolicyId);
+        Assert.Equal("1", result.Version);
     }
 
     [Fact]
-    public void ApprovedToActive_ValidTransition_ReturnsAllowed()
+    public void ActivatePolicy_FromApproved_TransitionsToActive()
     {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(PolicyLifecycleState.Approved, PolicyLifecycleState.Active));
+        var store = new PolicyLifecycleStore();
+        var engine = CreateEngineWithDraftPolicy(store);
+        engine.ApprovePolicy("policy-1", "1");
 
-        Assert.True(result.TransitionAllowed);
-        Assert.Equal(PolicyLifecycleState.Approved, result.PreviousState);
-        Assert.Equal(PolicyLifecycleState.Active, result.NewState);
+        var result = engine.ActivatePolicy("policy-1", "1");
+
+        Assert.Equal(PolicyLifecycleState.Active, result.State);
     }
 
     [Fact]
-    public void ActiveToSuspended_ValidTransition_ReturnsAllowed()
+    public void DeprecatePolicy_FromActive_TransitionsToDeprecated()
     {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(PolicyLifecycleState.Active, PolicyLifecycleState.Suspended));
+        var store = new PolicyLifecycleStore();
+        var engine = CreateEngineWithDraftPolicy(store);
+        engine.ApprovePolicy("policy-1", "1");
+        engine.ActivatePolicy("policy-1", "1");
 
-        Assert.True(result.TransitionAllowed);
-        Assert.Equal(PolicyLifecycleState.Active, result.PreviousState);
-        Assert.Equal(PolicyLifecycleState.Suspended, result.NewState);
+        var result = engine.DeprecatePolicy("policy-1", "1");
+
+        Assert.Equal(PolicyLifecycleState.Deprecated, result.State);
     }
 
     [Fact]
-    public void ActiveToRevoked_ValidTransition_ReturnsAllowed()
+    public void ArchivePolicy_FromDeprecated_TransitionsToArchived()
     {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(PolicyLifecycleState.Active, PolicyLifecycleState.Revoked));
+        var store = new PolicyLifecycleStore();
+        var engine = CreateEngineWithDraftPolicy(store);
+        engine.ApprovePolicy("policy-1", "1");
+        engine.ActivatePolicy("policy-1", "1");
+        engine.DeprecatePolicy("policy-1", "1");
 
-        Assert.True(result.TransitionAllowed);
-        Assert.Equal(PolicyLifecycleState.Active, result.PreviousState);
-        Assert.Equal(PolicyLifecycleState.Revoked, result.NewState);
+        var result = engine.ArchivePolicy("policy-1", "1");
+
+        Assert.Equal(PolicyLifecycleState.Archived, result.State);
     }
 
     [Fact]
-    public void SuspendedToActive_ValidTransition_ReturnsAllowed()
+    public void InvalidTransition_DraftToActive_ThrowsInvalidOperation()
     {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(PolicyLifecycleState.Suspended, PolicyLifecycleState.Active));
+        var store = new PolicyLifecycleStore();
+        var engine = CreateEngineWithDraftPolicy(store);
 
-        Assert.True(result.TransitionAllowed);
-        Assert.Equal(PolicyLifecycleState.Suspended, result.PreviousState);
-        Assert.Equal(PolicyLifecycleState.Active, result.NewState);
+        Assert.Throws<InvalidOperationException>(() =>
+            engine.ActivatePolicy("policy-1", "1"));
     }
 
     [Fact]
-    public void SuspendedToRevoked_ValidTransition_ReturnsAllowed()
+    public void InvalidTransition_ArchivedToActive_ThrowsInvalidOperation()
     {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(PolicyLifecycleState.Suspended, PolicyLifecycleState.Revoked));
+        var store = new PolicyLifecycleStore();
+        var engine = CreateEngineWithDraftPolicy(store);
+        engine.ApprovePolicy("policy-1", "1");
+        engine.ActivatePolicy("policy-1", "1");
+        engine.DeprecatePolicy("policy-1", "1");
+        engine.ArchivePolicy("policy-1", "1");
 
-        Assert.True(result.TransitionAllowed);
-        Assert.Equal(PolicyLifecycleState.Suspended, result.PreviousState);
-        Assert.Equal(PolicyLifecycleState.Revoked, result.NewState);
+        Assert.Throws<InvalidOperationException>(() =>
+            engine.ActivatePolicy("policy-1", "1"));
     }
 
     [Fact]
-    public void RevokedToArchived_ValidTransition_ReturnsAllowed()
+    public void GetLifecycleState_ReturnsCurrentState()
     {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(PolicyLifecycleState.Revoked, PolicyLifecycleState.Archived));
+        var store = new PolicyLifecycleStore();
+        var engine = CreateEngineWithDraftPolicy(store);
+        engine.ApprovePolicy("policy-1", "1");
 
-        Assert.True(result.TransitionAllowed);
-        Assert.Equal(PolicyLifecycleState.Revoked, result.PreviousState);
-        Assert.Equal(PolicyLifecycleState.Archived, result.NewState);
+        var record = engine.GetLifecycleState("policy-1", "1");
+
+        Assert.Equal(PolicyLifecycleState.Approved, record.State);
     }
 
     [Fact]
-    public void ReviewToRejected_ValidTransition_ReturnsAllowed()
+    public void GetLifecycleState_NotFound_ThrowsKeyNotFound()
     {
         var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(PolicyLifecycleState.Review, PolicyLifecycleState.Rejected));
 
-        Assert.True(result.TransitionAllowed);
-        Assert.Equal(PolicyLifecycleState.Review, result.PreviousState);
-        Assert.Equal(PolicyLifecycleState.Rejected, result.NewState);
+        Assert.Throws<KeyNotFoundException>(() =>
+            engine.GetLifecycleState("nonexistent", "1"));
     }
 
     [Fact]
-    public void InvalidTransition_DraftToActive_ReturnsRejected()
+    public void GetLifecycleHistory_ReturnsAllTransitions()
     {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(PolicyLifecycleState.Draft, PolicyLifecycleState.Active));
+        var store = new PolicyLifecycleStore();
+        var engine = CreateEngineWithDraftPolicy(store);
+        engine.ApprovePolicy("policy-1", "1");
+        engine.ActivatePolicy("policy-1", "1");
 
-        Assert.False(result.TransitionAllowed);
-        Assert.Equal(PolicyLifecycleState.Draft, result.PreviousState);
-        Assert.Equal(PolicyLifecycleState.Draft, result.NewState);
-        Assert.Contains("not allowed", result.TransitionReason);
+        var history = engine.GetLifecycleHistory("policy-1", "1");
+
+        Assert.Equal(3, history.Count); // Draft + Approved + Active
     }
 
     [Fact]
-    public void ArchivedState_NoFurtherTransitions_ReturnsRejected()
+    public void FullLifecycle_DraftToArchived_TransitionsCorrectly()
     {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(PolicyLifecycleState.Archived, PolicyLifecycleState.Draft));
+        var store = new PolicyLifecycleStore();
+        var engine = CreateEngineWithDraftPolicy(store);
 
-        Assert.False(result.TransitionAllowed);
-        Assert.Equal(PolicyLifecycleState.Archived, result.PreviousState);
-        Assert.Equal(PolicyLifecycleState.Archived, result.NewState);
-    }
+        engine.ApprovePolicy("policy-1", "1");
+        engine.ActivatePolicy("policy-1", "1");
+        engine.DeprecatePolicy("policy-1", "1");
+        engine.ArchivePolicy("policy-1", "1");
 
-    [Fact]
-    public void RejectedState_NoFurtherTransitions_ReturnsRejected()
-    {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(PolicyLifecycleState.Rejected, PolicyLifecycleState.Active));
-
-        Assert.False(result.TransitionAllowed);
-        Assert.Equal(PolicyLifecycleState.Rejected, result.PreviousState);
-        Assert.Equal(PolicyLifecycleState.Rejected, result.NewState);
-    }
-
-    [Fact]
-    public void DeterministicTransitionValidation_SameInputSameOutput()
-    {
-        var engine = CreateEngine();
-        var command = MakeCommand(PolicyLifecycleState.Draft, PolicyLifecycleState.Review);
-
-        var result1 = engine.ProcessTransition(command);
-        var result2 = engine.ProcessTransition(command);
-
-        Assert.Equal(result1.TransitionAllowed, result2.TransitionAllowed);
-        Assert.Equal(result1.PreviousState, result2.PreviousState);
-        Assert.Equal(result1.NewState, result2.NewState);
-        Assert.Equal(result1.PolicyId, result2.PolicyId);
-    }
-
-    [Fact]
-    public void ConcurrentSafety_ProducesConsistentResults()
-    {
-        var engine = CreateEngine();
-        var command = MakeCommand(PolicyLifecycleState.Active, PolicyLifecycleState.Suspended);
-
-        var tasks = Enumerable.Range(0, 10)
-            .Select(_ => Task.Run(() => engine.ProcessTransition(command)))
-            .ToArray();
-
-        Task.WaitAll(tasks);
-
-        foreach (var task in tasks)
-        {
-            Assert.True(task.Result.TransitionAllowed);
-            Assert.Equal(PolicyLifecycleState.Suspended, task.Result.NewState);
-        }
+        var final = engine.GetLifecycleState("policy-1", "1");
+        Assert.Equal(PolicyLifecycleState.Archived, final.State);
     }
 
     [Fact]
     public void PolicyId_PreservedInResult()
     {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(
-            PolicyLifecycleState.Draft, PolicyLifecycleState.Review, policyId: "custom-policy-id"));
+        var store = new PolicyLifecycleStore();
+        var engine = CreateEngineWithDraftPolicy(store, "custom-policy-id", "1");
+
+        var result = engine.ApprovePolicy("custom-policy-id", "1");
 
         Assert.Equal("custom-policy-id", result.PolicyId);
     }
 
     [Fact]
-    public void TransitionReason_IncludesRequestedByAndReason()
+    public void ConcurrentAccess_ProducesConsistentResults()
     {
-        var engine = CreateEngine();
-        var result = engine.ProcessTransition(MakeCommand(
-            PolicyLifecycleState.Draft, PolicyLifecycleState.Review,
-            requestedBy: "governance-admin", reason: "initial review submission"));
+        var tasks = Enumerable.Range(0, 10).Select(i =>
+        {
+            return Task.Run(() =>
+            {
+                var policyId = $"policy-{i}";
+                var store = new PolicyLifecycleStore();
+                var record = new PolicyLifecycleRecord(policyId, "1", PolicyLifecycleState.Draft, DateTime.UtcNow);
+                store.SetLifecycleState(record);
+                var engine = new PolicyLifecycleManager(store);
 
-        Assert.True(result.TransitionAllowed);
-        Assert.Contains("governance-admin", result.TransitionReason);
-        Assert.Contains("initial review submission", result.TransitionReason);
+                engine.ApprovePolicy(policyId, "1");
+                engine.ActivatePolicy(policyId, "1");
+
+                var state = engine.GetLifecycleState(policyId, "1");
+                return state.State;
+            });
+        }).ToArray();
+
+        Task.WaitAll(tasks);
+
+        foreach (var task in tasks)
+        {
+            Assert.Equal(PolicyLifecycleState.Active, task.Result);
+        }
     }
 }

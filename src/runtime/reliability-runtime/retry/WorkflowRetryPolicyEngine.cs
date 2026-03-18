@@ -1,7 +1,7 @@
 namespace Whycespace.Runtime.Reliability.Retry;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Engines.T1M.WSS.Workflows;
+using Whycespace.Engines.T1M.Shared;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
 using Whycespace.WorkflowRuntime;

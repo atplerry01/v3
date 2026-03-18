@@ -1,4 +1,6 @@
-using Whycespace.Engines.T3I.Reporting.Chain;
+using Whycespace.Engines.T3I.Reporting.Chain.Engines;
+using Whycespace.Engines.T3I.Reporting.Chain.Models;
+using Whycespace.Engines.T3I.Shared;
 using Whycespace.Systems.Upstream.WhyceChain.Models;
 
 namespace Whycespace.WhyceChainReplication.Tests;
@@ -43,7 +45,7 @@ public class ChainReplicationEngineTests
         var command = new ChainReplicationCommand(
             blocks, entries, TargetHeight: 2, "trace-1", "corr-1", DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainReplicationCommand>.Create(command)).Output!;
 
         Assert.Equal(3, result.ReplicationBlocks.Count);
         Assert.Equal(0, result.ReplicationBlocks[0].BlockNumber);
@@ -60,7 +62,7 @@ public class ChainReplicationEngineTests
         var command = new ChainReplicationCommand(
             blocks, entries, TargetHeight: 1, "trace-1", "corr-1", DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainReplicationCommand>.Create(command)).Output!;
 
         Assert.Equal(4, result.ReplicationEntries.Count);
         Assert.Equal(4, result.ReplicationEntryCount);
@@ -80,8 +82,8 @@ public class ChainReplicationEngineTests
         var command = new ChainReplicationCommand(
             blocks, entries, TargetHeight: 2, "trace-1", "corr-1", timestamp);
 
-        var result1 = _engine.Execute(command);
-        var result2 = _engine.Execute(command);
+        var result1 = _engine.Execute(IntelligenceContext<ChainReplicationCommand>.Create(command)).Output!;
+        var result2 = _engine.Execute(IntelligenceContext<ChainReplicationCommand>.Create(command)).Output!;
 
         Assert.Equal(result1.ReplicationHash, result2.ReplicationHash);
         Assert.NotEmpty(result1.ReplicationHash);
@@ -95,7 +97,7 @@ public class ChainReplicationEngineTests
         var command = new ChainReplicationCommand(
             blocks, entries, TargetHeight: 10, "trace-1", "corr-1", DateTime.UtcNow);
 
-        Assert.Throws<ArgumentException>(() => _engine.Execute(command));
+        Assert.Throws<ArgumentException>(() => _engine.Execute(IntelligenceContext<ChainReplicationCommand>.Create(command)));
     }
 
     [Fact]
@@ -106,7 +108,7 @@ public class ChainReplicationEngineTests
         var command = new ChainReplicationCommand(
             blocks, entries, TargetHeight: -1, "trace-1", "corr-1", DateTime.UtcNow);
 
-        Assert.Throws<ArgumentException>(() => _engine.Execute(command));
+        Assert.Throws<ArgumentException>(() => _engine.Execute(IntelligenceContext<ChainReplicationCommand>.Create(command)));
     }
 
     [Fact]
@@ -117,7 +119,7 @@ public class ChainReplicationEngineTests
         var command = new ChainReplicationCommand(
             blocks, entries, TargetHeight: 1, "trace-42", "corr-1", DateTime.UtcNow);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainReplicationCommand>.Create(command)).Output!;
 
         Assert.Equal("trace-42", result.TraceId);
     }
@@ -131,7 +133,7 @@ public class ChainReplicationEngineTests
         var command = new ChainReplicationCommand(
             blocks, entries, TargetHeight: 1, "trace-1", "corr-1", timestamp);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainReplicationCommand>.Create(command)).Output!;
 
         Assert.Equal(timestamp, result.GeneratedAt);
     }
@@ -142,10 +144,10 @@ public class ChainReplicationEngineTests
         var blocks = CreateBlocks(5);
         var entries = CreateEntries(blocks);
 
-        var result1 = _engine.Execute(new ChainReplicationCommand(
-            blocks, entries, TargetHeight: 2, "trace-1", "corr-1", DateTime.UtcNow));
-        var result2 = _engine.Execute(new ChainReplicationCommand(
-            blocks, entries, TargetHeight: 4, "trace-1", "corr-1", DateTime.UtcNow));
+        var result1 = _engine.Execute(IntelligenceContext<ChainReplicationCommand>.Create(new ChainReplicationCommand(
+            blocks, entries, TargetHeight: 2, "trace-1", "corr-1", DateTime.UtcNow))).Output!;
+        var result2 = _engine.Execute(IntelligenceContext<ChainReplicationCommand>.Create(new ChainReplicationCommand(
+            blocks, entries, TargetHeight: 4, "trace-1", "corr-1", DateTime.UtcNow))).Output!;
 
         Assert.NotEqual(result1.ReplicationHash, result2.ReplicationHash);
     }

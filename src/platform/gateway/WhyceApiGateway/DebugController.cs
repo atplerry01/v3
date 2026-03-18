@@ -45,17 +45,59 @@ using Whycespace.EventObservability.Metrics.Engine;
 using Whycespace.Reliability.Isolation.Monitor;
 using Whycespace.Reliability.Isolation.Registry;
 using Whycespace.Reliability.Isolation.Engine;
-using Whycespace.Engines.T0U.WhyceGovernance.Engines;
-using Whycespace.Engines.T0U.WhyceGovernance.Commands;
-using Whycespace.Engines.T0U.WhyceGovernance.Results;
-using Whycespace.Engines.T0U.WhyceChain;
+using Whycespace.Engines.T0U.Governance.Proposal.Validation;
+using Whycespace.Engines.T0U.Governance.Proposal.Lifecycle;
+using Whycespace.Engines.T0U.Governance.Voting.Casting;
+using Whycespace.Engines.T0U.Governance.Quorum.Evaluation;
+using Whycespace.Engines.T0U.Governance.Delegation.Assignment;
+using Whycespace.Engines.T0U.Governance.Dispute.Raising;
+using Whycespace.Engines.T0U.Governance.Emergency.Trigger;
+using Whycespace.Engines.T0U.Governance.Roles.Assignment;
+using Whycespace.Engines.T0U.Governance.Domain.Registration;
+using Whycespace.Engines.T0U.Governance.ProposalType.Validation;
+using Whycespace.Engines.T0U.Governance.Evidence.Recording;
+using Whycespace.Engines.T0U.Governance.Evidence.Audit;
+using Whycespace.Engines.T0U.Governance.Workflow.Execution;
+using Whycespace.Engines.T0U.Governance.Decisions.Evaluation;
+using Whycespace.Engines.T0U.Governance.Guardians.Registry;
+using Whycespace.Engines.T0U.Governance.Proposal.Creation;
+using Whycespace.Engines.T0U.Governance.Proposal.Submission;
+using Whycespace.Engines.T0U.Governance.Proposal.Cancellation;
+using Whycespace.Engines.T0U.Governance.Voting.Validation;
+using Whycespace.Engines.T0U.Governance.Voting.Withdrawal;
+using Whycespace.Engines.T0U.Governance.Delegation.Revocation;
+using Whycespace.Engines.T0U.Governance.Dispute.Resolution;
+using Whycespace.Engines.T0U.Governance.Dispute.Withdrawal;
+using Whycespace.Engines.T0U.Governance.Emergency.Validation;
+using Whycespace.Engines.T0U.Governance.Emergency.Revocation;
+using Whycespace.Engines.T0U.Governance.Roles.Revocation;
+using Whycespace.Engines.T0U.Governance.Domain.Validation;
+using Whycespace.Engines.T0U.Governance.Domain.Deactivation;
+using Whycespace.Engines.T0U.Governance.ProposalType.Registration;
+using Whycespace.Engines.T0U.Governance.ProposalType.Deactivation;
+using Whycespace.Engines.T0U.WhyceChain.Block.Builder;
+using Whycespace.Engines.T0U.WhyceChain.Block.Anchor;
+using Whycespace.Engines.T0U.WhyceChain.Ledger.Event;
+using Whycespace.Engines.T0U.WhyceChain.Ledger.Immutable;
+using Whycespace.Engines.T0U.WhyceChain.Ledger.Indexing;
+using Whycespace.Engines.T0U.WhyceChain.Verification.Integrity;
+using Whycespace.Engines.T0U.WhyceChain.Verification.Merkle;
+using Whycespace.Engines.T0U.WhyceChain.Verification.Audit;
+using Whycespace.Engines.T0U.WhyceChain.Replication.Replication;
+using Whycespace.Engines.T0U.WhyceChain.Replication.Snapshot;
+using Whycespace.Engines.T0U.WhyceChain.Append.Execution;
+using Whycespace.Engines.T0U.WhyceChain.Evidence.Hashing;
+using Whycespace.Engines.T0U.WhyceChain.Evidence.Anchoring;
+using Whycespace.Engines.T0U.WhyceChain.Evidence.Gateway;
 using Whycespace.Systems.Upstream.Governance.Evidence.Models;
 using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 using Whycespace.Contracts.Evidence;
 using Whycespace.Engines.T2E.Economic.Capital.Adapters;
-using Whycespace.Engines.T2E.Economic.Capital.Models;
+using Whycespace.Engines.T2E.Economic.Capital.Shared.Models;
 using Whycespace.Systems.Midstream.Economics.CapitalLedger;
-using Whycespace.Engines.T3I.Forecasting.Economic;
+using Whycespace.Engines.T3I.Forecasting.Economic.Engines;
+using Whycespace.Engines.T3I.Forecasting.Economic.Models;
+using Whycespace.Engines.T3I.Shared;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
 [ApiController]
@@ -2181,7 +2223,7 @@ public sealed class DebugController : ControllerBase
     [HttpPost("governance/quorum/evaluate")]
     public IActionResult EvaluateQuorum([FromBody] DebugEvaluateQuorumDto dto)
     {
-        var command = new Engines.T0U.WhyceGovernance.Commands.EvaluateQuorumCommand(
+        var command = new Engines.T0U.Governance.Quorum.Evaluation.EvaluateQuorumCommand(
             CommandId: Guid.NewGuid(),
             ProposalId: dto.ProposalId,
             TotalEligibleGuardians: dto.TotalEligibleGuardians,
@@ -2193,7 +2235,7 @@ public sealed class DebugController : ControllerBase
             RequiredApprovalPercentage: dto.RequiredApprovalPercentage,
             Timestamp: DateTime.UtcNow);
 
-        var quorumEngine = new Engines.T0U.WhyceGovernance.Engines.QuorumEngine();
+        var quorumEngine = new Engines.T0U.Governance.Quorum.Evaluation.QuorumEngine();
 
         var (result, evaluatedEvent, outcomeEvent) = quorumEngine.Execute(command);
 
@@ -3462,8 +3504,13 @@ public sealed class DebugController : ControllerBase
             TriggeredBy: dto.TriggeredBy,
             TriggeredAt: DateTimeOffset.UtcNow);
 
-        var result = _capitalLifecycleEngine.TrackLifecycle(command);
+        var context = IntelligenceContext<TrackCapitalLifecycleCommand>.Create(command);
+        var engineResult = _capitalLifecycleEngine.Execute(context);
 
+        if (!engineResult.Success)
+            return BadRequest(new { error = engineResult.Error });
+
+        var result = engineResult.Output!;
         if (!result.Success)
             return BadRequest(new { error = result.Error });
 

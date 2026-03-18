@@ -1,15 +1,15 @@
 namespace Whycespace.WSS.Workflows.Tests;
 
-using Whycespace.Engines.T1M.WSS.Workflows;
-using Whycespace.Systems.Midstream.WSS.Stores;
+using Whycespace.Engines.T1M.Shared;
+using Whycespace.Runtime.Persistence.Workflow;
 
 public class WorkflowStateStoreTests
 {
-    private readonly WorkflowStateStore _store;
+    private readonly Whycespace.Runtime.Persistence.Workflow.WorkflowStateStore _store;
 
     public WorkflowStateStoreTests()
     {
-        _store = new WorkflowStateStore();
+        _store = new Whycespace.Runtime.Persistence.Workflow.WorkflowStateStore();
     }
 
     private WorkflowStateRecord CreateRecord(

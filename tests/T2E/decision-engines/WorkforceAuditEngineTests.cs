@@ -1,6 +1,7 @@
 namespace Whycespace.DecisionEngines.Tests;
 
-using Whycespace.Engines.T3I.Reporting.Workforce;
+using Whycespace.Engines.T3I.Reporting.Workforce.Engines;
+using Whycespace.Engines.T3I.Reporting.Workforce.Models;
 using Whycespace.Domain.Core.Workforce;
 using Whycespace.Contracts.Engines;
 

@@ -1,6 +1,6 @@
 namespace Whycespace.WorkflowRuntime;
 
-using Whycespace.Engines.T1M.WSS.Workflows;
+using Whycespace.Engines.T1M.Shared;
 
 public sealed record WorkflowRetryPolicyCommand(
     string WorkflowInstanceId,

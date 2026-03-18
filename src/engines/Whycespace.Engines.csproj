@@ -25,10 +25,22 @@
     <Content Remove="T3I\monitoring\**" />
     <None Remove="T3I\monitoring\**" />
     <EmbeddedResource Remove="T3I\monitoring\**" />
+    <Compile Remove="T3I\shared\**" />
+    <Content Remove="T3I\shared\**" />
+    <None Remove="T3I\shared\**" />
+    <EmbeddedResource Remove="T3I\shared\**" />
+    <Compile Remove="T3I\projections\**" />
+    <Content Remove="T3I\projections\**" />
+    <None Remove="T3I\projections\**" />
+    <EmbeddedResource Remove="T3I\projections\**" />
     <Compile Remove="T4A\WhycePolicy\**" />
     <Content Remove="T4A\WhycePolicy\**" />
     <None Remove="T4A\WhycePolicy\**" />
     <EmbeddedResource Remove="T4A\WhycePolicy\**" />
+    <Compile Remove="T4A\access\**" />
+    <Content Remove="T4A\access\**" />
+    <None Remove="T4A\access\**" />
+    <EmbeddedResource Remove="T4A\access\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,8 +49,8 @@
     <ProjectReference Include="..\domain\core\economic\Whycespace.EconomicDomain.csproj" />
     <ProjectReference Include="..\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />
     <ProjectReference Include="..\systems\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />
-    <ProjectReference Include="T0U\WhyceID\Whycespace.Engines.T0U.WhyceID.csproj" />
-    <ProjectReference Include="T0U\WhyceChain\Whycespace.Engines.T0U.WhyceChain.csproj" />
+    <ProjectReference Include="T0U\whyceid\Whycespace.Engines.T0U.WhyceID.csproj" />
+    <ProjectReference Include="T0U\whycechain\Whycespace.Engines.T0U.WhyceChain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -1,203 +1,191 @@
-using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Engines.T0U.WhycePolicy.Governance.Dependency;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;
+using Whycespace.Systems.Upstream.WhycePolicy.Stores;
 
 namespace Whycespace.WhycePolicy.Tests;
 
 public class PolicyDependencyEngineTests
 {
-    private static PolicyDefinition MakePolicy(string id) =>
-        new(id, $"Policy {id}", 1, "platform", Array.Empty<PolicyCondition>(), Array.Empty<PolicyAction>(), DateTime.UtcNow);
-
-    [Fact]
-    public void ResolvePolicyExecutionOrder_SimpleChain_ReturnsDependenciesFirst()
+    private static PolicyDependencyEngine CreateEngine(PolicyDependencyStore? store = null)
     {
-        // A depends on B, B depends on C => order: C, B, A
-        var engine = new PolicyDependencyEngine();
-        var input = new PolicyDependencyInput(
-            new[] { MakePolicy("a"), MakePolicy("b"), MakePolicy("c") },
-            new Dictionary<string, List<string>>
-            {
-                ["a"] = new() { "b" },
-                ["b"] = new() { "c" }
-            });
-
-        var result = engine.ResolvePolicyExecutionOrder(input);
-
-        Assert.Equal(3, result.OrderedPolicies.Count);
-        var ids = result.OrderedPolicies.Select(p => p.PolicyId).ToList();
-        Assert.Equal("c", ids[0]);
-        Assert.Equal("b", ids[1]);
-        Assert.Equal("a", ids[2]);
-        Assert.Empty(result.DetectedCycles);
-        Assert.Empty(result.MissingDependencies);
+        return new PolicyDependencyEngine(store ?? new PolicyDependencyStore());
     }
 
     [Fact]
-    public void ResolvePolicyExecutionOrder_MultipleDependencyGraph_ResolvesCorrectly()
+    public void RegisterDependency_SimpleChain_RegistersSuccessfully()
+    {
+        var store = new PolicyDependencyStore();
+        var engine = CreateEngine(store);
+
+        var dep = engine.RegisterDependency("a", "b");
+
+        Assert.Equal("a", dep.PolicyId);
+        Assert.Equal("b", dep.DependsOnPolicyId);
+    }
+
+    [Fact]
+    public void ResolveDependencyGraph_SimpleChain_ReturnsDependenciesFirst()
+    {
+        // A depends on B, B depends on C => resolve("a") should return: C, B, A
+        var store = new PolicyDependencyStore();
+        var engine = CreateEngine(store);
+        engine.RegisterDependency("a", "b");
+        engine.RegisterDependency("b", "c");
+
+        var result = engine.ResolveDependencyGraph("a");
+
+        Assert.Equal(3, result.Count);
+        Assert.Equal("c", result[0]);
+        Assert.Equal("b", result[1]);
+        Assert.Equal("a", result[2]);
+    }
+
+    [Fact]
+    public void ResolveDependencyGraph_DiamondDependency_ResolvesCorrectly()
     {
         // A -> B, A -> C, B -> D, C -> D (diamond)
-        var engine = new PolicyDependencyEngine();
-        var input = new PolicyDependencyInput(
-            new[] { MakePolicy("a"), MakePolicy("b"), MakePolicy("c"), MakePolicy("d") },
-            new Dictionary<string, List<string>>
-            {
-                ["a"] = new() { "b", "c" },
-                ["b"] = new() { "d" },
-                ["c"] = new() { "d" }
-            });
+        var store = new PolicyDependencyStore();
+        var engine = CreateEngine(store);
+        engine.RegisterDependency("a", "b");
+        engine.RegisterDependency("a", "c");
+        engine.RegisterDependency("b", "d");
+        engine.RegisterDependency("c", "d");
 
-        var result = engine.ResolvePolicyExecutionOrder(input);
+        var result = engine.ResolveDependencyGraph("a").ToList();
 
-        Assert.Equal(4, result.OrderedPolicies.Count);
-        var ids = result.OrderedPolicies.Select(p => p.PolicyId).ToList();
-        Assert.True(ids.IndexOf("d") < ids.IndexOf("b"));
-        Assert.True(ids.IndexOf("d") < ids.IndexOf("c"));
-        Assert.True(ids.IndexOf("b") < ids.IndexOf("a"));
-        Assert.True(ids.IndexOf("c") < ids.IndexOf("a"));
-        Assert.Empty(result.DetectedCycles);
+        Assert.Equal(4, result.Count);
+        Assert.True(result.IndexOf("d") < result.IndexOf("b"));
+        Assert.True(result.IndexOf("d") < result.IndexOf("c"));
+        Assert.True(result.IndexOf("b") < result.IndexOf("a"));
+        Assert.True(result.IndexOf("c") < result.IndexOf("a"));
     }
 
     [Fact]
-    public void ResolvePolicyExecutionOrder_MissingDependency_ReportsMissing()
+    public void GetDependencies_ReturnsDirectDependencies()
     {
-        var engine = new PolicyDependencyEngine();
-        var input = new PolicyDependencyInput(
-            new[] { MakePolicy("a"), MakePolicy("b") },
-            new Dictionary<string, List<string>>
-            {
-                ["a"] = new() { "b", "nonexistent" }
-            });
+        var store = new PolicyDependencyStore();
+        var engine = CreateEngine(store);
+        engine.RegisterDependency("a", "b");
+        engine.RegisterDependency("a", "c");
 
-        var result = engine.ResolvePolicyExecutionOrder(input);
+        var deps = engine.GetDependencies("a");
 
-        Assert.Contains("nonexistent", result.MissingDependencies);
+        Assert.Equal(2, deps.Count);
+        Assert.Contains(deps, d => d.DependsOnPolicyId == "b");
+        Assert.Contains(deps, d => d.DependsOnPolicyId == "c");
     }
 
     [Fact]
-    public void ResolvePolicyExecutionOrder_CircularDependency_DetectsCycle()
+    public void HasCircularDependency_DetectsCycle()
     {
-        var engine = new PolicyDependencyEngine();
-        var input = new PolicyDependencyInput(
-            new[] { MakePolicy("a"), MakePolicy("b"), MakePolicy("c") },
-            new Dictionary<string, List<string>>
-            {
-                ["a"] = new() { "b" },
-                ["b"] = new() { "c" },
-                ["c"] = new() { "a" }
-            });
+        var store = new PolicyDependencyStore();
+        var engine = CreateEngine(store);
+        engine.RegisterDependency("a", "b");
+        engine.RegisterDependency("b", "c");
 
-        var result = engine.ResolvePolicyExecutionOrder(input);
-
-        Assert.NotEmpty(result.DetectedCycles);
-        Assert.Empty(result.OrderedPolicies);
+        // Adding c -> a would create a cycle
+        Assert.True(engine.HasCircularDependency("c", "a"));
     }
 
     [Fact]
-    public void ResolvePolicyExecutionOrder_DeterministicOrdering_SameInputSameOutput()
+    public void RegisterDependency_CircularDependency_ThrowsInvalidOperation()
     {
-        var engine = new PolicyDependencyEngine();
-        var policies = new[] { MakePolicy("z"), MakePolicy("m"), MakePolicy("a") };
-        var deps = new Dictionary<string, List<string>>
+        var store = new PolicyDependencyStore();
+        var engine = CreateEngine(store);
+        engine.RegisterDependency("a", "b");
+        engine.RegisterDependency("b", "c");
+
+        Assert.Throws<InvalidOperationException>(() =>
+            engine.RegisterDependency("c", "a"));
+    }
+
+    [Fact]
+    public void RegisterDependency_SelfDependency_ThrowsInvalidOperation()
+    {
+        var engine = CreateEngine();
+
+        Assert.Throws<InvalidOperationException>(() =>
+            engine.RegisterDependency("a", "a"));
+    }
+
+    [Fact]
+    public void RegisterDependency_DuplicateDependency_ThrowsInvalidOperation()
+    {
+        var store = new PolicyDependencyStore();
+        var engine = CreateEngine(store);
+        engine.RegisterDependency("a", "b");
+
+        Assert.Throws<InvalidOperationException>(() =>
+            engine.RegisterDependency("a", "b"));
+    }
+
+    [Fact]
+    public void ResolveDependencyGraph_NoDependencies_ReturnsSinglePolicy()
+    {
+        var engine = CreateEngine();
+
+        var result = engine.ResolveDependencyGraph("standalone");
+
+        Assert.Single(result);
+        Assert.Equal("standalone", result[0]);
+    }
+
+    [Fact]
+    public void ResolveDependencyGraph_LargeChain_ResolvesCorrectly()
+    {
+        var store = new PolicyDependencyStore();
+        var engine = CreateEngine(store);
+
+        // Create a chain of 100 policies: p-001 -> p-000, p-002 -> p-001, ..., p-099 -> p-098
+        for (var i = 1; i < 100; i++)
         {
-            ["z"] = new() { "a" },
-            ["m"] = new() { "a" }
-        };
-        var input = new PolicyDependencyInput(policies, deps);
-
-        var result1 = engine.ResolvePolicyExecutionOrder(input);
-        var result2 = engine.ResolvePolicyExecutionOrder(input);
-
-        var ids1 = result1.OrderedPolicies.Select(p => p.PolicyId).ToList();
-        var ids2 = result2.OrderedPolicies.Select(p => p.PolicyId).ToList();
-        Assert.Equal(ids1, ids2);
-    }
-
-    [Fact]
-    public void ResolvePolicyExecutionOrder_LargeDependencyGraph_ResolvesCorrectly()
-    {
-        var engine = new PolicyDependencyEngine();
-        var policies = new List<PolicyDefinition>();
-        var deps = new Dictionary<string, List<string>>();
-
-        // Create a chain of 100 policies: p-000 -> p-001 -> ... -> p-099
-        for (var i = 0; i < 100; i++)
-        {
-            var id = $"p-{i:D3}";
-            policies.Add(MakePolicy(id));
-            if (i > 0)
-            {
-                deps[id] = new List<string> { $"p-{i - 1:D3}" };
-            }
+            engine.RegisterDependency($"p-{i:D3}", $"p-{i - 1:D3}");
         }
 
-        var input = new PolicyDependencyInput(policies, deps);
-        var result = engine.ResolvePolicyExecutionOrder(input);
+        var result = engine.ResolveDependencyGraph("p-099");
 
-        Assert.Equal(100, result.OrderedPolicies.Count);
-        Assert.Empty(result.DetectedCycles);
-        // p-000 (no deps) should be first, p-099 (depends on all others) should be last
-        Assert.Equal("p-000", result.OrderedPolicies[0].PolicyId);
-        Assert.Equal("p-099", result.OrderedPolicies[99].PolicyId);
+        Assert.Equal(100, result.Count);
+        // p-000 (no deps) should be first, p-099 should be last
+        Assert.Equal("p-000", result[0]);
+        Assert.Equal("p-099", result[99]);
     }
 
     [Fact]
-    public void ResolvePolicyExecutionOrder_ConcurrentExecutionSafety_ProducesSameResults()
+    public void ResolveDependencyGraph_ConcurrentSafety_ProducesSameResults()
     {
-        var engine = new PolicyDependencyEngine();
-        var policies = new[] { MakePolicy("x"), MakePolicy("y"), MakePolicy("z") };
-        var deps = new Dictionary<string, List<string>>
-        {
-            ["x"] = new() { "y" },
-            ["y"] = new() { "z" }
-        };
-        var input = new PolicyDependencyInput(policies, deps);
+        var store = new PolicyDependencyStore();
+        var engine = CreateEngine(store);
+        engine.RegisterDependency("x", "y");
+        engine.RegisterDependency("y", "z");
 
         var tasks = Enumerable.Range(0, 10)
-            .Select(_ => Task.Run(() => engine.ResolvePolicyExecutionOrder(input)))
+            .Select(_ => Task.Run(() => engine.ResolveDependencyGraph("x")))
             .ToArray();
 
         Task.WaitAll(tasks);
 
-        var expected = tasks[0].Result.OrderedPolicies.Select(p => p.PolicyId).ToList();
+        var expected = tasks[0].Result;
         foreach (var task in tasks)
         {
-            var actual = task.Result.OrderedPolicies.Select(p => p.PolicyId).ToList();
-            Assert.Equal(expected, actual);
-            Assert.Empty(task.Result.DetectedCycles);
+            Assert.Equal(expected, task.Result);
         }
     }
 
     [Fact]
-    public void ResolvePolicyExecutionOrder_NoDependencies_ReturnsAllInDeterministicOrder()
+    public void RegisterDependency_EmptyPolicyId_ThrowsArgumentException()
     {
-        var engine = new PolicyDependencyEngine();
-        var input = new PolicyDependencyInput(
-            new[] { MakePolicy("c"), MakePolicy("a"), MakePolicy("b") },
-            new Dictionary<string, List<string>>());
+        var engine = CreateEngine();
 
-        var result = engine.ResolvePolicyExecutionOrder(input);
-
-        Assert.Equal(3, result.OrderedPolicies.Count);
-        Assert.Empty(result.DetectedCycles);
-        Assert.Empty(result.MissingDependencies);
-        // Deterministic: sorted by policy ID
-        Assert.Equal("a", result.OrderedPolicies[0].PolicyId);
-        Assert.Equal("b", result.OrderedPolicies[1].PolicyId);
-        Assert.Equal("c", result.OrderedPolicies[2].PolicyId);
+        Assert.Throws<ArgumentException>(() =>
+            engine.RegisterDependency("", "b"));
     }
 
     [Fact]
-    public void ResolvePolicyExecutionOrder_EmptyInput_ReturnsEmptyResult()
+    public void RegisterDependency_EmptyDependsOnId_ThrowsArgumentException()
     {
-        var engine = new PolicyDependencyEngine();
-        var input = new PolicyDependencyInput(
-            Array.Empty<PolicyDefinition>(),
-            new Dictionary<string, List<string>>());
+        var engine = CreateEngine();
 
-        var result = engine.ResolvePolicyExecutionOrder(input);
-
-        Assert.Empty(result.OrderedPolicies);
-        Assert.Empty(result.DetectedCycles);
-        Assert.Empty(result.MissingDependencies);
+        Assert.Throws<ArgumentException>(() =>
+            engine.RegisterDependency("a", ""));
     }
 }

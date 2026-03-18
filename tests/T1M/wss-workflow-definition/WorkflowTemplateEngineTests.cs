@@ -1,20 +1,22 @@
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Definition;
 using Whycespace.Engines.T1M.WSS.Graph;
+using Whycespace.Engines.T1M.Shared;
+using Whycespace.Runtime.Persistence.Workflow;
 using Whycespace.Systems.Midstream.WSS.Models;
-using Whycespace.Engines.T1M.WSS.Stores;
+using WorkflowTemplate = Whycespace.Systems.Midstream.WSS.Models.WorkflowTemplate;
 using WssWorkflowGraph = Whycespace.Systems.Midstream.WSS.Models.WorkflowGraph;
 
 namespace Whycespace.WSS.WorkflowDefinition.Tests;
 
 public class WorkflowTemplateEngineTests
 {
-    private readonly WorkflowTemplateStore _templateStore;
+    private readonly TemplateStoreAdapter _templateStore;
     private readonly WorkflowTemplateEngine _engine;
 
     public WorkflowTemplateEngineTests()
     {
-        _templateStore = new WorkflowTemplateStore();
+        _templateStore = new TemplateStoreAdapter();
         var graphEngine = new WorkflowGraphEngine();
         _engine = new WorkflowTemplateEngine(_templateStore, graphEngine);
     }

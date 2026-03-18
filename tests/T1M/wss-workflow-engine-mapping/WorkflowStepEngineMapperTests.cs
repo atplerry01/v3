@@ -1,16 +1,17 @@
-using Whycespace.Engines.T1M.WSS.Mapping;
-using Whycespace.Engines.T1M.WSS.Stores;
+using Whycespace.Engines.T1M.WSS.Step;
+using Whycespace.Engines.T1M.Shared;
+using Whycespace.Runtime.Persistence.Workflow;
 
 namespace Whycespace.WSS.WorkflowEngineMapping.Tests;
 
 public class WorkflowStepEngineMapperTests
 {
-    private readonly WorkflowEngineMappingStore _store;
+    private readonly MappingStoreAdapter _store;
     private readonly WorkflowStepEngineMapper _mapper;
 
     public WorkflowStepEngineMapperTests()
     {
-        _store = new WorkflowEngineMappingStore();
+        _store = new MappingStoreAdapter();
         _mapper = new WorkflowStepEngineMapper(_store);
     }
 

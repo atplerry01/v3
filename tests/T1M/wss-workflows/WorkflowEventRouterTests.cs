@@ -1,6 +1,6 @@
-using Whycespace.Engines.T1M.WSS.Workflows;
-using Whycespace.Systems.Midstream.WSS.Instances;
-using Whycespace.Systems.Midstream.WSS.Stores;
+using Whycespace.Engines.T1M.Shared;
+using Whycespace.Engines.T1M.WSS.Registry;
+using Whycespace.Runtime.Persistence.Workflow;
 using Whycespace.WorkflowRuntime;
 using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Models.WorkflowInstanceStatus;
 
@@ -8,17 +8,17 @@ namespace Whycespace.WSS.Workflows.Tests;
 
 public class WorkflowEventRouterTests
 {
-    private readonly WorkflowInstanceStore _instanceStore;
-    private readonly WorkflowInstanceRegistry _instanceRegistry;
-    private readonly WorkflowStateStore _stateStore;
-    private readonly WorkflowEventRouter _router;
+    private readonly WorkflowInstanceRegistryStore _instanceStore;
+    private readonly Whycespace.Engines.T1M.WSS.Registry.WorkflowInstanceRegistry _instanceRegistry;
+    private readonly Whycespace.Runtime.Persistence.Workflow.WorkflowStateStore _stateStore;
+    private readonly Whycespace.WorkflowRuntime.WorkflowEventRouter _router;
 
     public WorkflowEventRouterTests()
     {
-        _instanceStore = new WorkflowInstanceStore();
-        _instanceRegistry = new WorkflowInstanceRegistry(_instanceStore);
-        _stateStore = new WorkflowStateStore();
-        _router = new WorkflowEventRouter(_instanceRegistry, _stateStore);
+        _instanceStore = new WorkflowInstanceRegistryStore();
+        _instanceRegistry = new Whycespace.Engines.T1M.WSS.Registry.WorkflowInstanceRegistry(_instanceStore);
+        _stateStore = new Whycespace.Runtime.Persistence.Workflow.WorkflowStateStore();
+        _router = new Whycespace.WorkflowRuntime.WorkflowEventRouter(_instanceRegistry, _stateStore);
     }
 
     private (string instanceId, string correlationId) SetupRunningInstance(

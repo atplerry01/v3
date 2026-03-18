@@ -1,6 +1,6 @@
 namespace Whycespace.Tests.Engines;
 
-using Whycespace.Engines.T0U.WhycePolicy.Validation;
+using Whycespace.Engines.T0U.WhycePolicy.Validation.Engines;
 using Whycespace.Contracts.Engines;
 using Xunit;
 

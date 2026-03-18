@@ -1,6 +1,6 @@
 namespace Whycespace.CapitalSystem.Tests;
 
-using Whycespace.Systems.Midstream.Capital.Stores;
+using Whycespace.Systems.Midstream.Economics.CapitalLedger;
 
 public sealed class CapitalLedgerStoreTests
 {

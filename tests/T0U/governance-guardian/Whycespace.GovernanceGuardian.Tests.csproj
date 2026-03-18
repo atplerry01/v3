@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\..\src\systems\Whycespace.System.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 namespace Whycespace.Tests.Engines;
 
-using Whycespace.Engines.T2E.Economic.Vault.Engines;
+using Whycespace.Engines.T2E.Economic.Vault.Creation.Engines;
 using Whycespace.Contracts.Engines;
 using Xunit;
 

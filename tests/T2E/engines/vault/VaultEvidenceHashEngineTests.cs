@@ -1,6 +1,7 @@
 namespace Whycespace.Tests.Engines.Vault;
 
-using Whycespace.Engines.T3I.Reporting.Economic;
+using Whycespace.Engines.T3I.Reporting.Economic.Engines;
+using Whycespace.Engines.T3I.Reporting.Economic.Models;
 using Xunit;
 
 public sealed class VaultEvidenceHashEngineTests

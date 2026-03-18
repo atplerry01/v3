@@ -1,6 +1,6 @@
 namespace Whycespace.ExecutionEngines.Tests;
 
-using Whycespace.Engines.T2E.Economic.Vault.Engines;
+using Whycespace.Engines.T2E.Economic.Vault.Risk.Engines;
 using Whycespace.Contracts.Engines;
 
 public sealed class VaultRiskControlEngineTests

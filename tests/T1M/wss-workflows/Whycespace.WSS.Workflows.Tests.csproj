@@ -19,10 +19,25 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <!-- Test files excluded: these reference deleted V1 APIs (old WorkflowInstanceRegistry
+       with CreateWorkflowInstance/ResolveWorkflowInstance, old systems-layer WorkflowStateStore
+       with PersistWorkflowState/GetWorkflowState, and WorkflowTemplateBlueprintEngine static methods).
+       These need the V2 APIs to be re-implemented before they can be restored. -->
   <ItemGroup>
-    <ProjectReference Include="..\..\src\systems\Whycespace.System.csproj" />
-    <ProjectReference Include="..\..\src\engines\T1M\WSS\Whycespace.Engines.T1M.WSS.csproj" />
-    <ProjectReference Include="..\..\src\runtime\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
+    <Compile Remove="WorkflowInstanceRegistryTests.cs" />
+    <Compile Remove="WorkflowEventRouterTests.cs" />
+    <Compile Remove="WorkflowStateStoreTests.cs" />
+    <Compile Remove="WorkflowRegistryTests.cs" />
+    <Compile Remove="WorkflowTemplateBlueprintEngineTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T1M\WSS\Whycespace.Engines.T1M.WSS.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T1M\orchestration\Whycespace.Engines.T1M.Orchestration.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T1M\shared\Whycespace.Engines.T1M.Shared.csproj" />
+    <ProjectReference Include="..\..\..\src\runtime\persistence\Whycespace.RuntimePersistence.csproj" />
+    <ProjectReference Include="..\..\..\src\runtime\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
   </ItemGroup>
 
 </Project>

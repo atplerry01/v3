@@ -4,7 +4,7 @@ using Whycespace.Contracts.Engines;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
 using Whycespace.Runtime.Persistence.Workflow;
-using Whycespace.Engines.T1M.WSS.Workflows;
+using IWorkflowTimeoutStore = Whycespace.Runtime.Persistence.Workflow.IWorkflowTimeoutStore;
 using Whycespace.Systems.Midstream.WSS.Models;
 
 /// <summary>

@@ -2,7 +2,7 @@ namespace Whycespace.CapitalSystem.Tests;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Primitives;
-using Whycespace.Engines.T2E.Economic.Capital.Engines;
+using Whycespace.Engines.T2E.Economic.Capital.Utilization.Engines;
 
 public sealed class CapitalUtilizationEngineTests
 {

@@ -1,20 +1,20 @@
-using Whycespace.Engines.T1M.WSS.Runtime;
+using Whycespace.Engines.T1M.Orchestration.Dispatcher;
 using Whycespace.EventFabricRuntime.Bus;
+using Whycespace.Runtime.EventFabric.WSS;
 using Whycespace.Systems.Midstream.WSS.Events;
-using Whycespace.Systems.Midstream.WSS.Kafka;
 
 namespace Whycespace.WSS.WorkflowEventRouter.Tests;
 
 public class WorkflowEventRouterTests
 {
-    private readonly Whycespace.Engines.T1M.WSS.Runtime.WorkflowEventRouter _router;
+    private readonly Whycespace.Engines.T1M.Orchestration.Dispatcher.WorkflowEventRouter _router;
     private readonly EventBus _eventBus;
 
     public WorkflowEventRouterTests()
     {
         _eventBus = new EventBus();
         var kafkaPublisher = new KafkaEventPublisher(_eventBus, "localhost:9092");
-        _router = new Whycespace.Engines.T1M.WSS.Runtime.WorkflowEventRouter(kafkaPublisher);
+        _router = new Whycespace.Engines.T1M.Orchestration.Dispatcher.WorkflowEventRouter(kafkaPublisher);
     }
 
     // 1. Publish workflow event

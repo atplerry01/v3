@@ -1,6 +1,7 @@
 namespace Whycespace.CapitalSystem.Tests;
 
-using Whycespace.Engines.T3I.Reporting.Economic;
+using Whycespace.Engines.T3I.Reporting.Economic.Engines;
+using Whycespace.Engines.T3I.Reporting.Economic.Models;
 
 public sealed class CapitalReconciliationEngineTests
 {

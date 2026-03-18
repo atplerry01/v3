@@ -1,6 +1,7 @@
 namespace Whycespace.VaultFraudDetection.Tests;
 
-using Whycespace.Engines.T3I.Monitoring.Economic;
+using Whycespace.Engines.T3I.Monitoring.Economic.Engines;
+using Whycespace.Engines.T3I.Monitoring.Economic.Models;
 using Whycespace.Contracts.Engines;
 
 public sealed class VaultFraudDetectionEngineTests

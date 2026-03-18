@@ -20,8 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\systems\Whycespace.System.csproj" />
-    <ProjectReference Include="..\..\src\engines\T1M\WSS\Whycespace.Engines.T1M.WSS.csproj" />
+    <ProjectReference Include="..\..\..\src\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T1M\WSS\Whycespace.Engines.T1M.WSS.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T1M\orchestration\Whycespace.Engines.T1M.Orchestration.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\T1M\shared\Whycespace.Engines.T1M.Shared.csproj" />
   </ItemGroup>
 
 </Project>

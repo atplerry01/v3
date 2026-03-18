@@ -8,14 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="contracts/**" />
-    <Content Remove="contracts/**" />
-    <None Remove="contracts/**" />
-    <EmbeddedResource Remove="contracts/**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="contracts\Whycespace.Engines.T1M.WSS.Contracts.csproj" />
+    <ProjectReference Include="..\shared\Whycespace.Engines.T1M.Shared.csproj" />
     <ProjectReference Include="..\..\..\shared\Whycespace.Shared.csproj" />
     <ProjectReference Include="..\..\..\systems\Whycespace.System.csproj" />
     <ProjectReference Include="..\..\..\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />
@@ -23,6 +16,7 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="Whycespace.WSS.WorkflowValidation.Tests" />
+    <InternalsVisibleTo Include="Whycespace.WSS.Workflows.Tests" />
   </ItemGroup>
 
 </Project>

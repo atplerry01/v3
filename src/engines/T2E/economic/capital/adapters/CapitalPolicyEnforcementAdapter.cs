@@ -1,4 +1,4 @@
-using Whycespace.Engines.T2E.Economic.Capital.Models;
+using Whycespace.Engines.T2E.Economic.Capital.Shared.Models;
 
 namespace Whycespace.Engines.T2E.Economic.Capital.Adapters;
 

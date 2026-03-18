@@ -1,11 +1,14 @@
 using Whycespace.Contracts.Workflows;
+using Whycespace.Engines.T1M.Orchestration.Dispatcher;
+using Whycespace.Engines.T1M.Orchestration.Resilience;
+using Whycespace.Engines.T1M.Orchestration.Scheduling;
 using Whycespace.Engines.T1M.WSS.Graph;
-using Whycespace.Engines.T1M.WSS.Instance;
 using Whycespace.Engines.T1M.WSS.Registry;
-using Whycespace.Engines.T1M.WSS.Runtime;
-using Whycespace.Engines.T1M.WSS.Stores;
+using Whycespace.Engines.T1M.Shared;
+using Whycespace.Runtime.Persistence.Workflow;
 using Whycespace.Systems.Midstream.WSS.Events;
-using Whycespace.Systems.Midstream.WSS.Models;
+using WorkflowDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
+using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Models.WorkflowInstanceStatus;
 
 namespace Whycespace.WSS.WorkflowLifecycle.Tests;
 
@@ -38,7 +41,7 @@ public class WorkflowLifecycleEngineTests
     public WorkflowLifecycleEngineTests()
     {
         _workflowRegistry = new WorkflowRegistry();
-        _instanceRegistry = new WorkflowInstanceRegistry(new WorkflowInstanceRegistryStore());
+        _instanceRegistry = new WorkflowInstanceRegistry(new InstanceRegistryStoreAdapter());
         _stateStore = new WssWorkflowStateStore();
         _eventRouter = new StubWorkflowEventRouter();
 
@@ -56,6 +59,7 @@ public class WorkflowLifecycleEngineTests
             _stateStore,
             _eventRouter,
             _retryPolicyEngine,
+            retryStore,
             _timeoutEngine,
             _graphEngine);
 

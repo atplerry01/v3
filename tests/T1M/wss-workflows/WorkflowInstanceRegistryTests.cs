@@ -1,19 +1,19 @@
 namespace Whycespace.WSS.Workflows.Tests;
 
-using Whycespace.Systems.Midstream.WSS.Instances;
+using Whycespace.Engines.T1M.WSS.Registry;
+using Whycespace.Runtime.Persistence.Workflow;
 using Whycespace.Systems.Midstream.WSS.Models;
-using Whycespace.Systems.Midstream.WSS.Stores;
 using Xunit;
 
 public sealed class WorkflowInstanceRegistryTests
 {
-    private readonly WorkflowInstanceRegistry _registry;
-    private readonly WorkflowInstanceStore _store;
+    private readonly Whycespace.Engines.T1M.WSS.Registry.WorkflowInstanceRegistry _registry;
+    private readonly WorkflowInstanceRegistryStore _store;
 
     public WorkflowInstanceRegistryTests()
     {
-        _store = new WorkflowInstanceStore();
-        _registry = new WorkflowInstanceRegistry(_store);
+        _store = new WorkflowInstanceRegistryStore();
+        _registry = new Whycespace.Engines.T1M.WSS.Registry.WorkflowInstanceRegistry(_store);
     }
 
     [Fact]

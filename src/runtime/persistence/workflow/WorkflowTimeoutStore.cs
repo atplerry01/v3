@@ -3,7 +3,8 @@ namespace Whycespace.Runtime.Persistence.Workflow;
 using global::System.Collections.Concurrent;
 using Whycespace.Systems.Midstream.WSS.Models;
 
-public sealed class WorkflowTimeoutStore : IWorkflowTimeoutStore
+public sealed class WorkflowTimeoutStore : IWorkflowTimeoutStore,
+    Whycespace.Engines.T1M.Shared.IWorkflowTimeoutStore
 {
     private readonly ConcurrentDictionary<(string InstanceId, string StepId), TimeoutEntry> _timeouts = new();
 

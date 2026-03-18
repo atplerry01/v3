@@ -1,7 +1,7 @@
 namespace Whycespace.Tests.Integration;
 
 using Whycespace.Application.Commands;
-using Whycespace.Engines.T0U.WhycePolicy.Validation;
+using Whycespace.Engines.T0U.WhycePolicy.Validation.Engines;
 using Whycespace.Engines.T2E;
 using Whycespace.Engines.T2E.Clusters.Mobility.Taxi.Engines;
 using Whycespace.Engines.T2E.Clusters.Property.Letting.Engines;

@@ -1,18 +1,19 @@
 using Whycespace.Contracts.Workflows;
-using Whycespace.Engines.T1M.WSS.Dependency;
-using Whycespace.Engines.T1M.WSS.Stores;
+using Whycespace.Engines.T1M.WSS.Graph;
+using Whycespace.Engines.T1M.Shared;
+using Whycespace.Runtime.Persistence.Workflow;
 using WfDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
 
 namespace Whycespace.WSS.WorkflowDependency.Tests;
 
 public class WorkflowDependencyEngineTests
 {
-    private readonly WorkflowDefinitionStore _definitionStore;
+    private readonly DefinitionStoreAdapter _definitionStore;
     private readonly WorkflowDependencyAnalyzer _engine;
 
     public WorkflowDependencyEngineTests()
     {
-        _definitionStore = new WorkflowDefinitionStore();
+        _definitionStore = new DefinitionStoreAdapter();
         _engine = new WorkflowDependencyAnalyzer(_definitionStore);
     }
 

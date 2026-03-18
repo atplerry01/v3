@@ -1,11 +1,22 @@
 namespace Whycespace.CapitalSystem.Tests;
 
-using Whycespace.Engines.T3I.Atlas.Economic;
-using Whycespace.Systems.Midstream.Capital.Registry;
+using Whycespace.Engines.T3I.Atlas.Economic.Engines;
+using Whycespace.Engines.T3I.Atlas.Economic.Models;
+using Whycespace.Engines.T3I.Shared;
+using Whycespace.Domain.Core.Economic;
 
 public sealed class CapitalBalanceEngineTests
 {
     private readonly CapitalBalanceEngine _engine = new();
+
+    private CapitalBalanceResult ComputeBalance(ComputeCapitalBalanceCommand command, IReadOnlyList<CapitalRecord> records)
+    {
+        var context = IntelligenceContext<CapitalBalanceInput>.Create(new CapitalBalanceInput(command, records));
+        var intelligenceResult = _engine.Execute(context);
+        if (!intelligenceResult.Success)
+            return CapitalBalanceResult.Fail(intelligenceResult.Error!);
+        return intelligenceResult.Output!;
+    }
 
     private static ComputeCapitalBalanceCommand CreateCommand(
         Guid? poolId = null,
@@ -57,7 +68,7 @@ public sealed class CapitalBalanceEngineTests
             CreateRecord(poolId, CapitalType.Allocation, 20_000m),
         };
 
-        var result = _engine.ComputeBalance(command, records);
+        var result = ComputeBalance(command, records);
 
         Assert.True(result.Success);
         Assert.NotNull(result.Snapshot);
@@ -84,7 +95,7 @@ public sealed class CapitalBalanceEngineTests
             CreateRecord(poolId, CapitalType.Commitment, 60_000m, ownerIdentityId: investorId),
         };
 
-        var result = _engine.ComputeBalance(command, records);
+        var result = ComputeBalance(command, records);
 
         Assert.True(result.Success);
         Assert.NotNull(result.Snapshot);
@@ -107,7 +118,7 @@ public sealed class CapitalBalanceEngineTests
             CreateRecord(poolId, CapitalType.Allocation, 10_000m, status: CapitalStatus.Utilized),
         };
 
-        var result = _engine.ComputeBalance(command, records);
+        var result = ComputeBalance(command, records);
 
         Assert.True(result.Success);
         Assert.NotNull(result.Snapshot);
@@ -128,7 +139,7 @@ public sealed class CapitalBalanceEngineTests
             CreateRecord(poolId, CapitalType.Contribution, 30_000m, status: CapitalStatus.Closed),
         };
 
-        var result = _engine.ComputeBalance(command, records);
+        var result = ComputeBalance(command, records);
 
         Assert.True(result.Success);
         Assert.NotNull(result.Snapshot);
@@ -147,7 +158,7 @@ public sealed class CapitalBalanceEngineTests
             CreateRecord(poolId, CapitalType.Contribution, 30_000m, currency: "USD"),
         };
 
-        var result = _engine.ComputeBalance(command, records);
+        var result = ComputeBalance(command, records);
 
         Assert.True(result.Success);
         Assert.NotNull(result.Snapshot);
@@ -168,7 +179,7 @@ public sealed class CapitalBalanceEngineTests
         };
 
         var tasks = Enumerable.Range(0, 100)
-            .Select(_ => Task.Run(() => _engine.ComputeBalance(command, records)))
+            .Select(_ => Task.Run(() => ComputeBalance(command, records)))
             .ToArray();
 
         var results = await Task.WhenAll(tasks);
@@ -188,7 +199,7 @@ public sealed class CapitalBalanceEngineTests
     {
         var command = CreateCommand(poolId: Guid.Empty);
 
-        var result = _engine.ComputeBalance(command, []);
+        var result = ComputeBalance(command, []);
 
         Assert.False(result.Success);
         Assert.Equal("PoolId must not be empty", result.Error);
@@ -200,7 +211,7 @@ public sealed class CapitalBalanceEngineTests
         var command = new ComputeCapitalBalanceCommand(
             Guid.NewGuid(), null, "", Guid.NewGuid(), DateTime.UtcNow);
 
-        var result = _engine.ComputeBalance(command, []);
+        var result = ComputeBalance(command, []);
 
         Assert.False(result.Success);
         Assert.Equal("Currency must not be empty", result.Error);
@@ -211,7 +222,7 @@ public sealed class CapitalBalanceEngineTests
     {
         var command = CreateCommand(currency: "BTC");
 
-        var result = _engine.ComputeBalance(command, []);
+        var result = ComputeBalance(command, []);
 
         Assert.False(result.Success);
         Assert.Contains("Unsupported currency", result.Error);
@@ -223,7 +234,7 @@ public sealed class CapitalBalanceEngineTests
         var poolId = Guid.NewGuid();
         var command = CreateCommand(poolId: poolId);
 
-        var result = _engine.ComputeBalance(command, []);
+        var result = ComputeBalance(command, []);
 
         Assert.True(result.Success);
         Assert.NotNull(result.Snapshot);
@@ -248,7 +259,7 @@ public sealed class CapitalBalanceEngineTests
             CreateRecord(poolId, CapitalType.Distribution, 25_000m),
         };
 
-        var result = _engine.ComputeBalance(command, records);
+        var result = ComputeBalance(command, records);
 
         Assert.True(result.Success);
         Assert.NotNull(result.Snapshot);

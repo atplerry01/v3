@@ -1,4 +1,4 @@
-using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Engines.T0U.WhycePolicy.Evaluation.Engines;
 using Whycespace.Systems.Upstream.WhycePolicy.Stores;
 
 namespace Whycespace.WhycePolicy.Dsl.Tests;
@@ -13,119 +13,80 @@ public class PolicyContextEngineTests
         _engine = new PolicyContextEngine(_store);
     }
 
-    private static PolicyContextInput ValidInput() => new(
-        IdentityId: Guid.NewGuid(),
-        ActionType: "read",
-        ResourceType: "document",
-        ResourceId: "doc-001",
-        ClusterId: Guid.NewGuid(),
-        SubClusterId: Guid.NewGuid(),
-        SpvId: Guid.NewGuid(),
-        VaultId: Guid.NewGuid(),
-        Attributes: new Dictionary<string, object>
-        {
-            ["Trust_Score"] = 75,
-            ["Status"] = "verified"
-        }
-    );
+    private static Guid ValidActorId() => Guid.NewGuid();
+    private const string ValidDomain = "identity";
+
+    private static Dictionary<string, string> ValidAttributes() => new()
+    {
+        ["trust_score"] = "75",
+        ["status"] = "verified"
+    };
 
     [Fact]
     public void BuildContext_ValidInput_ReturnsPolicyContext()
     {
-        var input = ValidInput();
-        var result = _engine.BuildContext(input);
+        var actorId = ValidActorId();
+        var result = _engine.BuildContext(actorId, ValidDomain, ValidAttributes());
 
         Assert.NotEqual(Guid.Empty, result.ContextId);
-        Assert.Equal(input.IdentityId, result.IdentityId);
-        Assert.Equal(input.ActionType, result.ActionType);
-        Assert.Equal(input.ResourceType, result.ResourceType);
-        Assert.Equal(input.ResourceId, result.ResourceId);
-        Assert.Equal(input.ClusterId, result.ClusterId);
-        Assert.Equal(input.SubClusterId, result.SubClusterId);
-        Assert.Equal(input.SpvId, result.SpvId);
-        Assert.Equal(input.VaultId, result.VaultId);
-        Assert.NotEqual(default, result.ContextCreatedAt);
+        Assert.Equal(actorId, result.ActorId);
+        Assert.Equal(ValidDomain, result.TargetDomain);
+        Assert.NotEmpty(result.Attributes);
+        Assert.NotEqual(default, result.Timestamp);
     }
 
     [Fact]
-    public void BuildContext_AttributeNormalization_KeysAreLowercase()
+    public void BuildContext_AttributesPreserved_ContainsProvidedKeys()
     {
-        var input = ValidInput() with
+        var attributes = new Dictionary<string, string>
         {
-            Attributes = new Dictionary<string, object>
-            {
-                ["Trust_SCORE"] = 90,
-                ["ROLE"] = "admin",
-                ["Region"] = "eu"
-            }
+            ["trust_score"] = "90",
+            ["role"] = "admin",
+            ["region"] = "eu"
         };
 
-        var result = _engine.BuildContext(input);
+        var result = _engine.BuildContext(ValidActorId(), ValidDomain, attributes);
 
         Assert.True(result.Attributes.ContainsKey("trust_score"));
         Assert.True(result.Attributes.ContainsKey("role"));
         Assert.True(result.Attributes.ContainsKey("region"));
-        Assert.False(result.Attributes.ContainsKey("Trust_SCORE"));
-        Assert.False(result.Attributes.ContainsKey("ROLE"));
-        Assert.False(result.Attributes.ContainsKey("Region"));
+        Assert.Equal("90", result.Attributes["trust_score"]);
+        Assert.Equal("admin", result.Attributes["role"]);
+        Assert.Equal("eu", result.Attributes["region"]);
     }
 
     [Fact]
-    public void BuildContext_DeterministicAttributeOrdering_SortedByKey()
+    public void BuildContext_EmptyActorId_ThrowsArgumentException()
     {
-        var input = ValidInput() with
-        {
-            Attributes = new Dictionary<string, object>
-            {
-                ["zebra"] = "z",
-                ["alpha"] = "a",
-                ["middle"] = "m"
-            }
-        };
-
-        var result = _engine.BuildContext(input);
-        var keys = result.Attributes.Keys.ToList();
-
-        Assert.Equal("alpha", keys[0]);
-        Assert.Equal("middle", keys[1]);
-        Assert.Equal("zebra", keys[2]);
+        Assert.Throws<ArgumentException>(() =>
+            _engine.BuildContext(Guid.Empty, ValidDomain, ValidAttributes()));
     }
 
     [Fact]
-    public void BuildContext_MissingAttributes_AllowsEmptyAttributes()
+    public void BuildContext_EmptyDomain_ThrowsArgumentException()
     {
-        var input = ValidInput() with
-        {
-            Attributes = new Dictionary<string, object>()
-        };
-
-        var result = _engine.BuildContext(input);
-
-        Assert.Empty(result.Attributes);
+        Assert.Throws<ArgumentException>(() =>
+            _engine.BuildContext(ValidActorId(), "", ValidAttributes()));
     }
 
     [Fact]
-    public void BuildContext_MissingOptionalGuids_AllowsDefaultGuids()
+    public void BuildContext_WhitespaceDomain_ThrowsArgumentException()
     {
-        var input = ValidInput() with
-        {
-            SubClusterId = Guid.Empty,
-            SpvId = Guid.Empty,
-            VaultId = Guid.Empty
-        };
+        Assert.Throws<ArgumentException>(() =>
+            _engine.BuildContext(ValidActorId(), "   ", ValidAttributes()));
+    }
 
-        var result = _engine.BuildContext(input);
-
-        Assert.Equal(Guid.Empty, result.SubClusterId);
-        Assert.Equal(Guid.Empty, result.SpvId);
-        Assert.Equal(Guid.Empty, result.VaultId);
+    [Fact]
+    public void BuildContext_EmptyAttributes_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() =>
+            _engine.BuildContext(ValidActorId(), ValidDomain, new Dictionary<string, string>()));
     }
 
     [Fact]
     public void BuildContext_ContextImmutability_RecordIsImmutable()
     {
-        var input = ValidInput();
-        var result = _engine.BuildContext(input);
+        var result = _engine.BuildContext(ValidActorId(), ValidDomain, ValidAttributes());
 
         // Record types are immutable by default; verify attributes dict is read-only
         Assert.IsAssignableFrom<IReadOnlyDictionary<string, string>>(result.Attributes);
@@ -139,7 +100,7 @@ public class PolicyContextEngineTests
     public void BuildContext_ConcurrentExecutionSafety_ProducesUniqueContexts()
     {
         var tasks = Enumerable.Range(0, 100).Select(_ =>
-            Task.Run(() => _engine.BuildContext(ValidInput()))
+            Task.Run(() => _engine.BuildContext(ValidActorId(), ValidDomain, ValidAttributes()))
         ).ToArray();
 
         Task.WaitAll(tasks);
@@ -151,96 +112,80 @@ public class PolicyContextEngineTests
     [Fact]
     public void BuildContext_LargeAttributeSet_HandlesCorrectly()
     {
-        var attributes = new Dictionary<string, object>();
+        var attributes = new Dictionary<string, string>();
         for (int i = 0; i < 500; i++)
         {
-            attributes[$"Attribute_{i:D4}"] = $"value_{i}";
+            attributes[$"attribute_{i:D4}"] = $"value_{i}";
         }
 
-        var input = ValidInput() with { Attributes = attributes };
-
-        var result = _engine.BuildContext(input);
+        var result = _engine.BuildContext(ValidActorId(), ValidDomain, attributes);
 
         Assert.Equal(500, result.Attributes.Count);
-        // Verify all keys are lowercase
-        Assert.All(result.Attributes.Keys, key => Assert.Equal(key, key.ToLowerInvariant()));
-        // Verify ordering is deterministic
-        var keys = result.Attributes.Keys.ToList();
-        var sorted = keys.OrderBy(k => k, StringComparer.Ordinal).ToList();
-        Assert.Equal(sorted, keys);
     }
 
     [Fact]
-    public void BuildContext_EmptyIdentityId_ThrowsArgumentException()
-    {
-        var input = ValidInput() with { IdentityId = Guid.Empty };
-        Assert.Throws<ArgumentException>(() => _engine.BuildContext(input));
-    }
-
-    [Fact]
-    public void BuildContext_EmptyActionType_ThrowsArgumentException()
-    {
-        var input = ValidInput() with { ActionType = "" };
-        Assert.Throws<ArgumentException>(() => _engine.BuildContext(input));
-    }
-
-    [Fact]
-    public void BuildContext_EmptyResourceType_ThrowsArgumentException()
-    {
-        var input = ValidInput() with { ResourceType = "" };
-        Assert.Throws<ArgumentException>(() => _engine.BuildContext(input));
-    }
-
-    [Fact]
-    public void BuildContext_NullAttributes_AllowsNull()
-    {
-        var input = ValidInput() with { Attributes = null! };
-        var result = _engine.BuildContext(input);
-        Assert.Empty(result.Attributes);
-    }
-
-    [Fact]
-    public void BuildContext_NullInput_ThrowsArgumentNullException()
-    {
-        Assert.Throws<ArgumentNullException>(() => _engine.BuildContext((PolicyContextInput)null!));
-    }
-
-    [Fact]
-    public void BuildContext_AttributeValueObjectToString_ConvertsCorrectly()
-    {
-        var input = ValidInput() with
-        {
-            Attributes = new Dictionary<string, object>
-            {
-                ["count"] = 42,
-                ["active"] = true,
-                ["rate"] = 3.14
-            }
-        };
-
-        var result = _engine.BuildContext(input);
-
-        Assert.Equal("42", result.Attributes["count"]);
-        Assert.Equal("True", result.Attributes["active"]);
-        Assert.Equal("3.14", result.Attributes["rate"]);
-    }
-
-    [Fact]
-    public void BuildContext_SetsContextCreatedAt()
+    public void BuildContext_SetsTimestamp()
     {
         var before = DateTime.UtcNow;
-        var result = _engine.BuildContext(ValidInput());
+        var result = _engine.BuildContext(ValidActorId(), ValidDomain, ValidAttributes());
         var after = DateTime.UtcNow;
 
-        Assert.InRange(result.ContextCreatedAt, before, after);
+        Assert.InRange(result.Timestamp, before, after);
     }
 
     [Fact]
-    public void BuildContext_MapsActorIdFromIdentityId()
+    public void BuildContext_MapsActorId()
     {
-        var input = ValidInput();
-        var result = _engine.BuildContext(input);
+        var actorId = ValidActorId();
+        var result = _engine.BuildContext(actorId, ValidDomain, ValidAttributes());
 
-        Assert.Equal(input.IdentityId, result.ActorId);
+        Assert.Equal(actorId, result.ActorId);
+    }
+
+    [Fact]
+    public void GetContext_ReturnsStoredContext()
+    {
+        var result = _engine.BuildContext(ValidActorId(), ValidDomain, ValidAttributes());
+        var retrieved = _engine.GetContext(result.ContextId);
+
+        Assert.Equal(result.ContextId, retrieved.ContextId);
+        Assert.Equal(result.ActorId, retrieved.ActorId);
+        Assert.Equal(result.TargetDomain, retrieved.TargetDomain);
+    }
+
+    [Fact]
+    public void GetContext_NotFound_ThrowsKeyNotFoundException()
+    {
+        Assert.Throws<KeyNotFoundException>(() =>
+            _engine.GetContext(Guid.NewGuid()));
+    }
+
+    [Fact]
+    public void GetContextsByActor_ReturnsMatchingContexts()
+    {
+        var actorId = ValidActorId();
+        _engine.BuildContext(actorId, ValidDomain, ValidAttributes());
+        _engine.BuildContext(actorId, "finance", new Dictionary<string, string> { ["level"] = "high" });
+
+        var contexts = _engine.GetContextsByActor(actorId);
+
+        Assert.Equal(2, contexts.Count);
+        Assert.All(contexts, c => Assert.Equal(actorId, c.ActorId));
+    }
+
+    [Fact]
+    public void BuildContext_DeterministicBehavior_SameInputsProduceDifferentContextIds()
+    {
+        var actorId = ValidActorId();
+        var attrs = ValidAttributes();
+
+        var result1 = _engine.BuildContext(actorId, ValidDomain, attrs);
+        var result2 = _engine.BuildContext(actorId, ValidDomain, attrs);
+
+        // Each call should produce a unique context ID
+        Assert.NotEqual(result1.ContextId, result2.ContextId);
+        // But same actor and domain
+        Assert.Equal(result1.ActorId, result2.ActorId);
+        Assert.Equal(result1.TargetDomain, result2.TargetDomain);
     }
 }

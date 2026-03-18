@@ -1,6 +1,6 @@
 namespace Whycespace.Tests.Engines;
 
-using Whycespace.Engines.T2E.Economic.Revenue.Engines;
+using Whycespace.Engines.T2E.Economic.Revenue.Recording.Engines;
 using Whycespace.Contracts.Engines;
 using Xunit;
 

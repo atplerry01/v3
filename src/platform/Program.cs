@@ -222,12 +222,12 @@ builder.Services.AddSingleton(chainEventStore);
 builder.Services.AddSingleton(new Whycespace.Systems.Upstream.WhyceChain.Stores.ChainIndexStore());
 
 // Chain Evidence Gateway (Phase 2.0.49)
-var chainLedgerEngine = new Whycespace.Engines.T0U.WhyceChain.ChainLedgerEngine(chainLedgerStore);
-var evidenceHashEngine = new Whycespace.Engines.T0U.WhyceChain.EvidenceHashEngine();
-var immutableEventLedgerEngine = new Whycespace.Engines.T0U.WhyceChain.ImmutableEventLedgerEngine(chainEventStore);
-var evidenceAnchoringEngine = new Whycespace.Engines.T0U.WhyceChain.EvidenceAnchoringEngine(chainLedgerEngine, evidenceHashEngine, immutableEventLedgerEngine);
-var merkleProofEngine = new Whycespace.Engines.T0U.WhyceChain.MerkleProofEngine();
-var integrityVerificationEngine = new Whycespace.Engines.T0U.WhyceChain.IntegrityVerificationEngine(merkleProofEngine);
+var chainLedgerEngine = new Whycespace.Engines.T0U.WhyceChain.Ledger.Event.ChainLedgerEngine(chainLedgerStore);
+var evidenceHashEngine = new Whycespace.Engines.T0U.WhyceChain.Evidence.Hashing.EvidenceHashEngine();
+var immutableEventLedgerEngine = new Whycespace.Engines.T0U.WhyceChain.Ledger.Immutable.ImmutableEventLedgerEngine(chainEventStore);
+var evidenceAnchoringEngine = new Whycespace.Engines.T0U.WhyceChain.Evidence.Anchoring.EvidenceAnchoringEngine(chainLedgerEngine, evidenceHashEngine, immutableEventLedgerEngine);
+var merkleProofEngine = new Whycespace.Engines.T0U.WhyceChain.Verification.Merkle.MerkleProofEngine();
+var integrityVerificationEngine = new Whycespace.Engines.T0U.WhyceChain.Verification.Integrity.IntegrityVerificationEngine(merkleProofEngine);
 var chainEvidenceGateway = new Whycespace.Platform.WhyceChain.ChainEvidenceGateway(evidenceAnchoringEngine, evidenceHashEngine, integrityVerificationEngine, chainBlockStore);
 builder.Services.AddSingleton(chainEvidenceGateway);
 builder.Services.AddSingleton(integrityVerificationEngine);
@@ -254,37 +254,37 @@ builder.Services.AddSingleton<Whycespace.Systems.Upstream.Governance.Proposals.R
 
 // Governance Proposal Type Engine (Phase 2.0.59)
 var governanceProposalTypeStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceProposalTypeStore();
-var governanceProposalTypeEngine = new Whycespace.Engines.T0U.WhyceGovernance.Engines.GovernanceProposalTypeEngine(governanceProposalTypeStore, guardianRegistryStore);
+var governanceProposalTypeEngine = new Whycespace.Engines.T0U.Governance.ProposalType.Validation.GovernanceProposalTypeEngine(governanceProposalTypeStore, guardianRegistryStore);
 builder.Services.AddSingleton(governanceProposalTypeStore);
 builder.Services.AddSingleton(governanceProposalTypeEngine);
 
 // Governance Proposal Engine (Phase 2.0.58)
 var governanceProposalEngineStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceProposalStore();
-var governanceProposalEngine = new Whycespace.Engines.T0U.WhyceGovernance.Engines.GovernanceProposalEngine(governanceProposalEngineStore);
+var governanceProposalEngine = new Whycespace.Engines.T0U.Governance.Proposal.Validation.GovernanceProposalEngine(governanceProposalEngineStore);
 builder.Services.AddSingleton(governanceProposalEngineStore);
 builder.Services.AddSingleton(governanceProposalEngine);
 
 // Governance Domain Scope Engine (Phase 2.0.60)
 var governanceDomainScopeStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceDomainScopeStore();
-var governanceDomainScopeEngine = new Whycespace.Engines.T0U.WhyceGovernance.Engines.GovernanceDomainScopeEngine(governanceDomainScopeStore, guardianRegistryStore);
+var governanceDomainScopeEngine = new Whycespace.Engines.T0U.Governance.Domain.Registration.GovernanceDomainScopeEngine(governanceDomainScopeStore, guardianRegistryStore);
 builder.Services.AddSingleton(governanceDomainScopeStore);
 builder.Services.AddSingleton(governanceDomainScopeEngine);
 
 // Voting Engine (Phase 2.0.61)
 var governanceVoteStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceVoteStore();
-var votingEngine = new Whycespace.Engines.T0U.WhyceGovernance.Engines.VotingEngine(governanceVoteStore, governanceProposalEngineStore, guardianRegistryStore);
+var votingEngine = new Whycespace.Engines.T0U.Governance.Voting.Casting.VotingEngine(governanceVoteStore, governanceProposalEngineStore, guardianRegistryStore);
 builder.Services.AddSingleton(governanceVoteStore);
 builder.Services.AddSingleton(votingEngine);
 
 // Governance Emergency Engine (Phase 2.0.66)
 var governanceEmergencyStore = new Whycespace.Systems.Upstream.Governance.Stores.GovernanceEmergencyStore();
-var governanceEmergencyEngine = new Whycespace.Engines.T0U.WhyceGovernance.Engines.GovernanceEmergencyEngine(governanceEmergencyStore, guardianRegistryStore);
+var governanceEmergencyEngine = new Whycespace.Engines.T0U.Governance.Emergency.Trigger.GovernanceEmergencyEngine(governanceEmergencyStore, guardianRegistryStore);
 builder.Services.AddSingleton(governanceEmergencyStore);
 builder.Services.AddSingleton(governanceEmergencyEngine);
 
 // Governance Evidence Recorder (Phase 2.0.67)
-var engineChainEvidenceGateway = new Whycespace.Engines.T0U.WhyceChain.ChainEvidenceGateway(evidenceAnchoringEngine, evidenceHashEngine);
-var governanceEvidenceRecorder = new Whycespace.Engines.T0U.WhyceGovernance.Engines.GovernanceEvidenceRecorder(engineChainEvidenceGateway);
+var engineChainEvidenceGateway = new Whycespace.Engines.T0U.WhyceChain.Evidence.Gateway.ChainEvidenceGateway(evidenceAnchoringEngine, evidenceHashEngine);
+var governanceEvidenceRecorder = new Whycespace.Engines.T0U.Governance.Evidence.Recording.GovernanceEvidenceRecorder(engineChainEvidenceGateway);
 builder.Services.AddSingleton(governanceEvidenceRecorder);
 
 // Capital Policy Enforcement Adapter (Phase 2.2.25)
@@ -304,7 +304,7 @@ var capitalLedgerStore = new Whycespace.Systems.Midstream.Economics.CapitalLedge
 builder.Services.AddSingleton<Whycespace.Systems.Midstream.Economics.CapitalLedger.ICapitalLedgerStore>(capitalLedgerStore);
 builder.Services.AddSingleton(capitalLedgerStore);
 
-var capitalLifecycleEngine = new Whycespace.Engines.T3I.Forecasting.Economic.CapitalLifecycleEngine();
+var capitalLifecycleEngine = new Whycespace.Engines.T3I.Forecasting.Economic.Engines.CapitalLifecycleEngine();
 builder.Services.AddSingleton(capitalLifecycleEngine);
 
 // WSS Runtime (Phase 2.1.x) — engines bootstrapped in runtime layer
@@ -354,10 +354,28 @@ builder.Services.AddSingleton(kafkaPublisher);
 var validationRunner = new ValidationRunner();
 builder.Services.AddSingleton(validationRunner);
 
+// T4A Access Layer (Application Services + Gateway)
+builder.Services.AddSingleton<Whycespace.Engines.T4A.Access.Gateway.RequestRouter>();
+builder.Services.AddSingleton<Whycespace.Engines.T4A.Access.Gateway.AuthenticationHandler>();
+builder.Services.AddSingleton<Whycespace.Engines.T4A.Access.Gateway.AuthorizationHandler>();
+builder.Services.AddSingleton(new Whycespace.Engines.T4A.Access.Gateway.RateLimiter(maxRequestsPerWindow: 200));
+builder.Services.AddSingleton<Whycespace.Engines.T4A.Access.Applications.Capital.CapitalApplicationService>();
+builder.Services.AddSingleton<Whycespace.Engines.T4A.Access.Applications.Vault.VaultApplicationService>();
+builder.Services.AddSingleton<Whycespace.Engines.T4A.Access.Applications.Property.PropertyApplicationService>();
+builder.Services.AddSingleton<Whycespace.Engines.T4A.Access.Applications.Identity.IdentityApplicationService>();
+builder.Services.AddSingleton<Whycespace.Engines.T4A.Access.Applications.Workforce.WorkforceApplicationService>();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
+
+// T4A Middleware Pipeline (order matters)
+app.UseMiddleware<Whycespace.Engines.T4A.Access.Middleware.CorrelationIdMiddleware>();
+app.UseMiddleware<Whycespace.Engines.T4A.Access.Middleware.ExceptionHandlingMiddleware>();
+app.UseMiddleware<Whycespace.Engines.T4A.Access.Middleware.RequestLoggingMiddleware>();
+app.UseMiddleware<Whycespace.Engines.T4A.Access.Middleware.ValidationMiddleware>();
+app.UseMiddleware<Whycespace.Engines.T4A.Access.Middleware.PolicyEnforcementMiddleware>();
 
 app.MapHealthChecks("/health");
 app.MapControllers();

@@ -1,4 +1,5 @@
-using Whycespace.Engines.T0U.WhycePolicy;
+using Whycespace.Engines.T0U.WhycePolicy.Monitoring.Audit;
+using Whycespace.Engines.T0U.WhycePolicy.Monitoring.Evidence;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;
 using Whycespace.Systems.Upstream.WhycePolicy.Stores;
 

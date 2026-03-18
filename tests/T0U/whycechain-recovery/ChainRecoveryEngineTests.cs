@@ -1,6 +1,8 @@
 using System.Security.Cryptography;
 using System.Text;
-using Whycespace.Engines.T3I.Reporting.Chain;
+using Whycespace.Engines.T3I.Reporting.Chain.Engines;
+using Whycespace.Engines.T3I.Reporting.Chain.Models;
+using Whycespace.Engines.T3I.Shared;
 using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 
 namespace Whycespace.WhyceChain.Recovery.Tests;
@@ -80,7 +82,7 @@ public class ChainRecoveryEngineTests
             CorrelationId: "corr-1",
             Timestamp: createdAt);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainRecoveryCommand>.Create(command)).Output!;
 
         Assert.Equal(2, result.RecoveredBlocks.Count);
         Assert.Equal(2, result.RecoveredEntries.Count);
@@ -109,7 +111,7 @@ public class ChainRecoveryEngineTests
             CorrelationId: "corr-1",
             Timestamp: createdAt);
 
-        Assert.Throws<InvalidOperationException>(() => _engine.Execute(command));
+        Assert.Throws<InvalidOperationException>(() => _engine.Execute(IntelligenceContext<ChainRecoveryCommand>.Create(command)));
     }
 
     [Fact]
@@ -136,7 +138,7 @@ public class ChainRecoveryEngineTests
             CorrelationId: "corr-1",
             Timestamp: createdAt);
 
-        Assert.Throws<InvalidOperationException>(() => _engine.Execute(command));
+        Assert.Throws<InvalidOperationException>(() => _engine.Execute(IntelligenceContext<ChainRecoveryCommand>.Create(command)));
     }
 
     [Fact]
@@ -158,8 +160,8 @@ public class ChainRecoveryEngineTests
             CorrelationId: "corr-1",
             Timestamp: createdAt);
 
-        var result1 = _engine.Execute(command);
-        var result2 = _engine.Execute(command);
+        var result1 = _engine.Execute(IntelligenceContext<ChainRecoveryCommand>.Create(command)).Output!;
+        var result2 = _engine.Execute(IntelligenceContext<ChainRecoveryCommand>.Create(command)).Output!;
 
         Assert.Equal(result1.RecoveryHash, result2.RecoveryHash);
         Assert.Equal(result1.RecoveredHeight, result2.RecoveredHeight);
@@ -181,7 +183,7 @@ public class ChainRecoveryEngineTests
             CorrelationId: "corr-1",
             Timestamp: createdAt);
 
-        var result = _engine.Execute(command);
+        var result = _engine.Execute(IntelligenceContext<ChainRecoveryCommand>.Create(command)).Output!;
 
         Assert.Empty(result.RecoveredBlocks);
         Assert.Empty(result.RecoveredEntries);

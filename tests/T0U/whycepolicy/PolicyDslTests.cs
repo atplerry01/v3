@@ -83,7 +83,7 @@ public sealed class PolicyDslTests
     [Theory]
     [InlineData(PolicyLifecycleState.Draft)]
     [InlineData(PolicyLifecycleState.Active)]
-    [InlineData(PolicyLifecycleState.Revoked)]
+    [InlineData(PolicyLifecycleState.Deprecated)]
     [InlineData(PolicyLifecycleState.Archived)]
     public void PolicyDslDefinition_LifecycleState_CanBeSet(PolicyLifecycleState state)
     {

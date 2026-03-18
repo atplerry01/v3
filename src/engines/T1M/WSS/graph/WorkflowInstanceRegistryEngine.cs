@@ -2,14 +2,31 @@ namespace Whycespace.Engines.T1M.WSS.Graph;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Workflows;
-using Whycespace.Engines.T1M.WSS.Stores;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
 
 [EngineManifest("WorkflowInstanceRegistry", EngineTier.T1M, EngineKind.Mutation, "WorkflowInstanceRegistryRequest", typeof(EngineEvent))]
 public sealed class WorkflowInstanceRegistryEngine : IEngine
 {
-    private readonly WorkflowInstanceStore _store = new();
+    private readonly IInstanceStore? _store;
+
+    public WorkflowInstanceRegistryEngine() { }
+
+    public WorkflowInstanceRegistryEngine(IInstanceStore store)
+    {
+        _store = store;
+    }
+
+    /// <summary>
+    /// Abstraction for instance storage while the persistence layer is migrated.
+    /// </summary>
+    public interface IInstanceStore
+    {
+        void Save(WorkflowInstanceEntry instance);
+        WorkflowInstanceEntry? Get(Guid instanceId);
+        IReadOnlyList<WorkflowInstanceEntry> List();
+        IReadOnlyList<WorkflowInstanceEntry> ListByWorkflow(string workflowId);
+    }
 
     public string Name => "WorkflowInstanceRegistry";
 
@@ -86,7 +103,7 @@ public sealed class WorkflowInstanceRegistryEngine : IEngine
 
         var instances = string.IsNullOrWhiteSpace(workflowId)
             ? ListInstances()
-            : _store.ListByWorkflow(workflowId);
+            : (_store?.ListByWorkflow(workflowId) ?? Array.Empty<WorkflowInstanceEntry>());
 
         var items = instances.Select(i => (object)new Dictionary<string, object>
         {
@@ -116,17 +133,17 @@ public sealed class WorkflowInstanceRegistryEngine : IEngine
             DateTimeOffset.UtcNow
         );
 
-        _store.Save(instance);
+        _store?.Save(instance);
         return instance;
     }
 
     internal WorkflowInstanceEntry? GetInstance(Guid instanceId)
     {
-        return _store.Get(instanceId);
+        return _store?.Get(instanceId);
     }
 
     internal IReadOnlyList<WorkflowInstanceEntry> ListInstances()
     {
-        return _store.List();
+        return _store?.List() ?? Array.Empty<WorkflowInstanceEntry>();
     }
 }

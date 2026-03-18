@@ -1,6 +1,7 @@
 namespace Whycespace.DecisionEngines.Tests;
 
-using Whycespace.Engines.T3I.Atlas.Identity;
+using Whycespace.Engines.T3I.Atlas.Identity.Engines;
+using Whycespace.Engines.T3I.Atlas.Identity.Models;
 using Whycespace.Contracts.Engines;
 
 public sealed class DeviceTrustEngineTests

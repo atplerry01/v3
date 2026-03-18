@@ -138,10 +138,10 @@
   <ItemGroup>
     <ProjectReference Include="..\shared\Whycespace.Shared.csproj" />
     <ProjectReference Include="..\engines\Whycespace.Engines.csproj" />
-    <ProjectReference Include="..\engines\T0U\WhyceID\Whycespace.Engines.T0U.WhyceID.csproj" />
-    <ProjectReference Include="..\engines\T0U\WhycePolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
-    <ProjectReference Include="..\engines\T0U\WhyceChain\Whycespace.Engines.T0U.WhyceChain.csproj" />
-    <ProjectReference Include="..\engines\T0U\WhyceGovernance\Whycespace.Engines.T0U.WhyceGovernance.csproj" />
+    <ProjectReference Include="..\engines\T0U\whyceid\Whycespace.Engines.T0U.WhyceID.csproj" />
+    <ProjectReference Include="..\engines\T0U\whycepolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
+    <ProjectReference Include="..\engines\T0U\whycechain\Whycespace.Engines.T0U.WhyceChain.csproj" />
+    <ProjectReference Include="..\engines\T0U\governance\Whycespace.Engines.T0U.Governance.csproj" />
     <ProjectReference Include="..\engines\T1M\WSS\Whycespace.Engines.T1M.WSS.csproj" />
     <ProjectReference Include="..\systems\Whycespace.System.csproj" />
     <ProjectReference Include="..\systems\upstream\WhyceID\Whycespace.System.WhyceID.csproj" />

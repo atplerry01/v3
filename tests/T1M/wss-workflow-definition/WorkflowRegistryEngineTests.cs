@@ -1,6 +1,7 @@
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Definition;
-using Whycespace.Engines.T1M.WSS.Stores;
+using Whycespace.Engines.T1M.Shared;
+using Whycespace.Runtime.Persistence.Workflow;
 using Whycespace.Systems.Midstream.WSS.Models;
 using WfDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
 
@@ -9,14 +10,14 @@ namespace Whycespace.WSS.WorkflowDefinition.Tests;
 public class WorkflowRegistryEngineTests
 {
     private readonly WorkflowDefinitionStore _definitionStore;
-    private readonly WorkflowRegistryStore _registryStore;
+    private readonly RegistryStoreAdapter _registryStore;
     private readonly WorkflowRegistryEngine _engine;
 
     public WorkflowRegistryEngineTests()
     {
         _definitionStore = new WorkflowDefinitionStore();
-        _registryStore = new WorkflowRegistryStore();
-        _engine = new WorkflowRegistryEngine(_registryStore, _definitionStore);
+        _registryStore = new RegistryStoreAdapter();
+        _engine = new WorkflowRegistryEngine(_registryStore, new DefinitionLookupAdapter(_definitionStore));
 
         _definitionStore.Register(new WfDefinition(
             "wf-ride", "Taxi Ride", "Ride flow", "1.0.0",

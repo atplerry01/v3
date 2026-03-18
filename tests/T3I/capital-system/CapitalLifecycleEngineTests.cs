@@ -1,10 +1,21 @@
 namespace Whycespace.CapitalSystem.Tests;
 
-using Whycespace.Engines.T3I.Forecasting.Economic;
+using Whycespace.Engines.T3I.Forecasting.Economic.Engines;
+using Whycespace.Engines.T3I.Forecasting.Economic.Models;
+using Whycespace.Engines.T3I.Shared;
 
 public sealed class CapitalLifecycleEngineTests
 {
     private readonly CapitalLifecycleEngine _engine = new();
+
+    private CapitalLifecycleResult TrackLifecycle(TrackCapitalLifecycleCommand command)
+    {
+        var context = IntelligenceContext<TrackCapitalLifecycleCommand>.Create(command);
+        var intelligenceResult = _engine.Execute(context);
+        if (!intelligenceResult.Success)
+            return CapitalLifecycleResult.Fail(intelligenceResult.Error!);
+        return intelligenceResult.Output!;
+    }
 
     private static TrackCapitalLifecycleCommand CreateCommand(
         CapitalLifecycleStage previousStage = CapitalLifecycleStage.Commitment,
@@ -36,7 +47,7 @@ public sealed class CapitalLifecycleEngineTests
     {
         var command = CreateCommand(previousStage: from, newStage: to);
 
-        var result = _engine.TrackLifecycle(command);
+        var result = TrackLifecycle(command);
 
         Assert.True(result.Success);
         Assert.NotNull(result.Record);
@@ -61,7 +72,7 @@ public sealed class CapitalLifecycleEngineTests
     {
         var command = CreateCommand(previousStage: from, newStage: to);
 
-        var result = _engine.TrackLifecycle(command);
+        var result = TrackLifecycle(command);
 
         Assert.False(result.Success);
         Assert.Null(result.Record);
@@ -89,7 +100,7 @@ public sealed class CapitalLifecycleEngineTests
         foreach (var (from, to) in transitions)
         {
             var command = CreateCommand(previousStage: from, newStage: to, capitalId: capitalId);
-            var result = _engine.TrackLifecycle(command);
+            var result = TrackLifecycle(command);
 
             Assert.True(result.Success);
             Assert.NotNull(result.Record);
@@ -117,7 +128,7 @@ public sealed class CapitalLifecycleEngineTests
                 try
                 {
                     var command = CreateCommand();
-                    var result = _engine.TrackLifecycle(command);
+                    var result = TrackLifecycle(command);
                     Assert.True(result.Success);
                     Assert.NotNull(result.Record);
                 }
@@ -139,7 +150,7 @@ public sealed class CapitalLifecycleEngineTests
     {
         var command = CreateCommand(capitalId: Guid.Empty);
 
-        var result = _engine.TrackLifecycle(command);
+        var result = TrackLifecycle(command);
 
         Assert.False(result.Success);
         Assert.Contains("CapitalId", result.Error);
@@ -150,7 +161,7 @@ public sealed class CapitalLifecycleEngineTests
     {
         var command = CreateCommand(referenceId: Guid.Empty);
 
-        var result = _engine.TrackLifecycle(command);
+        var result = TrackLifecycle(command);
 
         Assert.False(result.Success);
         Assert.Contains("ReferenceId", result.Error);
@@ -161,7 +172,7 @@ public sealed class CapitalLifecycleEngineTests
     {
         var command = CreateCommand(triggeredBy: Guid.Empty);
 
-        var result = _engine.TrackLifecycle(command);
+        var result = TrackLifecycle(command);
 
         Assert.False(result.Success);
         Assert.Contains("TriggeredBy", result.Error);
@@ -174,7 +185,7 @@ public sealed class CapitalLifecycleEngineTests
             previousStage: CapitalLifecycleStage.Allocation,
             newStage: CapitalLifecycleStage.Allocation);
 
-        var result = _engine.TrackLifecycle(command);
+        var result = TrackLifecycle(command);
 
         Assert.False(result.Success);
         Assert.Contains("must be different", result.Error);
@@ -194,8 +205,8 @@ public sealed class CapitalLifecycleEngineTests
             capitalId, CapitalLifecycleStage.Commitment, CapitalLifecycleStage.Contribution,
             referenceId, triggeredBy, triggeredAt);
 
-        var result1 = _engine.TrackLifecycle(command);
-        var result2 = _engine.TrackLifecycle(command);
+        var result1 = TrackLifecycle(command);
+        var result2 = TrackLifecycle(command);
 
         Assert.True(result1.Success);
         Assert.True(result2.Success);

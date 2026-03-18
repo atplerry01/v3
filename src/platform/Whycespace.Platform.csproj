@@ -41,15 +41,18 @@
     <ProjectReference Include="..\runtime\dispatcher\Whycespace.RuntimeDispatcher.csproj" />
     <ProjectReference Include="..\runtime\event-observability\Whycespace.EventObservability.csproj" />
     <ProjectReference Include="..\runtime\event-replay\Whycespace.EventReplay.csproj" />
-    <ProjectReference Include="..\engines\T0U\WhyceChain\Whycespace.Engines.T0U.WhyceChain.csproj" />
-    <ProjectReference Include="..\engines\T0U\WhyceGovernance\Whycespace.Engines.T0U.WhyceGovernance.csproj" />
-    <ProjectReference Include="..\engines\T0U\WhyceID\Whycespace.Engines.T0U.WhyceID.csproj" />
-    <ProjectReference Include="..\engines\T0U\WhycePolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
+    <ProjectReference Include="..\engines\T0U\whycechain\Whycespace.Engines.T0U.WhyceChain.csproj" />
+    <ProjectReference Include="..\engines\T0U\governance\Whycespace.Engines.T0U.Governance.csproj" />
+    <ProjectReference Include="..\engines\T0U\whyceid\Whycespace.Engines.T0U.WhyceID.csproj" />
+    <ProjectReference Include="..\engines\T0U\whycepolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
     <ProjectReference Include="..\engines\T1M\WSS\Whycespace.Engines.T1M.WSS.csproj" />
+    <ProjectReference Include="..\engines\T1M\orchestration\Whycespace.Engines.T1M.Orchestration.csproj" />
+    <ProjectReference Include="..\engines\T1M\shared\Whycespace.Engines.T1M.Shared.csproj" />
     <ProjectReference Include="..\runtime\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
     <ProjectReference Include="..\engines\T3I\atlas\Whycespace.Engines.T3I.Atlas.csproj" />
     <ProjectReference Include="..\engines\T3I\forecasting\Whycespace.Engines.T3I.Forecasting.csproj" />
     <ProjectReference Include="..\runtime\intelligence\Whycespace.IntelligenceRuntime.csproj" />
+    <ProjectReference Include="..\engines\T4A\access\Whycespace.Engines.T4A.Access.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,7 @@
 namespace Whycespace.CapitalSystem.Tests;
 
-using Whycespace.Engines.T3I.Monitoring.Economic;
+using Whycespace.Engines.T3I.Monitoring.Economic.Engines;
+using Whycespace.Engines.T3I.Monitoring.Economic.Models;
 
 public sealed class CapitalValidationEngineTests
 {

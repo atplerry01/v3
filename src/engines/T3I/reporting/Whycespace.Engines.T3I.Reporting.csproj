@@ -11,7 +11,8 @@
     <ProjectReference Include="..\..\..\shared\Whycespace.Shared.csproj" />
     <ProjectReference Include="..\..\..\systems\Whycespace.System.csproj" />
     <ProjectReference Include="..\..\..\domain\core\economic\Whycespace.EconomicDomain.csproj" />
-    <ProjectReference Include="..\..\T0U\WhycePolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
+    <ProjectReference Include="..\..\T0U\whycepolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
+    <ProjectReference Include="..\shared\Whycespace.Engines.T3I.Shared.csproj" />
   </ItemGroup>
 
 </Project>

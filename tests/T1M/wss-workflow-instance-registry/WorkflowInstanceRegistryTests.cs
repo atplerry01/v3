@@ -1,18 +1,19 @@
-using Whycespace.Engines.T1M.WSS.Instance;
-using Whycespace.Engines.T1M.WSS.Stores;
-using Whycespace.Systems.Midstream.WSS.Models;
+using Whycespace.Engines.T1M.WSS.Registry;
+using Whycespace.Engines.T1M.Shared;
+using Whycespace.Runtime.Persistence.Workflow;
+using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Models.WorkflowInstanceStatus;
 
 namespace Whycespace.WSS.WorkflowInstanceRegistry.Tests;
 
 public class WorkflowInstanceRegistryTests
 {
-    private readonly WorkflowInstanceRegistryStore _store;
-    private readonly Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry _registry;
+    private readonly InstanceRegistryStoreAdapter _store;
+    private readonly Whycespace.Engines.T1M.WSS.Registry.WorkflowInstanceRegistry _registry;
 
     public WorkflowInstanceRegistryTests()
     {
-        _store = new WorkflowInstanceRegistryStore();
-        _registry = new Whycespace.Engines.T1M.WSS.Instance.WorkflowInstanceRegistry(_store);
+        _store = new InstanceRegistryStoreAdapter();
+        _registry = new Whycespace.Engines.T1M.WSS.Registry.WorkflowInstanceRegistry(_store);
     }
 
     // 1. Create workflow instance

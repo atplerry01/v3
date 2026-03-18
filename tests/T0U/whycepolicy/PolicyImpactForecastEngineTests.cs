@@ -1,4 +1,6 @@
-using Whycespace.Engines.T3I.Forecasting.Policy;
+using Whycespace.Engines.T3I.Forecasting.Policy.Engines;
+using Whycespace.Engines.T3I.Forecasting.Policy.Models;
+using Whycespace.Engines.T3I.Shared;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
 namespace Whycespace.WhycePolicy.Tests;
@@ -23,6 +25,17 @@ public class PolicyImpactForecastEngineTests
             attributes ?? new Dictionary<string, string>(),
             DateTime.UtcNow);
 
+    private static PolicyImpactForecastResult ExecuteForecast(
+        PolicyImpactForecastEngine engine,
+        PolicyImpactForecastInput input)
+    {
+        var context = IntelligenceContext<PolicyImpactForecastInput>.Create(input);
+        var result = engine.Execute(context);
+        Assert.True(result.Success);
+        Assert.NotNull(result.Output);
+        return result.Output;
+    }
+
     [Fact]
     public void ForecastImpact_NoChanges_ReturnsNoImpact()
     {
@@ -36,7 +49,7 @@ public class PolicyImpactForecastEngineTests
         var context = MakeContext(contextId, "finance");
 
         var input = new PolicyImpactForecastInput(policies, policies, new[] { context });
-        var result = engine.ForecastImpact(input);
+        var result = ExecuteForecast(engine, input);
 
         Assert.Single(result.ForecastRecords);
         Assert.Equal(ImpactType.NO_CHANGE, result.ForecastRecords[0].ImpactType);
@@ -64,7 +77,7 @@ public class PolicyImpactForecastEngineTests
         };
 
         var input = new PolicyImpactForecastInput(currentPolicies, proposedPolicies, new[] { context });
-        var result = engine.ForecastImpact(input);
+        var result = ExecuteForecast(engine, input);
 
         Assert.Single(result.ForecastRecords);
         Assert.NotEqual(ImpactType.NO_CHANGE, result.ForecastRecords[0].ImpactType);
@@ -93,7 +106,7 @@ public class PolicyImpactForecastEngineTests
         };
 
         var input = new PolicyImpactForecastInput(currentPolicies, proposedPolicies, new[] { context });
-        var result = engine.ForecastImpact(input);
+        var result = ExecuteForecast(engine, input);
 
         Assert.Single(result.ForecastRecords);
         Assert.Equal(ImpactType.ESCALATION_CHANGE, result.ForecastRecords[0].ImpactType);
@@ -120,7 +133,7 @@ public class PolicyImpactForecastEngineTests
         };
 
         var input = new PolicyImpactForecastInput(currentPolicies, proposedPolicies, new[] { context });
-        var result = engine.ForecastImpact(input);
+        var result = ExecuteForecast(engine, input);
 
         Assert.Single(result.ForecastRecords);
         Assert.Equal(ImpactType.GOVERNANCE_CHANGE, result.ForecastRecords[0].ImpactType);
@@ -153,8 +166,8 @@ public class PolicyImpactForecastEngineTests
         };
 
         var input = new PolicyImpactForecastInput(currentPolicies, proposedPolicies, contexts);
-        var result1 = engine.ForecastImpact(input);
-        var result2 = engine.ForecastImpact(input);
+        var result1 = ExecuteForecast(engine, input);
+        var result2 = ExecuteForecast(engine, input);
 
         Assert.Equal(result1.ForecastRecords.Count, result2.ForecastRecords.Count);
         for (var i = 0; i < result1.ForecastRecords.Count; i++)
@@ -195,7 +208,7 @@ public class PolicyImpactForecastEngineTests
         };
 
         var input = new PolicyImpactForecastInput(currentPolicies, proposedPolicies, contexts);
-        var result = engine.ForecastImpact(input);
+        var result = ExecuteForecast(engine, input);
 
         Assert.Equal(3, result.ForecastRecords.Count);
         Assert.Contains(result.ForecastRecords, r => r.ImpactType != ImpactType.NO_CHANGE);
@@ -228,7 +241,7 @@ public class PolicyImpactForecastEngineTests
         var input = new PolicyImpactForecastInput(currentPolicies, proposedPolicies, contexts);
 
         var tasks = Enumerable.Range(0, 10)
-            .Select(_ => Task.Run(() => engine.ForecastImpact(input)))
+            .Select(_ => Task.Run(() => ExecuteForecast(engine, input)))
             .ToArray();
 
         Task.WaitAll(tasks);
@@ -270,7 +283,7 @@ public class PolicyImpactForecastEngineTests
         };
 
         var input = new PolicyImpactForecastInput(currentPolicies, proposedPolicies, new[] { context });
-        var result = engine.ForecastImpact(input);
+        var result = ExecuteForecast(engine, input);
 
         Assert.Single(result.ForecastRecords);
         Assert.Equal("allow", result.ForecastRecords[0].CurrentDecision);
@@ -296,7 +309,7 @@ public class PolicyImpactForecastEngineTests
         };
 
         var input = new PolicyImpactForecastInput(currentPolicies, proposedPolicies, new[] { context });
-        var result = engine.ForecastImpact(input);
+        var result = ExecuteForecast(engine, input);
 
         Assert.Equal(ImpactSeverity.CRITICAL, result.ForecastRecords[0].Severity);
         Assert.Equal(ImpactSeverity.CRITICAL, result.RiskLevel);
@@ -310,7 +323,7 @@ public class PolicyImpactForecastEngineTests
         var proposedPolicies = new[] { MakePolicy("p1", "finance") };
 
         var input = new PolicyImpactForecastInput(currentPolicies, proposedPolicies, Array.Empty<PolicyContext>());
-        var result = engine.ForecastImpact(input);
+        var result = ExecuteForecast(engine, input);
 
         Assert.Empty(result.ForecastRecords);
         Assert.Empty(result.AffectedPolicies);

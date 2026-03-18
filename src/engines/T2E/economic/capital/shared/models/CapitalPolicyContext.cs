@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T2E.Economic.Capital.Models;
+namespace Whycespace.Engines.T2E.Economic.Capital.Shared.Models;
 
 public sealed record CapitalPolicyContext(
     CapitalOperationType OperationType,

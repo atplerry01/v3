@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T2E.Economic.Revenue.Engines;
+namespace Whycespace.Engines.T2E.Economic.Revenue.Recording.Engines;
 
 using Whycespace.Contracts.Engines;
 using Whycespace.Runtime.EngineManifest.Attributes;

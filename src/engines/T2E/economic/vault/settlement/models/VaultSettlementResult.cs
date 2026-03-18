@@ -1,4 +1,4 @@
-namespace Whycespace.Engines.T2E.Economic.Vault.Models;
+namespace Whycespace.Engines.T2E.Economic.Vault.Settlement.Models;
 
 public sealed record VaultSettlementResult(
     Guid SettlementId,

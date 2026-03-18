@@ -1,0 +1,14 @@
+namespace Whycespace.Engines.T1M.WSS.Graph;
+
+using Whycespace.Systems.Midstream.WSS.Models;
+
+public interface IWorkflowDependencyEngine
+{
+    WorkflowDependencyResult AnalyzeWorkflowDependencies(WorkflowDefinition workflow);
+
+    IReadOnlyList<string> ResolveExecutionOrder(WorkflowDefinition workflow);
+
+    IReadOnlyList<string> DetectCircularDependencies(WorkflowDefinition workflow);
+
+    IReadOnlyList<string> GetExternalWorkflowDependencies(WorkflowDefinition workflow);
+}

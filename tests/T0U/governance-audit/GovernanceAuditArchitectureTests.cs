@@ -1,5 +1,6 @@
 using System.Reflection;
-using Whycespace.Engines.T3I.Reporting.Governance;
+using Whycespace.Engines.T3I.Reporting.Governance.Engines;
+using Whycespace.Engines.T3I.Reporting.Governance.Models;
 
 namespace Whycespace.GovernanceAudit.Tests;
 
@@ -73,7 +74,8 @@ public class GovernanceAuditArchitectureTests
         var engineReferences = references.Where(r =>
             r.Name != null
             && r.Name.Contains("Engines", StringComparison.OrdinalIgnoreCase)
-            && r.Name != _engineAssembly.GetName().Name);
+            && r.Name != _engineAssembly.GetName().Name
+            && !r.Name.EndsWith(".Shared", StringComparison.OrdinalIgnoreCase));
 
         Assert.Empty(engineReferences);
     }

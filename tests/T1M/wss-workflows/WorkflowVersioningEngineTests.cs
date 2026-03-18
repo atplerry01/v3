@@ -3,19 +3,20 @@ namespace Whycespace.Tests.WssWorkflows;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Primitives;
 using Whycespace.Contracts.Workflows;
-using Whycespace.Engines.T1M.WSS.Stores;
-using Whycespace.Engines.T1M.WSS.Versioning;
+using Whycespace.Engines.T1M.Shared;
+using Whycespace.Engines.T1M.WSS.Definition;
+using Whycespace.Runtime.Persistence.Workflow;
 using WfDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
 using Xunit;
 
 public sealed class WorkflowVersioningEngineTests
 {
-    private readonly WorkflowVersionStore _store;
+    private readonly VersionStoreAdapter _store;
     private readonly WorkflowVersioningEngine _engine;
 
     public WorkflowVersioningEngineTests()
     {
-        _store = new WorkflowVersionStore();
+        _store = new VersionStoreAdapter();
         _engine = new WorkflowVersioningEngine(_store);
     }
 
@@ -47,7 +48,7 @@ public sealed class WorkflowVersioningEngineTests
             Guid.NewGuid(),
             "wf-test",
             "step-1",
-            new PartitionKey("test", "default"),
+            new PartitionKey("test"),
             data);
     }
 
