@@ -1,6 +1,7 @@
 namespace Whycespace.Runtime.Persistence.Abstractions;
 
 using Whycespace.Engines.T1M.Shared;
+using Whycespace.Runtime.Persistence.Workflow;
 
 public interface IWorkflowStateStore
 {

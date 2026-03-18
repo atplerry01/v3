@@ -9,7 +9,7 @@ using Whycespace.Systems.Midstream.WSS.Models;
 using Whycespace.Systems.Midstream.WSS.Definition;
 using Whycespace.Systems.Midstream.WSS.Execution;
 using Whycespace.Systems.Midstream.WSS.Policies;
-using Whycespace.Infrastructure.Persistence.Workflow;
+using Whycespace.Runtime.Persistence.Workflow;
 using WssWorkflowEventRouter = Whycespace.Engines.T1M.Orchestration.Dispatcher.WorkflowEventRouter;
 using Whycespace.Engines.T1M.Orchestration.Dispatcher;
 using Whycespace.Engines.T1M.Orchestration.Resilience;

@@ -9,11 +9,11 @@ using Whycespace.WorkflowRuntime;
 [EngineManifest("WorkflowRetryPolicy", EngineTier.T1M, EngineKind.Decision, "WorkflowRetryPolicyCommand", typeof(EngineEvent))]
 public sealed class WorkflowRetryPolicyEngine : IEngine, Whycespace.WorkflowRuntime.IWorkflowRetryPolicyEngine
 {
-    private readonly Whycespace.Runtime.Persistence.Workflow.IWorkflowRetryStore? _retryStore;
+    private readonly Whycespace.Runtime.Persistence.Abstractions.IWorkflowRetryStore? _retryStore;
 
     public WorkflowRetryPolicyEngine() { }
 
-    public WorkflowRetryPolicyEngine(Whycespace.Runtime.Persistence.Workflow.IWorkflowRetryStore retryStore)
+    public WorkflowRetryPolicyEngine(Whycespace.Runtime.Persistence.Abstractions.IWorkflowRetryStore retryStore)
     {
         _retryStore = retryStore;
     }

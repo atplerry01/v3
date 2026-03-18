@@ -6,7 +6,7 @@ using Whycespace.FoundationHost.Workers;
 using Whycespace.Runtime.EngineManifest.Loader;
 using Whycespace.EventFabricRuntime.Bus;
 using Whycespace.Runtime.Observability.Core;
-using Whycespace.Infrastructure.Persistence;
+using Whycespace.Runtime.Persistence;
 using Whycespace.Runtime.Persistence;
 using Whycespace.Systems.Midstream.WhyceAtlas.Projections;
 using Whycespace.Systems.Downstream.Mobility.Projections;

@@ -1,5 +1,5 @@
 using Whycespace.Engines.T1M.WSS.Step;
-using Whycespace.Infrastructure.Persistence.Workflow;
+using Whycespace.Runtime.Persistence.Workflow;
 
 namespace Whycespace.WSS.WorkflowEngineMapping.Tests;
 

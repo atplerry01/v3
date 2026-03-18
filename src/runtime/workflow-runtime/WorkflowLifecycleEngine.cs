@@ -2,6 +2,7 @@ namespace Whycespace.WorkflowRuntime;
 
 using WorkflowStep = Whycespace.Contracts.Workflows.WorkflowStep;
 using Whycespace.Systems.WSS.Registry;
+using Whycespace.Runtime.Persistence.Abstractions;
 using Whycespace.Runtime.Persistence.Workflow;
 using Whycespace.Systems.Midstream.WSS.Events;
 using Whycespace.Systems.Midstream.WSS.Models;

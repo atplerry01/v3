@@ -1,7 +1,7 @@
 using Whycespace.Engines.T1M.WSS.Definition;
 using Whycespace.Engines.T1M.WSS.Registry;
 using Whycespace.Runtime.Persistence.Workflow;
-using Whycespace.Infrastructure.Persistence.Workflow;
+using Whycespace.Runtime.Persistence.Workflow;
 using WfDefinition = Whycespace.Systems.Midstream.WSS.Definition.WorkflowDefinition;
 using WfInstance = Whycespace.Systems.Midstream.WSS.Execution.WorkflowInstance;
 

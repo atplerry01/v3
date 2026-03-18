@@ -1,5 +1,5 @@
 using Whycespace.Engines.T1M.WSS.Definition;
-using Whycespace.Infrastructure.Persistence.Workflow;
+using Whycespace.Runtime.Persistence.Workflow;
 using WfDefinition = Whycespace.Systems.Midstream.WSS.Definition.WorkflowDefinition;
 using WfTemplate = Whycespace.Systems.Midstream.WSS.Definition.WorkflowTemplate;
 

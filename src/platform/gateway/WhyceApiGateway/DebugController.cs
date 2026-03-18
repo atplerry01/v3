@@ -98,7 +98,7 @@ using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 using Whycespace.Contracts.Evidence;
 using Whycespace.Engines.T2E.Economic.Capital.Adapters;
 using Whycespace.Engines.T2E.Economic.Capital.Shared.Models;
-using Whycespace.Infrastructure.Persistence.CapitalLedger;
+using Whycespace.Runtime.Persistence.Capital;
 using Whycespace.Engines.T3I.Forecasting.Economic.Engines;
 using Whycespace.Engines.T3I.Forecasting.Economic.Models;
 using Whycespace.Engines.T3I.Shared;

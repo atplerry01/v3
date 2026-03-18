@@ -1,7 +1,7 @@
 namespace Whycespace.Runtime.Persistence.Workflow;
 
 using global::System.Collections.Concurrent;
-using Whycespace.Runtime.Persistence.Workflow;
+using Whycespace.Runtime.Persistence.Abstractions;
 
 public sealed class WorkflowRetryStore : IWorkflowRetryStore,
     Whycespace.Engines.T1M.Shared.IWorkflowRetryStore

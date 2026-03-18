@@ -1,7 +1,7 @@
 namespace Whycespace.Runtime.Persistence.Workflow;
 
 using global::System.Collections.Concurrent;
-using Whycespace.Runtime.Persistence.Workflow;
+using Whycespace.Runtime.Persistence.Abstractions;
 using Whycespace.Systems.Midstream.WSS.Models;
 using Whycespace.Systems.Midstream.WSS.Definition;
 using Whycespace.Systems.Midstream.WSS.Execution;

@@ -56,7 +56,6 @@
     <ProjectReference Include="..\runtime\intelligence\Whycespace.IntelligenceRuntime.csproj" />
     <ProjectReference Include="..\engines\T4A\access\Whycespace.Engines.T4A.Access.csproj" />
     <ProjectReference Include="..\runtime\persistence\Whycespace.RuntimePersistence.csproj" />
-    <ProjectReference Include="..\..\infrastructure\persistence\Whycespace.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

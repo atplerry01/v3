@@ -27,7 +27,7 @@
     <ProjectReference Include="..\..\..\..\src\runtime\projection-runtime\Whycespace.ProjectionRuntime.csproj" />
     <ProjectReference Include="..\..\..\..\src\runtime\projection-rebuild\Whycespace.ProjectionRebuild.csproj" />
     <ProjectReference Include="..\..\..\..\src\application\Whycespace.Application.csproj" />
-    <ProjectReference Include="..\..\..\persistence\Whycespace.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\persistence\Whycespace.RuntimePersistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -123,9 +123,6 @@
   <Folder Name="/infrastructure/runtime/">
     <Project Path="infrastructure/runtime/host/Whycespace.FoundationHost/Whycespace.FoundationHost.csproj" />
   </Folder>
-  <Folder Name="/infrastructure/persistence/">
-    <Project Path="infrastructure/persistence/Whycespace.Infrastructure.Persistence.csproj" />
-  </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Whycespace.Tests.csproj" />
   </Folder>
