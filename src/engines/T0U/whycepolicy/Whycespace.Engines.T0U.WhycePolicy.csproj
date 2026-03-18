@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Whycespace.Engines.T0U.WhycePolicy</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\..\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,7 +1,10 @@
-namespace Whycespace.Runtime.Persistence.Workflow;
+namespace Whycespace.Infrastructure.Persistence.Workflow;
 
 using global::System.Collections.Concurrent;
 using Whycespace.Systems.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Definition;
+using Whycespace.Systems.Midstream.WSS.Execution;
+using Whycespace.Systems.Midstream.WSS.Policies;
 using Whycespace.Systems.Midstream.WSS.Registry;
 
 public sealed class WorkflowInstanceRegistryStore : IWorkflowInstanceRegistryStore

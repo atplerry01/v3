@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\shared\Whycespace.Shared.csproj" />
+    <ProjectReference Include="..\..\..\..\src\engines\Whycespace.Engines.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\Whycespace.Runtime.csproj" />
+    <ProjectReference Include="..\..\..\..\src\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\..\..\src\domain\Whycespace.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\command\Whycespace.CommandSystem.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\dispatcher\Whycespace.RuntimeDispatcher.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\engine\Whycespace.EngineRuntime.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\partition\Whycespace.PartitionRuntime.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\engine-workers\Whycespace.EngineWorkerRuntime.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\reliability\Whycespace.Reliability.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\reliability-runtime\Whycespace.ReliabilityRuntime.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\observability\Whycespace.Observability.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\event-idempotency\Whycespace.EventIdempotency.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\projection-runtime\Whycespace.ProjectionRuntime.csproj" />
+    <ProjectReference Include="..\..\..\..\src\runtime\projection-rebuild\Whycespace.ProjectionRebuild.csproj" />
+    <ProjectReference Include="..\..\..\..\src\application\Whycespace.Application.csproj" />
+    <ProjectReference Include="..\..\..\persistence\Whycespace.Infrastructure.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.15.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Whycespace.Systems.WhyceID</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="identity/**" />
+    <Content Remove="identity/**" />
+    <None Remove="identity/**" />
+    <EmbeddedResource Remove="identity/**" />
+    <Compile Remove="IdentityProvider.cs" />
+    <Compile Remove="simulation/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="..\..\Whycespace.System.csproj" />
+  </ItemGroup>
+
+</Project>

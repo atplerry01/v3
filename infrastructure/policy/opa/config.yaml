@@ -1,0 +1,11 @@
+services:
+  policy:
+    url: http://localhost:8181
+
+bundles:
+  policybundle:
+    resource: /bundles/policy-bundle.tar.gz
+    persist: true
+
+decision_logs:
+  console: true

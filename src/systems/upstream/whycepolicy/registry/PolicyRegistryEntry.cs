@@ -1,0 +1,14 @@
+namespace Whycespace.Systems.Upstream.WhycePolicy.Registry;
+
+using Whycespace.Systems.Upstream.WhycePolicy.Models;
+
+public sealed record PolicyRegistryEntry(
+    string PolicyId,
+    string PolicyName,
+    string Domain,
+    int Priority,
+    PolicyLifecycleState LifecycleState,
+    int CurrentVersion,
+    DateTime CreatedAt,
+    DateTime UpdatedAt
+);
