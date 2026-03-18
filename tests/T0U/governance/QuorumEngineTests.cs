@@ -28,7 +28,7 @@ using Whycespace.Engines.T0U.Governance.Domain.Validation;
 using Whycespace.Engines.T0U.Governance.Domain.Deactivation;
 using Whycespace.Engines.T0U.Governance.ProposalType.Registration;
 using Whycespace.Engines.T0U.Governance.ProposalType.Deactivation;
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 
 namespace Whycespace.Governance.Tests;
 

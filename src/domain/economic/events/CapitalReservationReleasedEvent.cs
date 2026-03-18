@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Events.Core.Economic;
+namespace Whycespace.Domain.Economic.Events;
 
 public sealed record CapitalReservationReleasedEvent(
     Guid EventId,

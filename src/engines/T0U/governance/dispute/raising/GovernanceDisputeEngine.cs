@@ -3,7 +3,7 @@ namespace Whycespace.Engines.T0U.Governance.Dispute.Raising;
 using Whycespace.Engines.T0U.Governance.Dispute.Resolution;
 using Whycespace.Engines.T0U.Governance.Dispute.Withdrawal;
 
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 using Whycespace.Systems.Upstream.Governance.Models;
 using Whycespace.Systems.Upstream.Governance.Stores;
 

@@ -3,8 +3,8 @@ using Whycespace.Engines.T2E.Workforce.Models;
 namespace Whycespace.Engines.T2E.Workforce.Engines;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Domain.Core.Operators;
-using Whycespace.Domain.Core.Workforce;
+using Whycespace.Domain.Identity;
+using Whycespace.Domain.Clusters.Operations.Shared;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
 

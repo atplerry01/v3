@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Events.Core.Identity;
+namespace Whycespace.Domain.Identity.Events;
 
 public sealed record IdentityAttributeUpdatedEvent(
     Guid EventId,

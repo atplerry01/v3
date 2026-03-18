@@ -2,7 +2,7 @@ using Whycespace.Engines.T2E.Economic.Capital.Shared.Models;
 
 namespace Whycespace.Engines.T2E.Economic.Capital.Adapters;
 
-using Whycespace.Domain.Core.Economic;
+using Whycespace.Domain.Economic.Capital;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;
 
 public sealed class CapitalPolicyEnforcementAdapter

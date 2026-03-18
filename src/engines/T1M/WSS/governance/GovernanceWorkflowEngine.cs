@@ -1,7 +1,7 @@
 namespace Whycespace.Engines.T1M.WSS.Governance;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 using Whycespace.Engines.T1M.WSS.Governance.Commands;
 using Whycespace.Engines.T1M.WSS.Governance.Results;
 using Whycespace.Runtime.EngineManifest.Attributes;

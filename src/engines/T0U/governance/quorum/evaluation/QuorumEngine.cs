@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T0U.Governance.Quorum.Evaluation;
 
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 
 public sealed class QuorumEngine
 {

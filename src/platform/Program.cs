@@ -23,15 +23,17 @@ using Whycespace.Systems.Midstream.WSS.Orchestration;
 using Whycespace.Runtime.EventFabricRuntime.WSS;
 using Whycespace.Systems.Midstream.WSS.Workflows;
 using Whycespace.Systems.Upstream.WhycePolicy;
-using Whycespace.Domain.Core.Cluster.Bootstrap;
-using Whycespace.Domain.Core.Cluster.Services;
-using Whycespace.Domain.Core.Providers;
-using Whycespace.Domain.Core.Spv;
+using Whycespace.Domain.Clusters.Governance.Lifecycle;
+using Whycespace.Domain.Clusters.Governance.Administration;
+using Whycespace.Domain.Clusters.Governance.Provider;
+using Whycespace.Domain.Clusters.Governance.Registry;
+using Whycespace.Domain.Economic.Spv;
+using Whycespace.Systems.Midstream.Economics;
 using Whycespace.SimulationRuntime.Loader;
 using Whycespace.SimulationRuntime.Runtime;
 using Whycespace.SimulationRuntime.Services;
 using Whycespace.ClusterTemplatePlatform;
-using Whycespace.Domain.Core.Economic;
+using Whycespace.Domain.Economic.Capital;
 using Whycespace.Runtime.Validation.Runners;
 using Whycespace.Platform.Dispatch;
 
@@ -288,9 +290,9 @@ var governanceEvidenceRecorder = new Whycespace.Engines.T0U.Governance.Evidence.
 builder.Services.AddSingleton(governanceEvidenceRecorder);
 
 // Capital Policy Enforcement Adapter (Phase 2.2.25)
-var capitalRegistry = new Whycespace.Domain.Core.Economic.CapitalRegistry();
+var capitalRegistry = new Whycespace.Domain.Economic.Capital.CapitalRegistry();
 var capitalPolicyAdapter = new Whycespace.Engines.T2E.Economic.Capital.Adapters.CapitalPolicyEnforcementAdapter(capitalRegistry);
-builder.Services.AddSingleton<Whycespace.Domain.Core.Economic.ICapitalRegistry>(capitalRegistry);
+builder.Services.AddSingleton<Whycespace.Domain.Economic.Capital.ICapitalRegistry>(capitalRegistry);
 builder.Services.AddSingleton(capitalRegistry);
 builder.Services.AddSingleton(capitalPolicyAdapter);
 

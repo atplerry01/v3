@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Events.Core;
+namespace Whycespace.Domain.Economic.Events;
 
 public sealed record VaultCreatedEvent(
     Guid VaultId,

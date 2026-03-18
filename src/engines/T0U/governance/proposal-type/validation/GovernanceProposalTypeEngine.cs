@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T0U.Governance.ProposalType.Validation;
 
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 using Whycespace.Engines.T0U.Governance.ProposalType.Registration;
 using Whycespace.Engines.T0U.Governance.ProposalType.Deactivation;
 

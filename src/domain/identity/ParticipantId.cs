@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Participants;
+namespace Whycespace.Domain.Identity;
 
 public readonly record struct ParticipantId(Guid Value)
 {

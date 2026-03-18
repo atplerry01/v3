@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Events.Core.Cluster;
+namespace Whycespace.Domain.Clusters.Governance.Authority;
 
 public sealed record ClusterCreatedEvent(
     Guid ClusterId,

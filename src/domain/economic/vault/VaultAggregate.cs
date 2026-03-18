@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Economic;
+namespace Whycespace.Domain.Economic.Vault;
 
 public sealed class VaultAggregate
 {

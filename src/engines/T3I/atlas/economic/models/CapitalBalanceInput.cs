@@ -1,4 +1,4 @@
-using Whycespace.Domain.Core.Economic;
+using Whycespace.Domain.Economic.Capital;
 
 namespace Whycespace.Engines.T3I.Atlas.Economic.Models;
 

@@ -1,6 +1,7 @@
-namespace Whycespace.Domain.Core.Cluster.Services;
+namespace Whycespace.Domain.Clusters.Governance.Administration;
 
-using Whycespace.Domain.Core.Cluster.Aggregates;
+using Whycespace.Domain.Clusters.Governance.Authority;
+using Whycespace.Domain.Clusters.Governance.Subcluster;
 
 public sealed class ClusterAdministrationService
 {

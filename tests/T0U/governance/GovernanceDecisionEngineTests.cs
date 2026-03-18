@@ -14,7 +14,7 @@ using Whycespace.Engines.T0U.Governance.Workflow.Execution;
 using Whycespace.Engines.T0U.Governance.Decisions.Evaluation;
 using Whycespace.Engines.T0U.Governance.Guardians.Registry;
 using Whycespace.Systems.Upstream.Governance.Models;
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 
 namespace Whycespace.Governance.Tests;
 

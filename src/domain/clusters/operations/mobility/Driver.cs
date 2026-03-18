@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Clusters.Mobility.Taxi;
+namespace Whycespace.Domain.Clusters.Operations.Mobility;
 
 using Whycespace.Shared.Location;
 

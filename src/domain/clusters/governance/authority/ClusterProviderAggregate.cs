@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Cluster.Aggregates;
+namespace Whycespace.Domain.Clusters.Governance.Authority;
 
 public sealed record ClusterProvider(
     Guid ProviderId,

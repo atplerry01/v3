@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Economic;
+namespace Whycespace.Domain.Economic.Spv;
 
 public sealed class SpvEconomicEntity
 {

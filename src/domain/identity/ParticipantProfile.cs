@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Participants;
+namespace Whycespace.Domain.Identity;
 
 public sealed record ParticipantProfile(
     ParticipantId ParticipantId,

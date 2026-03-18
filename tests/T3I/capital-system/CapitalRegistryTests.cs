@@ -1,6 +1,6 @@
 namespace Whycespace.CapitalSystem.Tests;
 
-using Whycespace.Domain.Core.Economic;
+using Whycespace.Domain.Economic.Capital;
 
 public sealed class CapitalRegistryTests
 {

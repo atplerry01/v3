@@ -3,9 +3,7 @@
   <Folder Name="/src/domain/">
     <Project Path="src/domain/Whycespace.Domain.csproj" />
   </Folder>
-  <Folder Name="/src/domain/clusters/">
-    <Project Path="src/domain/clusters/Whycespace.ClusterDomain.csproj" />
-  </Folder>
+  <Folder Name="/src/domain/clusters/" />
   <Folder Name="/src/engines/">
     <Project Path="src/engines/Whycespace.Engines.csproj" />
   </Folder>
@@ -98,10 +96,6 @@
     <Project Path="src/systems/upstream/WhyceID/Whycespace.System.WhyceID.csproj" />
   </Folder>
   <Folder Name="/src/engines/t0u-whyce-identity/">
-  </Folder>
-  <Folder Name="/src/domain/core/" />
-  <Folder Name="/src/domain/core/economic/">
-    <Project Path="src/domain/core/economic/Whycespace.EconomicDomain.csproj" />
   </Folder>
   <Folder Name="/src/platform/cluster-templates/">
     <Project Path="src/platform/cluster-templates/Whycespace.ClusterTemplatePlatform.csproj" />

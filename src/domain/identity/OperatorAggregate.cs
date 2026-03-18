@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Operators;
+namespace Whycespace.Domain.Identity;
 
 public sealed class OperatorAggregate
 {

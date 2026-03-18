@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Providers;
+namespace Whycespace.Domain.Clusters.Governance.Provider;
 
 public sealed class ClusterProviderRegistry
 {

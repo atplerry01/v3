@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Events.Clusters.Mobility;
+namespace Whycespace.Domain.Clusters.Operations.Mobility;
 
 public sealed record DriverMatchedEvent(
     Guid MatchId,

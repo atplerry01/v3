@@ -2,7 +2,7 @@ namespace Whycespace.ExecutionEngines.Tests;
 
 using Whycespace.Engines.T2E.Workforce.Engines;
 using Whycespace.Engines.T2E.Workforce.Models;
-using Whycespace.Domain.Core.Workforce;
+using Whycespace.Domain.Clusters.Operations.Shared;
 using Whycespace.Contracts.Engines;
 
 public sealed class WorkforceIncentiveEngineTests

@@ -1,6 +1,6 @@
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Primitives;
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 using Whycespace.Engines.T1M.WSS.Governance;
 using Whycespace.Engines.T1M.WSS.Governance.Commands;
 using Whycespace.Systems.Midstream.WSS.Governance;

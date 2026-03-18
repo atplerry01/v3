@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Spv;
+namespace Whycespace.Domain.Clusters.Governance.Spv;
 
 public sealed record Spv(
     Guid SpvId,

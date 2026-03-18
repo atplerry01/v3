@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Events.Spv;
+namespace Whycespace.Domain.Economic.Events;
 
 public sealed record SpvCreatedEvent(
     Guid SpvId,

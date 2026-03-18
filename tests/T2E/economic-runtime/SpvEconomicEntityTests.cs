@@ -1,6 +1,6 @@
 namespace Whycespace.EconomicRuntime.Tests;
 
-using Whycespace.Domain.Core.Economic;
+using Whycespace.Domain.Economic.Spv;
 
 public sealed class SpvEconomicEntityTests
 {

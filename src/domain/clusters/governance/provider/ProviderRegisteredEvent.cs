@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Events.Providers;
+namespace Whycespace.Domain.Clusters.Governance.Provider;
 
 public sealed record ProviderRegisteredEvent(
     Guid ProviderId,

@@ -2,8 +2,8 @@ namespace Whycespace.Tests.ExecutionEngines;
 
 using Whycespace.Engines.T2E.Workforce.Engines;
 using Whycespace.Engines.T2E.Workforce.Models;
-using Whycespace.Domain.Core.Workforce;
-using Whycespace.Domain.Core.Operators;
+using Whycespace.Domain.Clusters.Operations.Shared;
+using Whycespace.Domain.Identity;
 using Whycespace.Contracts.Engines;
 using Xunit;
 

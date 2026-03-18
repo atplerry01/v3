@@ -1,8 +1,9 @@
 namespace Whycespace.ClusterTemplatePlatform.Tests;
 
 using Whycespace.Domain.Clusters;
-using Whycespace.Domain.Core.Cluster.Services;
-using Whycespace.Domain.Core.Providers;
+using Whycespace.Domain.Clusters.Governance.Administration;
+using Whycespace.Domain.Clusters.Governance.Lifecycle;
+using Whycespace.Domain.Clusters.Governance.Provider;
 
 public sealed class ClusterGeneratorTests
 {

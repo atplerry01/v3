@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T0U.Governance.Proposal.Validation;
 
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 using Whycespace.Engines.T0U.Governance.Proposal.Creation;
 using Whycespace.Engines.T0U.Governance.Proposal.Submission;
 using Whycespace.Engines.T0U.Governance.Proposal.Cancellation;

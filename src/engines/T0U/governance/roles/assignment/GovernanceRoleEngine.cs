@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T0U.Governance.Roles.Assignment;
 
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 using Whycespace.Engines.T0U.Governance.Roles.Revocation;
 
 using Whycespace.Systems.Upstream.Governance.Models;

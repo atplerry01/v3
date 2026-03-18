@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Governance;
+namespace Whycespace.Domain.Governance;
 
 public sealed record Policy(
     Guid PolicyId,

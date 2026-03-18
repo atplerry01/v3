@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Clusters.Property.Letting;
+namespace Whycespace.Domain.Clusters.Operations.Property;
 
 using Whycespace.Shared.Location;
 

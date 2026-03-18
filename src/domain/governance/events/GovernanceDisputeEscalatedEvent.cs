@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Events.Governance;
+namespace Whycespace.Domain.Governance.Events;
 
 public sealed record GovernanceDisputeEscalatedEvent(
     Guid EventId,

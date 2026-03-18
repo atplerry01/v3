@@ -1,4 +1,6 @@
-namespace Whycespace.Domain.Core.Spv;
+namespace Whycespace.Systems.Midstream.Economics;
+
+using Whycespace.Domain.Clusters.Governance.Registry;
 
 public sealed class SpvRegistry : ISpvRegistry
 {

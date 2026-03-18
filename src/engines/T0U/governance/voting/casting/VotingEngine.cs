@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T0U.Governance.Voting.Casting;
 
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 using Whycespace.Systems.Upstream.Governance.Models;
 using Whycespace.Systems.Upstream.Governance.Stores;
 

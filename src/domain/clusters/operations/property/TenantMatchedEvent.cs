@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Events.Clusters.Property;
+namespace Whycespace.Domain.Clusters.Operations.Property;
 
 public sealed record TenantMatchedEvent(
     Guid MatchId,

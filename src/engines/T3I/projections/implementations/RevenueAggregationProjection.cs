@@ -1,4 +1,4 @@
-using Whycespace.Domain.Events.Core.Economic;
+using Whycespace.Domain.Economic.Events;
 using Whycespace.Engines.T3I.Projections.Models;
 using Whycespace.Engines.T3I.Projections.Stores;
 using Whycespace.EventFabric.Models;

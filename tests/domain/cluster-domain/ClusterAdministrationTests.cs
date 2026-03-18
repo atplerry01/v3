@@ -1,5 +1,5 @@
 namespace Whycespace.ClusterDomain.Tests;
-using Whycespace.Domain.Core.Cluster.Services;
+using Whycespace.Domain.Clusters.Governance.Administration;
 
 public sealed class ClusterAdministrationTests
 {

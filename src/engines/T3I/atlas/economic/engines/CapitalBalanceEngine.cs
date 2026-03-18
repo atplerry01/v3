@@ -1,7 +1,7 @@
 using Whycespace.Engines.T3I.Atlas.Economic.Models;
 namespace Whycespace.Engines.T3I.Atlas.Economic.Engines;
 
-using Whycespace.Domain.Core.Economic;
+using Whycespace.Domain.Economic.Capital;
 using Whycespace.Engines.T3I.Shared;
 
 public sealed class CapitalBalanceEngine : IIntelligenceEngine<CapitalBalanceInput, CapitalBalanceResult>

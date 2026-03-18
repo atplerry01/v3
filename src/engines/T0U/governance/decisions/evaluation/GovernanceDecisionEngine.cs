@@ -1,7 +1,7 @@
 namespace Whycespace.Engines.T0U.Governance.Decisions.Evaluation;
 
 using Whycespace.Systems.Upstream.Governance.Models;
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 
 public sealed class GovernanceDecisionEngine
 {

@@ -19,7 +19,6 @@
     <ProjectReference Include="..\shared\Whycespace.Shared.csproj" />
     <ProjectReference Include="..\shared\contracts\Whycespace.Contracts.csproj" />
     <ProjectReference Include="..\domain\Whycespace.Domain.csproj" />
-    <ProjectReference Include="..\domain\core\economic\Whycespace.EconomicDomain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

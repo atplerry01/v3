@@ -27,10 +27,8 @@
     <ProjectReference Include="..\runtime\command\Whycespace.CommandSystem.csproj" />
     <ProjectReference Include="..\runtime\reliability\Whycespace.Reliability.csproj" />
     <ProjectReference Include="..\runtime\observability\Whycespace.Observability.csproj" />
-    <ProjectReference Include="..\domain\clusters\Whycespace.ClusterDomain.csproj" />
     <ProjectReference Include="..\runtime\simulation\Whycespace.SimulationRuntime.csproj" />
     <ProjectReference Include="cluster-templates\Whycespace.ClusterTemplatePlatform.csproj" />
-    <ProjectReference Include="..\domain\core\economic\Whycespace.EconomicDomain.csproj" />
     <ProjectReference Include="..\runtime\validation\Whycespace.RuntimeValidation.csproj" />
     <ProjectReference Include="..\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />
     <ProjectReference Include="..\runtime\worker-pool\Whycespace.WorkerPoolRuntime.csproj" />

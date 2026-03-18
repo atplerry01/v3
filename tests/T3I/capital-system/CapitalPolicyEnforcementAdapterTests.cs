@@ -1,6 +1,6 @@
 namespace Whycespace.CapitalSystem.Tests;
 
-using Whycespace.Domain.Core.Economic;
+using Whycespace.Domain.Economic.Capital;
 using Whycespace.Engines.T2E.Economic.Capital.Adapters;
 using Whycespace.Engines.T2E.Economic.Capital.Shared.Models;
 using Whycespace.Systems.Upstream.WhycePolicy.Models;

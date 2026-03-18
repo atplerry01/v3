@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Identity;
+namespace Whycespace.Domain.Identity;
 
 public sealed record Permission(
     string Resource,

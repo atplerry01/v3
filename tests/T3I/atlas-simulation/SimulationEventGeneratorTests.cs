@@ -1,6 +1,6 @@
 namespace Whycespace.AtlasSimulation.Tests;
 
-using Whycespace.Domain.Events.Core.Economic;
+using Whycespace.Domain.Economic.Events;
 using Whycespace.Simulation;
 
 public sealed class SimulationEventGeneratorTests

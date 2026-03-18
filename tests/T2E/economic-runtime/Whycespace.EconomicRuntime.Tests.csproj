@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\domain\core\economic\Whycespace.EconomicDomain.csproj" />
+    <ProjectReference Include="..\..\..\src\domain\Whycespace.Domain.csproj" />
     <ProjectReference Include="..\..\..\src\engines\Whycespace.Engines.csproj" />
   </ItemGroup>
 

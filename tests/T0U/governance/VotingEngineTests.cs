@@ -1,4 +1,4 @@
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 using Whycespace.Engines.T0U.Governance.Proposal.Validation;
 using Whycespace.Engines.T0U.Governance.Proposal.Lifecycle;
 using Whycespace.Engines.T0U.Governance.Voting.Casting;

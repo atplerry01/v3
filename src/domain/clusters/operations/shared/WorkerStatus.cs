@@ -1,4 +1,4 @@
-namespace Whycespace.Domain.Core.Workforce;
+namespace Whycespace.Domain.Clusters.Operations.Shared;
 
 public enum WorkerStatus
 {

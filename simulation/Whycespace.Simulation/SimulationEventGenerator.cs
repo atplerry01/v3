@@ -1,7 +1,7 @@
 namespace Whycespace.Simulation;
 
 using Whycespace.Contracts.Primitives;
-using Whycespace.Domain.Events.Core.Economic;
+using Whycespace.Domain.Economic.Events;
 using Whycespace.EventFabric.Models;
 
 /// <summary>

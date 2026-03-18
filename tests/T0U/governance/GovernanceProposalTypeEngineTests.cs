@@ -461,19 +461,19 @@ public class GovernanceProposalTypeEngineTests
     [Fact]
     public void RegisteredEvent_IsImmutableRecord()
     {
-        Assert.True(typeof(Domain.Events.Governance.GovernanceProposalTypeRegisteredEvent).IsSealed);
+        Assert.True(typeof(Domain.Governance.Events.GovernanceProposalTypeRegisteredEvent).IsSealed);
     }
 
     [Fact]
     public void DeactivatedEvent_IsImmutableRecord()
     {
-        Assert.True(typeof(Domain.Events.Governance.GovernanceProposalTypeDeactivatedEvent).IsSealed);
+        Assert.True(typeof(Domain.Governance.Events.GovernanceProposalTypeDeactivatedEvent).IsSealed);
     }
 
     [Fact]
     public void ValidatedEvent_IsImmutableRecord()
     {
-        Assert.True(typeof(Domain.Events.Governance.GovernanceProposalTypeValidatedEvent).IsSealed);
+        Assert.True(typeof(Domain.Governance.Events.GovernanceProposalTypeValidatedEvent).IsSealed);
     }
 
     // --- Helpers ---

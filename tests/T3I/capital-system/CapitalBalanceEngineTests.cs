@@ -3,7 +3,7 @@ namespace Whycespace.CapitalSystem.Tests;
 using Whycespace.Engines.T3I.Atlas.Economic.Engines;
 using Whycespace.Engines.T3I.Atlas.Economic.Models;
 using Whycespace.Engines.T3I.Shared;
-using Whycespace.Domain.Core.Economic;
+using Whycespace.Domain.Economic.Capital;
 
 public sealed class CapitalBalanceEngineTests
 {

@@ -5,7 +5,7 @@ namespace Whycespace.Engines.T3I.Reporting.Workforce.Engines;
 using System.Security.Cryptography;
 using System.Text;
 using Whycespace.Contracts.Engines;
-using Whycespace.Domain.Core.Workforce;
+using Whycespace.Domain.Clusters.Operations.Shared;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
 

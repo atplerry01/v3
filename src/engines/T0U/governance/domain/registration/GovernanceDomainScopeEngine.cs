@@ -1,6 +1,6 @@
 namespace Whycespace.Engines.T0U.Governance.Domain.Registration;
 
-using Whycespace.Domain.Events.Governance;
+using Whycespace.Domain.Governance.Events;
 using Whycespace.Engines.T0U.Governance.Domain.Validation;
 using Whycespace.Engines.T0U.Governance.Domain.Deactivation;
 
