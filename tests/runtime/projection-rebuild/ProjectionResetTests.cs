@@ -1,7 +1,10 @@
+
 using Whycespace.ProjectionRuntime.Projections.Contracts;
+using Whycespace.Shared.Envelopes;
 using Whycespace.ProjectionRuntime.Projections.Registry;
 using Whycespace.ProjectionRuntime.Storage;
-using Whycespace.EventFabric.Models;
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.ProjectionRebuild.Reset;
 
 namespace Whycespace.ProjectionRebuild.Tests;

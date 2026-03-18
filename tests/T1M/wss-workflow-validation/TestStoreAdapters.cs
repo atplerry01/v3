@@ -1,7 +1,7 @@
 using Whycespace.Engines.T1M.WSS.Definition;
-using Whycespace.Runtime.Persistence.Workflow;
-using WfDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
-using WfTemplate = Whycespace.Systems.Midstream.WSS.Models.WorkflowTemplate;
+using Whycespace.Infrastructure.Persistence.Workflow;
+using WfDefinition = Whycespace.Systems.Midstream.WSS.Definition.WorkflowDefinition;
+using WfTemplate = Whycespace.Systems.Midstream.WSS.Definition.WorkflowTemplate;
 
 namespace Whycespace.WSS.WorkflowValidation.Tests;
 

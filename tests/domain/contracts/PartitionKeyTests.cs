@@ -1,6 +1,6 @@
 namespace Whycespace.Contracts.Tests;
 
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 
 public sealed class PartitionKeyTests
 {

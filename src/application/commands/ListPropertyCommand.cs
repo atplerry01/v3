@@ -1,7 +1,7 @@
 namespace Whycespace.Application.Commands;
 
 using Whycespace.Contracts.Commands;
-using Whycespace.Shared.Location;
+using Whycespace.Shared.Primitives.Location;
 
 public sealed record ListPropertyCommand(
     Guid CommandId,

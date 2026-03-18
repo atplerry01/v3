@@ -1,6 +1,6 @@
 namespace Whycespace.WorkflowRuntime.Context;
 
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 
 public sealed class WorkflowInstance
 {

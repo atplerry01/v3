@@ -1,6 +1,6 @@
 namespace Whycespace.Domain.Clusters.Operations.Property;
 
-using Whycespace.Shared.Location;
+using Whycespace.Shared.Primitives.Location;
 
 public sealed record PropertyListing(
     Guid ListingId,

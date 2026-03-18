@@ -2,7 +2,7 @@ using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Graph;
 using Whycespace.Engines.T1M.Shared;
 using Whycespace.Runtime.Persistence.Workflow;
-using WfDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
+using WfDefinition = Whycespace.Systems.Midstream.WSS.Definition.WorkflowDefinition;
 
 namespace Whycespace.WSS.WorkflowDependency.Tests;
 

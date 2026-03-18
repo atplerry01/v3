@@ -2,7 +2,6 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
 using Whycespace.Platform.RuntimeClient;
-using Whycespace.Runtime.Dispatcher;
 using Whycespace.EventFabricRuntime.Bus;
 using Whycespace.Runtime.Observability.Core;
 using Whycespace.Systems.Midstream.WhyceAtlas.Projections;
@@ -28,10 +27,9 @@ using Whycespace.Domain.Clusters.Governance.Administration;
 using Whycespace.Domain.Clusters.Governance.Provider;
 using Whycespace.Domain.Clusters.Governance.Registry;
 using Whycespace.Domain.Economic.Spv;
-using Whycespace.Systems.Midstream.Economics;
-using Whycespace.SimulationRuntime.Loader;
-using Whycespace.SimulationRuntime.Runtime;
-using Whycespace.SimulationRuntime.Services;
+using Whycespace.Systems.Downstream.Spv.Registry;
+using Whycespace.SimulationRuntime.Engine;
+using Whycespace.SimulationRuntime.Policy;
 using Whycespace.ClusterTemplatePlatform;
 using Whycespace.Domain.Economic.Capital;
 using Whycespace.Runtime.Validation.Runners;
@@ -75,7 +73,7 @@ var eventBus = new EventBus();
 builder.Services.AddSingleton(eventBus);
 builder.Services.AddSingleton<IEventBus>(sp => new EventClient(sp.GetRequiredService<EventBus>()));
 
-var dispatcher = new RuntimeDispatcher(engineRegistry);
+var dispatcher = new Whycespace.Platform.SimpleEngineDispatcher(engineRegistry);
 builder.Services.AddSingleton<IEngineRuntimeDispatcher>(sp => new RuntimeClient(dispatcher));
 
 var workflowStateStore = new WorkflowStateStore();
@@ -131,7 +129,7 @@ builder.Services.AddSingleton(clusterRegistry);
 // Cluster Domain (Phase 1.13 + 1.14)
 var clusterAdmin = new ClusterAdministrationService();
 var clusterProviderRegistry = new ClusterProviderRegistry();
-var spvRegistry = new SpvRegistry();
+var spvRegistry = new SpvSubClusterRegistry();
 var providerAssignmentService = new ProviderAssignmentService();
 var clusterBootstrapper = new ClusterBootstrapper(clusterAdmin, clusterProviderRegistry, spvRegistry, providerAssignmentService);
 clusterBootstrapper.Bootstrap();
@@ -148,10 +146,9 @@ spvEconomicRegistry.RegisterSpv("WhyceProperty", "LettingAgent");
 builder.Services.AddSingleton(spvEconomicRegistry);
 
 // Simulation Runtime (Phase 1.13.5)
-var simulationLoader = new SimulationScenarioLoader();
-var simulationEngine = new SimulationRuntimeEngine();
-var simulationService = new SimulationService(simulationLoader, simulationEngine);
-builder.Services.AddSingleton(simulationService);
+var simulationPolicy = new SimulationPolicy();
+var simulationEngine = new SimulationEngine(simulationPolicy);
+builder.Services.AddSingleton(simulationEngine);
 
 // WhyceID Identity (Phase 2.0)
 var identityRegistry = new Whycespace.Systems.WhyceID.Registry.IdentityRegistry();

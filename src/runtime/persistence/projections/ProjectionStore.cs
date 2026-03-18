@@ -1,9 +1,9 @@
-namespace Whycespace.Infrastructure.Persistence;
+namespace Whycespace.Runtime.Persistence.Projections;
 
 using global::System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Npgsql;
-using Whycespace.Runtime.Persistence.Contracts;
+using Whycespace.Runtime.Persistence.Abstractions;
 
 public sealed class ProjectionStore : IProjectionStore
 {

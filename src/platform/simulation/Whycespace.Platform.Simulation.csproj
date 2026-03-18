@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Whycespace.Platform.Simulation</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\Whycespace.Shared.csproj" />
+    <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="..\..\engines\Whycespace.Engines.csproj" />
+    <ProjectReference Include="..\..\engines\T3I\atlas\Whycespace.Engines.T3I.Atlas.csproj" />
+    <ProjectReference Include="..\..\engines\T3I\projections\Whycespace.Engines.T3I.Projections.csproj" />
+    <ProjectReference Include="..\..\engines\T0U\WhycePolicy\Whycespace.Engines.T0U.WhycePolicy.csproj" />
+    <ProjectReference Include="..\..\runtime\Whycespace.Runtime.csproj" />
+    <ProjectReference Include="..\..\systems\Whycespace.System.csproj" />
+    <ProjectReference Include="..\..\domain\Whycespace.Domain.csproj" />
+    <ProjectReference Include="..\..\runtime\reliability\Whycespace.Reliability.csproj" />
+    <ProjectReference Include="..\..\runtime\reliability-runtime\Whycespace.ReliabilityRuntime.csproj" />
+    <ProjectReference Include="..\..\runtime\simulation\Whycespace.SimulationRuntime.csproj" />
+  </ItemGroup>
+
+</Project>

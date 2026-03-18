@@ -1,10 +1,10 @@
-namespace Whycespace.Infrastructure.Persistence;
+namespace Whycespace.Runtime.Persistence.Workflow;
 
 using global::System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Npgsql;
 using Whycespace.Contracts.Workflows;
-using Whycespace.Runtime.Persistence.Contracts;
+using Whycespace.Runtime.Persistence.Abstractions;
 
 public sealed class WorkflowStateRepository : IWorkflowStateRepository
 {

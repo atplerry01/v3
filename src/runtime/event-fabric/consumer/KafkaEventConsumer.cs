@@ -1,6 +1,8 @@
+
 using System.Text.Json;
+using Whycespace.Shared.Envelopes;
 using Confluent.Kafka;
-using Whycespace.EventFabric.Models;
+using Whycespace.Contracts.Events;
 using Whycespace.EventFabric.Router;
 
 namespace Whycespace.EventFabric.Consumer;

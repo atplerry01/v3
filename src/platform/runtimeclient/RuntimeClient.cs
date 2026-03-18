@@ -1,6 +1,7 @@
 namespace Whycespace.Platform.RuntimeClient;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.Shared.Envelopes;
 using Whycespace.Contracts.Runtime;
 
 public sealed class RuntimeClient : IEngineRuntimeDispatcher

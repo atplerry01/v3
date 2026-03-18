@@ -1,7 +1,7 @@
 namespace Whycespace.CommandSystem.Tests;
 
-using Whycespace.CommandSystem.Dispatcher;
-using Whycespace.CommandSystem.Models;
+using Whycespace.CommandSystem.Core.Dispatcher;
+using Whycespace.CommandSystem.Core.Models;
 using Whycespace.Contracts.Runtime;
 
 public class CommandDispatcherTests

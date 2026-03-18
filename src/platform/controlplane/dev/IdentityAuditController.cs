@@ -1,7 +1,7 @@
 namespace Whycespace.Platform.ControlPlane.Dev;
 
 using Microsoft.AspNetCore.Mvc;
-using Whycespace.CommandSystem.Models;
+using Whycespace.CommandSystem.Core.Models;
 using Whycespace.RuntimeDispatcher.Dispatcher;
 
 [ApiController]

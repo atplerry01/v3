@@ -6,7 +6,7 @@ using Whycespace.Domain.Economic.Spv;
 using Whycespace.Domain.Clusters.Operations.Mobility;
 using Whycespace.Domain.Clusters.Operations.Property;
 using Whycespace.Domain.Clusters.Governance.Spv;
-using Whycespace.Shared.Location;
+using Whycespace.Shared.Primitives.Location;
 using Xunit;
 
 public sealed class DomainModelTests

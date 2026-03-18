@@ -1,6 +1,8 @@
+
 namespace Whycespace.EventFabricRuntime.Publishing;
 
-using Whycespace.EventFabricRuntime.Models;
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Envelopes;
 
 public sealed class EventSerializer
 {

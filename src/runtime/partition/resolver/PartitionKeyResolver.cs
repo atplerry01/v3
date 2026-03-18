@@ -1,7 +1,7 @@
 namespace Whycespace.PartitionRuntime.Resolver;
 
-using Whycespace.CommandSystem.Models;
-using Whycespace.Contracts.Primitives;
+using Whycespace.CommandSystem.Core.Models;
+using Whycespace.Shared.Primitives.Common;
 
 public sealed class PartitionKeyResolver : IPartitionKeyResolver
 {

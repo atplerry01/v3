@@ -7,6 +7,9 @@ using Whycespace.Contracts.Engines;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;
 using Whycespace.Systems.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Definition;
+using Whycespace.Systems.Midstream.WSS.Execution;
+using Whycespace.Systems.Midstream.WSS.Policies;
 
 [EngineManifest("WorkflowTemplateBlueprint", EngineTier.T1M, EngineKind.Decision,
     "WorkflowTemplateCommand", typeof(EngineEvent))]

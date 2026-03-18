@@ -1,4 +1,6 @@
-using Whycespace.EventFabric.Models;
+
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Envelopes;
 using Whycespace.EventIdempotency.Models;
 using Whycespace.EventIdempotency.Registry;
 

@@ -10,10 +10,13 @@ using Whycespace.Contracts.Events;
 using Whycespace.Contracts.Runtime;
 using Whycespace.Systems.Midstream.WSS.Mapping;
 using Whycespace.Systems.Midstream.WSS.Models;
+using Whycespace.Systems.Midstream.WSS.Definition;
+using Whycespace.Systems.Midstream.WSS.Execution;
+using Whycespace.Systems.Midstream.WSS.Policies;
 using Whycespace.Systems.Midstream.WSS.Events;
 using Whycespace.Domain.Clusters.Governance.Lifecycle;
+using Whycespace.SimulationRuntime.Engine;
 using Whycespace.SimulationRuntime.Models;
-using Whycespace.SimulationRuntime.Services;
 using Whycespace.ClusterTemplatePlatform;
 using Whycespace.Domain.Economic.Capital;
 using Whycespace.Domain.Economic.Spv;
@@ -95,7 +98,7 @@ using Whycespace.Systems.Upstream.WhyceChain.Ledger;
 using Whycespace.Contracts.Evidence;
 using Whycespace.Engines.T2E.Economic.Capital.Adapters;
 using Whycespace.Engines.T2E.Economic.Capital.Shared.Models;
-using Whycespace.Systems.Midstream.Economics.CapitalLedger;
+using Whycespace.Infrastructure.Persistence.CapitalLedger;
 using Whycespace.Engines.T3I.Forecasting.Economic.Engines;
 using Whycespace.Engines.T3I.Forecasting.Economic.Models;
 using Whycespace.Engines.T3I.Shared;
@@ -111,7 +114,7 @@ public sealed class DebugController : ControllerBase
     private readonly EventBus _eventBus;
     private readonly WorkflowMapper _workflowMapper;
     private readonly ClusterBootstrapper _clusterBootstrapper;
-    private readonly SimulationService _simulationService;
+    private readonly SimulationEngine _simulationService;
     private readonly ClusterTemplateService _clusterTemplateService;
     private readonly SpvEconomicRegistry _spvEconomicRegistry;
     private readonly ValidationRunner _validationRunner;
@@ -174,7 +177,7 @@ public sealed class DebugController : ControllerBase
         EventBus eventBus,
         WorkflowMapper workflowMapper,
         ClusterBootstrapper clusterBootstrapper,
-        SimulationService simulationService,
+        SimulationEngine simulationService,
         ClusterTemplateService clusterTemplateService,
         SpvEconomicRegistry spvEconomicRegistry,
         ValidationRunner validationRunner,
@@ -408,20 +411,23 @@ public sealed class DebugController : ControllerBase
     [HttpPost("simulation/run")]
     public IActionResult RunSimulation([FromBody] DebugRunSimulationDto dto)
     {
-        var result = _simulationService.RunScenario(dto.ScenarioId);
-        return Ok(new { result.ScenarioId, result.ProjectedRevenue, result.ProjectedAssets, result.ProjectedProfit });
+        var command = new SimulationCommand(
+            dto.ScenarioId.ToString(),
+            new Dictionary<string, object> { ["scenarioId"] = dto.ScenarioId });
+        var result = _simulationService.Execute(command);
+        return Ok(new { result.SimulationId, result.Success, EventCount = result.CapturedEvents.Count });
     }
 
     [HttpGet("simulation/scenarios")]
     public IActionResult GetSimulationScenarios()
     {
-        return Ok(_simulationService.GetScenarios());
+        return Ok(new { message = "Simulation scenarios endpoint — use POST simulation/run with a SimulationCommand" });
     }
 
     [HttpGet("simulation/results")]
     public IActionResult GetSimulationResults()
     {
-        return Ok(_simulationService.GetResults());
+        return Ok(new { message = "Simulation results endpoint — use POST simulation/run to execute and retrieve results" });
     }
 
     [HttpGet("cluster-templates")]

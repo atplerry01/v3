@@ -1,5 +1,8 @@
-using Whycespace.Contracts.Primitives;
-using Whycespace.EventFabric.Models;
+
+using Whycespace.Shared.Primitives.Common;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.EventFabric.Publisher;
 using Whycespace.Reliability.Dlq;
 

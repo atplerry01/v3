@@ -1,6 +1,6 @@
 namespace Whycespace.CommandSystem.Tests;
 
-using Whycespace.CommandSystem.Idempotency;
+using Whycespace.CommandSystem.Core.Idempotency;
 
 public class IdempotencyRegistryTests
 {

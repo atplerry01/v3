@@ -5,35 +5,32 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$SolutionPath = Join-Path $PSScriptRoot "../../Whycespace.slnx"
+Import-Module "$PSScriptRoot/../shared/ScriptHelpers.psm1"
 
-Write-Host "========================================" -ForegroundColor Cyan
-Write-Host " Whycespace WBSM v3 Build" -ForegroundColor Cyan
-Write-Host "========================================" -ForegroundColor Cyan
-Write-Host ""
+$SolutionPath = Get-SolutionPath
+$PlatformProject = Get-PlatformProject
 
-Write-Host "[1/4] Restoring dependencies..." -ForegroundColor Yellow
+Write-Banner "Whycespace WBSM v3 Build"
+
+Write-Step 1 4 "Restoring dependencies..."
 dotnet restore $SolutionPath
-if ($LASTEXITCODE -ne 0) { throw "Restore failed" }
+Assert-ExitCode "Restore"
 
-Write-Host "[2/4] Building solution ($Configuration)..." -ForegroundColor Yellow
+Write-Step 2 4 "Building solution ($Configuration)..."
 dotnet build $SolutionPath --no-restore --configuration $Configuration
-if ($LASTEXITCODE -ne 0) { throw "Build failed" }
+Assert-ExitCode "Build"
 
 if (-not $SkipTests) {
-    Write-Host "[3/4] Running tests..." -ForegroundColor Yellow
+    Write-Step 3 4 "Running tests..."
     dotnet test $SolutionPath --no-build --configuration $Configuration --logger "trx;LogFileName=test-results.trx" --results-directory ./test-results
-    if ($LASTEXITCODE -ne 0) { throw "Tests failed" }
+    Assert-ExitCode "Tests"
 } else {
     Write-Host "[3/4] Skipping tests" -ForegroundColor DarkGray
 }
 
-Write-Host "[4/4] Publishing platform..." -ForegroundColor Yellow
-$PlatformProject = Join-Path $PSScriptRoot "../../src/platform/Whycespace.Platform.csproj"
+Write-Step 4 4 "Publishing platform..."
 dotnet publish $PlatformProject --no-build --configuration $Configuration --output ./artifacts/platform
-if ($LASTEXITCODE -ne 0) { throw "Publish failed" }
+Assert-ExitCode "Publish"
 
 Write-Host ""
-Write-Host "========================================" -ForegroundColor Green
-Write-Host " Build succeeded" -ForegroundColor Green
-Write-Host "========================================" -ForegroundColor Green
+Write-Success "Build succeeded."

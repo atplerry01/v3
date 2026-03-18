@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\runtime\event-schema\Whycespace.EventSchema.csproj" />
+    <ProjectReference Include="..\..\..\src\shared\Whycespace.Shared.csproj" />
   </ItemGroup>
 
 </Project>

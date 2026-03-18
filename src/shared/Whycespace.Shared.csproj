@@ -11,10 +11,15 @@
     <Content Remove="contracts/**" />
     <None Remove="contracts/**" />
     <EmbeddedResource Remove="contracts/**" />
+    <Compile Remove="primitives/**" />
+    <Content Remove="primitives/**" />
+    <None Remove="primitives/**" />
+    <EmbeddedResource Remove="primitives/**" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="primitives\Whycespace.Primitives.csproj" />
   </ItemGroup>
 
 </Project>

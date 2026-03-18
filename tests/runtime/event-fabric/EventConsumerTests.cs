@@ -1,9 +1,11 @@
+
 using System.Text.Json;
+using Whycespace.Shared.Envelopes;
 using Confluent.Kafka;
-using Whycespace.Contracts.Primitives;
-using WTimestamp = Whycespace.Contracts.Primitives.Timestamp;
+using Whycespace.Shared.Primitives.Common;
+using WTimestamp = Whycespace.Shared.Primitives.Common.Timestamp;
 using Whycespace.EventFabric.Consumer;
-using Whycespace.EventFabric.Models;
+using Whycespace.Contracts.Events;
 using Whycespace.EventFabric.Router;
 using Whycespace.EventFabric.Topics;
 

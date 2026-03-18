@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\simulation\Whycespace.Simulation\Whycespace.Simulation.csproj" />
+    <ProjectReference Include="..\..\..\src\platform\simulation\Whycespace.Platform.Simulation.csproj" />
   </ItemGroup>
 
 </Project>

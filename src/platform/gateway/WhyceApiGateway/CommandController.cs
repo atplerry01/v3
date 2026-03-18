@@ -1,10 +1,10 @@
 namespace Whycespace.Platform.Gateway.WhyceApiGateway;
 
 using Microsoft.AspNetCore.Mvc;
-using Whycespace.CommandSystem.Models;
+using Whycespace.CommandSystem.Core.Models;
 using Whycespace.Contracts.Runtime;
 using Whycespace.Systems.Midstream.WSS.Orchestration;
-using CmdDispatcher = Whycespace.CommandSystem.Dispatcher.CommandDispatcher;
+using CmdDispatcher = Whycespace.CommandSystem.Core.Dispatcher.CommandDispatcher;
 
 [ApiController]
 [Route("api/commands")]

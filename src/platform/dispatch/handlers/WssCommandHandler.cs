@@ -6,14 +6,17 @@ using Whycespace.Engines.T1M.WSS.Registry;
 using Whycespace.Engines.T1M.WSS.Step;
 using Whycespace.Systems.Midstream.WSS.Events;
 using Whycespace.Systems.Midstream.WSS.Models;
-using Whycespace.Runtime.Persistence.Workflow;
+using Whycespace.Systems.Midstream.WSS.Definition;
+using Whycespace.Systems.Midstream.WSS.Execution;
+using Whycespace.Systems.Midstream.WSS.Policies;
+using Whycespace.Infrastructure.Persistence.Workflow;
 using WssWorkflowEventRouter = Whycespace.Engines.T1M.Orchestration.Dispatcher.WorkflowEventRouter;
 using Whycespace.Engines.T1M.Orchestration.Dispatcher;
 using Whycespace.Engines.T1M.Orchestration.Resilience;
 using Whycespace.Engines.T1M.Orchestration.Scheduling;
 using WorkflowGraph = Whycespace.Systems.Midstream.WSS.Models.WorkflowGraph;
-using WorkflowState = Whycespace.Systems.Midstream.WSS.Models.WorkflowState;
-using WorkflowDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
+using WorkflowState = Whycespace.Systems.Midstream.WSS.Execution.WorkflowState;
+using WorkflowDefinition = Whycespace.Systems.Midstream.WSS.Definition.WorkflowDefinition;
 
 namespace Whycespace.Platform.Dispatch.Handlers;
 

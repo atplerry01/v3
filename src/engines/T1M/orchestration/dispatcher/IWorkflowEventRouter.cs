@@ -1,6 +1,8 @@
+
 namespace Whycespace.Engines.T1M.Orchestration.Dispatcher;
 
 using Whycespace.Systems.Midstream.WSS.Events;
+using Whycespace.Shared.Envelopes;
 
 public interface IWorkflowEventRouter
 {

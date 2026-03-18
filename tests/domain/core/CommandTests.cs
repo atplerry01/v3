@@ -1,7 +1,7 @@
 namespace Whycespace.Tests.Domain;
 
 using Whycespace.Application.Commands;
-using Whycespace.Shared.Location;
+using Whycespace.Shared.Primitives.Location;
 using Xunit;
 
 public sealed class CommandTests

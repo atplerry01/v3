@@ -1,6 +1,7 @@
 namespace Whycespace.AtlasSimulation.Tests;
 
-using Whycespace.Simulation;
+using Whycespace.Platform.Simulation.Runner;
+using Whycespace.Platform.Simulation.EventCapture;
 
 public sealed class AtlasSimulationRunnerTests
 {

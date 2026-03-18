@@ -1,4 +1,6 @@
-using Whycespace.EventFabric.Models;
+
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Envelopes;
 using Whycespace.ProjectionRuntime.Projections.Contracts;
 using Whycespace.ProjectionRuntime.Projections.Registry;
 using Whycespace.ProjectionRebuild.Checkpoints;

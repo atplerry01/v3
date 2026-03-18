@@ -1,5 +1,7 @@
+
 using Whycespace.Engines.T3I.Shared;
-using Whycespace.EventFabric.Models;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Contracts.Events;
 
 namespace Whycespace.Engines.T3I.Projections.Pipeline;
 

@@ -9,14 +9,14 @@ using Whycespace.Engines.T1M.Orchestration.Dispatcher;
 using Whycespace.Engines.T1M.Orchestration.Resilience;
 using Whycespace.Engines.T1M.Shared;
 using Whycespace.Systems.Midstream.WSS.Events;
-using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Models.WorkflowInstanceStatus;
-using WorkflowState = Whycespace.Systems.Midstream.WSS.Models.WorkflowState;
-using LifecycleDecision = Whycespace.Systems.Midstream.WSS.Models.LifecycleDecision;
+using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Execution.WorkflowInstanceStatus;
+using WorkflowState = Whycespace.Systems.Midstream.WSS.Execution.WorkflowState;
+using LifecycleDecision = Whycespace.Systems.Midstream.WSS.Policies.LifecycleDecision;
 using WorkflowGraph = Whycespace.Systems.Midstream.WSS.Models.WorkflowGraph;
 using WorkflowDefinition = Whycespace.Engines.T1M.Shared.WorkflowDefinition;
-using WorkflowFailurePolicy = Whycespace.Systems.Midstream.WSS.Models.WorkflowFailurePolicy;
-using FailureAction = Whycespace.Systems.Midstream.WSS.Models.FailureAction;
-using WorkflowStepDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowStepDefinition;
+using WorkflowFailurePolicy = Whycespace.Systems.Midstream.WSS.Policies.WorkflowFailurePolicy;
+using FailureAction = Whycespace.Systems.Midstream.WSS.Policies.FailureAction;
+using WorkflowStepDefinition = Whycespace.Systems.Midstream.WSS.Definition.WorkflowStepDefinition;
 
 [EngineManifest("WorkflowInstanceLifecycleEngine", EngineTier.T1M, EngineKind.Decision, "WorkflowLifecycleRequest", typeof(EngineEvent))]
 public sealed class WorkflowLifecycleEngine : IEngine, IWorkflowLifecycleEngine

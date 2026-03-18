@@ -1,4 +1,6 @@
+
 using Whycespace.Contracts.Workflows;
+using Whycespace.Shared.Envelopes;
 using Whycespace.Engines.T1M.Orchestration.Dispatcher;
 using Whycespace.Engines.T1M.Orchestration.Resilience;
 using Whycespace.Engines.T1M.Orchestration.Scheduling;
@@ -6,9 +8,10 @@ using Whycespace.Engines.T1M.WSS.Graph;
 using Whycespace.Engines.T1M.WSS.Registry;
 using Whycespace.Engines.T1M.Shared;
 using Whycespace.Runtime.Persistence.Workflow;
+using Whycespace.Infrastructure.Persistence.Workflow;
 using Whycespace.Systems.Midstream.WSS.Events;
-using WorkflowDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
-using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Models.WorkflowInstanceStatus;
+using WorkflowDefinition = Whycespace.Systems.Midstream.WSS.Definition.WorkflowDefinition;
+using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Execution.WorkflowInstanceStatus;
 
 namespace Whycespace.WSS.WorkflowLifecycle.Tests;
 

@@ -1,5 +1,7 @@
+
 using System.Text.Json;
-using Whycespace.EventFabric.Models;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Contracts.Events;
 using Whycespace.ProjectionRuntime.Projections.Contracts;
 using Whycespace.ProjectionRuntime.Storage;
 

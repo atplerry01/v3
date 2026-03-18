@@ -8,7 +8,12 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$WorkflowsDir = Join-Path $PSScriptRoot "../../src/system/midstream/WSS/workflows"
+Import-Module "$PSScriptRoot/../shared/ScriptHelpers.psm1"
+
+Write-Banner "Whycespace Workflow Generator"
+
+$SolutionRoot = Get-SolutionRoot
+$WorkflowsDir = Join-Path $SolutionRoot "src/systems/midstream/WSS/workflows"
 
 if (-not (Test-Path $WorkflowsDir)) {
     New-Item -ItemType Directory -Path $WorkflowsDir -Force | Out-Null
@@ -34,10 +39,9 @@ for ($i = 0; $i -lt $Steps.Count; $i++) {
 $StepsList = $StepDefinitions -join ",`n"
 
 $Content = @"
-namespace Whycespace.System.Midstream.WSS.Workflows;
+namespace Whycespace.Systems.Midstream.WSS.Workflows;
 
-using Whycespace.Shared.Workflow;
-using Whycespace.System.Midstream.WSS.Contracts;
+using Whycespace.Contracts.Workflows;
 
 public sealed class ${Name}Workflow : IWorkflowDefinition
 {
@@ -57,7 +61,7 @@ $StepsList
 
 Set-Content -Path $FilePath -Value $Content -Encoding UTF8
 
-Write-Host "Workflow created: $FilePath" -ForegroundColor Green
+Write-Success "Workflow created: $FilePath"
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "  1. Register workflow in WSS WorkflowMapper"

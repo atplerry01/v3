@@ -6,7 +6,7 @@ using Whycespace.Engines.T1M.Orchestration.Dispatcher;
 using Whycespace.Engines.T1M.Orchestration.Resilience;
 using Whycespace.Engines.T1M.Orchestration.Scheduling;
 using Whycespace.Runtime.EventFabric.WSS;
-using Whycespace.Runtime.Persistence.Workflow;
+using Whycespace.Infrastructure.Persistence.Workflow;
 using Whycespace.EventFabricRuntime.Bus;
 
 /// <summary>

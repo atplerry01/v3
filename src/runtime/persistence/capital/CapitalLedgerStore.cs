@@ -1,4 +1,4 @@
-namespace Whycespace.Infrastructure.Persistence.CapitalLedger;
+namespace Whycespace.Runtime.Persistence.Capital;
 
 public sealed class CapitalLedgerStore : ICapitalLedgerStore
 {

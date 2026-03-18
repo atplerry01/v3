@@ -1,5 +1,5 @@
 using Whycespace.Contracts.Engines;
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Engines.T1M.WSS.Definition;
 
 namespace Whycespace.WSS.WorkflowDefinition.Tests;

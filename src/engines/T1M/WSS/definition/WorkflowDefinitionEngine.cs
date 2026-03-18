@@ -5,7 +5,7 @@ using global::System.Text;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.Shared;
-using SystemWorkflowDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
+using SystemWorkflowDefinition = Whycespace.Systems.Midstream.WSS.Definition.WorkflowDefinition;
 using DomainWorkflowStepDefinition = Whycespace.Engines.T1M.Shared.WorkflowStepDefinition;
 using Whycespace.Runtime.EngineManifest.Attributes;
 using Whycespace.Runtime.EngineManifest.Models;

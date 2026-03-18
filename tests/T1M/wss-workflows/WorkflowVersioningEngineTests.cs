@@ -1,12 +1,13 @@
 namespace Whycespace.Tests.WssWorkflows;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.Shared;
 using Whycespace.Engines.T1M.WSS.Definition;
 using Whycespace.Runtime.Persistence.Workflow;
-using WfDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
+using Whycespace.Infrastructure.Persistence.Workflow;
+using WfDefinition = Whycespace.Systems.Midstream.WSS.Definition.WorkflowDefinition;
 using Xunit;
 
 public sealed class WorkflowVersioningEngineTests

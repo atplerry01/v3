@@ -1,48 +1,65 @@
 namespace Whycespace.SimulationRuntime.Tests;
 
+using Whycespace.SimulationRuntime.Engine;
 using Whycespace.SimulationRuntime.Models;
-using Whycespace.SimulationRuntime.Runtime;
+using Whycespace.SimulationRuntime.Policy;
 
 public sealed class SimulationRuntimeTests
 {
     [Fact]
-    public void RunSimulation_IsDeterministic()
+    public void Execute_IsDeterministic()
     {
-        var engine = new SimulationRuntimeEngine();
-        var scenario = new SimulationScenario(
-            Guid.NewGuid(), "WhyceMobility", 50, 100_000m, 5);
+        var engine = new SimulationEngine(new SimulationPolicy());
+        var command = new SimulationCommand(
+            "RunForecast",
+            new Dictionary<string, object>
+            {
+                ["clusterName"] = "WhyceMobility",
+                ["spvCount"] = 50,
+                ["capitalPerSpv"] = 100_000m,
+                ["durationYears"] = 5
+            });
 
-        var result1 = engine.RunSimulation(scenario);
-        var result2 = engine.RunSimulation(scenario);
+        var result1 = engine.Execute(command);
+        var result2 = engine.Execute(command);
 
-        Assert.Equal(result1.ProjectedAssets, result2.ProjectedAssets);
-        Assert.Equal(result1.ProjectedRevenue, result2.ProjectedRevenue);
-        Assert.Equal(result1.ProjectedProfit, result2.ProjectedProfit);
+        Assert.True(result1.Success);
+        Assert.True(result2.Success);
+        Assert.Equal(result1.CapturedEvents.Count, result2.CapturedEvents.Count);
     }
 
     [Fact]
-    public void RunSimulation_ProducesPositiveResults()
+    public void Execute_ProducesSuccessResult()
     {
-        var engine = new SimulationRuntimeEngine();
-        var scenario = new SimulationScenario(
-            Guid.NewGuid(), "WhyceMobility", 50, 100_000m, 5);
+        var engine = new SimulationEngine(new SimulationPolicy());
+        var command = new SimulationCommand(
+            "RunForecast",
+            new Dictionary<string, object>
+            {
+                ["clusterName"] = "WhyceMobility",
+                ["spvCount"] = 50,
+                ["capitalPerSpv"] = 100_000m,
+                ["durationYears"] = 5
+            });
 
-        var result = engine.RunSimulation(scenario);
+        var result = engine.Execute(command);
 
-        Assert.True(result.ProjectedAssets > 0);
-        Assert.True(result.ProjectedRevenue > 0);
-        Assert.True(result.ProjectedProfit > 0);
+        Assert.True(result.Success);
+        Assert.NotEqual(Guid.Empty, result.SimulationId);
+        Assert.NotEmpty(result.CapturedEvents);
+        Assert.NotEmpty(result.Traces);
     }
 
     [Fact]
-    public void RunSimulation_ScenarioId_IsPreserved()
+    public void Execute_CommandType_IsPreservedInResult()
     {
-        var engine = new SimulationRuntimeEngine();
-        var id = Guid.NewGuid();
-        var scenario = new SimulationScenario(id, "Test", 10, 50_000m, 3);
+        var engine = new SimulationEngine(new SimulationPolicy());
+        var command = new SimulationCommand(
+            "RunForecast",
+            new Dictionary<string, object> { ["cluster"] = "Test" });
 
-        var result = engine.RunSimulation(scenario);
+        var result = engine.Execute(command);
 
-        Assert.Equal(id, result.ScenarioId);
+        Assert.Equal("RunForecast", result.Command.CommandType);
     }
 }

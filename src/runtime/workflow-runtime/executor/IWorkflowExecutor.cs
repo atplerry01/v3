@@ -1,6 +1,6 @@
 namespace Whycespace.WorkflowRuntime.Executor;
 
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Contracts.Runtime;
 using Whycespace.Contracts.Workflows;
 

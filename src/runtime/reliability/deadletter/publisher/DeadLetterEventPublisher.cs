@@ -1,6 +1,8 @@
+
 using System.Text.Json;
-using Whycespace.Contracts.Primitives;
-using Whycespace.EventFabric.Models;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Shared.Primitives.Common;
+using Whycespace.Contracts.Events;
 using Whycespace.EventFabric.Publisher;
 using Whycespace.Reliability.DeadLetter.Models;
 
@@ -24,7 +26,7 @@ public sealed class DeadLetterEventPublisher
             EventType: $"DeadLetter:{deadLetterEvent.EventType}",
             Topic: DlqTopic,
             Payload: JsonSerializer.Serialize(deadLetterEvent),
-            PartitionKey: deadLetterEvent.EventId.ToString(),
+            PartitionKey: new PartitionKey(deadLetterEvent.EventId.ToString()),
             Timestamp: Timestamp.Now()
         );
 

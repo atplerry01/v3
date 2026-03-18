@@ -4,10 +4,10 @@ using Whycespace.Engines.T1M.WSS.Definition;
 using Whycespace.Engines.T1M.WSS.Graph;
 using Whycespace.Engines.T1M.Shared;
 using Whycespace.Runtime.Persistence.Workflow;
-using WfDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
+using WfDefinition = Whycespace.Systems.Midstream.WSS.Definition.WorkflowDefinition;
 using WfGraph = Whycespace.Systems.Midstream.WSS.Models.WorkflowGraph;
-using WfTemplate = Whycespace.Systems.Midstream.WSS.Models.WorkflowTemplate;
-using WfTemplateStep = Whycespace.Systems.Midstream.WSS.Models.WorkflowTemplateStep;
+using WfTemplate = Whycespace.Systems.Midstream.WSS.Definition.WorkflowTemplate;
+using WfTemplateStep = Whycespace.Systems.Midstream.WSS.Definition.WorkflowTemplateStep;
 
 namespace Whycespace.WSS.WorkflowValidation.Tests;
 

@@ -5,8 +5,8 @@ using Whycespace.Engines.T0U.WhycePolicy.Validation.Engines;
 using Whycespace.Engines.T2E;
 using Whycespace.Engines.T2E.Clusters.Mobility.Taxi.Engines;
 using Whycespace.Engines.T2E.Clusters.Property.Letting.Engines;
-using Whycespace.Runtime.Dispatcher;
 using Whycespace.Runtime.Dispatcher.WSS;
+using Whycespace.Contracts.Runtime;
 using Whycespace.Runtime.EventFabricRuntime.WSS;
 using Whycespace.EngineRuntime.Registry;
 using Whycespace.WorkflowRuntime;
@@ -35,7 +35,7 @@ public sealed class WorkflowExecutionTests
         _registry.Register(new RideExecutionEngine());
         _registry.Register(new PropertyExecutionEngine());
 
-        var dispatcher = new RuntimeDispatcher(_registry);
+        var dispatcher = new Whycespace.Platform.SimpleEngineDispatcher(_registry);
         _stateStore = new WorkflowStateStore();
         var orchestrator = new WorkflowOrchestrator(dispatcher, _stateStore);
 
@@ -62,8 +62,8 @@ public sealed class WorkflowExecutionTests
     {
         var command = new RequestRideCommand(
             Guid.NewGuid(), Guid.NewGuid(),
-            new Shared.Location.GeoLocation(51.5074, -0.1278),
-            new Shared.Location.GeoLocation(51.5155, -0.1419));
+            new Shared.Primitives.Location.GeoLocation(51.5074, -0.1278),
+            new Shared.Primitives.Location.GeoLocation(51.5155, -0.1419));
 
         var context = new Dictionary<string, object>
         {
@@ -112,7 +112,7 @@ public sealed class WorkflowExecutionTests
             ["pickupLongitude"] = -0.1278
         };
 
-        var dispatcher = new RuntimeDispatcher(_registry);
+        var dispatcher = new Whycespace.Platform.SimpleEngineDispatcher(_registry);
         var stateStore = new WorkflowStateStore();
         var orchestrator = new WorkflowOrchestrator(dispatcher, stateStore);
 
@@ -136,7 +136,7 @@ public sealed class WorkflowExecutionTests
     {
         var command = new ListPropertyCommand(
             Guid.NewGuid(), Guid.NewGuid(), "2 Bed Flat", "Nice flat",
-            new Shared.Location.GeoLocation(51.5074, -0.1278), 1500m);
+            new Shared.Primitives.Location.GeoLocation(51.5074, -0.1278), 1500m);
 
         var context = new Dictionary<string, object>
         {
@@ -168,7 +168,7 @@ public sealed class WorkflowExecutionTests
             ["monthlyRent"] = 900m
         };
 
-        var dispatcher = new RuntimeDispatcher(_registry);
+        var dispatcher = new Whycespace.Platform.SimpleEngineDispatcher(_registry);
         var stateStore = new WorkflowStateStore();
         var orchestrator = new WorkflowOrchestrator(dispatcher, stateStore);
 
@@ -217,7 +217,7 @@ public sealed class WorkflowExecutionTests
             ["currency"] = "GBP"
         };
 
-        var dispatcher = new RuntimeDispatcher(_registry);
+        var dispatcher = new Whycespace.Platform.SimpleEngineDispatcher(_registry);
         var stateStore = new WorkflowStateStore();
         var orchestrator = new WorkflowOrchestrator(dispatcher, stateStore);
 
@@ -235,11 +235,11 @@ public sealed class WorkflowExecutionTests
     {
         var ride = new RequestRideCommand(
             Guid.NewGuid(), Guid.NewGuid(),
-            new Shared.Location.GeoLocation(51.5, -0.1),
-            new Shared.Location.GeoLocation(51.6, -0.2));
+            new Shared.Primitives.Location.GeoLocation(51.5, -0.1),
+            new Shared.Primitives.Location.GeoLocation(51.6, -0.2));
 
         var property = new ListPropertyCommand(
-            Guid.NewGuid(), Guid.NewGuid(), "Flat", "Nice", new Shared.Location.GeoLocation(51.5, -0.1), 1200m);
+            Guid.NewGuid(), Guid.NewGuid(), "Flat", "Nice", new Shared.Primitives.Location.GeoLocation(51.5, -0.1), 1200m);
 
         var rideCtx = new Dictionary<string, object>
         {

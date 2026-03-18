@@ -1,7 +1,7 @@
 namespace Whycespace.EconomicRuntime.Tests;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Engines.T2E.Economic.Capital.Contribution.Engines;
 
 public sealed class CapitalContributionEngineTests

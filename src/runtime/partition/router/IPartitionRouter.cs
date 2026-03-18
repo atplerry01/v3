@@ -1,6 +1,6 @@
 namespace Whycespace.PartitionRuntime.Router;
 
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 
 public interface IPartitionRouter
 {

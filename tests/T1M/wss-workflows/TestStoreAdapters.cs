@@ -1,8 +1,9 @@
 using Whycespace.Engines.T1M.WSS.Definition;
 using Whycespace.Engines.T1M.WSS.Registry;
 using Whycespace.Runtime.Persistence.Workflow;
-using WfDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
-using WfInstance = Whycespace.Systems.Midstream.WSS.Models.WorkflowInstance;
+using Whycespace.Infrastructure.Persistence.Workflow;
+using WfDefinition = Whycespace.Systems.Midstream.WSS.Definition.WorkflowDefinition;
+using WfInstance = Whycespace.Systems.Midstream.WSS.Execution.WorkflowInstance;
 
 namespace Whycespace.Tests.WssWorkflows;
 

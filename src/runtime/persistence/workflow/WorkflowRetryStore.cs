@@ -1,4 +1,4 @@
-namespace Whycespace.Infrastructure.Persistence.Workflow;
+namespace Whycespace.Runtime.Persistence.Workflow;
 
 using global::System.Collections.Concurrent;
 using Whycespace.Runtime.Persistence.Workflow;

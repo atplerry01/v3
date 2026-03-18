@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\shared\contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\src\shared\Whycespace.Shared.csproj" />
   </ItemGroup>
 
 </Project>

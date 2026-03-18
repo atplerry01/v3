@@ -1,6 +1,7 @@
 namespace Whycespace.WorkflowRuntime;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.Shared.Envelopes;
 using Whycespace.Contracts.Runtime;
 using Whycespace.Contracts.Workflows;
 

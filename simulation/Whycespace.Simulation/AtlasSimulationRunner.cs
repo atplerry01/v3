@@ -1,6 +1,8 @@
+
 namespace Whycespace.Simulation;
 
 using System.Collections.Concurrent;
+using Whycespace.Shared.Envelopes;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -9,7 +11,7 @@ using Whycespace.Engines.T3I.Projections.Models;
 using Whycespace.Engines.T3I.Projections.Pipeline;
 using Whycespace.Engines.T3I.Projections.Registry;
 using Whycespace.Engines.T3I.Projections.Stores;
-using Whycespace.EventFabric.Models;
+using Whycespace.Contracts.Events;
 
 /// <summary>
 /// Integrates the T3I Atlas intelligence layer with the simulation engine.

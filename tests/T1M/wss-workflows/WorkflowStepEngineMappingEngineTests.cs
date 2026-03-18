@@ -1,7 +1,7 @@
 namespace Whycespace.Tests.WssWorkflows;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Engines.T1M.WSS.Step;
 using Xunit;
 

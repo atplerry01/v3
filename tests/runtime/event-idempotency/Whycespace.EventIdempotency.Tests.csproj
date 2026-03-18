@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\runtime\event-idempotency\Whycespace.EventIdempotency.csproj" />
+    <ProjectReference Include="..\..\..\src\shared\Whycespace.Shared.csproj" />
   </ItemGroup>
 
 </Project>

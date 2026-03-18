@@ -1,6 +1,9 @@
+
 namespace Whycespace.EventFabricRuntime.Publishing;
 
-using Whycespace.EventFabricRuntime.Models;
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.EventFabricRuntime.Routing;
 
 public sealed class EventPublisher

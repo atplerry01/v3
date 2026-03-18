@@ -1,5 +1,7 @@
+
 using System.Runtime.CompilerServices;
-using Whycespace.EventFabric.Models;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Contracts.Events;
 
 namespace Whycespace.ProjectionRebuild.Reader;
 

@@ -5,14 +5,15 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$ComposeFile = Join-Path $PSScriptRoot "../../infrastructure/localdev/docker-compose.yml"
+Import-Module "$PSScriptRoot/../shared/ScriptHelpers.psm1"
 
-Write-Host "========================================" -ForegroundColor Cyan
-Write-Host " Whycespace Local Dev Environment" -ForegroundColor Cyan
-Write-Host "========================================" -ForegroundColor Cyan
-Write-Host ""
+$SolutionRoot = Get-SolutionRoot
+$ComposeFile = Join-Path $SolutionRoot "infrastructure/localdev/docker-compose.yml"
+$PlatformProject = Get-PlatformProject
 
-Write-Host "Starting infrastructure services..." -ForegroundColor Yellow
+Write-Banner "Whycespace Local Dev Environment"
+
+Write-Step 1 2 "Starting infrastructure services..."
 $composeArgs = @("-f", $ComposeFile, "up", "-d")
 if ($Rebuild) { $composeArgs += "--build" }
 docker compose @composeArgs
@@ -31,7 +32,8 @@ Write-Host "  Grafana:    http://localhost:3000 (admin/whyce_dev)" -ForegroundCo
 Write-Host ""
 
 if (-not $InfraOnly) {
-    Write-Host "Starting Whycespace Platform..." -ForegroundColor Yellow
-    $PlatformProject = Join-Path $PSScriptRoot "../../src/platform/Whycespace.Platform.csproj"
+    Write-Step 2 2 "Starting Whycespace Platform..."
     dotnet run --project $PlatformProject
+} else {
+    Write-Success "Infrastructure ready. Platform not started (-InfraOnly)."
 }

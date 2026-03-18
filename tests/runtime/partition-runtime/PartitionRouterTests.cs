@@ -1,6 +1,6 @@
 namespace Whycespace.PartitionRuntime.Tests;
 
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.PartitionRuntime.Router;
 
 public class PartitionRouterTests

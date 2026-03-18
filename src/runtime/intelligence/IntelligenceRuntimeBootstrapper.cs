@@ -1,7 +1,9 @@
+
 namespace Whycespace.IntelligenceRuntime;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.EventFabric.Models;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Contracts.Events;
 using Whycespace.IntelligenceRuntime.Models;
 using Whycespace.IntelligenceRuntime.Orchestrator;
 using Whycespace.IntelligenceRuntime.Projections;

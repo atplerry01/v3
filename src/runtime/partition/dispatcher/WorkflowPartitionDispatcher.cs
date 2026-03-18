@@ -1,7 +1,7 @@
 namespace Whycespace.PartitionRuntime.Dispatcher;
 
-using Whycespace.CommandSystem.Models;
-using Whycespace.Contracts.Primitives;
+using Whycespace.CommandSystem.Core.Models;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Contracts.Runtime;
 using Whycespace.PartitionRuntime.Models;
 using Whycespace.PartitionRuntime.Resolver;

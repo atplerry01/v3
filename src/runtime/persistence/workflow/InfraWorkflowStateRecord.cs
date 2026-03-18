@@ -1,4 +1,4 @@
-namespace Whycespace.Infrastructure.Persistence.Workflow;
+namespace Whycespace.Runtime.Persistence.Workflow;
 
 using Whycespace.Engines.T1M.Shared;
 

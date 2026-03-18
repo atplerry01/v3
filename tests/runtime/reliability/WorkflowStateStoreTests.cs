@@ -1,4 +1,4 @@
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Reliability.Models;
 using Whycespace.Reliability.State;
 

@@ -1,6 +1,6 @@
 namespace Whycespace.PartitionRuntime.Tests;
 
-using Whycespace.CommandSystem.Models;
+using Whycespace.CommandSystem.Core.Models;
 using Whycespace.PartitionRuntime.Resolver;
 
 public class PartitionKeyResolverTests

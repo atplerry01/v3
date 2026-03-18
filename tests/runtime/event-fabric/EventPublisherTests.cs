@@ -1,7 +1,9 @@
+
 using Confluent.Kafka;
-using Whycespace.Contracts.Primitives;
-using WTimestamp = Whycespace.Contracts.Primitives.Timestamp;
-using Whycespace.EventFabric.Models;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Shared.Primitives.Common;
+using WTimestamp = Whycespace.Shared.Primitives.Common.Timestamp;
+using Whycespace.Contracts.Events;
 using Whycespace.EventFabric.Publisher;
 using Whycespace.EventFabric.Topics;
 

@@ -1,5 +1,6 @@
 using Whycespace.Contracts.Engines;
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.EngineWorkerRuntime.Queue;
 
 namespace Whycespace.EngineWorkerRuntime.Tests;

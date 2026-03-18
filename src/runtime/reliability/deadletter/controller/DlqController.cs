@@ -1,5 +1,7 @@
-using Whycespace.Contracts.Primitives;
-using Whycespace.EventFabric.Models;
+
+using Whycespace.Shared.Primitives.Common;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Contracts.Events;
 using Whycespace.EventFabric.Publisher;
 using Whycespace.Reliability.DeadLetter.Models;
 using Whycespace.Reliability.Recovery.Engine;
@@ -48,7 +50,7 @@ public sealed class DlqController
             EventType: dlqEvent.EventType,
             Topic: ReplayTopic,
             Payload: dlqEvent.Payload,
-            PartitionKey: dlqEvent.EventId.ToString(),
+            PartitionKey: new PartitionKey(dlqEvent.EventId.ToString()),
             Timestamp: Timestamp.Now()
         );
 
@@ -59,4 +61,3 @@ public sealed class DlqController
     }
 }
 
-public sealed record ReplayResult(bool Success, string Message);

@@ -1,6 +1,8 @@
+
 namespace Whycespace.Tests.Integration;
 
 using Whycespace.Engines.T2E;
+using Whycespace.Shared.Envelopes;
 using Whycespace.Engines.T2E.Clusters.Mobility.Taxi.Engines;
 using Whycespace.Engines.T2E.Clusters.Property.Letting.Engines;
 using Whycespace.Runtime.Dispatcher;
@@ -9,9 +11,10 @@ using Whycespace.EngineRuntime.Registry;
 using Whycespace.WorkflowRuntime;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Events;
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Contracts.Workflows;
-using Whycespace.EventFabric.Models;
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.ProjectionRuntime.Projections.Contracts;
 using Whycespace.Systems.Midstream.WhyceAtlas.Projections;
 using Whycespace.Systems.Downstream.Mobility.Projections;

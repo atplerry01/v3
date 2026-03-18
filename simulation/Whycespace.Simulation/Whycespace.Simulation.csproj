@@ -18,6 +18,7 @@
     <ProjectReference Include="..\..\src\systems\Whycespace.System.csproj" />
     <ProjectReference Include="..\..\src\domain\Whycespace.Domain.csproj" />
     <ProjectReference Include="..\..\src\runtime\reliability\Whycespace.Reliability.csproj" />
+    <ProjectReference Include="..\..\src\runtime\reliability-runtime\Whycespace.ReliabilityRuntime.csproj" />
   </ItemGroup>
 
 

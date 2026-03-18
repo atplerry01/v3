@@ -1,6 +1,8 @@
+
 namespace Whycespace.IntelligenceRuntime.Projections;
 
-using Whycespace.EventFabric.Models;
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Envelopes;
 using Whycespace.ProjectionRuntime.Projections.Contracts;
 
 public sealed class IntelligenceProjection : IProjection

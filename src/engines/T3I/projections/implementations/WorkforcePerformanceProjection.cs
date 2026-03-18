@@ -1,6 +1,8 @@
+
 using Whycespace.Engines.T3I.Projections.Models;
+using Whycespace.Shared.Envelopes;
 using Whycespace.Engines.T3I.Projections.Stores;
-using Whycespace.EventFabric.Models;
+using Whycespace.Contracts.Events;
 using Whycespace.ProjectionRuntime.Projections.Contracts;
 
 namespace Whycespace.Engines.T3I.Projections.Implementations;

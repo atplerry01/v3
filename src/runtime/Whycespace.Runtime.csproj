@@ -130,6 +130,10 @@
     <None Remove="event-schema-registry/**" />
     <EmbeddedResource Remove="event-schema-registry/**" />
     <Compile Remove="intelligence/**" />
+    <Compile Remove="engine-metadata/**" />
+    <Content Remove="engine-metadata/**" />
+    <None Remove="engine-metadata/**" />
+    <EmbeddedResource Remove="engine-metadata/**" />
     <Content Remove="intelligence/**" />
     <None Remove="intelligence/**" />
     <EmbeddedResource Remove="intelligence/**" />

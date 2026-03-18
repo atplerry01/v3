@@ -1,8 +1,10 @@
+
 namespace Whycespace.Simulation;
 
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
+using Whycespace.Shared.Envelopes;
 using Whycespace.Domain.Economic.Events;
-using Whycespace.EventFabric.Models;
+using Whycespace.Contracts.Events;
 
 /// <summary>
 /// Generates simulated EventEnvelopes for all Atlas projection types:

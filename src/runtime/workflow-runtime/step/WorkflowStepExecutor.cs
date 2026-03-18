@@ -1,7 +1,8 @@
 namespace Whycespace.WorkflowRuntime.Step;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Contracts.Workflows;
 
 public sealed class WorkflowStepExecutor

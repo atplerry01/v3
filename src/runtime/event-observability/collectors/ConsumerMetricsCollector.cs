@@ -1,5 +1,7 @@
+
 using System.Diagnostics;
-using Whycespace.EventFabric.Models;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Contracts.Events;
 using Whycespace.EventObservability.Metrics;
 
 namespace Whycespace.EventObservability.Collectors;

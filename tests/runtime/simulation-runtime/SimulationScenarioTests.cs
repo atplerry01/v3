@@ -1,42 +1,50 @@
 namespace Whycespace.SimulationRuntime.Tests;
 
-using Whycespace.SimulationRuntime.Loader;
 using Whycespace.SimulationRuntime.Models;
 
 public sealed class SimulationScenarioTests
 {
     [Fact]
-    public void Load_SeededScenario_ReturnsScenario()
+    public void SimulationCommand_CanBeCreated_WithPayload()
     {
-        var loader = new SimulationScenarioLoader();
-        var scenarioId = Guid.Parse("00000000-0000-0000-0000-000000000001");
+        var command = new SimulationCommand(
+            "RunForecast",
+            new Dictionary<string, object>
+            {
+                ["clusterName"] = "WhyceMobility",
+                ["spvCount"] = 50,
+                ["capitalPerSpv"] = 100_000m,
+                ["durationYears"] = 5
+            });
 
-        var scenario = loader.Load(scenarioId);
-
-        Assert.Equal("WhyceMobility", scenario.ClusterName);
-        Assert.Equal(50, scenario.SpvCount);
-        Assert.Equal(100_000m, scenario.CapitalPerSpv);
-        Assert.Equal(5, scenario.DurationYears);
+        Assert.Equal("RunForecast", command.CommandType);
+        Assert.Equal("WhyceMobility", command.Payload["clusterName"]);
+        Assert.Equal(50, command.Payload["spvCount"]);
+        Assert.Equal(100_000m, command.Payload["capitalPerSpv"]);
+        Assert.Equal(5, command.Payload["durationYears"]);
     }
 
     [Fact]
-    public void Load_UnknownScenario_Throws()
+    public void SimulationCommand_OptionalFields_DefaultToNull()
     {
-        var loader = new SimulationScenarioLoader();
+        var command = new SimulationCommand(
+            "TestCommand",
+            new Dictionary<string, object>());
 
-        Assert.Throws<KeyNotFoundException>(() => loader.Load(Guid.NewGuid()));
+        Assert.Null(command.AggregateId);
+        Assert.Null(command.CorrelationId);
     }
 
     [Fact]
-    public void Register_CustomScenario_IsLoadable()
+    public void SimulationCommand_WithAggregateId_IsAccessible()
     {
-        var loader = new SimulationScenarioLoader();
-        var id = Guid.NewGuid();
-        var scenario = new SimulationScenario(id, "TestCluster", 10, 50_000m, 3);
+        var command = new SimulationCommand(
+            "TestCommand",
+            new Dictionary<string, object> { ["key"] = "value" },
+            AggregateId: "agg-1",
+            CorrelationId: "corr-1");
 
-        loader.Register(scenario);
-
-        var loaded = loader.Load(id);
-        Assert.Equal("TestCluster", loaded.ClusterName);
+        Assert.Equal("agg-1", command.AggregateId);
+        Assert.Equal("corr-1", command.CorrelationId);
     }
 }

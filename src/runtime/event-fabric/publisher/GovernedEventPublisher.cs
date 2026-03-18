@@ -1,4 +1,6 @@
-using Whycespace.EventFabric.Models;
+
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Envelopes;
 using Whycespace.EventFabric.Registry;
 using Whycespace.EventFabric.Validation;
 

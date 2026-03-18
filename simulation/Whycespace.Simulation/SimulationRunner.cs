@@ -1,15 +1,17 @@
+
 namespace Whycespace.Simulation;
 
 using global::System.Diagnostics;
+using Whycespace.Shared.Envelopes;
 using Whycespace.Engines.T0U.WhycePolicy.Validation.Engines;
 using Whycespace.Engines.T2E;
 using Whycespace.Engines.T2E.Clusters.Mobility.Taxi.Engines;
 using Whycespace.Engines.T2E.Clusters.Property.Letting.Engines;
 using Whycespace.Engines.T3I.Atlas.Workforce.Engines;
 using Whycespace.Engines.T3I.Atlas.Workforce.Models;
-using Whycespace.Runtime.Dispatcher;
 using Whycespace.EngineRuntime.Registry;
 using Whycespace.Runtime.Reliability;
+using Whycespace.Contracts.Runtime;
 using Whycespace.WorkflowRuntime;
 using Whycespace.Contracts.Engines;
 using Whycespace.Contracts.Workflows;
@@ -105,7 +107,7 @@ public sealed class SimulationRunner
         var payload = WorkloadGenerator.GenerateRandom();
         var sw = Stopwatch.StartNew();
 
-        var dispatcher = new RuntimeDispatcher(_registry);
+        var dispatcher = new SimpleEngineDispatcher(_registry);
         var stateStore = new WorkflowStateStore();
 
         var context = new Dictionary<string, object>(payload.Context);
@@ -181,7 +183,7 @@ public sealed class SimulationRunner
         _metrics.RecordWorkflowCompleted(payload.WorkflowType, sw.Elapsed.TotalMilliseconds, success);
     }
 
-    private static EventFabric.Models.EventEnvelope? GenerateWorkflowEvent(
+    private static Whycespace.Shared.Envelopes.EventEnvelope? GenerateWorkflowEvent(
         string workflowType, Dictionary<string, object> context)
     {
         return workflowType switch

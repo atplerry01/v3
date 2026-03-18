@@ -3,7 +3,7 @@ namespace Whycespace.WorkflowRuntime;
 using global::System.Collections.Concurrent;
 using Whycespace.Systems.Midstream.WSS.Registry;
 using Whycespace.Runtime.Persistence.Workflow;
-using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Models.WorkflowInstanceStatus;
+using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Execution.WorkflowInstanceStatus;
 using StepStatus = Whycespace.Engines.T1M.Shared.StepStatus;
 
 public sealed class WorkflowEventRouter

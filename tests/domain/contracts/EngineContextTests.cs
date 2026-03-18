@@ -1,6 +1,7 @@
 namespace Whycespace.Contracts.Tests;
 
 using Whycespace.Contracts.Engines;
+using Whycespace.Shared.Envelopes;
 
 public sealed class EngineContextTests
 {

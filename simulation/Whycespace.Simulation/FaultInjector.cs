@@ -1,9 +1,10 @@
 namespace Whycespace.Simulation;
 
-using Whycespace.Runtime.Dispatcher;
 using Whycespace.EngineRuntime.Registry;
+using Whycespace.Shared.Envelopes;
 using Whycespace.Runtime.Reliability;
 using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Runtime;
 
 public sealed class FaultInjector
 {
@@ -38,13 +39,13 @@ public sealed class FaultInjector
 
 public sealed class FaultAwareDispatcher
 {
-    private readonly RuntimeDispatcher _inner;
+    private readonly IEngineRuntimeDispatcher _inner;
     private readonly FaultInjector _injector;
     private readonly RetryPolicyEngine _retryPolicy;
     private readonly SimulationMetrics _metrics;
 
     public FaultAwareDispatcher(
-        RuntimeDispatcher inner,
+        IEngineRuntimeDispatcher inner,
         FaultInjector injector,
         RetryPolicyEngine retryPolicy,
         SimulationMetrics metrics)

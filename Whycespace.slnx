@@ -43,6 +43,9 @@
   <Folder Name="/src/runtime/engine-manifest/">
     <Project Path="src/runtime/engine-manifest/Whycespace.EngineManifest.csproj" />
   </Folder>
+  <Folder Name="/src/runtime/engine-metadata/">
+    <Project Path="src/runtime/engine-metadata/Whycespace.EngineMetadata.csproj" />
+  </Folder>
   <Folder Name="/src/runtime/engine-workers/">
     <Project Path="src/runtime/engine-workers/Whycespace.EngineWorkerRuntime.csproj" />
   </Folder>
@@ -88,12 +91,15 @@
   <Folder Name="/src/shared/contracts/">
     <Project Path="src/shared/contracts/Whycespace.Contracts.csproj" />
   </Folder>
+  <Folder Name="/src/shared/primitives/">
+    <Project Path="src/shared/primitives/Whycespace.Primitives.csproj" />
+  </Folder>
   <Folder Name="/src/systems/">
     <Project Path="src/systems/Whycespace.System.csproj" />
   </Folder>
   <Folder Name="/src/systems/upstream/" />
   <Folder Name="/src/systems/upstream/whyceid/">
-    <Project Path="src/systems/upstream/WhyceID/Whycespace.System.WhyceID.csproj" />
+    <Project Path="src/systems/upstream/whyceid/Whycespace.System.WhyceID.csproj" />
   </Folder>
   <Folder Name="/src/engines/t0u-whyce-identity/">
   </Folder>
@@ -110,12 +116,15 @@
   <Folder Name="/src/runtime/intelligence/">
     <Project Path="src/runtime/intelligence/Whycespace.IntelligenceRuntime.csproj" />
   </Folder>
-  <Folder Name="/simulation/">
-    <Project Path="simulation/Whycespace.Simulation/Whycespace.Simulation.csproj" />
+  <Folder Name="/src/platform/simulation/">
+    <Project Path="src/platform/simulation/Whycespace.Platform.Simulation.csproj" />
   </Folder>
   <Folder Name="/infrastructure/" />
-  <Folder Name="/infrastructure/host/">
-    <Project Path="infrastructure/host/Whycespace.FoundationHost/Whycespace.FoundationHost.csproj" />
+  <Folder Name="/infrastructure/runtime/">
+    <Project Path="infrastructure/runtime/host/Whycespace.FoundationHost/Whycespace.FoundationHost.csproj" />
+  </Folder>
+  <Folder Name="/infrastructure/persistence/">
+    <Project Path="infrastructure/persistence/Whycespace.Infrastructure.Persistence.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Whycespace.Tests.csproj" />

@@ -1,20 +1,24 @@
+
 namespace Whycespace.EventFabricRuntime.Tests;
 
-using Whycespace.EventFabricRuntime.Models;
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Shared.Primitives.Common;
 
 public class EventEnvelopeTests
 {
     [Fact]
     public void Envelope_StoresEventId()
     {
-        var envelope = new EventEnvelope("evt-1", "TestEvent", new { Data = "test" });
-        Assert.Equal("evt-1", envelope.EventId);
+        var id = Guid.NewGuid();
+        var envelope = new EventEnvelope(id, "TestEvent", "", new { Data = "test" }, new PartitionKey("default"), Timestamp.Now());
+        Assert.Equal(id, envelope.EventId);
     }
 
     [Fact]
     public void Envelope_StoresEventType()
     {
-        var envelope = new EventEnvelope("evt-1", "TestEvent", new { Data = "test" });
+        var envelope = new EventEnvelope(Guid.NewGuid(), "TestEvent", "", new { Data = "test" }, new PartitionKey("default"), Timestamp.Now());
         Assert.Equal("TestEvent", envelope.EventType);
     }
 
@@ -22,17 +26,17 @@ public class EventEnvelopeTests
     public void Envelope_StoresPayload()
     {
         var payload = new { Data = "test" };
-        var envelope = new EventEnvelope("evt-1", "TestEvent", payload);
+        var envelope = new EventEnvelope(Guid.NewGuid(), "TestEvent", "", payload, new PartitionKey("default"), Timestamp.Now());
         Assert.Equal(payload, envelope.Payload);
     }
 
     [Fact]
     public void Envelope_AssignsTimestamp()
     {
-        var before = DateTime.UtcNow;
-        var envelope = new EventEnvelope("evt-1", "TestEvent", new { });
-        var after = DateTime.UtcNow;
+        var before = DateTimeOffset.UtcNow;
+        var envelope = new EventEnvelope(Guid.NewGuid(), "TestEvent", "", new { }, new PartitionKey("default"), Timestamp.Now());
+        var after = DateTimeOffset.UtcNow;
 
-        Assert.InRange(envelope.TimestampUtc, before, after);
+        Assert.InRange(envelope.Timestamp.Value, before, after);
     }
 }

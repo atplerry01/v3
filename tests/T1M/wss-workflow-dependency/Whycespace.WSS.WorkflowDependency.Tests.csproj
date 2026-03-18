@@ -24,6 +24,7 @@
     <ProjectReference Include="..\..\..\src\engines\T1M\WSS\Whycespace.Engines.T1M.WSS.csproj" />
     <ProjectReference Include="..\..\..\src\engines\T1M\shared\Whycespace.Engines.T1M.Shared.csproj" />
     <ProjectReference Include="..\..\..\src\runtime\persistence\Whycespace.RuntimePersistence.csproj" />
+    <ProjectReference Include="..\..\..\infrastructure\persistence\Whycespace.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,6 @@
-using Whycespace.EventFabric.Models;
+
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Envelopes;
 using Whycespace.EventFabric.Topics;
 using Whycespace.EventReplay.Engine;
 using Whycespace.EventReplay.Models;

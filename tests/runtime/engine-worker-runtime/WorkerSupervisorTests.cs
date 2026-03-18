@@ -1,6 +1,7 @@
 using System.Threading.Channels;
+using Whycespace.Shared.Envelopes;
 using Whycespace.Contracts.Engines;
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.EngineRuntime.Registry;
 using Whycespace.EngineRuntime.Resolver;
 using Whycespace.EngineWorkerRuntime.Pool;

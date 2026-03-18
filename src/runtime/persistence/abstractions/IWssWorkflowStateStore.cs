@@ -1,4 +1,4 @@
-namespace Whycespace.Runtime.Persistence.Workflow;
+namespace Whycespace.Runtime.Persistence.Abstractions;
 
 using Whycespace.Systems.Midstream.WSS.Models;
 using Whycespace.Systems.Midstream.WSS.Definition;

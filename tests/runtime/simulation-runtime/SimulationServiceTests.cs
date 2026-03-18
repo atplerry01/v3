@@ -1,49 +1,65 @@
 namespace Whycespace.SimulationRuntime.Tests;
 
-using Whycespace.SimulationRuntime.Loader;
-using Whycespace.SimulationRuntime.Runtime;
-using Whycespace.SimulationRuntime.Services;
+using Whycespace.SimulationRuntime.Engine;
+using Whycespace.SimulationRuntime.Models;
+using Whycespace.SimulationRuntime.Builder;
+using Whycespace.SimulationRuntime.Policy;
 
 public sealed class SimulationServiceTests
 {
     [Fact]
-    public void RunScenario_ReturnsResult()
+    public void Execute_ReturnsResult()
     {
-        var loader = new SimulationScenarioLoader();
-        var engine = new SimulationRuntimeEngine();
-        var service = new SimulationService(loader, engine);
-        var scenarioId = Guid.Parse("00000000-0000-0000-0000-000000000001");
+        var engine = new SimulationEngineBuilder()
+            .WithPolicy(new SimulationPolicy())
+            .Build();
 
-        var result = service.RunScenario(scenarioId);
+        var command = new SimulationCommand(
+            "RunForecast",
+            new Dictionary<string, object>
+            {
+                ["clusterName"] = "WhyceMobility",
+                ["spvCount"] = 50
+            });
 
-        Assert.Equal(scenarioId, result.ScenarioId);
-        Assert.True(result.ProjectedRevenue > 0);
+        var result = engine.Execute(command);
+
+        Assert.True(result.Success);
+        Assert.NotEmpty(result.CapturedEvents);
     }
 
     [Fact]
-    public void RunClusterForecast_ReturnsResult()
+    public void Execute_WithAggregateId_IncludesInSnapshot()
     {
-        var loader = new SimulationScenarioLoader();
-        var engine = new SimulationRuntimeEngine();
-        var service = new SimulationService(loader, engine);
+        var engine = new SimulationEngineBuilder()
+            .WithPolicy(new SimulationPolicy())
+            .Build();
 
-        var result = service.RunClusterForecast("WhyceMobility");
+        var command = new SimulationCommand(
+            "RunForecast",
+            new Dictionary<string, object> { ["cluster"] = "WhyceMobility" },
+            AggregateId: "cluster-1");
 
-        Assert.True(result.ProjectedRevenue > 0);
+        var result = engine.Execute(command);
+
+        Assert.True(result.Success);
+        Assert.Contains("cluster-1", result.StateSnapshot.AffectedAggregates);
     }
 
     [Fact]
-    public void GetResults_AfterRun_ContainsResult()
+    public void Execute_CapturesTraces()
     {
-        var loader = new SimulationScenarioLoader();
-        var engine = new SimulationRuntimeEngine();
-        var service = new SimulationService(loader, engine);
-        var scenarioId = Guid.Parse("00000000-0000-0000-0000-000000000001");
+        var engine = new SimulationEngineBuilder()
+            .WithPolicy(new SimulationPolicy())
+            .Build();
 
-        service.RunScenario(scenarioId);
+        var command = new SimulationCommand(
+            "RunForecast",
+            new Dictionary<string, object> { ["cluster"] = "WhyceMobility" });
 
-        var results = service.GetResults();
-        Assert.Single(results);
-        Assert.Equal(scenarioId, results[0].ScenarioId);
+        var result = engine.Execute(command);
+
+        Assert.True(result.Traces.Count >= 2);
+        Assert.Equal("CommandReceived", result.Traces[0].StepName);
     }
 }

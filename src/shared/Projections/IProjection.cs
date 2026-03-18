@@ -1,9 +1,9 @@
-namespace Whycespace.Shared.Projections;
+using Whycespace.Shared.Envelopes;
 
-using Whycespace.Contracts.Events;
+namespace Whycespace.Shared.Projections;
 
 public interface IProjection
 {
     string Name { get; }
-    Task HandleAsync(SystemEvent @event);
+    Task HandleAsync(EventEnvelope envelope);
 }

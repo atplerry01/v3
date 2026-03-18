@@ -1,7 +1,7 @@
 namespace Whycespace.EngineRuntime.Tests;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Contracts.Workflows;
 using Whycespace.EngineRuntime.Executor;
 using Whycespace.EngineRuntime.Invocation;

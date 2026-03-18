@@ -2,7 +2,7 @@ using Whycespace.Engines.T1M.Shared;
 using Whycespace.Engines.T1M.WSS.Registry;
 using Whycespace.Runtime.Persistence.Workflow;
 using Whycespace.WorkflowRuntime;
-using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Models.WorkflowInstanceStatus;
+using WorkflowInstanceStatus = Whycespace.Systems.Midstream.WSS.Execution.WorkflowInstanceStatus;
 
 namespace Whycespace.WSS.Workflows.Tests;
 

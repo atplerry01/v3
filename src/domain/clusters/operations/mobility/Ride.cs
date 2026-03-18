@@ -1,6 +1,6 @@
 namespace Whycespace.Domain.Clusters.Operations.Mobility;
 
-using Whycespace.Shared.Location;
+using Whycespace.Shared.Primitives.Location;
 
 public sealed record Ride(
     Guid RideId,

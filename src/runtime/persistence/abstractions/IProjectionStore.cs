@@ -1,4 +1,4 @@
-namespace Whycespace.Runtime.Persistence.Contracts;
+namespace Whycespace.Runtime.Persistence.Abstractions;
 
 public interface IProjectionStore
 {

@@ -1,8 +1,8 @@
 namespace Whycespace.RuntimeDispatcher.Tests;
 
-using Whycespace.CommandSystem.Idempotency;
-using Whycespace.CommandSystem.Models;
-using Whycespace.CommandSystem.Validation;
+using Whycespace.CommandSystem.Core.Idempotency;
+using Whycespace.CommandSystem.Core.Models;
+using Whycespace.CommandSystem.Core.Validation;
 using Whycespace.Contracts.Runtime;
 using Whycespace.Contracts.Workflows;
 using Whycespace.RuntimeDispatcher.Pipeline;

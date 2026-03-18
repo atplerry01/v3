@@ -1,6 +1,9 @@
+
 using System.Text.Json;
-using Whycespace.Contracts.Primitives;
-using Whycespace.EventFabric.Models;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Shared.Primitives.Common;
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Systems.Midstream.WhyceAtlas.Projections;
 using Whycespace.Systems.Midstream.WhyceAtlas.Projections.Models;
 using Whycespace.ProjectionRuntime.Storage;

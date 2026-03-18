@@ -1,7 +1,7 @@
 namespace Whycespace.Tests.Engines;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Engines.T2E.Economic.Capital.Allocation.Engines;
 using Xunit;
 

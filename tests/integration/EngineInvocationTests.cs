@@ -1,6 +1,7 @@
 namespace Whycespace.Tests.Integration;
 
 using Whycespace.Engines.T0U.WhyceChain.Block.Builder;
+using Whycespace.Shared.Envelopes;
 using Whycespace.Engines.T0U.WhyceChain.Block.Anchor;
 using Whycespace.Engines.T0U.WhyceChain.Ledger.Event;
 using Whycespace.Engines.T0U.WhyceChain.Ledger.Immutable;
@@ -22,9 +23,9 @@ using Whycespace.Engines.T4A.API;
 using Whycespace.Engines.T4A.Interface.Auth;
 using Whycespace.Engines.T4A.Tools.Developer;
 using Whycespace.Engines.T4A.Interface.Integration;
-using Whycespace.Runtime.Dispatcher;
 using Whycespace.EngineRuntime.Registry;
 using Whycespace.Contracts.Engines;
+using Whycespace.Contracts.Runtime;
 using Xunit;
 
 /// <summary>
@@ -34,7 +35,7 @@ using Xunit;
 /// </summary>
 public sealed class EngineInvocationTests
 {
-    private readonly RuntimeDispatcher _dispatcher;
+    private readonly IEngineRuntimeDispatcher _dispatcher;
 
     public EngineInvocationTests()
     {
@@ -59,7 +60,7 @@ public sealed class EngineInvocationTests
         registry.Register(new IntegrationEngine());
         registry.Register(new DeveloperToolsEngine());
 
-        _dispatcher = new RuntimeDispatcher(registry);
+        _dispatcher = new Whycespace.Platform.SimpleEngineDispatcher(registry);
     }
 
     private static EngineInvocationEnvelope Envelope(

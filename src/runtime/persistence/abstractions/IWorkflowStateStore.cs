@@ -1,4 +1,4 @@
-namespace Whycespace.Runtime.Persistence.Workflow;
+namespace Whycespace.Runtime.Persistence.Abstractions;
 
 using Whycespace.Engines.T1M.Shared;
 

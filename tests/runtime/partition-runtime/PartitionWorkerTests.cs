@@ -1,7 +1,7 @@
 namespace Whycespace.PartitionRuntime.Tests;
 
 using Whycespace.Contracts.Engines;
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Contracts.Runtime;
 using Whycespace.Contracts.Workflows;
 using Whycespace.PartitionRuntime.Worker;

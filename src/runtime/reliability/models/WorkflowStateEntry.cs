@@ -1,4 +1,4 @@
-using Whycespace.Contracts.Primitives;
+using Whycespace.Shared.Primitives.Common;
 
 namespace Whycespace.Reliability.Models;
 

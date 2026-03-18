@@ -4,7 +4,7 @@ using Whycespace.Domain.Clusters.Governance.Administration;
 using Whycespace.Domain.Clusters.Governance.Lifecycle;
 using Whycespace.Domain.Clusters.Governance.Provider;
 using Whycespace.Domain.Clusters.Governance.Registry;
-using Whycespace.Systems.Midstream.Economics;
+using Whycespace.Systems.Downstream.Spv.Registry;
 
 public sealed class ProviderBootstrapTests
 {
@@ -13,7 +13,7 @@ public sealed class ProviderBootstrapTests
     {
         var admin = new ClusterAdministrationService();
         var registry = new ClusterProviderRegistry();
-        var spvRegistry = new SpvRegistry();
+        var spvRegistry = new SpvSubClusterRegistry();
         var assignmentService = new ProviderAssignmentService();
         var bootstrapper = new ClusterBootstrapper(admin, registry, spvRegistry, assignmentService);
 

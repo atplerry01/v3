@@ -1,17 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <Compile Remove="upstream\WhyceID\aggregates\**" />
-    <Compile Remove="upstream\WhyceID\registry\**" />
-    <Compile Remove="upstream\WhyceID\models\**" />
-    <Compile Remove="upstream\WhyceID\commands\**" />
-    <Compile Remove="upstream\WhyceID\events\**" />
-    <Compile Remove="upstream\WhyceID\stores\**" />
-    <Compile Remove="upstream\WhyceID\adapters\**" />
-    <Compile Remove="upstream\WhyceID\bin\**" />
-    <Compile Remove="upstream\WhyceID\obj\**" />
-    <Compile Remove="downstream\mobility\projections\**" />
-    <Compile Remove="downstream\property\projections\**" />
+    <Compile Remove="upstream\whyceid\aggregates\**" />
+    <Compile Remove="upstream\whyceid\registry\**" />
+    <Compile Remove="upstream\whyceid\models\**" />
+    <Compile Remove="upstream\whyceid\commands\**" />
+    <Compile Remove="upstream\whyceid\events\**" />
+    <Compile Remove="upstream\whyceid\stores\**" />
+    <Compile Remove="upstream\whyceid\adapters\**" />
+    <Compile Remove="upstream\whyceid\bin\**" />
+    <Compile Remove="upstream\whyceid\obj\**" />
+    <Compile Remove="downstream\work\mobility\projections\**" />
+    <Compile Remove="downstream\work\property\projections\**" />
     <Compile Remove="midstream\WhyceAtlas\projections\**" />
   </ItemGroup>
 

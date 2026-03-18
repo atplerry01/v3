@@ -4,12 +4,23 @@ param(
     [string]$Name,
 
     [Parameter(Mandatory)]
-    [ValidateSet("T0U_Constitutional", "T1M_Orchestration", "T2E_Execution", "T3I_Intelligence", "T4A_Access")]
-    [string]$Tier
+    [ValidateSet("T0U", "T1M", "T2E", "T3I", "T4A")]
+    [string]$Tier,
+
+    [string]$Subdomain = ""
 )
 
 $ErrorActionPreference = "Stop"
-$EnginesDir = Join-Path $PSScriptRoot "../../src/engines/$Tier"
+Import-Module "$PSScriptRoot/../shared/ScriptHelpers.psm1"
+
+Write-Banner "Whycespace Engine Generator"
+
+$SolutionRoot = Get-SolutionRoot
+$EnginesDir = if ($Subdomain) {
+    Join-Path $SolutionRoot "src/engines/$Tier/$Subdomain"
+} else {
+    Join-Path $SolutionRoot "src/engines/$Tier"
+}
 
 if (-not (Test-Path $EnginesDir)) {
     New-Item -ItemType Directory -Path $EnginesDir -Force | Out-Null
@@ -18,13 +29,25 @@ if (-not (Test-Path $EnginesDir)) {
 $FileName = "${Name}Engine.cs"
 $FilePath = Join-Path $EnginesDir $FileName
 
-$TierNamespace = $Tier -replace "_", "_"
+$TierLabel = switch ($Tier) {
+    "T0U" { "Constitutional" }
+    "T1M" { "Orchestration" }
+    "T2E" { "Execution" }
+    "T3I" { "Intelligence" }
+    "T4A" { "Access" }
+}
+
+$Namespace = "Whycespace.Engines.$Tier"
+if ($Subdomain) { $Namespace += ".$Subdomain" }
 
 $Content = @"
-namespace Whycespace.Engines.$TierNamespace;
+namespace $Namespace;
 
-using Whycespace.Shared.Contracts;
+using Whycespace.Contracts.Engines;
 
+/// <summary>
+/// $TierLabel-tier engine: $Name.
+/// </summary>
 public sealed class ${Name}Engine : IEngine
 {
     public string Name => "$Name";
@@ -34,7 +57,7 @@ public sealed class ${Name}Engine : IEngine
         // TODO: Implement engine logic
         var events = new[]
         {
-            EngineEvent.Create("${Name}Completed", Guid.Parse(context.WorkflowId), context.Data)
+            EngineEvent.Create("${Name}Completed", context.WorkflowId, context.Data)
         };
 
         return Task.FromResult(EngineResult.Ok(events));
@@ -44,9 +67,9 @@ public sealed class ${Name}Engine : IEngine
 
 Set-Content -Path $FilePath -Value $Content -Encoding UTF8
 
-Write-Host "Engine created: $FilePath" -ForegroundColor Green
+Write-Success "Engine created: $FilePath"
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "  1. Implement engine logic in ExecuteAsync"
-Write-Host "  2. Register engine in src/platform/Program.cs"
+Write-Host "  2. Register engine in EngineRegistry"
 Write-Host "  3. Add tests in tests/engines/${Name}EngineTests.cs"

@@ -2,8 +2,12 @@ using Whycespace.Contracts.Workflows;
 using Whycespace.Engines.T1M.WSS.Definition;
 using Whycespace.Engines.T1M.Shared;
 using Whycespace.Runtime.Persistence.Workflow;
+using Whycespace.Infrastructure.Persistence.Workflow;
 using Whycespace.Systems.Midstream.WSS.Models;
-using WfDefinition = Whycespace.Systems.Midstream.WSS.Models.WorkflowDefinition;
+using Whycespace.Systems.Midstream.WSS.Definition;
+using Whycespace.Systems.Midstream.WSS.Execution;
+using Whycespace.Systems.Midstream.WSS.Policies;
+using WfDefinition = Whycespace.Systems.Midstream.WSS.Definition.WorkflowDefinition;
 
 namespace Whycespace.WSS.WorkflowDefinition.Tests;
 

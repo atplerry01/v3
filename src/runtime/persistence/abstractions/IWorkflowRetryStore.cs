@@ -1,4 +1,4 @@
-namespace Whycespace.Runtime.Persistence.Workflow;
+namespace Whycespace.Runtime.Persistence.Abstractions;
 
 public interface IWorkflowRetryStore
 {

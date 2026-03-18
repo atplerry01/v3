@@ -11,6 +11,9 @@
     <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
     <ProjectReference Include="..\workflow-runtime\Whycespace.WorkflowRuntime.csproj" />
     <ProjectReference Include="..\event-fabric\Whycespace.EventFabric.csproj" />
+    <ProjectReference Include="..\engine-manifest\Whycespace.EngineManifest.csproj" />
+    <ProjectReference Include="..\persistence\Whycespace.RuntimePersistence.csproj" />
+    <ProjectReference Include="..\..\systems\Whycespace.System.csproj" />
   </ItemGroup>
 
 </Project>

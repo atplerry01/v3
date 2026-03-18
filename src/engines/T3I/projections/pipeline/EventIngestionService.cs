@@ -1,6 +1,8 @@
+
 using Microsoft.Extensions.Logging;
+using Whycespace.Shared.Envelopes;
 using Whycespace.Engines.T3I.Projections.Registry;
-using Whycespace.EventFabric.Models;
+using Whycespace.Contracts.Events;
 
 namespace Whycespace.Engines.T3I.Projections.Pipeline;
 

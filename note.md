@@ -4,7 +4,6 @@ in domain folder, should we have property and mobility at the domain root folder
 PHASE 1.16 — VAULT ECONOMIC SYSTEM
 
 
-
 1.17  WhyceID Identity System
 1.18  WHYCEPOLICY Runtime Integration
 1.19  WhyceChain Evidence Layer

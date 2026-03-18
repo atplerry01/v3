@@ -1,4 +1,4 @@
-namespace Whycespace.Runtime.Persistence;
+namespace Whycespace.Runtime.Persistence.EventStore;
 
 using global::System.Text.Json;
 using Microsoft.Extensions.Logging;

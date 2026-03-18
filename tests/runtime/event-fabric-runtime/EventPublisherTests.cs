@@ -1,6 +1,9 @@
+
 namespace Whycespace.EventFabricRuntime.Tests;
 
-using Whycespace.EventFabricRuntime.Models;
+using Whycespace.Contracts.Events;
+using Whycespace.Shared.Envelopes;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.EventFabricRuntime.Publishing;
 using Whycespace.EventFabricRuntime.Routing;
 
@@ -14,7 +17,7 @@ public class EventPublisherTests
         router.Register("CapitalContributionRecorded", "whyce.capital.events");
 
         var publisher = new EventPublisher(serializer, router);
-        var envelope = new EventEnvelope("evt-1", "CapitalContributionRecorded", new { Amount = 100 });
+        var envelope = new EventEnvelope(Guid.NewGuid(), "CapitalContributionRecorded", "", new { Amount = 100 }, new PartitionKey("default"), Timestamp.Now());
 
         var result = publisher.Publish(envelope);
 
@@ -29,7 +32,7 @@ public class EventPublisherTests
         var router = new EventTopicRouter();
         var publisher = new EventPublisher(serializer, router);
 
-        var envelope = new EventEnvelope("evt-1", "UnknownEvent", new { });
+        var envelope = new EventEnvelope(Guid.NewGuid(), "UnknownEvent", "", new { }, new PartitionKey("default"), Timestamp.Now());
 
         Assert.Throws<InvalidOperationException>(() => publisher.Publish(envelope));
     }
@@ -38,13 +41,14 @@ public class EventPublisherTests
     public void Serializer_ProducesValidJson()
     {
         var serializer = new EventSerializer();
-        var envelope = new EventEnvelope("evt-1", "TestEvent", new { Key = "value" });
+        var id = Guid.NewGuid();
+        var envelope = new EventEnvelope(id, "TestEvent", "", new { Key = "value" }, new PartitionKey("default"), Timestamp.Now());
 
         var json = serializer.Serialize(envelope);
 
         Assert.Contains("\"EventId\"", json);
         Assert.Contains("\"EventType\"", json);
-        Assert.Contains("evt-1", json);
+        Assert.Contains(id.ToString(), json);
         Assert.Contains("TestEvent", json);
     }
 }

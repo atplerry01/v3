@@ -1,9 +1,9 @@
 namespace Whycespace.RuntimeDispatcher.Dispatcher;
 
-using Whycespace.CommandSystem.Idempotency;
-using Whycespace.CommandSystem.Models;
-using Whycespace.CommandSystem.Validation;
-using Whycespace.Contracts.Primitives;
+using Whycespace.CommandSystem.Core.Idempotency;
+using Whycespace.CommandSystem.Core.Models;
+using Whycespace.CommandSystem.Core.Validation;
+using Whycespace.Shared.Primitives.Common;
 using Whycespace.Contracts.Runtime;
 using Whycespace.PartitionRuntime.Dispatcher;
 using Whycespace.RuntimeDispatcher.Pipeline;

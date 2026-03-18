@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\shared\contracts\Whycespace.Contracts.csproj" />
+    <ProjectReference Include="..\engine-registry\Whycespace.EngineRegistry.csproj" />
   </ItemGroup>
 
 </Project>

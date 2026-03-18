@@ -1,7 +1,7 @@
 namespace Whycespace.CommandSystem.Tests;
 
-using Whycespace.CommandSystem.Models;
-using Whycespace.CommandSystem.Validation;
+using Whycespace.CommandSystem.Core.Models;
+using Whycespace.CommandSystem.Core.Validation;
 
 public class CommandValidatorTests
 {

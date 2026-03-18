@@ -15,6 +15,10 @@
     <Content Remove="cluster-templates/**" />
     <None Remove="cluster-templates/**" />
     <EmbeddedResource Remove="cluster-templates/**" />
+    <Compile Remove="simulation/**" />
+    <Content Remove="simulation/**" />
+    <None Remove="simulation/**" />
+    <EmbeddedResource Remove="simulation/**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +55,8 @@
     <ProjectReference Include="..\engines\T3I\forecasting\Whycespace.Engines.T3I.Forecasting.csproj" />
     <ProjectReference Include="..\runtime\intelligence\Whycespace.IntelligenceRuntime.csproj" />
     <ProjectReference Include="..\engines\T4A\access\Whycespace.Engines.T4A.Access.csproj" />
+    <ProjectReference Include="..\runtime\persistence\Whycespace.RuntimePersistence.csproj" />
+    <ProjectReference Include="..\..\infrastructure\persistence\Whycespace.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>
