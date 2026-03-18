@@ -5,7 +5,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
-    <RootNamespace>Whycespace.Reliability.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\runtime\reliability\Whycespace.Reliability.csproj" />
+    <ProjectReference Include="..\..\..\src\platform\cluster-templates\Whycespace.ClusterTemplatePlatform.csproj" />
+    <ProjectReference Include="..\..\..\src\domain\Whycespace.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\domain\clusters\Whycespace.ClusterDomain.csproj" />
   </ItemGroup>
 
 </Project>

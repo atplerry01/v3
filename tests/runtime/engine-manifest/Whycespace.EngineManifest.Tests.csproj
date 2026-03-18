@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
-    <RootNamespace>Whycespace.Reliability.Tests</RootNamespace>
+    <RootNamespace>Whycespace.EngineManifest.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\runtime\reliability\Whycespace.Reliability.csproj" />
+    <ProjectReference Include="..\..\..\src\runtime\engine-manifest\Whycespace.EngineManifest.csproj" />
+    <ProjectReference Include="..\..\..\src\engines\Whycespace.Engines.csproj" />
   </ItemGroup>
 
 </Project>
